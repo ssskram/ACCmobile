@@ -1,0 +1,10 @@
+C:\Users\USER\Source\Repos\ACCmobile\bin\Debug\netcoreapp2.0\ACCmobile.deps.json
+C:\Users\USER\Source\Repos\ACCmobile\bin\Debug\netcoreapp2.0\ACCmobile.runtimeconfig.json
+C:\Users\USER\Source\Repos\ACCmobile\bin\Debug\netcoreapp2.0\ACCmobile.runtimeconfig.dev.json
+C:\Users\USER\Source\Repos\ACCmobile\bin\Debug\netcoreapp2.0\ACCmobile.dll
+C:\Users\USER\Source\Repos\ACCmobile\bin\Debug\netcoreapp2.0\ACCmobile.pdb
+C:\Users\USER\Source\Repos\ACCmobile\obj\Debug\netcoreapp2.0\ACCmobile.csproj.CoreCompileInputs.cache
+C:\Users\USER\Source\Repos\ACCmobile\obj\Debug\netcoreapp2.0\ACCmobile.AssemblyInfoInputs.cache
+C:\Users\USER\Source\Repos\ACCmobile\obj\Debug\netcoreapp2.0\ACCmobile.AssemblyInfo.cs
+C:\Users\USER\Source\Repos\ACCmobile\obj\Debug\netcoreapp2.0\ACCmobile.dll
+C:\Users\USER\Source\Repos\ACCmobile\obj\Debug\netcoreapp2.0\ACCmobile.pdb
