@@ -15,16 +15,16 @@ namespace ACCmobile.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult Bites()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "The bites module will live here.";
 
             return View();
         }
 
-        public IActionResult Contact()
+        public IActionResult CasesCitations()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "The cases & citations module will live here.";
 
             return View();
         }
