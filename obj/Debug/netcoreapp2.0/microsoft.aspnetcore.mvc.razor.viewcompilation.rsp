@@ -2,8 +2,10 @@ C:\Users\USER\Source\Repos\ACCmobile
 --output-path=obj\Debug\netcoreapp2.0\
 --application-name=ACCmobile
 --content-root=C:\Users\USER\Source\Repos\ACCmobile
---file=C:\Users\USER\Source\Repos\ACCmobile\Views\Home\About.cshtml
---file=C:\Users\USER\Source\Repos\ACCmobile\Views\Home\Contact.cshtml
+--file=C:\Users\USER\Source\Repos\ACCmobile\Views\Advisory\AdvisoryForm.cshtml
+--file=C:\Users\USER\Source\Repos\ACCmobile\Views\Advisory\GeneralInfo.cshtml
+--file=C:\Users\USER\Source\Repos\ACCmobile\Views\Home\Bites.cshtml
+--file=C:\Users\USER\Source\Repos\ACCmobile\Views\Home\CasesCitations.cshtml
 --file=C:\Users\USER\Source\Repos\ACCmobile\Views\Home\Index.cshtml
 --file=C:\Users\USER\Source\Repos\ACCmobile\Views\Shared\Error.cshtml
 --file=C:\Users\USER\Source\Repos\ACCmobile\Views\Shared\_Layout.cshtml
