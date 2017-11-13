@@ -84,6 +84,6 @@
 .btn:hover, .btn:focus, .btn.focus {
     background-color: #fffaee !important;
     color: #153A5C !important;
-    font-weight: 600;
+    font-weight: 500;
     border-color: #153A5C !important;
 }
