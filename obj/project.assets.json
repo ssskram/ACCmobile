@@ -12539,11 +12539,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\Source\\Repos\\ACCmobile\\ACCmobile.csproj",
+      "projectUniqueName": "c:\\Users\\USER\\Source\\Repos\\ACCmobile\\ACCmobile.csproj",
       "projectName": "ACCmobile",
-      "projectPath": "C:\\Users\\USER\\Source\\Repos\\ACCmobile\\ACCmobile.csproj",
+      "projectPath": "c:\\Users\\USER\\Source\\Repos\\ACCmobile\\ACCmobile.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\Source\\Repos\\ACCmobile\\obj\\",
+      "outputPath": "c:\\Users\\USER\\Source\\Repos\\ACCmobile\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\PROGRAM FILES\\DOTNET\\sdk\\NuGetFallbackFolder"
