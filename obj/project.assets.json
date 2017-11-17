@@ -12559,30 +12559,28 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\USER\\.nuget\\packages\\": {},
-    "C:\\PROGRAM FILES\\DOTNET\\sdk\\NuGetFallbackFolder": {}
+    "/home/ssskram/.nuget/packages/": {},
+    "/usr/share/dotnet/sdk/NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\USER\\Source\\Repos\\ACCmobile\\ACCmobile.csproj",
+      "projectUniqueName": "/home/ssskram/applications/ACCmobile/ACCmobile.csproj",
       "projectName": "ACCmobile",
-      "projectPath": "c:\\Users\\USER\\Source\\Repos\\ACCmobile\\ACCmobile.csproj",
-      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\USER\\Source\\Repos\\ACCmobile\\obj\\",
+      "projectPath": "/home/ssskram/applications/ACCmobile/ACCmobile.csproj",
+      "packagesPath": "/home/ssskram/.nuget/packages/",
+      "outputPath": "/home/ssskram/applications/ACCmobile/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\PROGRAM FILES\\DOTNET\\sdk\\NuGetFallbackFolder"
+        "/usr/share/dotnet/sdk/NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/home/ssskram/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
