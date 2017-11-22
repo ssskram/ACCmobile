@@ -17,20 +17,6 @@ namespace ACCmobile.Controllers
             return View();
         }
 
-        public IActionResult Bites()
-        {
-            ViewData["Message"] = "The bites module will live here.";
-
-            return View();
-        }
-
-        public IActionResult CasesCitations()
-        {
-            ViewData["Message"] = "The cases & citations module will live here.";
-
-            return View();
-        }
-
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

@@ -48,15 +48,16 @@
 }
 .navbar-brand {
     color: #153A5C !important;
-    font-weight: 500 !important;
+    font-weight: 5400 !important;
 }
-.navbar-inverse .navbar-nav > li > a {
-    color: #153A5C !important;
-}
-.navbar-inverse .navbar-nav > li > a:hover {
+.navbar-inverse .navbar-brand:hover, 
+.navbar-inverse .navbar-brand:focus {
     background: rgba(21, 58, 92, .8) !important;
     color: #fffaee !important;
     font-weight: bold;
+}
+.navbar-inverse .navbar-nav > li > a {
+    color: #153A5C !important;
 }
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
     border-color: #153A5C !important;
@@ -80,6 +81,9 @@
 }
 .btn-default {
     background-color: rgba(211,210,213,.25) !important;
+    padding: 12px 35px 12px 35px !important;
+    font-size: 18px;
+    margin:10px;
 }
 .btn:hover, .btn:focus, .btn.focus {
     background-color: #fffaee !important;
