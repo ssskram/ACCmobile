@@ -80,3 +80,9 @@
     font-weight: 500;
     border-color: #153A5C !important;
 }
+.footer {
+    position: fixed; 
+    bottom: 0;
+}
+.col-centered {
+}
