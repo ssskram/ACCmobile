@@ -1,5 +1,5 @@
 @model AdvisoryGeneralInfo
-
+<form asp-controller="Advisory" asp-action="Create">
 <div class="form-group">
     <div class="col-md-12">
         @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Address) } })
@@ -54,3 +54,7 @@
         @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Comments) } })
         @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
 </div>
+<div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
+    <input type="submit" value="Submit Form" class="btn btn-default" />
+</div>
+</form>
