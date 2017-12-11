@@ -11,11 +11,27 @@ using Microsoft.Extensions.DependencyInjection;
 using ACCmobile.Data;
 using ACCmobile.Models;
 using ACCmobile.Services;
+using Microsoft.Extensions.Configuration.UserSecrets;
+using Microsoft.AspNetCore.Http;
 
 namespace ACCmobile
 {
     public class Startup
     {
+        string _MSClientID = null;
+        string _MSClientSecret = null;
+        public Startup(IHostingEnvironment env)
+        {
+            var builder = new ConfigurationBuilder();
+
+            if (env.IsDevelopment())
+            {
+                builder.AddUserSecrets<Startup>();
+            }
+
+            Configuration = builder.Build();
+        }
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,6 +42,9 @@ namespace ACCmobile
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            _MSClientID = Configuration["MSClientId"];
+            _MSClientSecret = Configuration["MSClientSecret"];
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
 
@@ -35,8 +54,8 @@ namespace ACCmobile
 
             services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
                 {
-                    microsoftOptions.ClientId = "38805265-4c7a-44ac-91df-8d91c5e15ad9";
-                    microsoftOptions.ClientSecret = "ojRJ1[+puycdOINHS5486:!";
+                    microsoftOptions.ClientId = Configuration["MSClientID"];
+                    microsoftOptions.ClientSecret = Configuration["MSClientSecret"];
                 });
 
             // Add application services.

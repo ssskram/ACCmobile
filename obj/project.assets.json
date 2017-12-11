@@ -13198,6 +13198,7 @@
       "Microsoft.AspNetCore.Authentication.MicrosoftAccount >= 2.0.1",
       "Microsoft.EntityFrameworkCore.InMemory >= 2.0.1",
       "Microsoft.EntityFrameworkCore.Tools >= 2.0.0",
+      "Microsoft.Extensions.Configuration.UserSecrets >= 2.0.0",
       "Microsoft.NETCore.App >= 2.0.0",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 2.0.0"
     ]
@@ -13268,6 +13269,10 @@
           },
           "Microsoft.EntityFrameworkCore.Tools": {
             "suppressParent": "All",
+            "target": "Package",
+            "version": "2.0.0"
+          },
+          "Microsoft.Extensions.Configuration.UserSecrets": {
             "target": "Package",
             "version": "2.0.0"
           },
