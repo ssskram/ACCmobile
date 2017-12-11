@@ -22,7 +22,10 @@ namespace ACCmobile
         string _MSClientSecret = null;
         public Startup(IHostingEnvironment env)
         {
-            var builder = new ConfigurationBuilder();
+            var builder = new ConfigurationBuilder()
+            .AddJsonFile("appsettings.json")
+            .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
+            .AddEnvironmentVariables();
 
             if (env.IsDevelopment())
             {
