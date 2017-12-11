@@ -42,8 +42,8 @@ namespace ACCmobile
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            _MSClientID = Configuration["MSClientId"];
-            _MSClientSecret = Configuration["MSClientSecret"];
+            _MSClientID = "38805265-4c7a-44ac-91df-8d91c5e15ad9";
+            _MSClientSecret = "ojRJ1[+puycdOINHS5486:!";
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
