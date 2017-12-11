@@ -54,8 +54,8 @@ namespace ACCmobile
 
             services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
                 {
-                    microsoftOptions.ClientId = "38805265-4c7a-44ac-91df-8d91c5e15ad9";
-                    microsoftOptions.ClientSecret = "ojRJ1[+puycdOINHS5486:!";
+                    microsoftOptions.ClientId = Configuration["MSClientId"];
+                    microsoftOptions.ClientSecret = Configuration["MSClientSecret"];
                 });
 
             // Add application services.
