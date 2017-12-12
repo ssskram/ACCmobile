@@ -23,15 +23,16 @@ namespace ACCmobile
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json")
-            .AddJsonFile($"appsettings.{env.EnvironmentName}.json")
-            .AddEnvironmentVariables();
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             if (env.IsDevelopment())
             {
                 builder.AddUserSecrets<Startup>();
             }
 
+            builder.AddEnvironmentVariables();
             Configuration = builder.Build();
         }
 
