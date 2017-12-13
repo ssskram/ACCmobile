@@ -10,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ACCmobile.Data;
 using ACCmobile.Models;
-using ACCmobile.Services;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.AspNetCore.Http;
 
@@ -65,7 +64,6 @@ namespace ACCmobile
                 });
 
             // Add application services.
-            services.AddTransient<IEmailSender, EmailSender>();
             Environment.SetEnvironmentVariable("sendgrid", Configuration["sendgrid"]);
 
             services.AddMvc();

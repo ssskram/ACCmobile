@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ACCmobile.Models;
 using ACCmobile.Models.ManageViewModels;
-using ACCmobile.Services;
 
 namespace ACCmobile.Controllers
 {
@@ -22,7 +21,6 @@ namespace ACCmobile.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
         private readonly UrlEncoder _urlEncoder;
 
@@ -31,13 +29,11 @@ namespace ACCmobile.Controllers
         public ManageController(
           UserManager<ApplicationUser> userManager,
           SignInManager<ApplicationUser> signInManager,
-          IEmailSender emailSender,
           ILogger<ManageController> logger,
           UrlEncoder urlEncoder)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
             _logger = logger;
             _urlEncoder = urlEncoder;
         }
@@ -104,43 +100,5 @@ namespace ACCmobile.Controllers
             StatusMessage = "The external login was added.";
             return RedirectToAction(nameof(ExternalLogins));
         }
-
-        #region Helpers
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-        }
-
-        private string FormatKey(string unformattedKey)
-        {
-            var result = new StringBuilder();
-            int currentPosition = 0;
-            while (currentPosition + 4 < unformattedKey.Length)
-            {
-                result.Append(unformattedKey.Substring(currentPosition, 4)).Append(" ");
-                currentPosition += 4;
-            }
-            if (currentPosition < unformattedKey.Length)
-            {
-                result.Append(unformattedKey.Substring(currentPosition));
-            }
-
-            return result.ToString().ToLowerInvariant();
-        }
-
-        private string GenerateQrCodeUri(string email, string unformattedKey)
-        {
-            return string.Format(
-                AuthenicatorUriFormat,
-                _urlEncoder.Encode("ACCmobile"),
-                _urlEncoder.Encode(email),
-                unformattedKey);
-        }
-
-        #endregion
     }
 }
