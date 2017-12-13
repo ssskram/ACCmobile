@@ -20,6 +20,7 @@ namespace ACCmobile
     {
         string _MSClientID = null;
         string _MSClientSecret = null;
+        string _sendgrid = null;
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -48,6 +49,7 @@ namespace ACCmobile
         {
             _MSClientID = Configuration["MSClientId"];
             _MSClientSecret = Configuration["MSClientSecret"];
+            _sendgrid = Configuration["sendgrid"];
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
