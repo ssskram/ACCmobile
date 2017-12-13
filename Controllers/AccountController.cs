@@ -71,7 +71,7 @@ namespace ACCmobile.Controllers
         [HttpPost]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ExternalLoginCallback(ExternalLoginViewModel model,string returnUrl = null, string remoteError = null)
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
             if (remoteError != null)
             {
