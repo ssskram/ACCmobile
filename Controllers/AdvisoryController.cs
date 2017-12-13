@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ACCmobile.Models;
+using ACCmobile.Models.AccountViewModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using System.Net;
@@ -30,7 +31,7 @@ namespace ACCmobile.Controllers
         }
         static async Task Execute(AdvisoryGeneralInfo model)
         {
-            var apiKey = "enter sendgrid key";
+            var apiKey = Environment.GetEnvironmentVariable("sendgrid");
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress("HelpDesk@azurewebservices.us", "Help Desk");
             var subject = model.Address;

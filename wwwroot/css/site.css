@@ -78,6 +78,10 @@ h2 {
     margin: 5px !important;
     height: auto;
 }
+.btn:focus,.btn:active {
+    outline: none !important;
+    box-shadow: none;
+ }
 .btn-default {
     /* font */
     color: #383838;

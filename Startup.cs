@@ -66,6 +66,7 @@ namespace ACCmobile
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            Environment.SetEnvironmentVariable("sendgrid", Configuration["sendgrid"]);
 
             services.AddMvc();
         }
