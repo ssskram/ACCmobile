@@ -46,8 +46,13 @@ namespace ACCmobile.Controllers
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
             ViewData["ReturnUrl"] = returnUrl;
+            return View();
+        }
+        public async Task<IActionResult> ExternalUser(string returnUrl = null)
+        {
+            // Clear the existing external cookie to ensure a clean login process
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return View();
         }
 
@@ -98,9 +103,10 @@ namespace ACCmobile.Controllers
             return Challenge(properties, provider);
         }
 
+        [HttpPost]
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        public async Task<IActionResult> ExternalLoginCallback(ExternalLoginViewModel model,string returnUrl = null, string remoteError = null)
         {
             if (remoteError != null)
             {
@@ -126,40 +132,26 @@ namespace ACCmobile.Controllers
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
-            }
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginViewModel model, string returnUrl = null)
-        {
-            if (ModelState.IsValid)
-            {
-                // Get the information about the user from the external login provider
-                var info = await _signInManager.GetExternalLoginInfoAsync();
-                if (info == null)
+                if (email.Contains("@pittsburghpa.gov"))
                 {
-                    throw new ApplicationException("Error loading external login information during confirmation.");
-                }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await _userManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await _userManager.AddLoginAsync(user, info);
-                    if (result.Succeeded)
+                    var user = new ApplicationUser { UserName = email, Email = email };
+                    var add = await _userManager.CreateAsync(user);
+                    if (add.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-                        return RedirectToLocal(returnUrl);
+                        add = await _userManager.AddLoginAsync(user, info);
+                        if (add.Succeeded)
+                        {
+                            await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+                            _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
+                        }
                     }
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                }                
+                else 
+                {
+                    return View("ExternalUser");
                 }
-                AddErrors(result);
             }
-
-            ViewData["ReturnUrl"] = returnUrl;
-            return View(nameof(ExternalLogin), model);
         }
 
         [HttpGet]

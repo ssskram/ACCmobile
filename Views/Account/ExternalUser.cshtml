@@ -1,0 +1,24 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    ViewData["Title"] = "Log in";
+}
+<div class="row">
+    <div class="col-md-12">
+        <img src="~/images/acclogo.png" class="img-responsive center-block" style="min-width:150px"/> 
+    </div>
+    <div class="col-md-12 text-center">
+        <h1 style="letter-spacing: 1px; padding: 3px;">Sorry, stranger</h1>
+        <h1 style="font-weight: bold; letter-spacing: 1px; padding: 3px;">You don't belong here...</h1>
+    </div>
+</div>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
