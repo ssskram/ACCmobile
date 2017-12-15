@@ -27,7 +27,7 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
         {
             await Execute(model);
-            return View ("~/Views/Home/Index.cshtml");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
         static async Task Execute(AdvisoryGeneralInfo model)
         {
