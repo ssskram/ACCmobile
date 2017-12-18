@@ -21,5 +21,6 @@ namespace ACCmobile.Models
         public string ReasonForVisit { get; set; }
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
+        public string AccessToken { get; set; }
     }
 }

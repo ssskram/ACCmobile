@@ -20,6 +20,11 @@ namespace ACCmobile
         string _MSClientID = null;
         string _MSClientSecret = null;
         string _sendgrid = null;
+        string _refreshtoken = null;
+        string _SPClientSecret = null;
+        string _SPClientID = null;
+        string _redirecturi = null;
+        string _spresourceid = null;
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -49,6 +54,11 @@ namespace ACCmobile
             _MSClientID = Configuration["MSClientId"];
             _MSClientSecret = Configuration["MSClientSecret"];
             _sendgrid = Configuration["sendgrid"];
+            _refreshtoken = Configuration["refreshtoken"];
+            _SPClientSecret = Configuration["SPClientSecret"];
+            _SPClientID = Configuration["SPClientID"];
+            _redirecturi = Configuration["redirecturi"];
+            _spresourceid = Configuration["spresourceid"];
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
@@ -65,8 +75,16 @@ namespace ACCmobile
 
             // Add application services.
             Environment.SetEnvironmentVariable("sendgrid", Configuration["sendgrid"]);
+            Environment.SetEnvironmentVariable("refreshtoken", Configuration["refreshtoken"]);
+            Environment.SetEnvironmentVariable("SPClientSecret", Configuration["SPClientSecret"]);
+            Environment.SetEnvironmentVariable("SPClientID", Configuration["SPClientID"]);
+            Environment.SetEnvironmentVariable("redirecturi", Configuration["redirecturi"]);
+            Environment.SetEnvironmentVariable("spresourceid", Configuration["spresourceid"]);
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddSessionStateTempDataProvider();
+
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,6 +103,8 @@ namespace ACCmobile
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            app.UseSession();   
 
             app.UseMvc(routes =>
             {
