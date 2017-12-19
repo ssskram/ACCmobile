@@ -22,6 +22,7 @@ namespace ACCmobile.Models
         public string LicenseYear { get; set; }
         public string Age { get; set; }
         public string AccessToken { get; set; }  
-        public string AdvisoryID { get; set; } 
+        public string AddressID { get; set; } 
+        public string AdvisoryID { get; set;}
     }
 }

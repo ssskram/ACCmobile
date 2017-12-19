@@ -23,15 +23,16 @@ namespace ACCmobile.Controllers
     public class AdvisoryController : Controller
     {   
         // Fetch access token and open new advisory form
-        public async Task<IActionResult> AdvisoryForm()
+        public async Task<IActionResult> AdvisoryForm(Address model)
         {
             await RefreshToken();
-            var model = new AdvisoryGeneralInfo
+            var relay = new AdvisoryGeneralInfo
                 {
                     AccessToken = (TempData["accesstoken"].ToString()),
+                    AddressID = (TempData["AddressID"].ToString()),
                     AdvisoryID = (Guid.NewGuid().ToString())
                 };
-            return View(model);
+            return View(relay);
         }
         [HttpPost]
         public async Task RefreshToken()
@@ -74,11 +75,11 @@ namespace ACCmobile.Controllers
             }
         }
 
-        // Post form data and return to home 
+        // Post advisory data and continue to animal form
         public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
         {
-            TempData["AdvisoryID"] = model.AdvisoryID; 
-            await Execute(model);
+            TempData["AddressID"] = model.AddressID;
+                    await Execute(model);
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }
         static async Task Execute(AdvisoryGeneralInfo model)
@@ -94,7 +95,7 @@ namespace ACCmobile.Controllers
 
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'Address' : '{0}', 'OwnersName' : '{1}', 'OwnersTelephone' : '{3}', 'ReasonforVisit' : '{4}', 'ADVPGHCode' : '{5}', 'CitationNumber' : '{6}', 'Comments' : '{7}', 'AdvisoryID' : '{8}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'Address' : '{0}', 'OwnersName' : '{1}', 'OwnersTelephone' : '{3}', 'ReasonforVisit' : '{4}', 'ADVPGHCode' : '{5}', 'CitationNumber' : '{6}', 'Comments' : '{7}', 'AddressID' : '{8}', 'AdvisoryID' : '{9}' }}",
                     model.Address, // 0
                     model.OwnersFirstName, // 1
                     model.OwnersLastName, //2
@@ -103,7 +104,8 @@ namespace ACCmobile.Controllers
                     model.PGHCode, // 5
                     model.CitationNumber, // 6
                     model.Comments, // 7
-                    model.AdvisoryID); // 8 
+                    model.AddressID, // 8 
+                    model.AdvisoryID); // 9
                     
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());

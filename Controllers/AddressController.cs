@@ -20,21 +20,19 @@ using System.Collections.Specialized;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class AnimalController : Controller
+    public class AddressController : Controller
     {   
-        // Open new animal form
-        public async Task<IActionResult> AnimalForm(AdvisoryGeneralInfo model)
+        // Fetch access token and open new advisory form
+        public async Task<IActionResult> AddressForm()
         {
-            await RefreshToken(); 
-            var relay = new AnimalGeneralInfo
+            await RefreshToken();
+            var relay = new Address
                 {
                     AccessToken = (TempData["accesstoken"].ToString()),
-                    AddressID = (TempData["AddressID"].ToString()),
-                    AdvisoryID = (TempData["AdvisoryID"].ToString())
+                    AddressID = (Guid.NewGuid().ToString())
                 };
             return View(relay);
         }
-
         [HttpPost]
         public async Task RefreshToken()
         {
@@ -77,14 +75,15 @@ namespace ACCmobile.Controllers
         }
 
         // Post form data and return to home 
-        public async Task<IActionResult> Create(AnimalGeneralInfo model)
+        public async Task<IActionResult> Create(Address model)
         {
+            TempData["AddressID"] = model.AddressID;
             await Execute(model);
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(AdvisoryController.AdvisoryForm), "Advisory");
         }
-        static async Task Execute(AnimalGeneralInfo model)
+        static async Task Execute(Address model)
         {
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Address')/items";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
@@ -95,19 +94,9 @@ namespace ACCmobile.Controllers
 
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}' }}",
-                    model.Type, // 0
-                    model.Breed, // 1
-                    model.Coat, //2
-                    model.Sex, // 3
-                    model.LicenseNumber, // 4
-                    model.RabbiesVacNo, // 5
-                    model.RabbiesVacExp, // 6
-                    model.Veterinarian, // 7
-                    model.LicenseYear, // 8
-                    model.Age, // 9
-                    model.AddressID, // 10
-                    model.AdvisoryID); // 11
+                ("{{'__metadata': {{ 'type': 'SP.Data.AddressItem' }}, 'Address' : '{0}', 'Address ID' : '{1}' }}",
+                    model.AddressClass, // 0
+                    model.AddressID); // 1
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try

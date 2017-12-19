@@ -22,6 +22,7 @@ namespace ACCmobile.Models
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
         public string AccessToken { get; set; }
+        public string AddressID { get; set; }
         public string AdvisoryID { get; set; }
     }
 }
