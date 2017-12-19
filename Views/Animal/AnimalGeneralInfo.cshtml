@@ -31,6 +31,13 @@
 
 <div class="form-group">
     <div class="col-md-12">
+        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Age) } })
+        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
         @Html.EditorFor(model => model.LicenseNumber, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.LicenseNumber) } })
         @Html.ValidationMessageFor(model => model.LicenseNumber, "", new { @class = "text-danger" })
     </div>
@@ -38,8 +45,8 @@
 
 <div class="form-group">
     <div class="col-md-12">
-        @Html.EditorFor(model => model.RabbiesVacNo, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.RabbiesVacNo) } })
-        @Html.ValidationMessageFor(model => model.RabbiesVacNo, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.LicenseYear, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.LicenseYear) } })
+        @Html.ValidationMessageFor(model => model.LicenseYear, "", new { @class = "text-danger" })
     </div>
 </div>
 
@@ -61,20 +68,6 @@
     <div class="col-md-12">
         @Html.EditorFor(model => model.Veterinarian, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Veterinarian) } })
         @Html.ValidationMessageFor(model => model.Veterinarian, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.LicenseYear, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.LicenseYear) } })
-        @Html.ValidationMessageFor(model => model.LicenseYear, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Age) } })
-        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
     </div>
 </div>
 

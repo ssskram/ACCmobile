@@ -23,14 +23,15 @@ namespace ACCmobile.Controllers
     public class AnimalController : Controller
     {   
         // Open new animal form
-        public async Task<IActionResult> AnimalForm()
+        public async Task<IActionResult> AnimalForm(AdvisoryGeneralInfo model)
         {
             await RefreshToken(); 
-            var model = new AnimalGeneralInfo
+            var relay = new AnimalGeneralInfo
                 {
-                    AccessToken = (TempData["accesstoken2"].ToString())
+                    AccessToken = (TempData["accesstoken"].ToString()),
+                    AdvisoryID = (TempData["advisoryid"].ToString())
                 };
-            return View(model);
+            return View(relay);
         }
 
         [HttpPost]
@@ -66,7 +67,7 @@ namespace ACCmobile.Controllers
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
                 dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
-                TempData["accesstoken2"] = results.access_token; 
+                TempData["accesstoken"] = results.access_token; 
             }
             catch (Exception ex)
             {
@@ -93,7 +94,7 @@ namespace ACCmobile.Controllers
 
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AdvisoryID' : '{10}' }}",
                     model.Type, // 0
                     model.Breed, // 1
                     model.Coat, //2
@@ -103,7 +104,8 @@ namespace ACCmobile.Controllers
                     model.RabbiesVacExp, // 6
                     model.Veterinarian, // 7
                     model.LicenseYear, // 8
-                    model.Age); // 9
+                    model.Age, // 9
+                    model.AdvisoryID); // 10
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try

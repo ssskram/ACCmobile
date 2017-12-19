@@ -77,27 +77,19 @@ h2 {
 .form-control {
     margin: 5px !important;
     height: auto;
-    transition-duration: .4s;
-    -webkit-transition-duration: .11s;
-    -moz-transition-duration: .6s;
 }
 .btn:active {
     outline: none !important;
     box-shadow: none !important;
     background-color: rgba(56, 56, 56, .9) !important;
     color: white !important;
-    transition-duration: .4s;
-    -webkit-transition-duration: .11s;
-    -moz-transition-duration: .6s;
+    transform: translateY(4px);
  }
 .btn:focus { 
     background-color: rgba(56, 56, 56, .9) !important;
     color: white !important;
     box-shadow: none !important;
     outline: none !important;
-    transition-duration: .4s;
-    -webkit-transition-duration: .11s;
-    -moz-transition-duration: .6s;
  }
 .btn:hover {
     /* update text color and background color */

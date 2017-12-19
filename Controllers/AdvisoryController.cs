@@ -25,10 +25,11 @@ namespace ACCmobile.Controllers
         // Fetch access token and open new advisory form
         public async Task<IActionResult> AdvisoryForm()
         {
-            await RefreshToken(); 
+            await RefreshToken();
             var model = new AdvisoryGeneralInfo
                 {
-                    AccessToken = (TempData["accesstoken"].ToString())
+                    AccessToken = (TempData["accesstoken"].ToString()),
+                    AdvisoryID = (Guid.NewGuid().ToString())
                 };
             return View(model);
         }
@@ -76,6 +77,7 @@ namespace ACCmobile.Controllers
         // Post form data and return to home 
         public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
         {
+            TempData["AdvisoryID"] = model.AdvisoryID; 
             await Execute(model);
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }
@@ -92,7 +94,7 @@ namespace ACCmobile.Controllers
 
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'Address' : '{0}', 'OwnersName' : '{1}', 'OwnersTelephone' : '{3}', 'ReasonforVisit' : '{4}', 'ADVPGHCode' : '{5}', 'CitationNumber' : '{6}', 'Comments' : '{7}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'Address' : '{0}', 'OwnersName' : '{1}', 'OwnersTelephone' : '{3}', 'ReasonforVisit' : '{4}', 'ADVPGHCode' : '{5}', 'CitationNumber' : '{6}', 'Comments' : '{7}', 'AdvisoryID' : '{8}' }}",
                     model.Address, // 0
                     model.OwnersFirstName, // 1
                     model.OwnersLastName, //2
@@ -100,7 +102,9 @@ namespace ACCmobile.Controllers
                     model.ReasonForVisit, // 4
                     model.PGHCode, // 5
                     model.CitationNumber, // 6
-                    model.Comments); // 7
+                    model.Comments, // 7
+                    model.AdvisoryID); // 8 
+                    
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try
