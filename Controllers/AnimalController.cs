@@ -20,18 +20,19 @@ using System.Collections.Specialized;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class AdvisoryController : Controller
+    public class AnimalController : Controller
     {   
-        // Fetch access token and open new advisory form
-        public async Task<IActionResult> AdvisoryForm()
+        // Open new animal form
+        public async Task<IActionResult> AnimalForm()
         {
             await RefreshToken(); 
-            var model = new AdvisoryGeneralInfo
+            var model = new AnimalGeneralInfo
                 {
-                    AccessToken = (TempData["accesstoken"].ToString())
+                    AccessToken = (TempData["accesstoken2"].ToString())
                 };
             return View(model);
         }
+
         [HttpPost]
         public async Task RefreshToken()
         {
@@ -65,7 +66,7 @@ namespace ACCmobile.Controllers
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
                 dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
-                TempData["accesstoken"] = results.access_token; 
+                TempData["accesstoken2"] = results.access_token; 
             }
             catch (Exception ex)
             {
@@ -74,14 +75,14 @@ namespace ACCmobile.Controllers
         }
 
         // Post form data and return to home 
-        public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
+        public async Task<IActionResult> Create(AnimalGeneralInfo model)
         {
             await Execute(model);
-            return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-        static async Task Execute(AdvisoryGeneralInfo model)
+        static async Task Execute(AnimalGeneralInfo model)
         {
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Advises')/items";
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
@@ -92,15 +93,17 @@ namespace ACCmobile.Controllers
 
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'Address' : '{0}', 'OwnersName' : '{1}', 'OwnersTelephone' : '{3}', 'ReasonforVisit' : '{4}', 'ADVPGHCode' : '{5}', 'CitationNumber' : '{6}', 'Comments' : '{7}' }}",
-                    model.Address, // 0
-                    model.OwnersFirstName, // 1
-                    model.OwnersLastName, //2
-                    model.OwnersTelephoneNumber, // 3
-                    model.ReasonForVisit, // 4
-                    model.PGHCode, // 5
-                    model.CitationNumber, // 6
-                    model.Comments); // 7
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}' }}",
+                    model.Type, // 0
+                    model.Breed, // 1
+                    model.Coat, //2
+                    model.Sex, // 3
+                    model.LicenseNumber, // 4
+                    model.RabbiesVacNo, // 5
+                    model.RabbiesVacExp, // 6
+                    model.Veterinarian, // 7
+                    model.LicenseYear, // 8
+                    model.Age); // 9
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try
