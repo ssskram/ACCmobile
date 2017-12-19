@@ -23,13 +23,14 @@ namespace ACCmobile.Controllers
     public class AdvisoryController : Controller
     {   
         // Fetch access token and open new advisory form
-        public async Task<IActionResult> AdvisoryForm(Address model)
+        public async Task<IActionResult> AdvisoryForm()
         {
             await RefreshToken();
             var relay = new AdvisoryGeneralInfo
                 {
                     AccessToken = (TempData["accesstoken"].ToString()),
                     AddressID = (TempData["AddressID"].ToString()),
+                    Address = (TempData["Address"].ToString()),
                     AdvisoryID = (Guid.NewGuid().ToString())
                 };
             return View(relay);
@@ -79,6 +80,7 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
         {
             TempData["AddressID"] = model.AddressID;
+            TempData["AdvisoryID"] = model.AdvisoryID;
                     await Execute(model);
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }

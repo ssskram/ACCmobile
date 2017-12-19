@@ -78,6 +78,7 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> Create(Address model)
         {
             TempData["AddressID"] = model.AddressID;
+            TempData["Address"] = model.AddressClass;
             await Execute(model);
             return RedirectToAction(nameof(AdvisoryController.AdvisoryForm), "Advisory");
         }
@@ -94,7 +95,7 @@ namespace ACCmobile.Controllers
 
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AddressItem' }}, 'Address' : '{0}', 'Address ID' : '{1}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AddressListItem' }}, 'Address' : '{0}', 'AddressID' : '{1}' }}",
                     model.AddressClass, // 0
                     model.AddressID); // 1
                 

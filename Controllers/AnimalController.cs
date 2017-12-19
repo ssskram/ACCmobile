@@ -23,7 +23,7 @@ namespace ACCmobile.Controllers
     public class AnimalController : Controller
     {   
         // Open new animal form
-        public async Task<IActionResult> AnimalForm(AdvisoryGeneralInfo model)
+        public async Task<IActionResult> AnimalForm()
         {
             await RefreshToken(); 
             var relay = new AnimalGeneralInfo
