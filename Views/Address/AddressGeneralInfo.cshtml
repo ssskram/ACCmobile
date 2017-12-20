@@ -8,17 +8,8 @@
     </div>
 </div>
 
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.HiddenFor(model => model.AddressID)
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.HiddenFor(model => model.AccessToken)
-    </div>
-</div>
+@Html.HiddenFor(model => model.AddressID)
+@Html.HiddenFor(model => model.AccessToken)
 
 <div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
     <input style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default"/>
