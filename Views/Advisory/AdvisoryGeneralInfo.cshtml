@@ -1,7 +1,6 @@
 @model AdvisoryGeneralInfo
 
  <form asp-controller="Advisory" asp-action="Create" method="post">
-
 <div class="form-group">
     <div class="col-md-12">
         @Html.EditorFor(model => model.OwnersLastName, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.OwnersLastName) } })
@@ -48,29 +47,34 @@
     <div class="col-md-12">
         @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Comments) } })
         @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+    </div>
 </div>
+
 <div class="form-group">
     <div class="col-md-12">
         @Html.HiddenFor(model => model.AccessToken)
+    </div>
 </div>
 
 <div class="form-group">
     <div class="col-md-12">
         @Html.HiddenFor(model => model.AdvisoryID)
+    </div>
 </div>
 
 <div class="form-group">
     <div class="col-md-12">
         @Html.HiddenFor(model => model.AddressID)
+    </div>
 </div>
 
 <div class="form-group">
     <div class="col-md-12">
         @Html.HiddenFor(model => model.Address)
+    </div>
 </div>
 
-
 <div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
-    <input style="padding: 5px 25px;" type="submit" value="Submit" class="btn btn-default" />
+    <input style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default" />
 </div>
 </form>
