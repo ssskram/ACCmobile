@@ -78,7 +78,6 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> Create(Address model)
         {
             TempData["AddressID"] = model.AddressID;
-            TempData["Address"] = model.AddressClass;
             await Execute(model);
             return RedirectToAction(nameof(AdvisoryController.AdvisoryForm), "Advisory");
         }

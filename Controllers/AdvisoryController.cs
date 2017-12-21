@@ -30,7 +30,6 @@ namespace ACCmobile.Controllers
                 {
                     AccessToken = (TempData["accesstoken"].ToString()),
                     AddressID = (TempData["AddressID"].ToString()),
-                    Address = (TempData["Address"].ToString()),
                     AdvisoryID = (Guid.NewGuid().ToString())
                 };
             return View(relay);
@@ -97,17 +96,16 @@ namespace ACCmobile.Controllers
 
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'Address' : '{0}', 'OwnersName' : '{1}', 'OwnersTelephone' : '{3}', 'ReasonforVisit' : '{4}', 'ADVPGHCode' : '{5}', 'CitationNumber' : '{6}', 'Comments' : '{7}', 'AddressID' : '{8}', 'AdvisoryID' : '{9}' }}",
-                    model.Address, // 0
-                    model.OwnersFirstName, // 1
-                    model.OwnersLastName, //2
-                    model.OwnersTelephoneNumber, // 3
-                    model.ReasonForVisit, // 4
-                    model.PGHCode, // 5
-                    model.CitationNumber, // 6
-                    model.Comments, // 7
-                    model.AddressID, // 8 
-                    model.AdvisoryID); // 9
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}' }}",
+                    model.OwnersFirstName, // 0
+                    model.OwnersLastName, // 1
+                    model.OwnersTelephoneNumber, // 2
+                    model.ReasonForVisit, // 3
+                    model.PGHCode, // 4
+                    model.CitationNumber, // 5
+                    model.Comments, // 6
+                    model.AddressID, // 7 
+                    model.AdvisoryID); // 8
                     
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());

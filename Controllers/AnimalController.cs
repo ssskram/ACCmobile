@@ -95,7 +95,7 @@ namespace ACCmobile.Controllers
 
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}' }}",
                     model.Type, // 0
                     model.Breed, // 1
                     model.Coat, //2
@@ -107,7 +107,8 @@ namespace ACCmobile.Controllers
                     model.LicenseYear, // 8
                     model.Age, // 9
                     model.AddressID, // 10
-                    model.AdvisoryID); // 11
+                    model.AdvisoryID, // 11
+                    model.AnimalName); // 12
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try

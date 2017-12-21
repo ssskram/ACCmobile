@@ -24,5 +24,7 @@ namespace ACCmobile.Models
         public string AccessToken { get; set; }  
         public string AddressID { get; set; } 
         public string AdvisoryID { get; set;}
+        [Display(Name = "Name")]
+        public string AnimalName { get; set; }
     }
 }
