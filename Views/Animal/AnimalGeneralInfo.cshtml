@@ -1,87 +1,65 @@
 @model AnimalGeneralInfo
 
 <form asp-controller="Animal" asp-action="Create" method="post">
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.AnimalName, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.AnimalName) } })
-        @Html.ValidationMessageFor(model => model.AnimalName, "", new { @class = "text-danger" })
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.EditorFor(model => model.AnimalName, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.AnimalName) } })
+            @Html.ValidationMessageFor(model => model.AnimalName, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Type) } })
+            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Breed, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Breed) } })
+            @Html.ValidationMessageFor(model => model.Breed, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Coat, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Coat) } })
+            @Html.ValidationMessageFor(model => model.Coat, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Sex) } })
+            @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+        </div>
     </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Type) } })
-        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+    <div class="col-md-6">
+        <div class="form-group">
+            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Age) } })
+            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.LicenseNumber, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.LicenseNumber) } })
+            @Html.ValidationMessageFor(model => model.LicenseNumber, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.LicenseYear, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.LicenseYear) } })
+            @Html.ValidationMessageFor(model => model.LicenseYear, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.RabbiesVacNo, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.RabbiesVacNo) } })
+            @Html.ValidationMessageFor(model => model.RabbiesVacNo, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.RabbiesVacExp, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.RabbiesVacExp) } })
+            @Html.ValidationMessageFor(model => model.RabbiesVacExp, "", new { @class = "text-danger" })
+        </div>  
     </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.Breed, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Breed) } })
-        @Html.ValidationMessageFor(model => model.Breed, "", new { @class = "text-danger" })
+  </div>
+  <div class="row">
+    <div class="form-group">
+        <div class="col-md-12">
+            @Html.EditorFor(model => model.Veterinarian, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Veterinarian) } })
+            @Html.ValidationMessageFor(model => model.Veterinarian, "", new { @class = "text-danger" })
+        </div>
     </div>
+  </div>
 </div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.Coat, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Coat) } })
-        @Html.ValidationMessageFor(model => model.Coat, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Sex) } })
-        @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Age) } })
-        @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.LicenseNumber, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.LicenseNumber) } })
-        @Html.ValidationMessageFor(model => model.LicenseNumber, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.LicenseYear, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.LicenseYear) } })
-        @Html.ValidationMessageFor(model => model.LicenseYear, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.RabbiesVacNo, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.RabbiesVacNo) } })
-        @Html.ValidationMessageFor(model => model.RabbiesVacNo, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.RabbiesVacExp, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.RabbiesVacExp) } })
-        @Html.ValidationMessageFor(model => model.RabbiesVacExp, "", new { @class = "text-danger" })
-    </div>  
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.Veterinarian, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Veterinarian) } })
-        @Html.ValidationMessageFor(model => model.Veterinarian, "", new { @class = "text-danger" })
-    </div>
-</div>
-
 @Html.HiddenFor(model => model.AccessToken)
 @Html.HiddenFor(model => model.AdvisoryID)
 @Html.HiddenFor(model => model.AddressID)
-
 <div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
     <input style="padding: 5px 25px;" type="submit" value="Submit" class="btn btn-default" />
 </div>

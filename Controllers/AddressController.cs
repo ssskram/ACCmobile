@@ -22,6 +22,10 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class AddressController : Controller
     {   
+        public IActionResult AddressGeneralInfo()
+        {
+            return PartialView();
+        }
         // Fetch access token and open new advisory form
         public async Task<IActionResult> AddressForm()
         {
