@@ -1,52 +1,56 @@
 @model AdvisoryGeneralInfo
 
- <form asp-controller="Advisory" asp-action="Create" method="post">
+<form asp-controller="Advisory" asp-action="Create" method="post">
 <div class="form-group">
     <div class="col-md-12">
-        @Html.EditorFor(model => model.OwnersLastName, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.OwnersLastName) } })
-        @Html.ValidationMessageFor(model => model.OwnersLastName, "", new { @class = "text-danger" })
+        <input asp-for="OwnersLastName" class="form-control"></input>
+        <span asp-validation-for="OwnersLastName" class="text-danger" />
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-md-12">
-        @Html.EditorFor(model => model.OwnersFirstName, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.OwnersFirstName) } })
-        @Html.ValidationMessageFor(model => model.OwnersFirstName, "", new { @class = "text-danger" })
+        <input asp-for="OwnersFirstName" class="form-control"></input>
+        <span asp-validation-for="OwnersFirstName" class="text-danger" />
+    </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 10px;">
+    <div class="col-md-12">
+        <input asp-for="OwnersTelephoneNumber" class="form-control"></input>
+        <span asp-validation-for="OwnersTelephoneNumber" class="text-danger" />
+    </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 5px;">
+    <div class="col-md-12">
+        <select asp-for="ReasonForVisit" asp-items="Html.GetEnumSelectList<Reasons>()" data-style="btn-info" multiple class="selectpicker form-control" title="Reason(s) for visit">
+            <option></option>
+        </select>
+        <span asp-validation-for="ReasonForVisit" class="text-danger" />
+    </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 10px;">
+    <div class="col-md-12">
+        <select asp-for="PGHCode" asp-items="Html.GetEnumSelectList<Codes>()" data-style="btn-info" multiple class="selectpicker form-control" title="ADV. PGH Code(s)">
+            <option></option>
+        </select>
+        <span asp-validation-for="PGHCode" class="text-danger" />
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-md-12">
-        @Html.EditorFor(model => model.OwnersTelephoneNumber, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.OwnersTelephoneNumber) } })
-        @Html.ValidationMessageFor(model => model.OwnersTelephoneNumber, "", new { @class = "text-danger" })
+        <input asp-for="CitationNumber" class="form-control"></input>
+        <span asp-validation-for="CitationNumber" class="text-danger" />
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-md-12">
-        @Html.EditorFor(model => model.ReasonForVisit, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.ReasonForVisit) } })
-        @Html.ValidationMessageFor(model => model.ReasonForVisit, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.PGHCode, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.PGHCode) } })
-        @Html.ValidationMessageFor(model => model.PGHCode, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.CitationNumber, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.CitationNumber) } })
-        @Html.ValidationMessageFor(model => model.CitationNumber, "", new { @class = "text-danger" })
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Comments) } })
-        @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+        <input asp-for="Comments" class="form-control"></input>
+        <span asp-validation-for="Comments" class="text-danger" />
     </div>
 </div>
 

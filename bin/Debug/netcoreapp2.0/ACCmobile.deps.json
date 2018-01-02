@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "60808f47373cde4371e84703205ef4911f988159"
+    "signature": "80a2c6e3a22553e7bb7aff6c6decaa1860715dc5"
   },
   "compilationOptions": {
     "defines": [
@@ -33,13 +33,19 @@
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.0",
           "RestSharp": "106.1.0",
-          "Sendgrid": "9.9.0"
+          "Sendgrid": "9.9.0",
+          "bootstrap-select": "1.12.4"
         },
         "runtime": {
           "ACCmobile.dll": {}
         },
         "compile": {
           "ACCmobile.dll": {}
+        }
+      },
+      "bootstrap-select/1.12.4": {
+        "dependencies": {
+          "jQuery": "1.8.0"
         }
       },
       "BuildBundlerMinifier/2.6.362": {},
@@ -56,6 +62,7 @@
           "lib/netcoreapp2.0/dotnet-bundle.dll": {}
         }
       },
+      "jQuery/1.8.0": {},
       "Libuv/1.10.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0"
@@ -4293,6 +4300,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "bootstrap-select/1.12.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WZ5jbcwagYCJcCAFJwzCFQpd0ou4MD5xVn4NC3xFiyJp37NeXZoM7hUgt+nEW31pdofW4mxmauf+c7RVJKgV9A==",
+      "path": "bootstrap-select/1.12.4",
+      "hashPath": "bootstrap-select.1.12.4.nupkg.sha512"
+    },
     "BuildBundlerMinifier/2.6.362": {
       "type": "package",
       "serviceable": true,
@@ -4306,6 +4320,13 @@
       "sha512": "sha512-/g2rB/LFwDO/qPd4+Ld/w9yhzZJ7Q4CTr9p3YHm+k/FR5/eFYdDhjTsiav7avy1f0gR5Beky1ygNKorassdJkw==",
       "path": "bundlerminifier.core/2.6.362",
       "hashPath": "bundlerminifier.core.2.6.362.nupkg.sha512"
+    },
+    "jQuery/1.8.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-laDFQRJrIRHT0Z0GVYklMt3bE0iu0MZFJwHwg21kt3SHb7Bj8TdNiM3K+ZdK1DzB8ZxKy8z7NkJvwMas+dmHBw==",
+      "path": "jquery/1.8.0",
+      "hashPath": "jquery.1.8.0.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
