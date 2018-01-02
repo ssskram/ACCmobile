@@ -45,18 +45,4 @@ namespace ACCmobile.Models
         public string AddressID { get; set; } 
         public string AdvisoryID { get; set;}
     }
-        // begin dropdown values
-        public enum AnimalType
-        {
-            Dog,
-            Cat,
-            Other,
-        };
-        public enum AnimalSex
-        {
-            Male,
-            Female,
-            Unknown,
-        };
-
 }

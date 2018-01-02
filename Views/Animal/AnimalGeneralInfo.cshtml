@@ -9,11 +9,15 @@
             <span asp-validation-for="AnimalName" class="text-danger" />
         </div>
         <div class="form-group" style="margin-bottom: 5px;">
-            <select asp-for="Type" asp-items="Html.GetEnumSelectList<AnimalType>()" data-style="btn-info" class="selectpicker form-control" title="Type"></select>    
+            <select asp-for="Type" data-style="btn-info" class="selectpicker form-control" title="Type" data-dropup-auto="false">
+                <option>Dog</option>
+                <option>Cat</option>
+                <option>Other</option>
+            </select>    
             <span asp-validation-for="Type" class="text-danger" />
         </div>
         <div class="form-group" style="margin-bottom: 5px;">
-            <select asp-for="Breed" data-style="btn-info" multiple class="selectpicker form-control" title="Breed" data-selected-text-format="count > 3">
+            <select asp-for="Breed" data-style="btn-info" multiple class="selectpicker form-control" title="Breed" data-selected-text-format="count > 3" data-dropup-auto="false">
                 <optgroup label="Cats">
                     <option>Domestic Short Hair</option>
                     <option>Domestic Long Hair</option>
@@ -43,7 +47,7 @@
             <span asp-validation-for="Breed" class="text-danger" />
         </div>
         <div class="form-group" style="margin-bottom: 5px;">
-            <select asp-for="Coat" data-style="btn-info" multiple class="selectpicker form-control" title="Coat" data-selected-text-format="count > 3">
+            <select asp-for="Coat" data-style="btn-info" multiple class="selectpicker form-control" title="Coat" data-selected-text-format="count > 3" data-dropup-auto="false">
                 <optgroup label="Cats">
                     <option>Tabby</option>
                     <option>Calico</option>
@@ -66,7 +70,11 @@
             <span asp-validation-for="Coat" class="text-danger" />
         </div>
         <div class="form-group" style="margin-bottom: 10px;">
-            <select asp-for="Sex" asp-items="Html.GetEnumSelectList<AnimalSex>()" data-style="btn-info" class="selectpicker form-control" title="Sex"></select>
+            <select asp-for="Sex" data-style="btn-info" class="selectpicker form-control" title="Sex" data-dropup-auto="false">
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+            </select>
             <span asp-validation-for="Sex" class="text-danger" />
         </div>
     </div>
