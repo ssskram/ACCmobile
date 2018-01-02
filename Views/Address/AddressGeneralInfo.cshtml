@@ -1,9 +1,11 @@
 @model Address
+
 <div class="form-group">
     <div class="col-md-12">
-        @Html.EditorFor(model => model.AddressClass, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.AddressClass) } })
-        @Html.ValidationMessageFor(model => model.AddressClass, "", new { @class = "text-danger" })
+        <input asp-for="AddressClass" class="form-control"></input>
+        <span asp-validation-for="AddressClass" class="text-danger" />
     </div>
 </div>
+
 @Html.HiddenFor(model => model.AddressID)
 @Html.HiddenFor(model => model.AccessToken)

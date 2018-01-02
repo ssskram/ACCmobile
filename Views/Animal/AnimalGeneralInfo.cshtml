@@ -4,62 +4,109 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
-        <div class="form-group">
-            @Html.EditorFor(model => model.AnimalName, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.AnimalName) } })
-            @Html.ValidationMessageFor(model => model.AnimalName, "", new { @class = "text-danger" })
+        <div class="form-group" style="margin-bottom: 10px;">
+            <input asp-for="AnimalName" class="form-control"></input>
+            <span asp-validation-for="AnimalName" class="text-danger" />
         </div>
-        <div class="form-group">
-            @Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Type) } })
-            @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+        <div class="form-group" style="margin-bottom: 5px;">
+            <select asp-for="Type" asp-items="Html.GetEnumSelectList<AnimalType>()" data-style="btn-info" class="selectpicker form-control" title="Type"></select>    
+            <span asp-validation-for="Type" class="text-danger" />
         </div>
-        <div class="form-group">
-            @Html.EditorFor(model => model.Breed, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Breed) } })
-            @Html.ValidationMessageFor(model => model.Breed, "", new { @class = "text-danger" })
+        <div class="form-group" style="margin-bottom: 5px;">
+            <select asp-for="Breed" data-style="btn-info" multiple class="selectpicker form-control" title="Breed" data-selected-text-format="count > 3">
+                <optgroup label="Cats">
+                    <option>Domestic Short Hair</option>
+                    <option>Domestic Long Hair</option>
+                    <option>Feral</option>
+                    <option>Tabby</option>
+                    <option>Siamese</option>
+                </optgroup>
+                <optgroup label="Dogs">
+                    <option>Mix</option>
+                    <option>Pit Bull</option>
+                    <option>Terrier</option>
+                    <option>German Shepherd</option>
+                    <option>Rottweiler</option>
+                    <option>Bulldog</option>
+                    <option>Beagle</option>
+                    <option>Poodle</option>
+                    <option>Yorkie</option>
+                    <option>Boxer</option>
+                    <option>Great Dane</option>
+                    <option>Doberman</option>
+                    <option>Australian Shepherd</option>
+                    <option>Shih Tzu</option>
+                    <option>Pomeranian</option>
+                    <option>Spaniel</option>
+                </optgroup>
+            </select>
+            <span asp-validation-for="Breed" class="text-danger" />
         </div>
-        <div class="form-group">
-            @Html.EditorFor(model => model.Coat, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Coat) } })
-            @Html.ValidationMessageFor(model => model.Coat, "", new { @class = "text-danger" })
+        <div class="form-group" style="margin-bottom: 5px;">
+            <select asp-for="Coat" data-style="btn-info" multiple class="selectpicker form-control" title="Coat" data-selected-text-format="count > 3">
+                <optgroup label="Cats">
+                    <option>Tabby</option>
+                    <option>Calico</option>
+                </optgroup>
+                <optgroup label="Dogs">
+                    <option>Brindle</option>
+                </optgroup>
+                <optgroup label="Universal">
+                    <option>Black</option>
+                    <option>White</option>
+                    <option>Gray</option>
+                    <option>Brown</option>
+                    <option>Tan</option>
+                    <option>Blue</option>
+                    <option>Orange</option>
+                    <option>Yellow</option>
+                    <option>Golden</option>
+                </optgroup>
+            </select>
+            <span asp-validation-for="Coat" class="text-danger" />
         </div>
-        <div class="form-group">
-            @Html.EditorFor(model => model.Sex, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Sex) } })
-            @Html.ValidationMessageFor(model => model.Sex, "", new { @class = "text-danger" })
+        <div class="form-group" style="margin-bottom: 10px;">
+            <select asp-for="Sex" asp-items="Html.GetEnumSelectList<AnimalSex>()" data-style="btn-info" class="selectpicker form-control" title="Sex"></select>
+            <span asp-validation-for="Sex" class="text-danger" />
         </div>
     </div>
     <div class="col-md-6">
         <div class="form-group">
-            @Html.EditorFor(model => model.Age, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Age) } })
-            @Html.ValidationMessageFor(model => model.Age, "", new { @class = "text-danger" })
+            <input asp-for="Age" class="form-control"></input>
+            <span asp-validation-for="Age" class="text-danger" />
         </div>
         <div class="form-group">
-            @Html.EditorFor(model => model.LicenseNumber, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.LicenseNumber) } })
-            @Html.ValidationMessageFor(model => model.LicenseNumber, "", new { @class = "text-danger" })
+            <input asp-for="LicenseNumber" class="form-control"></input>
+            <span asp-validation-for="LicenseNumber" class="text-danger" />
         </div>
         <div class="form-group">
-            @Html.EditorFor(model => model.LicenseYear, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.LicenseYear) } })
-            @Html.ValidationMessageFor(model => model.LicenseYear, "", new { @class = "text-danger" })
+            <input asp-for="LicenseYear" class="form-control"></input>
+            <span asp-validation-for="LicenseYear" class="text-danger" />
         </div>
         <div class="form-group">
-            @Html.EditorFor(model => model.RabbiesVacNo, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.RabbiesVacNo) } })
-            @Html.ValidationMessageFor(model => model.RabbiesVacNo, "", new { @class = "text-danger" })
+            <input asp-for="RabbiesVacNo" class="form-control"></input>
+            <span asp-validation-for="RabbiesVacNo" class="text-danger" />
         </div>
         <div class="form-group">
-            @Html.EditorFor(model => model.RabbiesVacExp, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.RabbiesVacExp) } })
-            @Html.ValidationMessageFor(model => model.RabbiesVacExp, "", new { @class = "text-danger" })
-        </div>  
+            <input asp-for="RabbiesVacExp" class="form-control"></input>
+            <span asp-validation-for="RabbiesVacExp" class="text-danger" />
+        </div>
     </div>
   </div>
   <div class="row">
     <div class="form-group">
         <div class="col-md-12">
-            @Html.EditorFor(model => model.Veterinarian, new { htmlAttributes = new { @class = "form-control", placeholder = @Html.DisplayNameFor(model => model.Veterinarian) } })
-            @Html.ValidationMessageFor(model => model.Veterinarian, "", new { @class = "text-danger" })
+            <textarea rows="3" asp-for="Veterinarian" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
+            <span asp-validation-for="Veterinarian" class="text-danger" />
         </div>
     </div>
   </div>
 </div>
+
 @Html.HiddenFor(model => model.AccessToken)
 @Html.HiddenFor(model => model.AdvisoryID)
 @Html.HiddenFor(model => model.AddressID)
+
 <div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
     <input style="padding: 5px 25px;" type="submit" value="Submit" class="btn btn-default" />
 </div>

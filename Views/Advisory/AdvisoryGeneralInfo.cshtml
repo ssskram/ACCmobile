@@ -24,18 +24,14 @@
 
 <div class="form-group" style="margin-bottom: 5px;">
     <div class="col-md-12">
-        <select asp-for="ReasonForVisit" asp-items="Html.GetEnumSelectList<Reasons>()" data-style="btn-info" multiple class="selectpicker form-control" title="Reason(s) for visit">
-            <option></option>
-        </select>
+        <select asp-for="ReasonForVisit" asp-items="Html.GetEnumSelectList<Reasons>()" data-style="btn-info" multiple class="selectpicker form-control" title="Reason(s) for visit" data-selected-text-format="count > 2"></select>
         <span asp-validation-for="ReasonForVisit" class="text-danger" />
     </div>
 </div>
 
 <div class="form-group" style="margin-bottom: 10px;">
     <div class="col-md-12">
-        <select asp-for="PGHCode" asp-items="Html.GetEnumSelectList<Codes>()" data-style="btn-info" multiple class="selectpicker form-control" title="ADV. PGH Code(s)">
-            <option></option>
-        </select>
+        <select asp-for="PGHCode" asp-items="Html.GetEnumSelectList<Codes>()" data-style="btn-info" multiple class="selectpicker form-control" title="ADV. PGH Code(s)" data-selected-text-format="count > 4"></select>
         <span asp-validation-for="PGHCode" class="text-danger" />
     </div>
 </div>
@@ -49,7 +45,7 @@
 
 <div class="form-group">
     <div class="col-md-12">
-        <input asp-for="Comments" class="form-control"></input>
+        <textarea rows="3" asp-for="Comments" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
         <span asp-validation-for="Comments" class="text-danger" />
     </div>
 </div>

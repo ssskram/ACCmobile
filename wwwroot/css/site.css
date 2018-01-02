@@ -166,3 +166,6 @@ h3 {
 button.bs-placeholder[role='button']>span {
     color:#999;
 }
+textarea { 
+    overflow: hidden;
+}
