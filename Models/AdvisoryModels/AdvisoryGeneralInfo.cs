@@ -6,6 +6,7 @@ namespace ACCmobile.Models
 {
     public class AdvisoryGeneralInfo
     {
+
         [Display(Prompt = "Owners Last Name")]
         public string OwnersLastName { get; set; }
 

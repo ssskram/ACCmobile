@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "80a2c6e3a22553e7bb7aff6c6decaa1860715dc5"
+    "signature": "69e9105ba14f9a0e29ba64e547a76eadb39eb1d1"
   },
   "compilationOptions": {
     "defines": [
@@ -34,7 +34,8 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.0",
           "RestSharp": "106.1.0",
           "Sendgrid": "9.9.0",
-          "bootstrap-select": "1.12.4"
+          "bootstrap-select": "1.12.4",
+          "jQuery": "3.2.1"
         },
         "runtime": {
           "ACCmobile.dll": {}
@@ -45,7 +46,7 @@
       },
       "bootstrap-select/1.12.4": {
         "dependencies": {
-          "jQuery": "1.8.0"
+          "jQuery": "3.2.1"
         }
       },
       "BuildBundlerMinifier/2.6.362": {},
@@ -62,7 +63,7 @@
           "lib/netcoreapp2.0/dotnet-bundle.dll": {}
         }
       },
-      "jQuery/1.8.0": {},
+      "jQuery/3.2.1": {},
       "Libuv/1.10.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0"
@@ -4321,12 +4322,12 @@
       "path": "bundlerminifier.core/2.6.362",
       "hashPath": "bundlerminifier.core.2.6.362.nupkg.sha512"
     },
-    "jQuery/1.8.0": {
+    "jQuery/3.2.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-laDFQRJrIRHT0Z0GVYklMt3bE0iu0MZFJwHwg21kt3SHb7Bj8TdNiM3K+ZdK1DzB8ZxKy8z7NkJvwMas+dmHBw==",
-      "path": "jquery/1.8.0",
-      "hashPath": "jquery.1.8.0.nupkg.sha512"
+      "sha512": "sha512-Sc4jRcsItNXUoNmnPtD9DEnHCy5d4u0GOdDSKYL+b7PKtwajKO1YBJA55241G2M9KRCwSbtxV4ti3gb4n/pIew==",
+      "path": "jquery/3.2.1",
+      "hashPath": "jquery.3.2.1.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
