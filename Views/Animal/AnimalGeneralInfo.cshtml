@@ -4,10 +4,12 @@
 <div class="container">
   <div class="row">
     <div class="col-md-6">
+
         <div class="form-group" style="margin-bottom: 10px;">
             <input asp-for="AnimalName" class="form-control"></input>
             <span asp-validation-for="AnimalName" class="text-danger" />
         </div>
+
         <div class="form-group" style="margin-bottom: 5px;">
             <select asp-for="TypeRelay" data-style="btn-info" class="selectpicker form-control" title="Type" data-dropup-auto="false" id="typerelay">
                 <option>Dog</option>
@@ -16,6 +18,7 @@
             </select>    
             <span asp-validation-for="Type" class="text-danger" />
         </div>
+
         <div class="form-group" style="margin-bottom: 5px;">
             <select asp-for="BreedRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Breed" data-selected-text-format="count > 3" data-dropup-auto="false" id="breedrelay">
                 <optgroup label="Cats">
@@ -46,6 +49,7 @@
             </select>
             <span asp-validation-for="Breed" class="text-danger" />
         </div>
+
         <div class="form-group" style="margin-bottom: 5px;">
             <select asp-for="CoatRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Coat" data-selected-text-format="count > 3" data-dropup-auto="false" id="coatrelay">
                 <optgroup label="Cats">
@@ -69,6 +73,7 @@
             </select>
             <span asp-validation-for="Coat" class="text-danger" />
         </div>
+
         <div class="form-group" style="margin-bottom: 10px;">
             <select asp-for="SexRelay" data-style="btn-info" class="selectpicker form-control" title="Sex" data-dropup-auto="false" id="sexrelay">
                 <option>Male</option>
@@ -77,40 +82,50 @@
             </select>
             <span asp-validation-for="Sex" class="text-danger" />
         </div>
+
     </div>
     <div class="col-md-6">
+
         <div class="form-group">
             <input asp-for="Age" class="form-control"></input>
             <span asp-validation-for="Age" class="text-danger" />
         </div>
+
         <div class="form-group">
             <input asp-for="LicenseNumber" class="form-control"></input>
             <span asp-validation-for="LicenseNumber" class="text-danger" />
         </div>
+
         <div class="form-group">
             <input asp-for="LicenseYear" class="form-control"></input>
             <span asp-validation-for="LicenseYear" class="text-danger" />
         </div>
+
         <div class="form-group">
             <input asp-for="RabbiesVacNo" class="form-control"></input>
             <span asp-validation-for="RabbiesVacNo" class="text-danger" />
         </div>
+
         <div class="form-group">
             <input asp-for="RabbiesVacExp" class="form-control"></input>
             <span asp-validation-for="RabbiesVacExp" class="text-danger" />
         </div>
+
     </div>
   </div>
   <div class="row">
     <div class="form-group">
+
         <div class="col-md-12">
             <textarea rows="3" asp-for="Veterinarian" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
             <span asp-validation-for="Veterinarian" class="text-danger" />
         </div>
+        
     </div>
   </div>
 </div>
 
+<!-- begin hidden fields -->
 <input asp-for="AccessToken" type="hidden"></input>
 <input asp-for="AdvisoryID" type="hidden"></input>
 <input asp-for="AddressID" type="hidden"></input>

@@ -1,5 +1,6 @@
 @model AdvisoryGeneralInfo
 <form asp-controller="Advisory" asp-action="Create" method="post">
+    
 <div class="form-group">
     <div class="col-md-12">
         <input asp-for="OwnersLastName" class="form-control"></input>
@@ -73,6 +74,7 @@
     </div>
 </div>
 
+<!-- begin hidden fields -->
 <input asp-for="AccessToken" type="hidden"></input>
 <input asp-for="AdvisoryID" type="hidden"></input>
 <input asp-for="AddressID" type="hidden"></input>
