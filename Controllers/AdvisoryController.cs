@@ -78,7 +78,6 @@ namespace ACCmobile.Controllers
         // Post advisory data and continue to animal form
         public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
         {
-            // transform ReasonForVisit into array string here, and pass as variable to tempdata[test]
             TempData["AddressID"] = model.AddressID;
             TempData["AdvisoryID"] = model.AdvisoryID;
             TempData["test"] = model.ReasonForVisit;
