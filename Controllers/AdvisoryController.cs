@@ -80,7 +80,6 @@ namespace ACCmobile.Controllers
         {
             TempData["AddressID"] = model.AddressID;
             TempData["AdvisoryID"] = model.AdvisoryID;
-            TempData["test"] = model.ReasonForVisit;
                     await Execute(model);
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }

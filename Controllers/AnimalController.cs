@@ -31,7 +31,6 @@ namespace ACCmobile.Controllers
                     AccessToken = (TempData["accesstoken"].ToString()),
                     AddressID = (TempData["AddressID"].ToString()),
                     AdvisoryID = (TempData["AdvisoryID"].ToString()),
-                    AnimalName = (TempData["test"].ToString())
                 };
             return View(relay);
         }

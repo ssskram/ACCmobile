@@ -111,9 +111,9 @@
   </div>
 </div>
 
-@Html.HiddenFor(model => model.AccessToken)
-@Html.HiddenFor(model => model.AdvisoryID)
-@Html.HiddenFor(model => model.AddressID)
+<input asp-for="AccessToken" type="hidden"></input>
+<input asp-for="AdvisoryID" type="hidden"></input>
+<input asp-for="AddressID" type="hidden"></input>
 
 <div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
     <input style="padding: 5px 25px;" type="submit" value="Submit" class="btn btn-default" />

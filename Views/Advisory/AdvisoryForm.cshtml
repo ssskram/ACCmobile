@@ -4,8 +4,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript">
  $(document).ready(function () {
-    $('#buttonId').click(function () {
-        $('.selectpicker').selectpicker('destroy');
+    $('#button').click(function(){
+        $('#reason').val( $('#reasonrelay').val() );
+        $('#code').val( $('#coderelay').val() );
     });
     });
 </script>
@@ -15,4 +16,3 @@
         <div>@Html.Partial("AdvisoryGeneralInfo")</div>
   </div>
 </div>
-<input id="buttonId" style="padding: 5px 25px;" value="refresh" class="btn btn-link"/>

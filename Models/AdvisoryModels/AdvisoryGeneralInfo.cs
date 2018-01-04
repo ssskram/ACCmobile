@@ -17,13 +17,13 @@ namespace ACCmobile.Models
         public string OwnersTelephoneNumber { get; set; }
 
         [Display(Prompt = "ADV. PGH Code")]
-        public string PGHCode { get; set; }
+        public string PGHCodeRelay { get; set; }
 
         [Display(Prompt = "Citation Number")]
         public string CitationNumber { get; set; }
 
         [Display(Prompt = "Reason for Visit")]
-        public string ReasonForVisit { get; set; }
+        public string ReasonForVisitRelay { get; set; }
         
         [Display(Prompt = "Comments")]
         [DataType(DataType.MultilineText)]
@@ -33,5 +33,7 @@ namespace ACCmobile.Models
         public string AccessToken { get; set; }
         public string AddressID { get; set; }
         public string AdvisoryID { get; set; }
+        public string ReasonForVisit { get; set; }
+        public string PGHCode { get; set; }
     }
 }
