@@ -1,6 +1,17 @@
 @{
     ViewData["Title"] = "Animal data";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+ $(document).ready(function () {
+    $('#button').click(function(){
+        $('#type').val( $('#typerelay').val() );
+        $('#breed').val( $('#breedrelay').val() );
+        $('#coat').val( $('#coatrelay').val() );
+        $('#sex').val( $('#sexrelay').val() );
+    });
+    });
+</script>
 <div class="row">
   <div class="col-sm-12">
         <h3>Describe the animals:</h3>

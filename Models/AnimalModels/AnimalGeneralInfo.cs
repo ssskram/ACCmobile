@@ -7,16 +7,16 @@ namespace ACCmobile.Models
     public class AnimalGeneralInfo
     {
         [Display(Prompt = "Type")]
-        public string Type { get; set; }
+        public string TypeRelay { get; set; }
 
         [Display(Prompt = "Breed")]
-        public string Breed { get; set; }
+        public string BreedRelay { get; set; }
 
         [Display(Prompt = "Coat")]
-        public string Coat { get; set; }
+        public string CoatRelay { get; set; }
 
         [Display(Prompt = "Sex")]
-        public string Sex { get; set; }
+        public string SexRelay { get; set; }
 
         [Display(Prompt = "License #")]
         public string LicenseNumber { get; set; }
@@ -44,5 +44,9 @@ namespace ACCmobile.Models
         public string AccessToken { get; set; }  
         public string AddressID { get; set; } 
         public string AdvisoryID { get; set;}
+        public string Type { get; set; }
+        public string Breed { get; set; }
+        public string Coat { get; set; }
+        public string Sex { get; set; }
     }
 }
