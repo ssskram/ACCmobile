@@ -22,6 +22,7 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class AddressController : Controller
     {   
+        // method for demoing ajax duplicate partial view
         public IActionResult AddressGeneralInfo()
         {
             return PartialView();
@@ -29,6 +30,7 @@ namespace ACCmobile.Controllers
         // Fetch access token and open new advisory form
         public async Task<IActionResult> AddressForm()
         {
+            // persist as only refresh token method by replacing all other temp data calls with TempData.Peek
             await RefreshToken();
             var relay = new Address
                 {
