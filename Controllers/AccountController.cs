@@ -39,6 +39,7 @@ namespace ACCmobile.Controllers
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            // add async method to GET user group members
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -89,6 +90,7 @@ namespace ACCmobile.Controllers
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
                 if (email.Contains("@pittsburghpa.gov"))
+                // add condition to check for membership in group
                 {
                     var user = new ApplicationUser { UserName = email, Email = email };
                     var add = await _userManager.CreateAsync(user);

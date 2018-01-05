@@ -14,6 +14,7 @@ namespace ACCmobile.Controllers
     {
         public IActionResult Index()
         {
+            // add async method here to get access token from SP for user group GET
             return View();
         }
 
