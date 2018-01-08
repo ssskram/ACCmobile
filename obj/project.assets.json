@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "BeginCollectionItemCore/1.0.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "1.1.2",
+          "NETStandard.Library": "1.6.1"
+        },
+        "compile": {
+          "lib/netstandard1.6/BeginCollectionItemCore.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.6/BeginCollectionItemCore.dll": {}
+        }
+      },
       "bootstrap-select/1.12.4": {
         "type": "package",
         "dependencies": {
@@ -5098,6 +5111,17 @@
     }
   },
   "libraries": {
+    "BeginCollectionItemCore/1.0.8": {
+      "sha512": "gbp7JI3OskUteHBSAeI8eX0UnFtxAFjd7ZJg+Fr4czTCA7oiM++2FevjzMFP4L6auhNyduazpj44pX7M5fY4SQ==",
+      "type": "package",
+      "path": "begincollectionitemcore/1.0.8",
+      "files": [
+        "begincollectionitemcore.1.0.8.nupkg.sha512",
+        "begincollectionitemcore.nuspec",
+        "lib/net461/BeginCollectionItemCore.dll",
+        "lib/netstandard1.6/BeginCollectionItemCore.dll"
+      ]
+    },
     "bootstrap-select/1.12.4": {
       "sha512": "WZ5jbcwagYCJcCAFJwzCFQpd0ou4MD5xVn4NC3xFiyJp37NeXZoM7hUgt+nEW31pdofW4mxmauf+c7RVJKgV9A==",
       "type": "package",
@@ -13357,6 +13381,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "BeginCollectionItemCore >= 1.0.8",
       "BuildBundlerMinifier >= 2.6.362",
       "BundlerMinifier.Core >= 2.6.362",
       "Microsoft.AspNetCore.All >= 2.0.0",
@@ -13415,6 +13440,10 @@
             "target": "Package",
             "version": "2.0.0",
             "autoReferenced": true
+          },
+          "BeginCollectionItemCore": {
+            "target": "Package",
+            "version": "1.0.8"
           },
           "bootstrap-select": {
             "target": "Package",

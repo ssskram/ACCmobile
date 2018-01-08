@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "69e9105ba14f9a0e29ba64e547a76eadb39eb1d1"
+    "signature": "8436d289b48a1fd70d41cf19729f1d5a3bf50241"
   },
   "compilationOptions": {
     "defines": [
@@ -23,6 +23,7 @@
     ".NETCoreApp,Version=v2.0": {
       "ACCmobile/1.0.0": {
         "dependencies": {
+          "BeginCollectionItemCore": "1.0.8",
           "BuildBundlerMinifier": "2.6.362",
           "BundlerMinifier.Core": "2.6.362",
           "Microsoft.AspNetCore.All": "2.0.0",
@@ -42,6 +43,18 @@
         },
         "compile": {
           "ACCmobile.dll": {}
+        }
+      },
+      "BeginCollectionItemCore/1.0.8": {
+        "dependencies": {
+          "Microsoft.AspNetCore.Mvc": "2.0.0",
+          "NETStandard.Library": "2.0.0"
+        },
+        "runtime": {
+          "lib/netstandard1.6/BeginCollectionItemCore.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.6/BeginCollectionItemCore.dll": {}
         }
       },
       "bootstrap-select/1.12.4": {
@@ -4300,6 +4313,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "BeginCollectionItemCore/1.0.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-gbp7JI3OskUteHBSAeI8eX0UnFtxAFjd7ZJg+Fr4czTCA7oiM++2FevjzMFP4L6auhNyduazpj44pX7M5fY4SQ==",
+      "path": "begincollectionitemcore/1.0.8",
+      "hashPath": "begincollectionitemcore.1.0.8.nupkg.sha512"
     },
     "bootstrap-select/1.12.4": {
       "type": "package",

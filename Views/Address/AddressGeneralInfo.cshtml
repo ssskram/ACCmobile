@@ -1,11 +1,10 @@
 @model Address
+@using HtmlHelpers.BeginCollectionItemCore;
 
 <div class="form-group">
     <div class="col-md-12">
         <input asp-for="AddressClass" class="form-control"></input>
-        <span asp-validation-for="AddressClass" class="text-danger" />
+        <input asp-for="AddressID" type="hidden"></input>
+        <input asp-for="AccessToken" type="hidden"></input>
     </div>
 </div>
-
-<input asp-for="AddressID" type="hidden"></input>
-<input asp-for="AccessToken" type="hidden"></input>

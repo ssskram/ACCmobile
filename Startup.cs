@@ -73,7 +73,7 @@ namespace ACCmobile
                     microsoftOptions.ClientSecret = Configuration["MSClientSecret"];
                 });
 
-            // Add application services.
+            // add application services
             Environment.SetEnvironmentVariable("sendgrid", Configuration["sendgrid"]);
             Environment.SetEnvironmentVariable("refreshtoken", Configuration["refreshtoken"]);
             Environment.SetEnvironmentVariable("SPClientSecret", Configuration["SPClientSecret"]);
