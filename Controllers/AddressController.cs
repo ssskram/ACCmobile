@@ -12,8 +12,6 @@ using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Collections.Specialized;
 
@@ -80,14 +78,47 @@ namespace ACCmobile.Controllers
             }
         }
 
-        // Post form data and return to home 
+        // Post form data and head to next phase 
         public async Task<IActionResult> Create(Address model)
         {
-            TempData["AddressID"] = model.AddressID;
             await Execute(model);
             return RedirectToAction(nameof(AdvisoryController.AdvisoryForm), "Advisory");
         }
-        static async Task Execute(Address model)
+        public async Task Execute(Address model)
+        {
+            // craft json load
+            var sharepointUrl = 
+                String.Format
+                ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Address')/items?$filter= Address eq '{0}'",
+                    model.AddressClass); // 0
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = 
+                new AuthenticationHeaderValue ("Bearer", model.AccessToken);
+            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+            // execute get request
+            try
+            {              
+                var content = await client.GetStringAsync(sharepointUrl);
+                dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
+                TempData["AddressID"] = results.AddressID;
+        
+                // if (results.AddressClass.Contains(model.AddressClass)) // insert condition for null response 
+                // {
+                //     TempData["AddressID"] = results.AddressID;
+                // }
+                // else
+                // {
+                //     TempData["AddressID"] = model.AddressID;
+                //     await Post(model);
+                // }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+        public async Task Post(Address model)
         {
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Address')/items";
             HttpClient client = new HttpClient();

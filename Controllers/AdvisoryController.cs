@@ -12,8 +12,6 @@ using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Collections.Specialized;
 
@@ -29,8 +27,8 @@ namespace ACCmobile.Controllers
             var relay = new AdvisoryGeneralInfo
                 {
                     AccessToken = (TempData["accesstoken"].ToString()),
-                    AddressID = (TempData["AddressID"].ToString()),
-                    AdvisoryID = (Guid.NewGuid().ToString())
+                    // AddressID = (TempData["AddressID"].ToString()),
+                    // AdvisoryID = (Guid.NewGuid().ToString())
                 };
             return View(relay);
         }
@@ -78,13 +76,15 @@ namespace ACCmobile.Controllers
         // Post advisory data and continue to animal form
         public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
         {
-            TempData["AddressID"] = model.AddressID;
-            TempData["AdvisoryID"] = model.AdvisoryID;
-                    await Execute(model);
+            // TempData["AddressID"] = model.AddressID;
+            // TempData["AdvisoryID"] = model.AdvisoryID;
+            await Execute(model);
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }
-        static async Task Execute(AdvisoryGeneralInfo model)
+        public async Task Execute(AdvisoryGeneralInfo model)
         {
+            // var AddressID = (TempData["AddressID"].ToString());\
+            var AddressID = "Test";
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Advises')/items";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
@@ -103,7 +103,7 @@ namespace ACCmobile.Controllers
                     model.PGHCode, // 4
                     model.CitationNumber, // 5
                     model.Comments, // 6
-                    model.AddressID, // 7 
+                    AddressID, // 7 
                     model.AdvisoryID); // 8
                     
                 

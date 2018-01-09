@@ -35,7 +35,7 @@ namespace ACCmobile.Controllers
                 {
                     AccessToken = (TempData["accesstoken"].ToString()),
                     AddressID = (TempData["AddressID"].ToString()),
-                    AdvisoryID = (TempData["AdvisoryID"].ToString()),
+                    // AdvisoryID = (TempData["AdvisoryID"].ToString()),
                 };
             return View(relay);
         }

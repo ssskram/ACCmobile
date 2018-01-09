@@ -9,6 +9,11 @@
             $('#heading').val( $('#name').val() );
         });
     });
+    $(document).on("click", '#addField', function(event) { 
+        $("#name").change(function() {
+            $('#heading').val( $('#name').val() );
+        });
+    });
 </script>
 <!-- repeat section -->
 <script type="text/javascript">
