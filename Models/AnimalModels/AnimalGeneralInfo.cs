@@ -48,5 +48,8 @@ namespace ACCmobile.Models
         public string Breed { get; set; }
         public string Coat { get; set; }
         public string Sex { get; set; }
+
+        // begin form fields
+        public string AnimalHeading { get; set; }
     }
 }

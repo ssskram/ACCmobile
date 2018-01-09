@@ -78,15 +78,15 @@ h3 {
     margin: 5px !important;
     height: auto;
 }
-.btn-default:active, .btn-primary:active {
+.btn-default:active, .btn-primary:active, .btn-link:active {
     outline: none !important;
     box-shadow: none !important;
     background-color: rgba(56, 56, 56, .9) !important;
     color: white !important;
     transform: translateY(4px);
  }
-.btn-default:focus, .btn-primary:focus { 
-    background-color: rgba(56, 56, 56, .9) !important;
+.btn-default:focus, .btn-primary:focus, .btn-link:focus { 
+    background-color: rgba(56, 56, 56, .7) !important;
     color: white !important;
     box-shadow: none !important;
     outline: none !important;
@@ -159,13 +159,13 @@ h3 {
     border: 1px solid #ccc  !important;
     border-radius: 4px  !important;
 }
-.footer {
-    position: fixed; 
-    bottom: 0;
-}
 button.bs-placeholder[role='button']>span {
     color:#999;
 }
 textarea { 
     overflow: hidden;
+}
+.no-border {
+    border: 0;
+    box-shadow: none;
 }

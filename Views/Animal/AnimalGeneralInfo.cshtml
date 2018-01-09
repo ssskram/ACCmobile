@@ -1,12 +1,12 @@
 @model AnimalGeneralInfo
 
-<form asp-controller="Animal" asp-action="Create" method="post">
+<h4 style="font-style:italic;"> Animal:  <input class="no-border" style="font-weight: 800;" asp-for="AnimalHeading" id="heading" readonly></input></h4>
 <div class="container">
   <div class="row">
     <div class="col-md-6">
 
         <div class="form-group" style="margin-bottom: 10px;">
-            <input asp-for="AnimalName" class="form-control"></input>
+            <input asp-for="AnimalName" class="form-control" id="name"></input>
             <span asp-validation-for="AnimalName" class="text-danger" />
         </div>
 
@@ -133,8 +133,4 @@
 <input asp-for="Breed" id="breed" type="hidden"></input>
 <input asp-for="Coat" id="coat" type="hidden"></input>
 <input asp-for="Sex" id="sex" type="hidden"></input>
-
-<div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
-    <input style="padding: 5px 25px;" type="submit" value="Submit" class="btn btn-default" id="button" />
-</div>
-</form>
+<hr />

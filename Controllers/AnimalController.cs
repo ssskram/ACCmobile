@@ -22,6 +22,11 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class AnimalController : Controller
     {   
+        // ajax calls to duplicate partial view
+        public IActionResult AnimalGeneralInfo()
+        {
+            return PartialView();
+        }
         // Open new animal form
         public async Task<IActionResult> AnimalForm()
         {

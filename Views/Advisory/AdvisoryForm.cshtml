@@ -11,9 +11,16 @@
     });
     });
 </script>
+<form asp-controller="Advisory" asp-action="Create" method="post">
+
 <div class="row">
   <div class="col-sm-12">
-        <h3>Advisory information:</h3>
+        <h3>Describe the incident</h3>
         <div>@Html.Partial("AdvisoryGeneralInfo")</div>
   </div>
 </div>
+
+<div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
+    <input style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default" id="button"/>
+</div>
+</form>

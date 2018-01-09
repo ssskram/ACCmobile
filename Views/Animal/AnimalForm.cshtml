@@ -1,21 +1,58 @@
 @{
     ViewData["Title"] = "Animal data";
 }
-<!-- js to pass multiple values from dropdown ("relay" fields) to hidden string field for posting -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<!-- copy value from animal name to section header -->
 <script type="text/javascript">
- $(document).ready(function () {
-    $('#button').click(function(){
-        $('#type').val( $('#typerelay').val() );
-        $('#breed').val( $('#breedrelay').val() );
-        $('#coat').val( $('#coatrelay').val() );
-        $('#sex').val( $('#sexrelay').val() );
-    });
+    $(document).ready(function () {
+        $("#name").change(function() {
+            $('#heading').val( $('#name').val() );
+        });
     });
 </script>
+<!-- repeat section -->
+<script type="text/javascript">
+function addFieldss()
+{    
+  $.ajax({
+    url: '@Url.Action("AnimalGeneralInfo", "Animal")',
+    type: 'GET',
+    success:function(result) {
+        var newDiv = $(document.createElement("div"));  
+        newDiv.html(result);
+        newDiv.appendTo("#form");
+        $('.selectpicker').selectpicker('refresh');
+    },
+    error: function(result) {
+        alert("Failure");
+    }
+    });
+}
+</script>
+<!-- multiple values from dropdown ("relay" fields) to hidden string field for posting -->
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#button').click(function(){
+            $('#type').val( $('#typerelay').val() );
+            $('#breed').val( $('#breedrelay').val() );
+            $('#coat').val( $('#coatrelay').val() );
+            $('#sex').val( $('#sexrelay').val() );
+        });
+        });
+</script>
+<form asp-controller="Animal" asp-action="Create" method="post">
 <div class="row">
-  <div class="col-sm-12">
-        <h3>Describe the animals:</h3>
+  <div id="form" class="col-sm-12">
+        <h3>Describe the animals</h3>
         <div>@Html.Partial("AnimalGeneralInfo")</div>
   </div>
 </div>
+
+<div>
+  <input class="btn btn-link" type="button" value="+ add animal" id="addField" onclick="addFieldss()" />
+</div>
+
+<div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
+    <input style="padding: 5px 25px;" type="submit" value="Submit" class="btn btn-default" id="button" />
+</div>
+</form>

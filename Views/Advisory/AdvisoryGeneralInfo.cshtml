@@ -1,5 +1,4 @@
 @model AdvisoryGeneralInfo
-<form asp-controller="Advisory" asp-action="Create" method="post">
     
 <div class="form-group">
     <div class="col-md-12">
@@ -80,8 +79,3 @@
 <input asp-for="AddressID" type="hidden"></input>
 <input asp-for="ReasonForVisit" id="reason" type="hidden"></input>
 <input asp-for="PGHCode" id="code" type="hidden"></input>
-
-<div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
-    <input style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default" id="button"/>
-</div>
-</form>
