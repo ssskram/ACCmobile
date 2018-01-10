@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Collections.Specialized;
@@ -103,10 +104,11 @@ namespace ACCmobile.Controllers
             // execute get request
             try
             {              
-                var content = await client.GetStringAsync(sharepointUrl);
+                string content = await client.GetStringAsync(sharepointUrl);
                 if (content.Contains(model.AddressClass))
                 {
-                    TempData["AddressID"] = "Got it!";
+                    var oldaddressid = JObject.Parse(content)["d"]["results"][0]["AddressID"];
+                    TempData["AddressID"] = oldaddressid.ToString();
                 }
                 else
                 {
