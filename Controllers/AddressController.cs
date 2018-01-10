@@ -21,6 +21,9 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class AddressController : Controller
     {   
+        // initialize httpclient to be used by all methods
+        HttpClient client = new HttpClient();
+
         // method for demoing ajax duplicate partial view
         // public IActionResult AddressGeneralInfo()
         // {
@@ -49,7 +52,6 @@ namespace ACCmobile.Controllers
             var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
             var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
             var SPresource = Environment.GetEnvironmentVariable("spresourceid");
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
@@ -96,7 +98,6 @@ namespace ACCmobile.Controllers
                 String.Format
                 ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Address')/items?$filter= Address eq '{0}'",
                     model.AddressClass); // 0
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue ("Bearer", model.AccessToken);
@@ -126,7 +127,6 @@ namespace ACCmobile.Controllers
         public async Task Post(Address model)
         {
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Address')/items";
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue ("Bearer", model.AccessToken);

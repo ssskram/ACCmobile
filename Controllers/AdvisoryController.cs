@@ -20,6 +20,9 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class AdvisoryController : Controller
     {   
+        // initialize httpclient to be used by all methods
+        HttpClient client = new HttpClient();
+
         // Open new advisory form
         public async Task<IActionResult> AdvisoryForm()
         {
@@ -42,7 +45,6 @@ namespace ACCmobile.Controllers
             var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
             var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
             var SPresource = Environment.GetEnvironmentVariable("spresourceid");
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
@@ -85,7 +87,6 @@ namespace ACCmobile.Controllers
         {
             var AddressID = (TempData["AddressID"].ToString());
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Advises')/items";
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue ("Bearer", model.AccessToken);

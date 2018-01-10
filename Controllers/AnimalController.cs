@@ -20,6 +20,9 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class AnimalController : Controller
     {   
+        // initialize httpclient to be used by all methods
+        HttpClient client = new HttpClient();
+
         // ajax calls to duplicate partial view
         public IActionResult AnimalGeneralInfo()
         {
@@ -49,7 +52,6 @@ namespace ACCmobile.Controllers
             var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
             var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
             var SPresource = Environment.GetEnvironmentVariable("spresourceid");
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
@@ -87,10 +89,9 @@ namespace ACCmobile.Controllers
             await Execute(model);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-        static async Task Execute(AnimalGeneralInfo model)
+        public async Task Execute(AnimalGeneralInfo model)
         {
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
-            HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue ("Bearer", model.AccessToken);
