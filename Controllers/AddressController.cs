@@ -21,14 +21,14 @@ namespace ACCmobile.Controllers
     public class AddressController : Controller
     {   
         // method for demoing ajax duplicate partial view
-        public IActionResult AddressGeneralInfo()
-        {
-            return PartialView();
-        }
-        // Fetch access token and open new advisory form
+        // public IActionResult AddressGeneralInfo()
+        // {
+        //     return PartialView();
+        // }
+
+        // Open new address form
         public async Task<IActionResult> AddressForm()
         {
-            // persist as only refresh token method by replacing all other temp data calls with TempData.Peek
             await RefreshToken();
             var relay = new Address
                 {
@@ -37,6 +37,8 @@ namespace ACCmobile.Controllers
                 };
             return View(relay);
         }
+
+        // Gather access token for api calls
         [HttpPost]
         public async Task RefreshToken()
         {
@@ -78,7 +80,9 @@ namespace ACCmobile.Controllers
             }
         }
 
-        // Post form data and head to next phase 
+        // Check to see if address exists
+        // If yes, get addressid and pass along
+        // If no, post new address
         public async Task<IActionResult> Create(Address model)
         {
             await Execute(model);
@@ -100,24 +104,23 @@ namespace ACCmobile.Controllers
             try
             {              
                 var content = await client.GetStringAsync(sharepointUrl);
-                dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
-                TempData["AddressID"] = results.AddressID;
-        
-                // if (results.AddressClass.Contains(model.AddressClass)) // insert condition for null response 
-                // {
-                //     TempData["AddressID"] = results.AddressID;
-                // }
-                // else
-                // {
-                //     TempData["AddressID"] = model.AddressID;
-                //     await Post(model);
-                // }
+                if (content.Contains(model.AddressClass))
+                {
+                    TempData["AddressID"] = "Got it!";
+                }
+                else
+                {
+                    TempData["AddressID"] = model.AddressID;
+                    await Post(model);
+                }
             }
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
+
+        // post new address
         public async Task Post(Address model)
         {
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Address')/items";

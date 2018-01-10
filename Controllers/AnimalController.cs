@@ -12,8 +12,6 @@ using System.Net.Http;
 using System.Net;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using SendGrid;
-using SendGrid.Helpers.Mail;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Collections.Specialized;
 
@@ -27,6 +25,7 @@ namespace ACCmobile.Controllers
         {
             return PartialView();
         }
+
         // Open new animal form
         public async Task<IActionResult> AnimalForm()
         {
@@ -35,11 +34,12 @@ namespace ACCmobile.Controllers
                 {
                     AccessToken = (TempData["accesstoken"].ToString()),
                     AddressID = (TempData["AddressID"].ToString()),
-                    // AdvisoryID = (TempData["AdvisoryID"].ToString()),
+                    AdvisoryID = (TempData["AdvisoryID"].ToString()),
                 };
             return View(relay);
         }
 
+        // Gather access token for api calls
         [HttpPost]
         public async Task RefreshToken()
         {
@@ -81,7 +81,7 @@ namespace ACCmobile.Controllers
             }
         }
 
-        // Post form data and return to home 
+        // Post address data and return to home 
         public async Task<IActionResult> Create(AnimalGeneralInfo model)
         {
             await Execute(model);

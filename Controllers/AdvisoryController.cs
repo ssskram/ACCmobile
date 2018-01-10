@@ -20,18 +20,19 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class AdvisoryController : Controller
     {   
-        // Fetch access token and open new advisory form
+        // Open new advisory form
         public async Task<IActionResult> AdvisoryForm()
         {
             await RefreshToken();
             var relay = new AdvisoryGeneralInfo
                 {
                     AccessToken = (TempData["accesstoken"].ToString()),
-                    // AddressID = (TempData["AddressID"].ToString()),
-                    // AdvisoryID = (Guid.NewGuid().ToString())
+                    AdvisoryID = (Guid.NewGuid().ToString())
                 };
             return View(relay);
         }
+
+        // Gather access token for api calls
         [HttpPost]
         public async Task RefreshToken()
         {
@@ -76,15 +77,13 @@ namespace ACCmobile.Controllers
         // Post advisory data and continue to animal form
         public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
         {
-            // TempData["AddressID"] = model.AddressID;
-            // TempData["AdvisoryID"] = model.AdvisoryID;
+            TempData["AdvisoryID"] = model.AdvisoryID;
             await Execute(model);
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }
         public async Task Execute(AdvisoryGeneralInfo model)
         {
-            // var AddressID = (TempData["AddressID"].ToString());\
-            var AddressID = "Test";
+            var AddressID = (TempData["AddressID"].ToString());
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Advises')/items";
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
