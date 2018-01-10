@@ -21,7 +21,7 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class AddressController : Controller
     {   
-        // initialize httpclient to be used by all methods
+        // initialize httpclient to be used by all public methods
         HttpClient client = new HttpClient();
 
         // method for demoing ajax duplicate partial view
@@ -33,7 +33,8 @@ namespace ACCmobile.Controllers
         // Open new address form
         public async Task<IActionResult> AddressForm()
         {
-            await RefreshToken();
+            var tokenhelper = new Functions();
+            await tokenhelper.RefreshToken();
             var relay = new Address
                 {
                     AccessToken = (TempData["accesstoken"].ToString()),
@@ -42,46 +43,46 @@ namespace ACCmobile.Controllers
             return View(relay);
         }
 
-        // Gather access token for api calls
-        [HttpPost]
-        public async Task RefreshToken()
-        {
-            var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
-            var clientid = Environment.GetEnvironmentVariable("SPClientID");
-            var clientsecret = Environment.GetEnvironmentVariable("SPClientSecret");
-            var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
-            var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
-            var SPresource = Environment.GetEnvironmentVariable("spresourceid");
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
-            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+        // // Gather access token for api calls
+        // [HttpPost]
+        // public async Task RefreshToken()
+        // {
+        //     var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
+        //     var clientid = Environment.GetEnvironmentVariable("SPClientID");
+        //     var clientsecret = Environment.GetEnvironmentVariable("SPClientSecret");
+        //     var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
+        //     var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
+        //     var SPresource = Environment.GetEnvironmentVariable("spresourceid");
+        //     client.DefaultRequestHeaders.Clear();
+        //     client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
+        //     client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
 
-            var json =
-                String.Format 
-            ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
-                clientid, // 0
-                clientsecret, // 1
-                refreshtoken, // 2
-                redirecturi, // 3
-                SPresource); // 4
+        //     var json =
+        //         String.Format 
+        //     ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
+        //         clientid, // 0
+        //         clientsecret, // 1
+        //         refreshtoken, // 2
+        //         redirecturi, // 3
+        //         SPresource); // 4
 
-            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
-            try
-            {
-                StringContent strContent = new StringContent(json);               
-                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
-                HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;
+        //     client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+        //     try
+        //     {
+        //         StringContent strContent = new StringContent(json);               
+        //         strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+        //         HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;
                         
-                response.EnsureSuccessStatusCode();
-                var content = await response.Content.ReadAsStringAsync();
-                dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
-                TempData["accesstoken"] = results.access_token; 
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
-        }
+        //         response.EnsureSuccessStatusCode();
+        //         var content = await response.Content.ReadAsStringAsync();
+        //         dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
+        //         TempData["accesstoken"] = results.access_token; 
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         System.Diagnostics.Debug.WriteLine(ex.Message);
+        //     }
+        // }
 
         // Check to see if address exists
         // If yes, get addressid and pass along
@@ -106,12 +107,13 @@ namespace ACCmobile.Controllers
             try
             {              
                 string content = await client.GetStringAsync(sharepointUrl);
-                if (content.Contains(model.AddressClass))
+                if (content.Contains(model.AddressClass)) // address exists
                 {
+                    // assign existing addressid to variable and set as tempdata for next controller
                     var oldaddressid = JObject.Parse(content)["d"]["results"][0]["AddressID"];
                     TempData["AddressID"] = oldaddressid.ToString();
                 }
-                else
+                else // post new address 
                 {
                     TempData["AddressID"] = model.AddressID;
                     await Post(model);
