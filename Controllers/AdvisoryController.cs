@@ -15,12 +15,20 @@ using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Collections.Specialized;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace ACCmobile.Controllers
 {
     [Authorize]
     public class AdvisoryController : Controller
     {   
+        // inject dependency on user manager
+        private readonly UserManager<ApplicationUser> _userManager;
+        public AdvisoryController(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
         // initialize httpclient to be used by all public methods
         HttpClient client = new HttpClient();
 
@@ -44,6 +52,7 @@ namespace ACCmobile.Controllers
         }
         public async Task Execute(AdvisoryGeneralInfo model)
         {
+            string SubmittedBy = _userManager.GetUserName(HttpContext.User);
             var SessionToken = HttpContext.Session.GetString("SessionToken");
             var AddressID = HttpContext.Session.GetString("AddressID");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Advises')/items";
@@ -55,7 +64,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}' }}",
                     model.OwnersFirstName, // 0
                     model.OwnersLastName, // 1
                     model.OwnersTelephoneNumber, // 2
@@ -64,9 +73,9 @@ namespace ACCmobile.Controllers
                     model.CitationNumber, // 5
                     model.Comments, // 6
                     AddressID, // 7 
-                    model.AdvisoryID); // 8
+                    model.AdvisoryID, // 8
+                    SubmittedBy); // 9
                     
-                
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try
             {

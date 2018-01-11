@@ -104,7 +104,7 @@ namespace ACCmobile
 
             app.UseAuthentication();
 
-            app.UseSession();   
+            app.UseSession(); 
 
             app.UseMvc(routes =>
             {

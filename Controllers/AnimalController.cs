@@ -47,6 +47,12 @@ namespace ACCmobile.Controllers
             var SessionToken = HttpContext.Session.GetString("SessionToken");
             var AddressID = HttpContext.Session.GetString("AddressID");
             var AdvisoryID = HttpContext.Session.GetString("AdvisoryID");
+            
+            //  end of process...clear session variables
+            HttpContext.Session.Remove("SessionToken");
+            HttpContext.Session.Remove("AddressID");
+            HttpContext.Session.Remove("AdvisoryID");
+
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 

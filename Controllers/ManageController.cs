@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ACCmobile.Models;
 using ACCmobile.Models.ManageViewModels;
+using Microsoft.AspNetCore.Http;
 
 namespace ACCmobile.Controllers
 {
@@ -77,6 +78,7 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> LinkLoginCallback()
         {
             var user = await _userManager.GetUserAsync(User);
+
             if (user == null)
             {
                 throw new ApplicationException($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
