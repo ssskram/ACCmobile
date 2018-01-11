@@ -6,12 +6,12 @@
     <div class="col-md-6">
 
         <div class="form-group" style="margin-bottom: 10px;">
-            <input asp-for="AnimalName" class="form-control" id="name"></input>
+            <input asp-for="AnimalName" class="form-control" id="name" required="true"></input>
             <span asp-validation-for="AnimalName" class="text-danger" />
         </div>
 
         <div class="form-group" style="margin-bottom: 5px;">
-            <select asp-for="TypeRelay" data-style="btn-info" class="selectpicker form-control" title="Type" data-dropup-auto="false" id="typerelay">
+            <select asp-for="TypeRelay" data-style="btn-info" class="selectpicker form-control" title="Type" data-dropup-auto="false" id="typerelay" required="true">
                 <option>Dog</option>
                 <option>Cat</option>
                 <option>Other</option>
