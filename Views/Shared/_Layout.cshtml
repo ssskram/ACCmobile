@@ -75,11 +75,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
     <script>
     $( document ).ready(function() {
-    $('.selectpicker').selectpicker();
-    });
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+    $('.selectpicker').selectpicker('render');
     $('.selectpicker').selectpicker('mobile');
-    }
     });
     </script>
 </body>
