@@ -27,10 +27,8 @@ namespace ACCmobile.Controllers
         // Open new advisory form
         public IActionResult AdvisoryForm()
         {
-            var SessionToken = HttpContext.Session.GetString("SessionToken");
             var relay = new AdvisoryGeneralInfo
                 {
-                    AccessToken = SessionToken.ToString(),
                     AdvisoryID = (Guid.NewGuid().ToString())
                 };
             return View(relay);
@@ -39,17 +37,19 @@ namespace ACCmobile.Controllers
         // Post advisory data and continue to animal form
         public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
         {
-            TempData["AdvisoryID"] = model.AdvisoryID;
+            string AdvisoryID = model.AdvisoryID.ToString();
+            HttpContext.Session.SetString("AdvisoryID", AdvisoryID);
             await Execute(model);
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }
         public async Task Execute(AdvisoryGeneralInfo model)
         {
-            var AddressID = (TempData["AddressID"].ToString());
+            var SessionToken = HttpContext.Session.GetString("SessionToken");
+            var AddressID = HttpContext.Session.GetString("AddressID");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Advises')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
-                new AuthenticationHeaderValue ("Bearer", model.AccessToken);
+                new AuthenticationHeaderValue ("Bearer", SessionToken);
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");

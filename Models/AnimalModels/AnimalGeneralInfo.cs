@@ -41,9 +41,6 @@ namespace ACCmobile.Models
         public string AnimalName { get; set; }
 
         // begin hidden fields
-        public string AccessToken { get; set; }  
-        public string AddressID { get; set; } 
-        public string AdvisoryID { get; set;}
         public string Type { get; set; }
         public string Breed { get; set; }
         public string Coat { get; set; }

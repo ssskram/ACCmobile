@@ -33,14 +33,7 @@ namespace ACCmobile.Controllers
         // Open new animal form
         public IActionResult AnimalForm()
         {
-            var SessionToken = HttpContext.Session.GetString("SessionToken");
-            var relay = new AnimalGeneralInfo
-                {
-                    AccessToken = SessionToken.ToString(),
-                    AddressID = (TempData["AddressID"].ToString()),
-                    AdvisoryID = (TempData["AdvisoryID"].ToString()),
-                };
-            return View(relay);
+            return View();
         }
 
         // Post address data and return to home 
@@ -51,10 +44,13 @@ namespace ACCmobile.Controllers
         }
         public async Task Execute(AnimalGeneralInfo model)
         {
+            var SessionToken = HttpContext.Session.GetString("SessionToken");
+            var AddressID = HttpContext.Session.GetString("AddressID");
+            var AdvisoryID = HttpContext.Session.GetString("AdvisoryID");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
-                new AuthenticationHeaderValue ("Bearer", model.AccessToken);
+                new AuthenticationHeaderValue ("Bearer", SessionToken);
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
@@ -72,8 +68,8 @@ namespace ACCmobile.Controllers
                     model.Veterinarian, // 7
                     model.LicenseYear, // 8
                     model.Age, // 9
-                    model.AddressID, // 10
-                    model.AdvisoryID, // 11
+                    AddressID, // 10
+                    AdvisoryID, // 11
                     model.AnimalName); // 12
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());

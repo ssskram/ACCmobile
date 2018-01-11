@@ -11,6 +11,5 @@ namespace ACCmobile.Models
 
         // begin hidden fields
         public string AddressID { get; set; }
-        public string AccessToken { get; set; }
     }
 }

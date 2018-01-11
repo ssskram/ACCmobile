@@ -30,8 +30,6 @@ namespace ACCmobile.Models
         public string Comments { get; set; }
         
         // begin hidden fields
-        public string AccessToken { get; set; }
-        public string AddressID { get; set; }
         public string AdvisoryID { get; set; }
         public string ReasonForVisit { get; set; }
         public string PGHCode { get; set; }

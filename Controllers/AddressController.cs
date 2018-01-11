@@ -35,16 +35,14 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> AddressForm()
         {
             await RefreshToken();
-            var SessionToken = HttpContext.Session.GetString("SessionToken");
             var relay = new Address
                 {
-                    AccessToken = SessionToken.ToString(),
                     AddressID = (Guid.NewGuid().ToString())
                 };
             return View(relay);
         }
 
-        // // Gather access token for api calls
+        // Gather access token for api calls, persist as system variable
         [HttpPost]
         public async Task RefreshToken()
         {
@@ -96,6 +94,7 @@ namespace ACCmobile.Controllers
         }
         public async Task Execute(Address model)
         {
+            var SessionToken = HttpContext.Session.GetString("SessionToken");
             // craft json load
             var sharepointUrl = 
                 String.Format
@@ -103,7 +102,7 @@ namespace ACCmobile.Controllers
                     model.AddressClass); // 0
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
-                new AuthenticationHeaderValue ("Bearer", model.AccessToken);
+                new AuthenticationHeaderValue ("Bearer", SessionToken);
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             // execute get request
             try
@@ -113,11 +112,13 @@ namespace ACCmobile.Controllers
                 {
                     // assign existing addressid to variable and set as tempdata for next controller
                     var oldaddressid = JObject.Parse(content)["d"]["results"][0]["AddressID"];
-                    TempData["AddressID"] = oldaddressid.ToString();
+                    string oldaddress = oldaddressid.ToString();
+                    HttpContext.Session.SetString("AddressID", oldaddress);
                 }
                 else // post new address 
                 {
-                    TempData["AddressID"] = model.AddressID;
+                    string newaddress = model.AddressID.ToString();
+                    HttpContext.Session.SetString("AddressID", newaddress);
                     await Post(model);
                 }
             }
@@ -130,10 +131,11 @@ namespace ACCmobile.Controllers
         // post new address
         public async Task Post(Address model)
         {
+            var SessionToken = HttpContext.Session.GetString("SessionToken");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Address')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
-                new AuthenticationHeaderValue ("Bearer", model.AccessToken);
+                new AuthenticationHeaderValue ("Bearer", SessionToken);
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
