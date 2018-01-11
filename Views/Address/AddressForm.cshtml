@@ -1,24 +1,28 @@
 @{
     ViewData["Title"] = "Address";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript">
-function addFieldss()
-{    
-  $.ajax({
-    url: '@Url.Action("AddressGeneralInfo", "Address")',
-    type: 'GET',
-    success:function(result) {
-        var newDiv = $(document.createElement("div"));  
-        newDiv.html(result);
-        newDiv.appendTo("#form");
-    },
-    error: function(result) {
-        alert("Failure");
-    }
-  });
-}
+
+<!-- address validation via google autocomplete -->
+<script>
+  var placeSearch, autocomplete;
+  var componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+  };
+
+  function initAutocomplete() {
+    autocomplete = new google.maps.places.Autocomplete(
+        (document.getElementById('autocomplete')),
+        {types: ['geocode']});
+    autocomplete.addListener('place_changed', fillInAddress);
+  }
 </script>
+<script src=@ViewData["apistring"] async defer></script>
+
 <form asp-controller="Address" asp-action="Create" method="post">
 <div class="row">
   <div class="col-sm-3"></div>
@@ -28,10 +32,6 @@ function addFieldss()
   </div>
   <div class="col-sm-3"></div>
 </div>
-
-<!-- <div>
-  <input type="button" value="Add Field" id="addField" onclick="addFieldss()" />
-</div> -->
 
 <div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
     <input id="button" style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default"/>

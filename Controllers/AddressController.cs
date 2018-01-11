@@ -26,16 +26,15 @@ namespace ACCmobile.Controllers
         // initialize httpclient to be used by all public methods
         HttpClient client = new HttpClient();
 
-        // method for demoing ajax duplicate partial view
-        // public IActionResult AddressGeneralInfo()
-        // {
-        //     return PartialView();
-        // }
-
         // Open new address form
         public async Task<IActionResult> AddressForm()
         {
             await RefreshToken();
+            var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
+            ViewData["apistring"] = 
+                String.Format 
+                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places&callback=initAutocomplete",
+                    googleapikey); // 0
             var relay = new Address
                 {
                     AddressID = (Guid.NewGuid().ToString())

@@ -25,6 +25,7 @@ namespace ACCmobile
         string _SPClientID = null;
         string _redirecturi = null;
         string _spresourceid = null;
+        string _googleapikey = null;
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -59,6 +60,7 @@ namespace ACCmobile
             _SPClientID = Configuration["SPClientID"];
             _redirecturi = Configuration["redirecturi"];
             _spresourceid = Configuration["spresourceid"];
+            _googleapikey = Configuration["googleapikey"];
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
@@ -80,6 +82,7 @@ namespace ACCmobile
             Environment.SetEnvironmentVariable("SPClientID", Configuration["SPClientID"]);
             Environment.SetEnvironmentVariable("redirecturi", Configuration["redirecturi"]);
             Environment.SetEnvironmentVariable("spresourceid", Configuration["spresourceid"]);
+            Environment.SetEnvironmentVariable("googleapikey", Configuration["googleapikey"]);
 
             services.AddMvc()
                 .AddSessionStateTempDataProvider();
