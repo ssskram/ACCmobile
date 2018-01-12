@@ -12,6 +12,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ACCmobile.Models;
 using ACCmobile.Models.AccountViewModels;
+using Microsoft.AspNetCore.Http;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Net.Http.Headers;
 
 namespace ACCmobile.Controllers
 {
@@ -19,6 +24,8 @@ namespace ACCmobile.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        // initialize httpclient to be used by all public methods
+        HttpClient client = new HttpClient();
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
@@ -74,6 +81,7 @@ namespace ACCmobile.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
+            await GetUserGroup();
             if (remoteError != null)
             {
                 return RedirectToAction(nameof(Login));
@@ -88,9 +96,10 @@ namespace ACCmobile.Controllers
                 // create user account, and log user in.
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
+                var usergroup = TempData["usergroup"].ToString();
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                if (email.Contains("@pittsburghpa.gov"))
-                // add condition to check for membership in group
+                // check email address against domain name and membership in user group
+                if (email.Contains("@pittsburghpa.gov") && (usergroup.Contains(email)))
                 {
                     var user = new ApplicationUser { UserName = email, Email = email };
                     var add = await _userManager.CreateAsync(user);
@@ -109,6 +118,62 @@ namespace ACCmobile.Controllers
                 {
                     return View("ExternalUser");
                 }
+            }
+        }
+
+        [HttpPost]
+        public async Task GetUserGroup()
+        {
+            var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
+            var clientid = Environment.GetEnvironmentVariable("SPClientID");
+            var clientsecret = Environment.GetEnvironmentVariable("SPClientSecret");
+            var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
+            var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
+            var SPresource = Environment.GetEnvironmentVariable("spresourceid");
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+
+            var json =
+                String.Format 
+            ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
+                clientid, // 0
+                clientsecret, // 1
+                refreshtoken, // 2
+                redirecturi, // 3
+                SPresource); // 4
+
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            try
+            {
+                StringContent strContent = new StringContent(json);               
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+                HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+                dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
+                
+                // end refresh token call, begin user group call
+                string accesstoken = results.access_token.ToString();
+                var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Accmobileusers')/items";
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Authorization = 
+                    new AuthenticationHeaderValue ("Bearer", accesstoken);
+                client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+                // execute get request
+                try
+                {              
+                    string group = await client.GetStringAsync(sharepointUrl);
+                    TempData["usergroup"] = group;
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
 
