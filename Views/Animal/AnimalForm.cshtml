@@ -26,6 +26,9 @@ function addFieldss()
         var newDiv = $(document.createElement("div"));  
         newDiv.html(result);
         newDiv.appendTo("#form");
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+        $('.selectpicker').selectpicker('mobile');
+        }
         $('.selectpicker').selectpicker('refresh');
     },
     error: function(result) {
