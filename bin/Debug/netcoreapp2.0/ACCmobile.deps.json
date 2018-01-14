@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "8436d289b48a1fd70d41cf19729f1d5a3bf50241"
+    "signature": "b728b03a9eb76e8c995f8fbe8e4145a6554d84ce"
   },
   "compilationOptions": {
     "defines": [
@@ -23,7 +23,6 @@
     ".NETCoreApp,Version=v2.0": {
       "ACCmobile/1.0.0": {
         "dependencies": {
-          "BeginCollectionItemCore": "1.0.8",
           "BuildBundlerMinifier": "2.6.362",
           "BundlerMinifier.Core": "2.6.362",
           "Microsoft.AspNetCore.All": "2.0.0",
@@ -33,33 +32,18 @@
           "Microsoft.Extensions.Configuration.UserSecrets": "2.0.0",
           "Microsoft.NETCore.App": "2.0.0",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "2.0.0",
-          "RestSharp": "106.1.0",
-          "Sendgrid": "9.9.0",
-          "bootstrap-select": "1.12.4",
-          "jQuery": "3.2.1"
+          "bootstrap-select": "1.12.4"
         },
         "runtime": {
           "ACCmobile.dll": {}
         },
         "compile": {
           "ACCmobile.dll": {}
-        }
-      },
-      "BeginCollectionItemCore/1.0.8": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Mvc": "2.0.0",
-          "NETStandard.Library": "2.0.0"
-        },
-        "runtime": {
-          "lib/netstandard1.6/BeginCollectionItemCore.dll": {}
-        },
-        "compile": {
-          "lib/netstandard1.6/BeginCollectionItemCore.dll": {}
         }
       },
       "bootstrap-select/1.12.4": {
         "dependencies": {
-          "jQuery": "3.2.1"
+          "jQuery": "1.8.0"
         }
       },
       "BuildBundlerMinifier/2.6.362": {},
@@ -76,7 +60,7 @@
           "lib/netcoreapp2.0/dotnet-bundle.dll": {}
         }
       },
-      "jQuery/3.2.1": {},
+      "jQuery/1.8.0": {},
       "Libuv/1.10.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "2.0.0"
@@ -2579,14 +2563,6 @@
           "lib/netstandard1.0/Remotion.Linq.dll": {}
         }
       },
-      "RestSharp/106.1.0": {
-        "runtime": {
-          "lib/netstandard2.0/RestSharp.dll": {}
-        },
-        "compile": {
-          "lib/netstandard2.0/RestSharp.dll": {}
-        }
-      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "runtimeTargets": {
           "runtime/debian.8-x64/native/_._": {
@@ -2747,19 +2723,6 @@
             "rid": "win-x86",
             "assetType": "native"
           }
-        }
-      },
-      "Sendgrid/9.9.0": {
-        "dependencies": {
-          "Microsoft.AspNetCore.Http.Abstractions": "2.0.1",
-          "NETStandard.Library": "2.0.0",
-          "Newtonsoft.Json": "10.0.1"
-        },
-        "runtime": {
-          "lib/netstandard1.3/SendGrid.dll": {}
-        },
-        "compile": {
-          "lib/netstandard1.3/SendGrid.dll": {}
         }
       },
       "SQLitePCLRaw.bundle_green/1.1.7": {
@@ -4314,13 +4277,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "BeginCollectionItemCore/1.0.8": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-gbp7JI3OskUteHBSAeI8eX0UnFtxAFjd7ZJg+Fr4czTCA7oiM++2FevjzMFP4L6auhNyduazpj44pX7M5fY4SQ==",
-      "path": "begincollectionitemcore/1.0.8",
-      "hashPath": "begincollectionitemcore.1.0.8.nupkg.sha512"
-    },
     "bootstrap-select/1.12.4": {
       "type": "package",
       "serviceable": true,
@@ -4342,12 +4298,12 @@
       "path": "bundlerminifier.core/2.6.362",
       "hashPath": "bundlerminifier.core.2.6.362.nupkg.sha512"
     },
-    "jQuery/3.2.1": {
+    "jQuery/1.8.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Sc4jRcsItNXUoNmnPtD9DEnHCy5d4u0GOdDSKYL+b7PKtwajKO1YBJA55241G2M9KRCwSbtxV4ti3gb4n/pIew==",
-      "path": "jquery/3.2.1",
-      "hashPath": "jquery.3.2.1.nupkg.sha512"
+      "sha512": "sha512-laDFQRJrIRHT0Z0GVYklMt3bE0iu0MZFJwHwg21kt3SHb7Bj8TdNiM3K+ZdK1DzB8ZxKy8z7NkJvwMas+dmHBw==",
+      "path": "jquery/1.8.0",
+      "hashPath": "jquery.1.8.0.nupkg.sha512"
     },
     "Libuv/1.10.0": {
       "type": "package",
@@ -5588,13 +5544,6 @@
       "path": "remotion.linq/2.1.1",
       "hashPath": "remotion.linq.2.1.1.nupkg.sha512"
     },
-    "RestSharp/106.1.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-USW0EIglmRPpBjLSO8WhdpxAkgJOiJ+7ubBqe4jSwYyzyq7ftIeiJg8H+fxMSO3msYW4jbXhhupehF8pPngWWA==",
-      "path": "restsharp/106.1.0",
-      "hashPath": "restsharp.106.1.0.nupkg.sha512"
-    },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -5741,13 +5690,6 @@
       "sha512": "sha512-YhEdSQUsTx+C8m8Bw7ar5/VesXvCFMItyZF7G1AUY+OM0VPZUOeAVpJ4Wl6fydBGUYZxojTDR3I6Bj/+BPkJNA==",
       "path": "runtime.win-x86.runtime.native.system.data.sqlclient.sni/4.4.0",
       "hashPath": "runtime.win-x86.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512"
-    },
-    "Sendgrid/9.9.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-3v4aIYXqTvhnozBvpCyf+U9DMiZzN9s4m7tpl8RjVHRN0IUKSFwJ0eio7GVjT03vTTUOXhOY8M+15zLYzQGhYQ==",
-      "path": "sendgrid/9.9.0",
-      "hashPath": "sendgrid.9.9.0.nupkg.sha512"
     },
     "SQLitePCLRaw.bundle_green/1.1.7": {
       "type": "package",
