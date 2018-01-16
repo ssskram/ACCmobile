@@ -11,12 +11,10 @@ $( document ).ready(function() {
     $("#form").show();
 });
 
-// copy animal name to section header
-$(document).ready(function () {
-    $("#name").change(function() {
-        $('#heading').val( $('#name').val() );
-    });
-});
+// parse available dropdown options based on animal type
+function setheader () {
+    $('#heading').val( $('#name').val() );
+}
 
 // repeat section
 // reboot bootstrap-select
@@ -33,6 +31,7 @@ function addFields()
           $('.selectpicker').selectpicker('mobile');
           }
           $('.selectpicker').selectpicker('refresh');
+          $('#heading').val( $('#name').val() );
       },
       error: function(result) {
           alert("Failure");
