@@ -116,13 +116,13 @@ h3 {
     text-decoration: none;
     /* border */
     border: 0px;
-    border-radius: 20px;
+    border-radius: 25px;
     /* transitions */
     transition-duration: .2s;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     /* other */
-    background-color: white;
+    background-color:rgba(255,250,238,.3);
     padding: 10px 30px;
     margin: 7px;
     -moz-box-shadow: 0 0 2px 2px #888;
@@ -143,7 +143,7 @@ h3 {
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     /* other */
-    background-color: white;
+    background-color:rgba(255,250,238,.3);
     padding: 10px 30px;
     margin: 7px;
     -moz-box-shadow: 0 0 2px 2px #888;
@@ -174,7 +174,7 @@ h3 {
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     /* other */
-    background-color: white;
+    background-color:rgba(202, 205, 206,.35);
     padding: 10px 30px;
     margin: 7px;
     -moz-box-shadow: 0 0 2px 2px #888;
