@@ -1,0 +1,21 @@
+@{
+    ViewData["Title"] = "Incident data";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="~/js/incidentform.js"></script>
+
+<form asp-controller="Incident" asp-action="Create" method="post">
+<div class="row">
+  <div class="col-sm-12">
+        <h3>Describe the incident</h3>
+        <div>@Html.Partial("IncidentGeneralInfo")</div>
+  </div>
+</div>
+
+<div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
+    <input style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default" id="button"/>
+</div>
+</form>

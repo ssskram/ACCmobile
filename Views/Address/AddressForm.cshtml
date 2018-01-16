@@ -1,58 +1,9 @@
 @{
     ViewData["Title"] = "Address";
 }
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<!-- address validation via google autocomplete -->
-<script>
-  var placeSearch, autocomplete;
-
-  function initAutocomplete() {
-    autocomplete = new google.maps.places.Autocomplete(
-        (document.getElementById('autocomplete')),
-        {types: ['geocode']});
-    autocomplete.addListener('place_changed', fillInAddress);
-    autocomplete.addListener('place_changed', checkAddress);
-  }
-
-  function fillInAddress() {
-    $(
-        function(){
-          $('#address').val( $('#autocomplete').val() );
-        }
-    );
-  }
-
-  function checkAddress () {
-      var autocomplete = $('#autocomplete').val();
-      var address = $('#address').val();
-      if ( autocomplete == address)
-      {
-          $("#button").prop("disabled",false);
-          $("#checkmark").css("display", "block");
-      } 
-      else 
-      {
-          $("#button").prop("disabled",true);
-          $("#checkmark").css("display", "none");
-      }
-  }
-
-  function geolocate() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        var geolocation = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
-        };
-        var circle = new google.maps.Circle({
-          center: geolocation,
-          radius: position.coords.accuracy
-        });
-        autocomplete.setBounds(circle.getBounds());
-      });
-    }
-  }
-</script>
+<script type="text/javascript" src="~/js/addressform.js"></script>
 <script src=@ViewData["apistring"] async defer></script>
 
 <form asp-controller="Address" asp-action="Create" method="post" id="AddressForm">

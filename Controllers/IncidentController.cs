@@ -20,11 +20,11 @@ using Microsoft.AspNetCore.Identity;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class AdvisoryController : Controller
+    public class IncidentController : Controller
     {   
         // inject dependency on user manager
         private readonly UserManager<ApplicationUser> _userManager;
-        public AdvisoryController(UserManager<ApplicationUser> userManager)
+        public IncidentController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
@@ -32,25 +32,25 @@ namespace ACCmobile.Controllers
         // initialize httpclient to be used by all public methods
         HttpClient client = new HttpClient();
 
-        // Open new advisory form
-        public IActionResult AdvisoryForm()
+        // Open new incident form
+        public IActionResult IncidentForm()
         {
-            var relay = new AdvisoryGeneralInfo
+            var relay = new IncidentGeneralInfo
                 {
-                    AdvisoryID = (Guid.NewGuid().ToString())
+                    IncidentID = (Guid.NewGuid().ToString())
                 };
             return View(relay);
         }
 
-        // Post advisory data and continue to animal form
-        public async Task<IActionResult> Create(AdvisoryGeneralInfo model)
+        // Post incident data and continue to animal form
+        public async Task<IActionResult> Create(IncidentGeneralInfo model)
         {
-            string AdvisoryID = model.AdvisoryID.ToString();
-            HttpContext.Session.SetString("AdvisoryID", AdvisoryID);
+            string IncidentID = model.IncidentID.ToString();
+            HttpContext.Session.SetString("IncidentID", IncidentID);
             await Execute(model);
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }
-        public async Task Execute(AdvisoryGeneralInfo model)
+        public async Task Execute(IncidentGeneralInfo model)
         {
             string SubmittedBy = _userManager.GetUserName(HttpContext.User);
             var SessionToken = HttpContext.Session.GetString("SessionToken");
@@ -73,7 +73,7 @@ namespace ACCmobile.Controllers
                     model.CitationNumber, // 5
                     model.Comments, // 6
                     AddressID, // 7 
-                    model.AdvisoryID, // 8
+                    model.IncidentID, // 8
                     SubmittedBy); // 9
                     
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());

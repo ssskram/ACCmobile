@@ -46,12 +46,12 @@ namespace ACCmobile.Controllers
         {
             var SessionToken = HttpContext.Session.GetString("SessionToken");
             var AddressID = HttpContext.Session.GetString("AddressID");
-            var AdvisoryID = HttpContext.Session.GetString("AdvisoryID");
+            var IncidentID = HttpContext.Session.GetString("IncidentID");
             
             //  end of process...clear session variables
             HttpContext.Session.Remove("SessionToken");
             HttpContext.Session.Remove("AddressID");
-            HttpContext.Session.Remove("AdvisoryID");
+            HttpContext.Session.Remove("IncidentID");
 
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
             client.DefaultRequestHeaders.Clear();
@@ -75,7 +75,7 @@ namespace ACCmobile.Controllers
                     model.LicenseYear, // 8
                     model.Age, // 9
                     AddressID, // 10
-                    AdvisoryID, // 11
+                    IncidentID, // 11
                     model.AnimalName); // 12
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());

@@ -90,7 +90,7 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> Create(Address model)
         {
             await Execute(model);
-            return RedirectToAction(nameof(AdvisoryController.AdvisoryForm), "Advisory");
+            return RedirectToAction(nameof(IncidentController.IncidentForm), "Incident");
         }
         public async Task Execute(Address model)
         {

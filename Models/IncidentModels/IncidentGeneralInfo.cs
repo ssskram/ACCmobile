@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ACCmobile.Models
 {
-    public class AdvisoryGeneralInfo
+    public class IncidentGeneralInfo
     {
 
         [Display(Prompt = "Owners Last Name")]
@@ -30,7 +30,7 @@ namespace ACCmobile.Models
         public string Comments { get; set; }
         
         // begin hidden fields
-        public string AdvisoryID { get; set; }
+        public string IncidentID { get; set; }
         public string ReasonForVisit { get; set; }
         public string PGHCode { get; set; }
     }
