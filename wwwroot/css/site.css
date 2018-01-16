@@ -169,3 +169,9 @@ textarea {
     border: 0;
     box-shadow: none;
 }
+.right-inner-addon {
+    position: relative;
+}
+.icon-success {
+    color: #5CB85C;
+}

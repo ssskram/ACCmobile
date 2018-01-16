@@ -2,7 +2,10 @@
 
 <div class="form-group">
     <div class="col-md-12">
-        <input id="autocomplete" asp-for="AddressClass" class="form-control" required="true"></input>
-        <input asp-for="AddressID" type="hidden"></input>
+                <div class="right-inner-addon">
+                <input id="autocomplete" asp-for="AddressRelay" class="form-control" onFocus="geolocate()" type="text" required="true" oninvalid="this.setCustomValidity('Please enter a valid address')" onchange="checkAddress()">
+                <span class="glyphicon glyphicon-ok form-control-feedback icon-success" style="display:none;" id="checkmark" ></span></div>
+            </div>
+        <input asp-for="AddressClass" hidden= "true" id="address"></input>
+        <input asp-for="AddressID" hidden="true" ></input>
     </div>
-</div>

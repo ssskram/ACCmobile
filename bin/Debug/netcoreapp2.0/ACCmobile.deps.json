@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.0",
-    "signature": "b728b03a9eb76e8c995f8fbe8e4145a6554d84ce"
+    "signature": "2c10ddff8f3436a2e1919b1329b38063d6be49fe"
   },
   "compilationOptions": {
     "defines": [
@@ -24,7 +24,6 @@
       "ACCmobile/1.0.0": {
         "dependencies": {
           "BuildBundlerMinifier": "2.6.362",
-          "BundlerMinifier.Core": "2.6.362",
           "Microsoft.AspNetCore.All": "2.0.0",
           "Microsoft.AspNetCore.Authentication.MicrosoftAccount": "2.0.1",
           "Microsoft.EntityFrameworkCore.InMemory": "2.0.1",
@@ -47,19 +46,6 @@
         }
       },
       "BuildBundlerMinifier/2.6.362": {},
-      "BundlerMinifier.Core/2.6.362": {
-        "dependencies": {
-          "Microsoft.NETCore.App": "2.0.0",
-          "NUglify": "1.5.5",
-          "Newtonsoft.Json": "10.0.1"
-        },
-        "runtime": {
-          "lib/netcoreapp2.0/dotnet-bundle.dll": {}
-        },
-        "compile": {
-          "lib/netcoreapp2.0/dotnet-bundle.dll": {}
-        }
-      },
       "jQuery/1.8.0": {},
       "Libuv/1.10.0": {
         "dependencies": {
@@ -2530,18 +2516,6 @@
           "lib/netstandard1.3/NuGet.Frameworks.dll": {}
         }
       },
-      "NUglify/1.5.5": {
-        "dependencies": {
-          "NETStandard.Library": "2.0.0",
-          "System.Security.Cryptography.Algorithms": "4.3.0"
-        },
-        "runtime": {
-          "lib/netstandard1.3/NUglify.dll": {}
-        },
-        "compile": {
-          "lib/netstandard1.3/NUglify.dll": {}
-        }
-      },
       "Remotion.Linq/2.1.1": {
         "dependencies": {
           "System.Collections": "4.3.0",
@@ -4291,13 +4265,6 @@
       "path": "buildbundlerminifier/2.6.362",
       "hashPath": "buildbundlerminifier.2.6.362.nupkg.sha512"
     },
-    "BundlerMinifier.Core/2.6.362": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-/g2rB/LFwDO/qPd4+Ld/w9yhzZJ7Q4CTr9p3YHm+k/FR5/eFYdDhjTsiav7avy1f0gR5Beky1ygNKorassdJkw==",
-      "path": "bundlerminifier.core/2.6.362",
-      "hashPath": "bundlerminifier.core.2.6.362.nupkg.sha512"
-    },
     "jQuery/1.8.0": {
       "type": "package",
       "serviceable": true,
@@ -5529,13 +5496,6 @@
       "sha512": "sha512-WCkN68c8q+USG+Ot1MmBDH+9DUo5dk7UB0QDMiwCYhrH7ZoFLKFGGNzJ8C3LTR1DvB1LW9BOxKeznnZznKiCTA==",
       "path": "nuget.frameworks/4.0.0",
       "hashPath": "nuget.frameworks.4.0.0.nupkg.sha512"
-    },
-    "NUglify/1.5.5": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-XguQgUPUHMOmfOGlSgVRHIMVBJYz86cViTP8kiD1Oa4EKKUrvfL4a4BhWUxdg5rZBLrIAcoYu/V43F5iH/PucA==",
-      "path": "nuglify/1.5.5",
-      "hashPath": "nuglify.1.5.5.nupkg.sha512"
     },
     "Remotion.Linq/2.1.1": {
       "type": "package",

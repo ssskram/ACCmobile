@@ -7,9 +7,10 @@ namespace ACCmobile.Models
     public class Address
     {
         [Display(Prompt = "Enter address")]
-        public string AddressClass { get; set; }
+        public string AddressRelay { get; set; }
 
         // begin hidden fields
         public string AddressID { get; set; }
+        public string AddressClass { get; set; }
     }
 }
