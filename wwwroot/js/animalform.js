@@ -2,14 +2,12 @@
 
 // load bootstrap-select dropdowns
 // if mobile, default to native mobile menu
-$.getScript('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js', function()
-{
-    $('.selectpicker').selectpicker('render');
-    $( document ).ready(function() {
+$( document ).ready(function() {
+    $('.selectpicker').selectpicker();
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     $('.selectpicker').selectpicker('mobile');
     }
-    });
+    $("#form").show();
 });
 
 // copy animal name to section header
@@ -23,25 +21,22 @@ $(document).ready(function () {
 // reboot bootstrap-select
 function addFields()
 {
-    $.getScript('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js', function()
-    {
-        $.ajax({
-            url: "/Animal/AnimalGeneralInfo",
-            type: 'GET',
-            success:function(result) {
-                var newDiv = $(document.createElement("div"));  
-                newDiv.html(result);
-                newDiv.appendTo("#form");
-                if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-                $('.selectpicker').selectpicker('mobile');
-                }
-                $('.selectpicker').selectpicker('refresh');
-            },
-            error: function(result) {
-                alert("Failure");
-            }
-        });
-    });
+    $.ajax({
+      url: "/Animal/AnimalGeneralInfo",
+      type: 'GET',
+      success:function(result) {
+          var newDiv = $(document.createElement("div"));  
+          newDiv.html(result);
+          newDiv.appendTo("#repeatingcontainer");
+          if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+          $('.selectpicker').selectpicker('mobile');
+          }
+          $('.selectpicker').selectpicker('refresh');
+      },
+      error: function(result) {
+          alert("Failure");
+      }
+  });
 }
 
 // on submit, copy multi-selection contents to relay field for simple string posting

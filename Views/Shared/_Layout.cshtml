@@ -35,7 +35,7 @@
         </div>
     </nav>
     <div class="container body-content">
-        @RenderBody()
+        @RenderBody() 
         <hr />
         <footer>
             <p>&copy; 2018 - City of Pittsburgh</p>
@@ -63,12 +63,7 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
-    <!-- auto expand textarea height to fit contents -->
-    <script>
-    function textAreaAdjust(o) {
-    o.style.height = "1px";
-    o.style.height = (25+o.scrollHeight)+"px";
-    }
-    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
 </body>
 </html>

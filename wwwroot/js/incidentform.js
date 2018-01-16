@@ -2,11 +2,12 @@
 
 // load bootstrap-select dropdowns
 // if mobile, default to native mobile menu
-$('.selectpicker').selectpicker('render');
 $( document ).ready(function() {
-if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-$('.selectpicker').selectpicker('mobile');
-}
+    $('.selectpicker').selectpicker();
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+    $('.selectpicker').selectpicker('mobile');
+    }
+    $("#form").show();
 });
 
 // on submit, copy multi-selection contents to relay field for simple string posting
