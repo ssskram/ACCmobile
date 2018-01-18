@@ -1,27 +1,22 @@
 @{
     ViewData["Title"] = "Animal data";
 }
-@using ACCmobile.Models
-@model AnimalCollectionModel
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/animalform.js"></script>
 
-<form asp-controller="Animal" asp-action="Create" method="post" id="form" style="display:none;" enctype="multipart/form-data">
+<form asp-controller="Animal" asp-action="Submit" method="post" id="form" style:"display:none;">
 <div class="row">
-  <div id="repeatingcontainer" class="col-sm-12">
+  <div class="col-sm-12">
         <h3>Identify the animals</h3>
-        <div id="collectionItems">
-            @Html.EditorFor(m => m.AnimalItems)
+        <div class="repeatcontainer">
+            <animal>@Html.Partial("AddAnimal")</animal>
         </div>
   </div>
 </div>
 
-<div>
-  <input class="btn btn-link" type="button" value="+ add animal" id="btnAddMore" onclick="addFields()" />
-</div>
-
+<a class="btn btn-link" id="AddAnimal" onclick="addAnimal()" style="display:none;"><span></span></a>
 <div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
-    <input style="padding: 5px 25px; display: none;" type="submit" value="Submit" class="btn btn-default" name="button" id="button" />
+    <input style="padding: 5px 25px;" type="submit" value="Complete" class="btn btn-default" id="Submit" />
 </div>
 </form>

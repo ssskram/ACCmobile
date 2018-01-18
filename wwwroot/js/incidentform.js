@@ -1,5 +1,17 @@
 // this document contains the client side functions for the incident view
 
+function initMap() {
+    var uluru = {lat: -25.363, lng: 131.044};
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: uluru
+    });
+    var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+    });
+    }
+    
 // load bootstrap-select dropdowns
 // if mobile, default to native mobile menu
 $( document ).ready(function() {

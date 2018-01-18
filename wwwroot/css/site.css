@@ -211,3 +211,7 @@ textarea {
     padding-bottom: 5px;
     padding-right: 10px;
 }
+#map {
+    height: auto;
+    width: auto;
+   }

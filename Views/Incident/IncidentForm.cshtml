@@ -4,16 +4,31 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/incidentform.js"></script>
-
+    
 <form asp-controller="Incident" asp-action="Create" method="post" id="form" style="display:none;">
 <div class="row">
-  <div class="col-sm-12">
+    <div class="col-md-6">
+        <div id="map"></div>
+    </div>
+    <div class="col-md-6">
         <h3>Describe the incident</h3>
-        <div>@Html.Partial("IncidentGeneralInfo")</div>
-  </div>
+        <div>@Html.Partial("AddIncident")</div>
+        <div class="text-center"><input style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default" id="button"/></div>
+    </div>
 </div>
-
-<div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
-    <input style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default" id="button"/>
-</div>
+   
 </form>
+<script>
+    function initMap() {
+    var uluru = {lat: -25.363, lng: 131.044};
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 4,
+        center: uluru
+    });
+    var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+    });
+    }
+</script>
+<script src=@ViewData["apistringmap"] async defer ></script>

@@ -30,68 +30,75 @@ namespace ACCmobile.Controllers
             return View();
         }
 
-        // ajax calls to duplicate partial view
         public IActionResult AddAnimal()
         {
-            return PartialView("_AnimalCollection", new AnimalViewModel());
+            return PartialView();
         }
 
-        // Post address data and return to home 
-        public async Task<IActionResult> Create(AnimalCollectionModel model)
+        // Post animal data and return to home 
+        public async Task<IActionResult> Submit(AnimalViewModel model)
         {
             await Execute(model);
-            return RedirectToAction(nameof(HomeController.Index), "Home");
-        }
-        public async Task Execute(AnimalCollectionModel model)
-        {
-            var SessionToken = HttpContext.Session.GetString("SessionToken");
-            var AddressID = HttpContext.Session.GetString("AddressID");
-            var IncidentID = HttpContext.Session.GetString("IncidentID");
-            
+
             //  end of process...clear session variables
             HttpContext.Session.Remove("SessionToken");
             HttpContext.Session.Remove("AddressID");
             HttpContext.Session.Remove("IncidentID");
 
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Authorization = 
-                new AuthenticationHeaderValue ("Bearer", SessionToken);
-            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
-            client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
-            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
-
-            var json = 
-                String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}' }}", // 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}' }}",
-                    model.AnimalItems); // 0
-                    // model.Breed, // 1
-                    // model.Coat, //2
-                    // model.Sex, // 3
-                    // model.LicenseNumber, // 4
-                    // model.RabbiesVacNo, // 5
-                    // model.RabbiesVacExp, // 6
-                    // model.Veterinarian, // 7
-                    // model.LicenseYear, // 8
-                    // model.Age, // 9
-                    // AddressID, // 10
-                    // IncidentID, // 11
-                    // model.AnimalName); // 12
-                
-            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
-            try
-            {
-                StringContent strContent = new StringContent(json);               
-                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-                HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;
-                        
-                response.EnsureSuccessStatusCode();
-                var content = await response.Content.ReadAsStringAsync();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
+
+        // Post animal data and load for another
+        public async Task<IActionResult> PostAnimal(AnimalViewModel model)
+        {
+            await Execute(model);
+            return RedirectToAction(nameof(AnimalController.AnimalForm));
+        }
+            public async Task Execute(AnimalViewModel model)
+            {
+                var SessionToken = HttpContext.Session.GetString("SessionToken");
+                var AddressID = HttpContext.Session.GetString("AddressID");
+                var IncidentID = HttpContext.Session.GetString("IncidentID");
+
+                var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Authorization = 
+                    new AuthenticationHeaderValue ("Bearer", SessionToken);
+                client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+                client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
+                client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+
+                var json = 
+                    String.Format
+                    ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}' }}",
+                        model.Type, // 0
+                        model.Breed, // 1
+                        model.Coat, //2
+                        model.Sex, // 3
+                        model.LicenseNumber, // 4
+                        model.RabbiesVacNo, // 5
+                        model.RabbiesVacExp, // 6
+                        model.Veterinarian, // 7
+                        model.LicenseYear, // 8
+                        model.Age, // 9
+                        AddressID, // 10
+                        IncidentID, // 11
+                        model.AnimalName); // 12
+                    
+                client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+                try
+                {
+                    StringContent strContent = new StringContent(json);               
+                    strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                    HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;
+                            
+                    response.EnsureSuccessStatusCode();
+                    var content = await response.Content.ReadAsStringAsync();
+                }
+                catch (Exception ex)
+                {
+                    System.Diagnostics.Debug.WriteLine(ex.Message);
+                }
+            }
     }
 }

@@ -1,9 +1,6 @@
-@using HtmlHelpers.BeginCollectionItemCore;
-@model ACCmobile.Models.AnimalViewModel
+@model AnimalViewModel
 
-@using (Html.BeginCollectionItem("AnimalItems"))
-{
-<h4 style="font-style:italic;"> Animal:  <input class="no-border animal-heading" style="font-weight: 800; text-transform: uppercase;" asp-for="AnimalHeading" id="heading" readonly></input></h4>
+<h4 id="header" style="display:none;"><img src="~/images/animalglyph.png" style="margin-left: 5px; margin-top: -3px;"/><input class="no-border animal-heading" style="padding-left: 15px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; color:black;" asp-for="AnimalHeading" id="heading" readonly></input></h4>
 <div class="container" data-role="page" id="animalPage">
   <div class="row">
     <div class="col-md-6">
@@ -133,7 +130,4 @@
 <input asp-for="Breed" id="breed" type="hidden"></input>
 <input asp-for="Coat" id="coat" type="hidden"></input>
 <input asp-for="Sex" id="sex" type="hidden"></input>
-
-<input class="btn btn-link" type="button" value="remove animal" onclick="$(this).parent().remove(); return false;" style="margin-left:25px;"/>
 <hr />
-}

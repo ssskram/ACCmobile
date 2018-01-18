@@ -11,46 +11,74 @@ $( document ).ready(function() {
     $("#form").show();
 });
 
-// parse available dropdown options based on animal type
+// when entered, copy animal name to section header
+// copy animal name to value string on addAnimal() button
+// show addAnimal() button
 function setheader () {
+    var animalname = $(".animal-name").val();
+    var buttontext = `+ Save ${animalname} and add another animal`;
     $('.animal-heading').val( $('.animal-name').val() );
+    $("#header").show();
+    $('#AddAnimal span').text(buttontext);
+    $("#AddAnimal").show();
 }
 
-// repeat section
+// post animal
+// destroy <animal>
+// regenerate <animal>
+// populate <animal> with AddAnimal partialview
 // reboot bootstrap-select
-function addFields()
+function addAnimal()
 {
-    $.ajax({
-        url: "/Animal/AddAnimal",
-        type: 'GET',
-        success:function(result) {
-            var newDiv = $(document.createElement("div"));  
-            newDiv.html(result);
-            newDiv.appendTo("#collectionItems");
-            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-            $('.selectpicker').selectpicker('mobile');
+    if($("#name").val().length != 0 && $("#typerelay").val().length != 0)
+    {
+        $("animal").hide();
+        $("#AddAnimal").hide();
+        $('#type').val( $('#typerelay').val() );
+        $('#breed').val( $('#breedrelay').val() );
+        $('#coat').val( $('#coatrelay').val() );
+        $('#sex').val( $('#sexrelay').val() );
+        $.ajax(
+            {
+                url: "/Animal/PostAnimal",
+                type: 'POST',
+                data: $('form').serialize(),
+                error: function(result) {
+                    alert("Failed to post.  Please try again.");
+                }
             }
-            $('.selectpicker').selectpicker('refresh');
-            $("#button").show();
-        },
-        error: function(result) {
-            alert("Failure");
-        }
-    });
+        );
+        $("animal").remove();
+        $.ajax(
+            {
+                url: "/Animal/AddAnimal",
+                type: 'GET',
+                success:function(result) {
+                    var newDiv = $(document.createElement('animal'));
+                    newDiv.html(result);
+                    newDiv.appendTo(".repeatcontainer");
+                    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+                    $('.selectpicker').selectpicker('mobile');
+                    }
+                    $('.selectpicker').selectpicker('refresh');
+                    // once bootstrap-select is ready, bring the rest
+                    $("#form").show();
+                },
+                error: function(result) {
+                    alert("Failed to load new animal form.  Please refresh page.");
+                }
+            }
+        );
+    }
+    else
+    {
+        alert("Animal name & animal type are required fields");
+    }
 }
-
-// needed for enabling client side validation for newly added items
-var updateValidation = function () {
-
-    $('form').data('validator', null);
-    $('form').data('unobtrusiveValidation', null);
-    $.validator.unobtrusive.parse($('form'));
-
-};
 
 // on submit, copy multi-selection contents to relay field for simple string posting
 $(document).ready(function () {
-    $('#button').click(function(){
+    $('#Submit').click(function(){
         $('#type').val( $('#typerelay').val() );
         $('#breed').val( $('#breedrelay').val() );
         $('#coat').val( $('#coatrelay').val() );
