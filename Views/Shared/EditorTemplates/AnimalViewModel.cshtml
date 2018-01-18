@@ -3,13 +3,13 @@
 
 @using (Html.BeginCollectionItem("AnimalItems"))
 {
-<h4 style="font-style:italic;"> Animal:  <input class="no-border" style="font-weight: 800;" asp-for="AnimalHeading" id="heading" readonly></input></h4>
+<h4 style="font-style:italic;"> Animal:  <input class="no-border animal-heading" style="font-weight: 800; text-transform: uppercase;" asp-for="AnimalHeading" id="heading" readonly></input></h4>
 <div class="container" data-role="page" id="animalPage">
   <div class="row">
     <div class="col-md-6">
 
         <div class="form-group" style="margin-bottom: 10px;">
-            <input asp-for="AnimalName" class="form-control" id="name" required="true"  onchange="setheader()"></input>
+            <input asp-for="AnimalName" class="form-control animal-name" id="name" required="true"  onchange="setheader()"></input>
             <span asp-validation-for="AnimalName" class="text-danger" />
         </div>
 
@@ -133,7 +133,7 @@
 <input asp-for="Breed" id="breed" type="hidden"></input>
 <input asp-for="Coat" id="coat" type="hidden"></input>
 <input asp-for="Sex" id="sex" type="hidden"></input>
-}
 
 <input class="btn btn-link" type="button" value="remove animal" onclick="$(this).parent().remove(); return false;" style="margin-left:25px;"/>
 <hr />
+}

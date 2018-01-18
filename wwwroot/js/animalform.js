@@ -13,7 +13,7 @@ $( document ).ready(function() {
 
 // parse available dropdown options based on animal type
 function setheader () {
-    $('#heading').val( $('#name').val() );
+    $('.animal-heading').val( $('.animal-name').val() );
 }
 
 // repeat section
@@ -21,22 +21,22 @@ function setheader () {
 function addFields()
 {
     $.ajax({
-      url: "/Animal/AddAnimal",
-      type: 'GET',
-      success:function(result) {
-          var newDiv = $(document.createElement("div"));  
-          newDiv.html(result);
-          newDiv.appendTo("#collectionItems");
-          if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
-          $('.selectpicker').selectpicker('mobile');
-          }
-          $('.selectpicker').selectpicker('refresh');
-          $('#heading').val( $('#name').val() );
-      },
-      error: function(result) {
-          alert("Failure");
-      }
-  });
+        url: "/Animal/AddAnimal",
+        type: 'GET',
+        success:function(result) {
+            var newDiv = $(document.createElement("div"));  
+            newDiv.html(result);
+            newDiv.appendTo("#collectionItems");
+            if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+            $('.selectpicker').selectpicker('mobile');
+            }
+            $('.selectpicker').selectpicker('refresh');
+            $("#button").show();
+        },
+        error: function(result) {
+            alert("Failure");
+        }
+    });
 }
 
 // needed for enabling client side validation for newly added items
