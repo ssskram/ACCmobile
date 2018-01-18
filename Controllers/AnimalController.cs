@@ -37,12 +37,12 @@ namespace ACCmobile.Controllers
         }
 
         // Post address data and return to home 
-        public async Task<IActionResult> Create(AnimalViewModel model)
+        public async Task<IActionResult> Create(AnimalCollectionModel model)
         {
             await Execute(model);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-        public async Task Execute(AnimalViewModel model)
+        public async Task Execute(AnimalCollectionModel model)
         {
             var SessionToken = HttpContext.Session.GetString("SessionToken");
             var AddressID = HttpContext.Session.GetString("AddressID");
@@ -63,20 +63,20 @@ namespace ACCmobile.Controllers
 
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}' }}",
-                    model.Type, // 0
-                    model.Breed, // 1
-                    model.Coat, //2
-                    model.Sex, // 3
-                    model.LicenseNumber, // 4
-                    model.RabbiesVacNo, // 5
-                    model.RabbiesVacExp, // 6
-                    model.Veterinarian, // 7
-                    model.LicenseYear, // 8
-                    model.Age, // 9
-                    AddressID, // 10
-                    IncidentID, // 11
-                    model.AnimalName); // 12
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}' }}", // 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}' }}",
+                    model.AnimalItems); // 0
+                    // model.Breed, // 1
+                    // model.Coat, //2
+                    // model.Sex, // 3
+                    // model.LicenseNumber, // 4
+                    // model.RabbiesVacNo, // 5
+                    // model.RabbiesVacExp, // 6
+                    // model.Veterinarian, // 7
+                    // model.LicenseYear, // 8
+                    // model.Age, // 9
+                    // AddressID, // 10
+                    // IncidentID, // 11
+                    // model.AnimalName); // 12
                 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try
