@@ -21,12 +21,12 @@ function setheader () {
 function addFields()
 {
     $.ajax({
-      url: "/Animal/AnimalGeneralInfo",
+      url: "/Animal/AddAnimal",
       type: 'GET',
       success:function(result) {
           var newDiv = $(document.createElement("div"));  
           newDiv.html(result);
-          newDiv.appendTo("#repeatingcontainer");
+          newDiv.appendTo("#collectionItems");
           if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
           $('.selectpicker').selectpicker('mobile');
           }
@@ -38,6 +38,15 @@ function addFields()
       }
   });
 }
+
+// needed for enabling client side validation for newly added items
+var updateValidation = function () {
+
+    $('form').data('validator', null);
+    $('form').data('unobtrusiveValidation', null);
+    $.validator.unobtrusive.parse($('form'));
+
+};
 
 // on submit, copy multi-selection contents to relay field for simple string posting
 $(document).ready(function () {

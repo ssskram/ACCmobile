@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ACCmobile.Models
 {
-    public class Address
+    public class AddressViewModel
     {
         [Display(Prompt = "Enter address")]
         public string AddressRelay { get; set; }

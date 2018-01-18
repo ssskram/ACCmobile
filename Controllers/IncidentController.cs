@@ -35,7 +35,7 @@ namespace ACCmobile.Controllers
         // Open new incident form
         public IActionResult IncidentForm()
         {
-            var relay = new IncidentGeneralInfo
+            var relay = new IncidentViewModel
                 {
                     IncidentID = (Guid.NewGuid().ToString())
                 };
@@ -43,14 +43,14 @@ namespace ACCmobile.Controllers
         }
 
         // Post incident data and continue to animal form
-        public async Task<IActionResult> Create(IncidentGeneralInfo model)
+        public async Task<IActionResult> Create(IncidentViewModel model)
         {
             string IncidentID = model.IncidentID.ToString();
             HttpContext.Session.SetString("IncidentID", IncidentID);
             await Execute(model);
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }
-        public async Task Execute(IncidentGeneralInfo model)
+        public async Task Execute(IncidentViewModel model)
         {
             string SubmittedBy = _userManager.GetUserName(HttpContext.User);
             var SessionToken = HttpContext.Session.GetString("SessionToken");

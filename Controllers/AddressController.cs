@@ -35,7 +35,7 @@ namespace ACCmobile.Controllers
                 String.Format 
                 ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places&callback=initAutocomplete",
                     googleapikey); // 0
-            var relay = new Address
+            var relay = new AddressViewModel
                 {
                     AddressID = (Guid.NewGuid().ToString())
                 };
@@ -87,12 +87,12 @@ namespace ACCmobile.Controllers
         // Check to see if address exists
         // If yes, get addressid and pass along
         // If no, post new address
-        public async Task<IActionResult> Create(Address model)
+        public async Task<IActionResult> Create(AddressViewModel model)
         {
             await Execute(model);
             return RedirectToAction(nameof(IncidentController.IncidentForm), "Incident");
         }
-        public async Task Execute(Address model)
+        public async Task Execute(AddressViewModel model)
         {
             var SessionToken = HttpContext.Session.GetString("SessionToken");
             // craft json load
@@ -129,7 +129,7 @@ namespace ACCmobile.Controllers
         }
 
         // post new address
-        public async Task Post(Address model)
+        public async Task Post(AddressViewModel model)
         {
             var SessionToken = HttpContext.Session.GetString("SessionToken");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Address')/items";

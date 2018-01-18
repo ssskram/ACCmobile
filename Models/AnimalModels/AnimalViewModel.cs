@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ACCmobile.Models
 {
-    public class AnimalGeneralInfo
+    public class AnimalViewModel
     {
         [Display(Prompt = "Type")]
         public string TypeRelay { get; set; }

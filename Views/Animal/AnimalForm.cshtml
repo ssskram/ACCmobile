@@ -1,19 +1,24 @@
 @{
     ViewData["Title"] = "Animal data";
 }
+@using ACCmobile.Models
+@model AnimalCollectionModel
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/animalform.js"></script>
 
-<form asp-controller="Animal" asp-action="Create" method="post" id="form" style="display:none;">
+<form asp-controller="Animal" asp-action="Create" method="post" id="form" style="display:none;" enctype="multipart/form-data">
 <div class="row">
   <div id="repeatingcontainer" class="col-sm-12">
         <h3>Describe the animals</h3>
-        <div>@Html.Partial("AnimalGeneralInfo")</div>
+        <div id="collectionItems">
+            @Html.EditorFor(m => m.AnimalItems)
+        </div>
   </div>
 </div>
 
 <div>
-  <input class="btn btn-link" type="button" value="+ add animal" id="addField" onclick="addFields()" />
+  <input class="btn btn-link" type="button" value="+ add animal" id="btnAddMore" onclick="addFields()" />
 </div>
 
 <div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">

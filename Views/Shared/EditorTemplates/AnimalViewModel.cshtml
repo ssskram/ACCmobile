@@ -1,5 +1,8 @@
-@model AnimalGeneralInfo
+@using HtmlHelpers.BeginCollectionItemCore;
+@model ACCmobile.Models.AnimalViewModel
 
+@using (Html.BeginCollectionItem("AnimalItems"))
+{
 <h4 style="font-style:italic;"> Animal:  <input class="no-border" style="font-weight: 800;" asp-for="AnimalHeading" id="heading" readonly></input></h4>
 <div class="container" data-role="page" id="animalPage">
   <div class="row">
@@ -130,4 +133,5 @@
 <input asp-for="Breed" id="breed" type="hidden"></input>
 <input asp-for="Coat" id="coat" type="hidden"></input>
 <input asp-for="Sex" id="sex" type="hidden"></input>
+}
 <hr />

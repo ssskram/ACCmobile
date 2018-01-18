@@ -24,25 +24,25 @@ namespace ACCmobile.Controllers
         // initialize httpclient to be used by all public methods
         HttpClient client = new HttpClient();
 
-        // ajax calls to duplicate partial view
-        public IActionResult AnimalGeneralInfo()
-        {
-            return PartialView();
-        }
-
         // Open new animal form
         public IActionResult AnimalForm()
         {
             return View();
         }
 
+        // ajax calls to duplicate partial view
+        public IActionResult AddAnimal()
+        {
+            return PartialView("_AnimalCollection", new AnimalViewModel());
+        }
+
         // Post address data and return to home 
-        public async Task<IActionResult> Create(AnimalGeneralInfo model)
+        public async Task<IActionResult> Create(AnimalViewModel model)
         {
             await Execute(model);
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-        public async Task Execute(AnimalGeneralInfo model)
+        public async Task Execute(AnimalViewModel model)
         {
             var SessionToken = HttpContext.Session.GetString("SessionToken");
             var AddressID = HttpContext.Session.GetString("AddressID");
