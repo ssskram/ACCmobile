@@ -33,7 +33,7 @@ namespace ACCmobile.Controllers
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistring"] = 
                 String.Format 
-                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places&callback=initAutocomplete",
+                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places&callback=initMap",
                     googleapikey); // 0
             var relay = new AddressViewModel
                 {

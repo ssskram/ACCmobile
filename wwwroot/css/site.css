@@ -216,6 +216,9 @@ textarea {
     height: 125px;
     width: auto;
 }
+.gmnoprint { 
+    display: none; 
+}
 a[href^="http://maps.google.com/maps"]{display:none !important}
 a[href^="https://maps.google.com/maps"]{display:none !important}
 .gmnoprint a, .gmnoprint span, .gm-style-cc {
@@ -223,4 +226,16 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 }
 .gmnoprint div {
     background:none !important;
+}
+#infowindow-content .title {
+font-weight: bold;
+}
+#infowindow-content {
+display: none;
+}
+#map #infowindow-content {
+display: inline;
+}
+.addresscontainer {
+width: 75%;
 }

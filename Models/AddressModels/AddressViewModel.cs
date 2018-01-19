@@ -6,7 +6,7 @@ namespace ACCmobile.Models
 {
     public class AddressViewModel
     {
-        [Display(Prompt = "Enter address")]
+        [Display(Prompt = "Enter an address")]
         public string AddressRelay { get; set; }
 
         // begin hidden fields

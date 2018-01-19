@@ -7,16 +7,21 @@
 <script src=@ViewData["apistring"] async defer ></script>
 
 <form asp-controller="Address" asp-action="Create" method="post" id="AddressForm">
-<div class="row">
-  <div class="col-sm-3"></div>
-  <div class="col-sm-6 text-center">
-        <h3>Enter the address:</h3>
-        <div>@Html.Partial("GetAddress")</div> 
+<div class="row" style="margin-top: 10px;">
+  <div class="col-md-12">
+      <div class="addresscontainer" id="addresscontainer">
+      <div>
+            <div>@Html.Partial("GetAddress")</div> 
+      </div>
+    </div>
+    <div id="map" style="height: 400px; width: 100%;"></div>
+    <div id="infowindow-content">
+      <img src="" width="16" height="16" id="place-icon">
+      <span id="place-name"  class="title"></span><br>
+      <span id="place-address"></span>
+    </div>
   </div>
-  <div class="col-sm-3"></div>
-</div>
-
+</form>
 <div class="col-md-12 text-center" style="margin-top: 15px; margin-bottom: 10px">
     <input id="button" style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default" disabled="true"/>
 </div>
-</form>
