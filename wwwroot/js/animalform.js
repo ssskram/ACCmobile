@@ -3,12 +3,11 @@
 // load bootstrap-select dropdowns
 // if mobile, default to native mobile menu
 $( document ).ready(function() {
-    $('.selectpicker').selectpicker();
+    // once bootstrap-select is ready, bring the rest
+    $("#form").show();
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     $('.selectpicker').selectpicker('mobile');
     }
-    // once bootstrap-select is ready, bring the rest
-    $("#form").show();
 });
 
 // when entered, copy animal name to section header
