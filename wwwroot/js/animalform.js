@@ -14,11 +14,14 @@ $( document ).ready(function() {
 // show addAnimal() button
 function setheader () {
     var animalname = $(".animal-name").val();
-    var buttontext = `+ Save ${animalname} and add another animal`;
+    var Addbuttontext = `+ Save ${animalname} and add another animal`;
+    var Submitbuttontext = `+ Save ${animalname} and return home`;
     $('.animal-heading').val( $('.animal-name').val() );
     $("#header").show();
-    $('#AddAnimal span').text(buttontext);
+    $('#AddAnimal span').text(Addbuttontext);
+    $('#Submit span').text(Submitbuttontext);
     $("#AddAnimal").show();
+    $("#Submit").show();
 }
 
 // post animal
@@ -32,6 +35,7 @@ function addAnimal()
     {
         $("animal").hide();
         $("#AddAnimal").hide();
+        $("#Submit").hide();
         $('#type').val( $('#typerelay').val() );
         $('#breed').val( $('#breedrelay').val() );
         $('#coat').val( $('#coatrelay').val() );

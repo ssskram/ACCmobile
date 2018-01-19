@@ -1,6 +1,6 @@
 @model AnimalViewModel
 
-<h4 id="header" style="display:none;"><img src="~/images/animalglyph.png" style="margin-left: 5px; margin-top: -3px;"/><input class="no-border animal-heading" style="padding-left: 15px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; color:#010005;" asp-for="AnimalHeading" id="heading" readonly></input></h4>
+<h4 id="header" style="display:none;"><img src="~/images/animalglyph.png" style="margin-left: 5px; margin-top: -3px;"/><input class="no-border animal-heading" style="padding-left: 15px; letter-spacing: 2px; font-weight: 800; color:#010005;" asp-for="AnimalHeading" id="heading" readonly></input></h4>
 <div class="container" data-role="page" id="animalPage">
   <div class="row">
     <div class="col-md-6">
@@ -124,10 +124,8 @@
     </div>
   </div>
 </div>
-
 <!-- begin hidden fields -->
 <input asp-for="Type" id="type" type="hidden"></input>
 <input asp-for="Breed" id="breed" type="hidden"></input>
 <input asp-for="Coat" id="coat" type="hidden"></input>
 <input asp-for="Sex" id="sex" type="hidden"></input>
-<hr />
