@@ -44,6 +44,7 @@ namespace ACCmobile.Controllers
             HttpContext.Session.Remove("SessionToken");
             HttpContext.Session.Remove("AddressID");
             HttpContext.Session.Remove("IncidentID");
+            HttpContext.Session.Remove("Address");
 
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }

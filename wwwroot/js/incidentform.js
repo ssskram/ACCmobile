@@ -1,22 +1,36 @@
 // this document contains the client side functions for the incident view
 
+// geocode address
 // call google map
+var map, infoWindow;
 function initMap() {
-    var point = {lat: 40.454447, lng: -79.968295};
     var map = new google.maps.Map(document.getElementById('map'), {
         zoom: 15,
-        center: point
     });
-    var marker = new google.maps.Marker({
-        position: point,
-        map: map
+    var geocoder = new google.maps.Geocoder();
+    var set = function() {
+        geocodeAddress(geocoder, map);
+    };
+    set();
+}
+function geocodeAddress(geocoder, resultsMap) {
+    infoWindow = new google.maps.InfoWindow;
+    var address = document.getElementById('address').value;
+    geocoder.geocode({'address': address}, function(results, status) {
+      if (status === 'OK') {
+        resultsMap.setCenter(results[0].geometry.location);
+        infoWindow.setPosition(results[0].geometry.location);
+        infoWindow.setContent(address);
+        infoWindow.open(resultsMap);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
     });
-    }
+}
     
 // load bootstrap-select dropdowns
 // if mobile, default to native mobile menu
 $( document ).ready(function() {
-    // once bootstrap-select is ready, bring the rest
     $("#form").show();
     $('.selectpicker').selectpicker();
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {

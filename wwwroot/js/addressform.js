@@ -1,7 +1,6 @@
 // this document contains the client side functions for the address view
 
 var placeSearch, autocomplete;
-
 // on field focus, geolocate via browser to improve autocomplete responses
 function geolocate() {
   if (navigator.geolocation) {

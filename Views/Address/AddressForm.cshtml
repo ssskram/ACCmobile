@@ -4,7 +4,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/addressform.js"></script>
-<script src=@ViewData["apistring"] async defer></script>
+<script src=@ViewData["apistring"] async defer ></script>
 
 <form asp-controller="Address" asp-action="Create" method="post" id="AddressForm">
 <div class="row">
@@ -20,4 +20,3 @@
     <input id="button" style="padding: 5px 25px;" type="submit" value="Next &raquo;" class="btn btn-default" disabled="true"/>
 </div>
 </form>
-

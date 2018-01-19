@@ -35,15 +35,16 @@ namespace ACCmobile.Controllers
         // Open new incident form
         public IActionResult IncidentForm()
         {
+            var address = HttpContext.Session.GetString("Address");
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistringmap"] = 
                 String.Format 
                 ("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap",
                     googleapikey); // 0
-
             var relay = new IncidentViewModel
                 {
-                    IncidentID = (Guid.NewGuid().ToString())
+                    IncidentID = (Guid.NewGuid().ToString()),
+                    Address = address
                 };
             return View(relay);
         }

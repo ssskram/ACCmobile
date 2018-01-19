@@ -33,5 +33,6 @@ namespace ACCmobile.Models
         public string IncidentID { get; set; }
         public string ReasonForVisit { get; set; }
         public string PGHCode { get; set; }
+        public string Address { get; set; }
     }
 }
