@@ -7,10 +7,25 @@
 // locates on map
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.440625, lng: -79.995886},
-    zoom: 13,
+    center: {lat: 40.450714, lng: -79.985514},
+    zoom: 12,
     disableDefaultUI: true
   });
+
+  heatmap = new google.maps.visualization.HeatmapLayer({
+    data: getPoints(),
+    map: map
+  })
+
+  // var points = [ {lat: 40.4406144, long: -80.00189820000003}, {lat: 40.4657376, long: -79.95336350000002}, {lat: 40.4544472, long: -79.9682952}, {lat : 40.4247173, long: -79.9638928}, {lat : 40.41736, long: -80.02153499999997}, {lat : 40.4583129, long: -79.973885}, {lat : 40.422189, long: -79.98732689999997}, {lat : 40.453145, long: -79.96733699999999}, {lat : 40.440072, long: -79.96733699999999}, {lat : 40.4463884, long: -79.95003400000002} ];  
+  // points.forEach( point => {
+  //   alert(point.lat);
+  //   heatmap = new google.maps.visualization.HeatmapLayer({
+  //     data: new google.maps.LatLng(point.lat, point.long),
+  //     map: map
+  //   })
+  // })
+
   var card = document.getElementById('addresscontainer');
   var input = document.getElementById('autocomplete');
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(card);
@@ -55,7 +70,7 @@ function initMap() {
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(17);
+      map.setZoom(15);
     }
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
@@ -77,6 +92,21 @@ function initMap() {
 
   autocomplete.addListener('place_changed', fillInAddress);
   autocomplete.addListener('place_changed', checkAddress);
+}
+
+function getPoints() {
+  return [
+    new google.maps.LatLng(40.4406144,-80.00189820000003),
+    new google.maps.LatLng(40.4657376,-79.95336350000002),
+    new google.maps.LatLng(40.4544472,-79.9682952),
+    new google.maps.LatLng(40.4247173,-79.9638928),
+    new google.maps.LatLng(40.41736,-80.02153499999997),
+    new google.maps.LatLng(40.4583129,-79.973885),
+    new google.maps.LatLng(40.422189,-79.98732689999997),
+    new google.maps.LatLng(40.453145,-79.96733699999999),
+    new google.maps.LatLng(40.440072,-80.00149299999998),
+    new google.maps.LatLng(40.4463884,-79.95003400000002)
+  ];
 }
 
 // copy field entry into duplicate field to validate with string == string
