@@ -13,7 +13,6 @@ function initMap() {
   });
   var card = document.getElementById('addresscontainer');
   var input = document.getElementById('autocomplete');
-
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(card);
 
   var autocomplete = new google.maps.places.Autocomplete(input);
@@ -39,16 +38,15 @@ function initMap() {
     map: map,
     anchorPoint: new google.maps.Point(0, -29)
   });
-  autocomplete.addListener('place_changed', fillInAddress);
-  autocomplete.addListener('place_changed', checkAddress);
   autocomplete.addListener('place_changed', function() {
     infowindow.close();
     marker.setVisible(false);
     var place = autocomplete.getPlace();
     if (!place.geometry) {
       window.alert("No details available for input: '" + place.name + "'");
-      return;
     }
+    autocomplete.addListener('place_changed', fillInAddress);
+    autocomplete.addListener('place_changed', checkAddress);
 
     // if the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
