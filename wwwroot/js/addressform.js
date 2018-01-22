@@ -38,6 +38,7 @@ function initMap() {
     map: map,
     anchorPoint: new google.maps.Point(0, -29)
   });
+
   autocomplete.addListener('place_changed', function() {
     infowindow.close();
     marker.setVisible(false);
@@ -45,8 +46,9 @@ function initMap() {
     if (!place.geometry) {
       window.alert("No details available for input: '" + place.name + "'");
     }
-    autocomplete.addListener('place_changed', fillInAddress);
-    autocomplete.addListener('place_changed', checkAddress);
+
+    // write lat/long to addressid field
+    $('#addressid').val(place.geometry.location);
 
     // if the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
@@ -72,6 +74,9 @@ function initMap() {
     infowindowContent.children['place-address'].textContent = address;
     infowindow.open(map, marker);
   });
+
+  autocomplete.addListener('place_changed', fillInAddress);
+  autocomplete.addListener('place_changed', checkAddress);
 }
 
 // copy field entry into duplicate field to validate with string == string

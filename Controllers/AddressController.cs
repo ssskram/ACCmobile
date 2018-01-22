@@ -35,11 +35,7 @@ namespace ACCmobile.Controllers
                 String.Format 
                 ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places&callback=initMap",
                     googleapikey); // 0
-            var relay = new AddressViewModel
-                {
-                    AddressID = (Guid.NewGuid().ToString())
-                };
-            return View(relay);
+            return View();
         }
 
         // Gather access token for api calls, persist as system variable

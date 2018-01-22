@@ -6,7 +6,7 @@
             <input id="autocomplete" asp-for="AddressRelay" style="padding-right: 35px; box-shadow: 5px 5px 5px; rgba(0, 0, 0, 0.4);" class="form-control" type="text" required="true" oninvalid="this.setCustomValidity('Please enter a valid address')" onchange="checkAddress()">
             <span class="glyphicon glyphicon-ok form-control-feedback icon-success" style="display:none;" id="checkmark" ></span>
         </div>
-        <input asp-for="AddressClass" hidden= "true" id="address"/>
-        <input asp-for="AddressID" hidden="true"/>
+        <input asp-for="AddressClass" hidden="true" id="address"/>
+        <input asp-for="AddressID" hidden="true" id="addressid"/>
     </div>
 </div>
