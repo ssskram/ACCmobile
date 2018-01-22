@@ -78,6 +78,19 @@ function addAnimal()
     }
 }
 
+// validate entries and return home
+function returnHome()
+{
+    if($("#name").val().length != 0 && $("#typerelay").val().length != 0)
+    {
+        location.href='Submit';
+    }
+    else
+    {
+        alert("Animal name & animal type are required fields");
+    }
+}
+
 // on submit, copy multi-selection contents to relay field for simple string posting
 $(document).ready(function () {
     $('#Submit').click(function(){

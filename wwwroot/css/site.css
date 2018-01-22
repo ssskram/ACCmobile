@@ -2,36 +2,18 @@
     padding-top: 50px;
     padding-bottom: 20px;
 }
-h3 {
+footer {
+    margin: 0 10px;
+}
+h1, h2, h3, h4 {
     color: #383838;
 }
-.footer {
-    margin-top: 50px;
-}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-}
-
-/* Carousel */
-.carousel-caption p {
-    font-size: 20px;
-    line-height: 1.4;
-}
-
-/* Make .svg files in the carousel display properly in older browsers */
-.carousel-inner .item img[src$=".svg"] {
-    width: 100%;
-}
-
-/* Hide/rearrange for smaller screens */
-@media screen and (max-width: 767px) {
-    /* Hide captions */
-    .carousel-caption {
-        display: none;
-    }
 }
 
 /* navbar style */
@@ -118,18 +100,19 @@ h3 {
     text-decoration: none;
     /* border */
     border: 0px;
-    border-radius: 25px;
+    border-radius: 10px;
     /* transitions */
     transition-duration: .2s;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     /* other */
     background-color:white;
-    padding: 10px 30px;
+    padding: 10px 15px;
     margin: 7px;
     -moz-box-shadow: 0 0 2px 2px #888;
     -webkit-box-shadow: 5px 5px 5px 5px #888;
     box-shadow: 2px 3px 8px 2px #888;
+    width: 200px;
   }
 .btn-primary {
     /* font */
@@ -237,5 +220,5 @@ display: none;
 display: inline;
 }
 .addresscontainer {
-width: 75%;
+width: 60%;
 }

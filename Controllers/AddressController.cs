@@ -90,7 +90,7 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> Create(AddressViewModel model)
         {
             await Execute(model);
-            HttpContext.Session.SetString("Address", model.Address);
+            HttpContext.Session.SetString("Address", model.AddressClass);
             return RedirectToAction(nameof(IncidentController.IncidentForm), "Incident");
         }
         public async Task Execute(AddressViewModel model)
