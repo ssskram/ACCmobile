@@ -1,31 +1,7 @@
 // this document contains the client side functions for the address view
 
-// start google map api
-// on field focus, geolocate via browser to improve autocomplete responses
-
-function geolocate() {
-  autocomplete = new google.maps.places.Autocomplete(
-    (document.getElementById('autocomplete')),
-    {types: ['geocode']});
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var geolocation = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
-      };
-      var circle = new google.maps.Circle({
-        center: geolocation,
-        radius: position.coords.accuracy
-      });
-      autocomplete.setBounds(circle.getBounds());
-
-      autocomplete.addListener('place_changed', fillInAddress);
-      autocomplete.addListener('place_changed', checkAddress);
-    });
-  }
-}
-
 // creates map
+// on field focus, geolocate via browser to improve autocomplete responses
 // logs field data, validates vield data, autocompletes field data
 // geocodes address
 // locates on map
@@ -41,6 +17,20 @@ function initMap() {
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(card);
 
   var autocomplete = new google.maps.places.Autocomplete(input);
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var geolocation = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      var circle = new google.maps.Circle({
+        center: geolocation,
+        radius: position.coords.accuracy
+      });
+      autocomplete.setBounds(circle.getBounds());
+    });
+  }
 
   var infowindow = new google.maps.InfoWindow();
   var infowindowContent = document.getElementById('infowindow-content');
@@ -60,7 +50,7 @@ function initMap() {
       return;
     }
 
-    // If the place has a geometry, then present it on a map.
+    // if the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
       map.fitBounds(place.geometry.viewport);
     } else {
