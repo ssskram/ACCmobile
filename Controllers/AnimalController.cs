@@ -35,21 +35,7 @@ namespace ACCmobile.Controllers
             return PartialView();
         }
 
-        // Post animal data and return to home 
-        public async Task<IActionResult> Submit(AnimalViewModel model)
-        {
-            await Execute(model);
-
-            //  end of process...clear session variables
-            HttpContext.Session.Remove("SessionToken");
-            HttpContext.Session.Remove("AddressID");
-            HttpContext.Session.Remove("IncidentID");
-            HttpContext.Session.Remove("Address");
-
-            return RedirectToAction(nameof(HomeController.Index), "Home");
-        }
-
-        // Post animal data and load for another
+        // Post animal
         public async Task<IActionResult> PostAnimal(AnimalViewModel model)
         {
             await Execute(model);

@@ -15,6 +15,11 @@ namespace ACCmobile.Controllers
     {
         public IActionResult Index()
         {
+            // clear session variables
+            HttpContext.Session.Remove("SessionToken");
+            HttpContext.Session.Remove("AddressID");
+            HttpContext.Session.Remove("IncidentID");
+            HttpContext.Session.Remove("Address");
             return View();
         }
 

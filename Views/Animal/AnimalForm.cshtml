@@ -1,6 +1,7 @@
 @{
-    ViewData["Title"] = "Animal data";
+    ViewData["Title"] = "Animals";
 }
+@Html.Hidden("RedirectHome", Url.Action("Index", "Home"))
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/animalform.js"></script>
@@ -16,5 +17,5 @@
 </div>
 <a class="btn btn-link" id="AddAnimal" onclick="addAnimal()" style="display:none; font-size: 16px; margin-top: 25px;"><span></span></a>
 <br>
-<a class="btn btn-link" id="Submit" type="submit" style="display:none; font-size: 16px; margin-top: 10px;" onclick="returnHome()"><span></span></a>
+<a class="btn btn-link" id="Submit" onclick="returnHome()" style="display:none; font-size: 16px; margin-top: 10px;"><span></span></a>
 </form>

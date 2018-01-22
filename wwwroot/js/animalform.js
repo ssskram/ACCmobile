@@ -83,7 +83,25 @@ function returnHome()
 {
     if($("#name").val().length != 0 && $("#typerelay").val().length != 0)
     {
-        location.href='Submit';
+        $("#form").hide();
+        $('#type').val( $('#typerelay').val() );
+        $('#breed').val( $('#breedrelay').val() );
+        $('#coat').val( $('#coatrelay').val() );
+        $('#sex').val( $('#sexrelay').val() );
+        $.ajax(
+            {
+                url: "/Animal/PostAnimal",
+                type: 'POST',
+                data: $('#form').serialize(),
+                success:function(result) {
+                    var url = $("#RedirectHome").val();
+                    location.href = url;
+                },
+                error: function(result) {
+                    alert("Failed to post.  Please try again.");
+                }
+            }
+        );
     }
     else
     {
