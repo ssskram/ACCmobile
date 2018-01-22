@@ -211,14 +211,15 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     background:none !important;
 }
 #infowindow-content .title {
-font-weight: bold;
+    font-weight: bold;
 }
 #infowindow-content {
-display: none;
+    display: none;
 }
 #map #infowindow-content {
-display: inline;
+    display: inline;
 }
 .addresscontainer {
-width: 60%;
+    width: 100%;
+    max-width: 450px;
 }
