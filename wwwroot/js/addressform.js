@@ -13,21 +13,44 @@ function initMap() {
   });
 
   heatmap = new google.maps.visualization.HeatmapLayer({
-    data: getPoints(),
+    data: [],
     map: map
-  })
+  });
 
-  // var points = [ {lat: 40.4406144, long: -80.00189820000003}, {lat: 40.4657376, long: -79.95336350000002}, {lat: 40.4544472, long: -79.9682952}, {lat : 40.4247173, long: -79.9638928}, {lat : 40.41736, long: -80.02153499999997}, {lat : 40.4583129, long: -79.973885}, {lat : 40.422189, long: -79.98732689999997}, {lat : 40.453145, long: -79.96733699999999}, {lat : 40.440072, long: -79.96733699999999}, {lat : 40.4463884, long: -79.95003400000002} ];  
-  // points.forEach( point => {
-  //   alert(point.lat);
-  //   heatmap = new google.maps.visualization.HeatmapLayer({
-  //     data: new google.maps.LatLng(point.lat, point.long),
-  //     map: map
-  //   })
-  // })
+  var jsonArray = [];
+
+  /* $.ajax({
+    url : "/heatmapdata",
+    type : "GET",
+    data : "",
+    contentType : "application/json; charset=utf-8",
+    dataType : "json",
+    success : function(data) { */
+  var data = [
+    [40.4406144, -80.00189820000003],
+    [40.4657376, -79.95336350000002],
+    [40.4544472, -79.9682952],
+    [40.4247173, -79.9638928],
+    [40.41736, -80.02153499999997],
+    [40.4583129, -79.973885],
+    [40.422189, -79.98732689999997],
+    [40.453145, -79.96733699999999],
+    [40.440072, -80.00149299999998],
+    [40.4463884, -79.95003400000002]
+  ];
+  $.each(data, function(i, jsondata) {
+    var jsonObject = {};
+    jsonObject.lat = jsondata[0];
+    jsonObject.long = jsondata[1];
+    jsonArray.push(new google.maps.LatLng(jsonObject.lat, jsonObject.long));
+  });
+  var pointArray = new google.maps.MVCArray(jsonArray);
+  heatmap.setData(pointArray);
+  heatmap.setMap(map);
 
   var card = document.getElementById('addresscontainer');
   var input = document.getElementById('autocomplete');
+
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(card);
 
   var autocomplete = new google.maps.places.Autocomplete(input);
@@ -70,7 +93,7 @@ function initMap() {
       map.fitBounds(place.geometry.viewport);
     } else {
       map.setCenter(place.geometry.location);
-      map.setZoom(15);
+      map.setZoom(13);
     }
     marker.setPosition(place.geometry.location);
     marker.setVisible(true);
@@ -92,21 +115,6 @@ function initMap() {
 
   autocomplete.addListener('place_changed', fillInAddress);
   autocomplete.addListener('place_changed', checkAddress);
-}
-
-function getPoints() {
-  return [
-    new google.maps.LatLng(40.4406144,-80.00189820000003),
-    new google.maps.LatLng(40.4657376,-79.95336350000002),
-    new google.maps.LatLng(40.4544472,-79.9682952),
-    new google.maps.LatLng(40.4247173,-79.9638928),
-    new google.maps.LatLng(40.41736,-80.02153499999997),
-    new google.maps.LatLng(40.4583129,-79.973885),
-    new google.maps.LatLng(40.422189,-79.98732689999997),
-    new google.maps.LatLng(40.453145,-79.96733699999999),
-    new google.maps.LatLng(40.440072,-80.00149299999998),
-    new google.maps.LatLng(40.4463884,-79.95003400000002)
-  ];
 }
 
 // copy field entry into duplicate field to validate with string == string
