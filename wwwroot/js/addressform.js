@@ -9,11 +9,14 @@ function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.450714, lng: -79.985514},
     zoom: 12,
+    mapTypeId: 'satellite',
     disableDefaultUI: true
   });
 
   heatmap = new google.maps.visualization.HeatmapLayer({
     data: [],
+    dissipating: true,
+    opacity: 0.5,
     map: map
   });
 
