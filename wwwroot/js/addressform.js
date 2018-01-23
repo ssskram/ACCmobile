@@ -18,27 +18,8 @@ function initMap() {
   });
 
   var jsonArray = [];
-
-  /* $.ajax({
-    url : "/heatmapdata",
-    type : "GET",
-    data : "",
-    contentType : "application/json; charset=utf-8",
-    dataType : "json",
-    success : function(data) { */
-  var data = [
-    [40.4406144, -80.00189820000003],
-    [40.4657376, -79.95336350000002],
-    [40.4544472, -79.9682952],
-    [40.4247173, -79.9638928],
-    [40.41736, -80.02153499999997],
-    [40.4583129, -79.973885],
-    [40.422189, -79.98732689999997],
-    [40.453145, -79.96733699999999],
-    [40.440072, -80.00149299999998],
-    [40.4463884, -79.95003400000002]
-  ];
-  $.each(data, function(i, jsondata) {
+  var points = $('#mapdata').val();
+  $.each(JSON.parse(points), function(i, jsondata) {
     var jsonObject = {};
     jsonObject.lat = jsondata[0];
     jsonObject.long = jsondata[1];

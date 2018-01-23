@@ -20,6 +20,7 @@ namespace ACCmobile.Controllers
             HttpContext.Session.Remove("AddressID");
             HttpContext.Session.Remove("IncidentID");
             HttpContext.Session.Remove("Address");
+            HttpContext.Session.Remove("HeatMap");
             return View();
         }
 

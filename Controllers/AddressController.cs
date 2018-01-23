@@ -1,5 +1,6 @@
 using System;
 using System.Web;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -35,7 +36,13 @@ namespace ACCmobile.Controllers
                 String.Format 
                 ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
                     googleapikey); // 0
-            return View();
+            await HeatMapData();
+
+            var relay = new AddressViewModel
+            {
+                MapCoordinates = HttpContext.Session.GetString("HeatMap")
+            };
+            return View(relay);
         }
 
         // Gather access token for api calls, persist as system variable
@@ -73,6 +80,38 @@ namespace ACCmobile.Controllers
                 dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
                 string token = results.access_token.ToString();
                 HttpContext.Session.SetString("SessionToken", token);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+        public async Task HeatMapData()
+        {
+            // craft json load
+            var SessionToken = HttpContext.Session.GetString("SessionToken");
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Address')/items?$select=AddressID";
+            HttpClient client = new HttpClient();
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = 
+                new AuthenticationHeaderValue ("Bearer", SessionToken);
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            // execute get request
+            try
+            {              
+            string content = await client.GetStringAsync(sharepointUrl);
+            dynamic jo = JObject.Parse(content)["value"];
+            string bingo = "";
+                foreach (var item in jo)
+                {
+                    string coord = item.AddressID.ToString();
+                    var clean = Regex.Replace(coord, "[()]", "");
+                    var bracketed = "[" + clean + "],";
+                    bingo += bracketed;
+                }
+            bingo = bingo.TrimEnd(',');
+            var almost = "[" + bingo + "]";
+            HttpContext.Session.SetString("HeatMap", almost);
             }
             catch (Exception ex)
             {
