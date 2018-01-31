@@ -5,8 +5,14 @@
 footer {
     margin: 0 10px;
 }
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5 {
     color: #383838;
+}
+/* centers buttons in div */
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
 }
 
 /* Wrapping element */
@@ -57,11 +63,35 @@ h1, h2, h3, h4 {
     background-color: #383838 !important;
 }
 
-/* form style */
+/* form styles */
+/* text box */
 .form-control {
     margin: 5px !important;
     height: auto;
 }
+/* formatting for read-only fields */
+.no-border {
+    border: 0;
+    box-shadow: none;
+}
+/* hide overflow of text area boxes, in conjunction with script in site.js */
+textarea { 
+    overflow: hidden;
+}
+/* format dropdown buttons to look like other fields*/
+button.bs-placeholder[role='button']>span {
+    color:#999;
+}
+/* positioning success icon in address form */
+.right-inner-addon {
+    position: relative !important;
+}
+/* coloring success icon */
+.icon-success {
+    color: #5CB85C;
+}
+
+/* button styles */
 .btn-default:active, .btn-primary:active, .btn-link:active {
     outline: none !important;
     box-shadow: none !important;
@@ -76,12 +106,10 @@ h1, h2, h3, h4 {
     outline: none !important;
  }
 .btn-default:hover, .btn-primary:hover, .btn-link:hover {
-    /* update text color and background color */
     color:white !important;
     background-color:#383838 !important;
     box-shadow: none !important;
     outline: none !important;
-    /* transitions */
     transition-duration: .4s;
     -webkit-transition-duration: .11s;
     -moz-transition-duration: .6s;
@@ -166,34 +194,18 @@ h1, h2, h3, h4 {
     -webkit-box-shadow: 5px 5px 20px 20px #888;
     box-shadow: 2px 3px 8px 2px #888;
 }
-
-button.bs-placeholder[role='button']>span {
-    color:#999;
-}
-textarea { 
-    overflow: hidden;
-}
-.no-border {
-    border: 0;
-    box-shadow: none;
-}
-.right-inner-addon {
-    position: relative !important;
-}
-.icon-success {
-    color: #5CB85C;
-}
-.pac-container:after{
-    content:none !important;
-}
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
-}
 .btn i {
     padding-bottom: 5px;
     padding-right: 10px;
+}
+
+/* google map elements */
+.addresscontainer {
+    width: 100%;
+    max-width: 450px;
+}
+.pac-container:after{
+    content:none !important;
 }
 #map {
     height: 125px;
@@ -218,8 +230,4 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 }
 #map #infowindow-content {
     display: inline;
-}
-.addresscontainer {
-    width: 100%;
-    max-width: 450px;
 }
