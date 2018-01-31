@@ -1,7 +1,8 @@
-// this document contains the client side functions for the incident view
+// this document contains the client side functions for the incident module
 
-// geocode address
 // call google map
+// geocode address
+// for more information, visit https://developers.google.com/maps/documentation/javascript/
 var map, infoWindow;
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {

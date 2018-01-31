@@ -1,16 +1,20 @@
-// this document contains the client side functions for the address view
+// this document contains the client side functions for the address module
 
 // creates map
+// heatmaps coordinates returned from address controller
 // on field focus, geolocate via browser to improve autocomplete responses
 // logs field data, validates vield data, autocompletes field data
 // geocodes address
 // locates on map
+// for more information, visit https://developers.google.com/maps/documentation/javascript/
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.450714, lng: -79.985514},
     zoom: 12,
     disableDefaultUI: true
   });
+
+  // disable heatmap feature for demo purposes
 
   // heatmap = new google.maps.visualization.HeatmapLayer({
   //   data: [],
