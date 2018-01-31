@@ -24,7 +24,7 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class AddressController : Controller
     {   
-        // initialize httpclient to be used by all public methods
+        // initialize httpclient to be used by all methods
         HttpClient client = new HttpClient();
 
     // methods to handle loading of address module
@@ -67,9 +67,9 @@ namespace ACCmobile.Controllers
             var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
             var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
             var SPresource = Environment.GetEnvironmentVariable("spresourceid");
-            // initialize httpclient and and clear headers
-            // then, add a few
+            // clear headers
             client.DefaultRequestHeaders.Clear();
+            // then, add a few
             client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
             // craft repo-friendly api string with necessary values
