@@ -167,7 +167,7 @@ namespace ACCmobile.Controllers
                 var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Accmobileusers')/items";
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Authorization = 
-                    new AuthenticationHeaderValue ("Bearer", accesstoken);
+                new AuthenticationHeaderValue ("Bearer", accesstoken);
                 client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
                 // execute get request
                 try

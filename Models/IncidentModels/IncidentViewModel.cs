@@ -28,6 +28,8 @@ namespace ACCmobile.Models
         [Display(Prompt = "Comments")]
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
+        [Display(Prompt = "Call Origin")]
+        public string CallOrigin { get; set; }
         
         // begin hidden fields
         public string IncidentID { get; set; }

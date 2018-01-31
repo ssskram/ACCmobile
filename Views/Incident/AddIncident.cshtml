@@ -68,6 +68,13 @@
 
 <div class="form-group">
     <div class="col-md-12">
+        <input asp-for="CallOrigin" class="form-control"></input>
+        <span asp-validation-for="CallOrigin" class="text-danger" />
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
         <textarea rows="3" asp-for="Comments" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
         <span asp-validation-for="Comments" class="text-danger" />
     </div>
