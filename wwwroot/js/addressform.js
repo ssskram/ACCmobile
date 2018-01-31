@@ -9,28 +9,27 @@ function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.450714, lng: -79.985514},
     zoom: 12,
-    mapTypeId: 'satellite',
     disableDefaultUI: true
   });
 
-  heatmap = new google.maps.visualization.HeatmapLayer({
-    data: [],
-    dissipating: true,
-    opacity: 0.5,
-    map: map
-  });
+  // heatmap = new google.maps.visualization.HeatmapLayer({
+  //   data: [],
+  //   dissipating: true,
+  //   opacity: 0.5,
+  //   map: map
+  // });
 
-  var jsonArray = [];
-  var points = $('#mapdata').val();
-  $.each(JSON.parse(points), function(i, jsondata) {
-    var jsonObject = {};
-    jsonObject.lat = jsondata[0];
-    jsonObject.long = jsondata[1];
-    jsonArray.push(new google.maps.LatLng(jsonObject.lat, jsonObject.long));
-  });
-  var pointArray = new google.maps.MVCArray(jsonArray);
-  heatmap.setData(pointArray);
-  heatmap.setMap(map);
+  // var jsonArray = [];
+  // var points = $('#mapdata').val();
+  // $.each(JSON.parse(points), function(i, jsondata) {
+  //   var jsonObject = {};
+  //   jsonObject.lat = jsondata[0];
+  //   jsonObject.long = jsondata[1];
+  //   jsonArray.push(new google.maps.LatLng(jsonObject.lat, jsonObject.long));
+  // });
+  // var pointArray = new google.maps.MVCArray(jsonArray);
+  // heatmap.setData(pointArray);
+  // heatmap.setMap(map);
 
   var card = document.getElementById('addresscontainer');
   var input = document.getElementById('autocomplete');

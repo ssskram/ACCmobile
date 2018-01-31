@@ -37,7 +37,6 @@ namespace ACCmobile.Controllers
                 ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
                     googleapikey); // 0
             await HeatMapData();
-
             var relay = new AddressViewModel
             {
                 MapCoordinates = HttpContext.Session.GetString("HeatMap")
