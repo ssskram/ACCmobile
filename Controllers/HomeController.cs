@@ -15,7 +15,8 @@ namespace ACCmobile.Controllers
     {
         public IActionResult Index()
         {
-            // clear session variables
+            // returning to index serves as the end of all processes
+            // so, clear all session variables
             HttpContext.Session.Remove("SessionToken");
             HttpContext.Session.Remove("AddressID");
             HttpContext.Session.Remove("IncidentID");

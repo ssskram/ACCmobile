@@ -24,8 +24,10 @@ namespace ACCmobile.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        // initialize httpclient to be used by all public methods
+        // initialize httpclient to be used by controller
         HttpClient client = new HttpClient();
+
+        // dependency injections
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
@@ -40,6 +42,7 @@ namespace ACCmobile.Controllers
             _logger = logger;
         }
 
+        // login, logout, and redirect for microsoft oauth client
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
@@ -55,7 +58,6 @@ namespace ACCmobile.Controllers
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -64,18 +66,23 @@ namespace ACCmobile.Controllers
             _logger.LogInformation("User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");
         }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
-            // Request a redirect to the external login provider.
+            // request a redirect to the 3rd party login provider
             var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
 
+        // on return from MS oauth service
+        // get user group with list of members from SP site
+        // check returned credentials against group
+        // and make sure returned credentials contain @pittsburghpa.gov
+        // if yes to both conditions, create account for user in in-memory db
+        // if no to either condition, redirect to ExternalUser view
         [HttpPost]
         [HttpGet]
         [AllowAnonymous]
@@ -121,6 +128,8 @@ namespace ACCmobile.Controllers
             }
         }
 
+        // async method to get user group from SP
+        // pass contents from GET back to ExternalLoginCallback
         [HttpPost]
         public async Task GetUserGroup()
         {
