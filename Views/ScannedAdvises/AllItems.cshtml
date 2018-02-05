@@ -1,0 +1,35 @@
+@{
+    ViewData["Title"] = "Advises";
+}
+@model List<Advise>
+@ViewData["data"]
+<div class="row">
+<div class="col-md-1"></div>
+<div class="col-md-8">
+<h3 style="margin-left:20px;">Scanned advises</h3>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<form id="form">
+<table id="dt" class="table table-striped dataTable" cellspacing="0">
+    <row>
+        <div>
+            <input class="form-control" id="search" placeholder="Search by date or address"/>
+        </div>
+    </row>
+    <thead>
+    </tr>
+        <tr>
+            <th></th>
+            <th class="all" style="width:100%">ADV   [Date]   [Address]</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(Advise item in Model)
+        {
+            @Html.Partial("~/Views/ScannedAdvises/_Advise.cshtml", item)
+        }
+    </tbody>
+</table>
+</form>
+</div>
+<div class="col-md-3"></div>
+</div>

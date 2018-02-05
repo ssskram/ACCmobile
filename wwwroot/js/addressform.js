@@ -3,6 +3,7 @@
 // creates map
 // heatmaps coordinates returned from address controller
 // on field focus, geolocate via browser to improve autocomplete responses
+// set hard boundary for autocomplete responses to 10000 m radius surrounding geolocation
 // logs field data, validates vield data, autocompletes field data
 // geocodes address
 // locates on map
@@ -39,7 +40,6 @@ function initMap() {
   var input = document.getElementById('autocomplete');
 
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(card);
-
   var autocomplete = new google.maps.places.Autocomplete(input);
 
   if (navigator.geolocation) {
@@ -50,9 +50,10 @@ function initMap() {
       };
       var circle = new google.maps.Circle({
         center: geolocation,
-        radius: position.coords.accuracy
+        radius: 10000
       });
       autocomplete.setBounds(circle.getBounds());
+      autocomplete.setOptions({strictBounds: true})
     });
   }
 
@@ -65,11 +66,16 @@ function initMap() {
   });
 
   autocomplete.addListener('place_changed', function() {
+    var ACcheck = $('#autocomplete').val();
     infowindow.close();
     marker.setVisible(false);
     var place = autocomplete.getPlace();
     if (!place.geometry) {
       window.alert("No details available for input: '" + place.name + "'");
+    }
+    if (!ACcheck.includes("Pittsburgh")) {
+      window.alert("Only Pittsburgh addresses are permitted");
+      input.value = "";
     }
 
     // write lat/long to addressid field
@@ -104,20 +110,29 @@ function initMap() {
   autocomplete.addListener('place_changed', checkAddress);
 }
 
+// check for pittsburgh address
 // copy field entry into duplicate field to validate with string == string
 function fillInAddress() {
-  $(
+  var autocomplete = $('#autocomplete').val();
+  if (autocomplete.includes('Pittsburgh') && autocomplete !== null)
+  {
+    $(
       function(){
         $('#address').val( $('#autocomplete').val() );
       }
-  );
+    )
+  }
+  else
+  {
+    return;
+  }
 }
 
 // if string == string, activate "next" button and display checkmark
 function checkAddress () {
     var autocomplete = $('#autocomplete').val();
     var address = $('#address').val();
-    if ( autocomplete == address)
+    if ( autocomplete !== "" && autocomplete == address )
     {
         $("#button").prop("disabled",false);
         $("#checkmark").css("display", "block");

@@ -231,3 +231,24 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 #map #infowindow-content {
     display: inline;
 }
+
+/* datatable elements */
+.dataTables_filter, .dataTables_info { 
+    display: none; 
+}
+.paginate_button active {
+    display:none;
+}
+.dataTables_paginate .paginate_button {
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 0px !important;
+    padding: 0px !important;
+    margin-left: 0px !important;
+    text-align: center;
+    text-decoration: none !important;
+    cursor: pointer;
+    color: #333 !important;
+    border: 0px solid transparent !important;
+    border-radius: 0px !important;
+}

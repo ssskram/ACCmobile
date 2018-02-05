@@ -6,12 +6,12 @@
     <div class="col-md-6">
 
         <div class="form-group" style="margin-bottom: 10px;">
-            <input asp-for="AnimalName" class="form-control animal-name" id="name" required="true"  onchange="setheader()"></input>
+            <input asp-for="AnimalName" class="form-control animal-name" id="name" onchange="setheader()"></input>
             <span asp-validation-for="AnimalName" class="text-danger" />
         </div>
 
         <div class="form-group" style="margin-bottom: 5px;">
-            <select asp-for="TypeRelay" data-style="btn-info" class="selectpicker form-control" title="Type" data-dropup-auto="false" id="typerelay" required="true">
+            <select asp-for="TypeRelay" data-style="btn-info" class="selectpicker form-control animal-type" title="Type" data-dropup-auto="false" id="typerelay" required="true" onchange="revealbuttons()">
                 <option>Dog</option>
                 <option>Cat</option>
                 <option>Other</option>
@@ -45,6 +45,9 @@
                     <option>Shih Tzu</option>
                     <option>Pomeranian</option>
                     <option>Spaniel</option>
+                </optgroup>
+                <optgroup>
+                    <option>Other</option>
                 </optgroup>
             </select>
             <span asp-validation-for="Breed" class="text-danger" />
@@ -112,18 +115,26 @@
         </div>
 
     </div>
-  </div>
-  <div class="row">
-    <div class="form-group">
+    </div>
 
-        <div class="col-md-12">
-            <textarea rows="3" asp-for="Veterinarian" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
-            <span asp-validation-for="Veterinarian" class="text-danger" />
+    <div class="form-group" class="col-md-12" style="margin-bottom: 10px;">
+        <select asp-for="Veterinarian" data-style="btn-info" class="selectpicker form-control" title="Veterinarian" data-dropup-auto="false">
+            <option>Vet 1</option>
+            <option>Vet 2</option>
+            <option>Vet 3</option>
+        </select>
+        <span asp-validation-for="Veterinarian" class="text-danger" />
+    </div>
+
+
+    <div class="form-group" class="col-md-12">
+        <div>
+            <textarea rows="3" asp-for="Comments" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
+            <span asp-validation-for="Comments" class="text-danger" />
         </div>
-        
     </div>
   </div>
-</div>
+
 <!-- begin hidden fields -->
 <input asp-for="Type" id="type" type="hidden"></input>
 <input asp-for="Breed" id="breed" type="hidden"></input>

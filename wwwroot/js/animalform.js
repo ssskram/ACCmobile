@@ -10,14 +10,32 @@ $( document ).ready(function() {
 });
 
 // when entered, copy animal name to section header
-// copy animal name to value string on addAnimal() button
-// show addAnimal() button
+// copy animal name to value string on "add animal" buttons
 function setheader () {
+    var animalname = $(".animal-name").val();
+    var animaltype = $(".animal-type").val();
+    var Addbuttontext = `+ Save ${animalname} and add another animal`;
+    var Submitbuttontext = `+ Save ${animalname} and return home`;
+    if ( animalname !== "" )
+    {
+        $('.animal-heading').val( $('.animal-name').val() );
+        $('#AddAnimal span').text(Addbuttontext);
+        $('#Submit span').text(Submitbuttontext);
+        $("#header").show();
+    }
+    else
+    {
+        $('#AddAnimal span').text(Addbuttontext);
+        $('#Submit span').text(Submitbuttontext);
+        $("#header").hide();
+    }
+}
+
+// show "add animal" buttons when type is selected
+function revealbuttons () {
     var animalname = $(".animal-name").val();
     var Addbuttontext = `+ Save ${animalname} and add another animal`;
     var Submitbuttontext = `+ Save ${animalname} and return home`;
-    $('.animal-heading').val( $('.animal-name').val() );
-    $("#header").show();
     $('#AddAnimal span').text(Addbuttontext);
     $('#Submit span').text(Submitbuttontext);
     $("#AddAnimal").show();

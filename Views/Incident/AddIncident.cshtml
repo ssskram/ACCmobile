@@ -2,14 +2,14 @@
     
 <div class="form-group">
     <div class="col-md-12">
-        <input asp-for="OwnersLastName" class="form-control" required="true"></input>
+        <input asp-for="OwnersLastName" class="form-control"></input>
         <span asp-validation-for="OwnersLastName" class="text-danger" />
     </div>
 </div>
 
 <div class="form-group">
     <div class="col-md-12">
-        <input asp-for="OwnersFirstName" class="form-control" required="true"></input>
+        <input asp-for="OwnersFirstName" class="form-control"></input>
         <span asp-validation-for="OwnersFirstName" class="text-danger" />
     </div>
 </div>
@@ -23,7 +23,20 @@
 
 <div class="form-group" style="margin-bottom: 5px;">
     <div class="col-md-12">
-        <select asp-for="ReasonForVisitRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Reason(s) for visit" data-selected-text-format="count > 4" data-dropup-auto="false" id="reasonrelay">
+        <select asp-for="CallOrigin" data-style="btn-info" class="selectpicker form-control" title="Call Origin" data-dropup-auto="false">
+            <option>911</option>
+            <option>311</option>
+            <option>Office</option>
+            <option>Police</option>
+            <option>Other</option>
+        </select>
+        <span asp-validation-for="CallOrigin" class="text-danger" />
+    </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 5px;">
+    <div class="col-md-12">
+        <select asp-for="ReasonForVisitRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Reason(s) for visit" data-selected-text-format="count > 4" data-dropup-auto="false" id="reasonrelay" required="true">
             <option>Barking</option>
             <option>FWS</option>
             <option>Animal waste in yard</option>
@@ -63,13 +76,6 @@
     <div class="col-md-12">
         <input asp-for="CitationNumber" class="form-control"></input>
         <span asp-validation-for="CitationNumber" class="text-danger" />
-    </div>
-</div>
-
-<div class="form-group">
-    <div class="col-md-12">
-        <input asp-for="CallOrigin" class="form-control"></input>
-        <span asp-validation-for="CallOrigin" class="text-danger" />
     </div>
 </div>
 

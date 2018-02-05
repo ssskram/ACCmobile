@@ -39,6 +39,9 @@ namespace ACCmobile.Models
 
         [Display(Prompt = "Name")]
         public string AnimalName { get; set; }
+        [Display(Prompt = "Comments")]
+        [DataType(DataType.MultilineText)]
+        public string Comments { get; set; }
 
         // begin hidden fields
         public string Type { get; set; }
