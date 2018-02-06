@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ACCmobile.Models
 {
-    public class Advise
+    public class AllIncidents
     {
         public string Link { get; set; }
         public string Date { get; set; }

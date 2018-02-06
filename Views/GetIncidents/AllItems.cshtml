@@ -1,11 +1,10 @@
 @{
-    ViewData["Title"] = "Advises";
+    ViewData["Title"] = "Incidents";
 }
-@model List<Advise>
-@ViewData["data"]
+@model List<AllIncidents>
 <div class="row">
 <div class="col-md-12">
-<h3 style="margin-left:20px;">Scanned advises</h3>
+<h3 style="margin-left:20px;">All incidents</h3>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <form id="form">
 <table id="dt" class="table table-striped dataTable" cellspacing="0">
@@ -24,9 +23,9 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(Advise item in Model)
+        @foreach(AllIncidents item in Model)
         {
-            @Html.Partial("~/Views/ScannedAdvises/_Advise.cshtml", item)
+            @Html.Partial("~/Views/GetIncidents/_IncidentLineItem.cshtml", item)
         }
     </tbody>
 </table>

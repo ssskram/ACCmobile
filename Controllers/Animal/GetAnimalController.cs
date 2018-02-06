@@ -15,16 +15,12 @@ using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Collections.Specialized;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json.Linq;
-using System.Text.RegularExpressions;
 
-namespace ACCmobile.Controllers 
+namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class AdvisoryLibraryController : Controller
-    {
-
+    public class GetAnimalController : Controller
+    {   
+      
     }
-
-
 }

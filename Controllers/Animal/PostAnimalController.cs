@@ -19,51 +19,37 @@ using Microsoft.AspNetCore.Http;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class AnimalController : Controller
+    public class PostAnimalController : Controller
     {   
-        // initialize httpclient to be used by all methods
         HttpClient client = new HttpClient();
 
-        // open new animal form
         public IActionResult AnimalForm()
         {
             return View();
         }
 
-        // open partial view
-        // called by ajax on client side
         public IActionResult AddAnimal()
         {
             return PartialView();
         }
 
-        // Post animal
-        public async Task<IActionResult> PostAnimal(NewAnimal model)
+        public async Task<IActionResult> PostAnimal(PostAnimal model)
         {
-            // execute post request 
-            // then return here
             await Execute(model);
-            // stay on animal form
-            // incase there are more to add
-            return RedirectToAction(nameof(AnimalController.AnimalForm));
+            return RedirectToAction(nameof(PostAnimalController.AnimalForm));
         }
-        public async Task Execute(NewAnimal model)
+        public async Task Execute(PostAnimal model)
         {
-            // get necessary header values for api call from environment variables
             var SessionToken = HttpContext.Session.GetString("SessionToken");
             var AddressID = HttpContext.Session.GetString("AddressID");
             var IncidentID = HttpContext.Session.GetString("IncidentID");
-            // where you postin?
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
-            // clear headers
             client.DefaultRequestHeaders.Clear();
-            // add headers
             client.DefaultRequestHeaders.Authorization = 
             new AuthenticationHeaderValue ("Bearer", SessionToken);
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
-            // craft repo-friendly api string with necessary values
             var json = 
                 String.Format
                 ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}' }}",
