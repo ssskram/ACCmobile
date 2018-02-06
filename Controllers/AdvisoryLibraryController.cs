@@ -26,14 +26,19 @@ namespace ACCmobile.Controllers
         // initialize httpclient to be used by all methods
         HttpClient client = new HttpClient();
 
-         // open new advisory lib
+        // return all advises new advisory lib
         public async Task<IActionResult> AllItems()
         {
+            await RefreshToken();
             await GetAdvises();
-            var content = GetAdvises().Result; 
-            dynamic items = JObject.Parse(content)["value"];
+            var papercontent = GetAdvises().Result; 
+            dynamic PaperAdvises = JObject.Parse(papercontent)["value"];
+            await GetIncidents();
+            var electroniccontent = GetIncidents().Result;
+            dynamic ElectronicIncidents = JObject.Parse(electroniccontent)["value"];
             List<Advise> Advises = new List<Advise>();
-                foreach (var item in items)
+
+                foreach (var item in PaperAdvises)
                 {
                     var uncodedName = item.Name.ToString();
                     var encodedName = System.Web.HttpUtility.UrlPathEncode(uncodedName);
@@ -74,6 +79,7 @@ namespace ACCmobile.Controllers
                     string formatted_coords = deseralize_4coords.location.ToString();
                     var formatted_coords_nobrackets = formatted_coords.TrimEnd(brackets);
                     var formatted_coords_clean = formatted_coords_nobrackets.TrimStart(brackets);
+
                     Advise adv = new Advise() 
                     {
                         Link = doclink,
@@ -83,11 +89,25 @@ namespace ACCmobile.Controllers
                     };
                     Advises.Add(adv);  
                 }
+                foreach (var item in ElectronicIncidents)
+                {
+                    string Link = 
+                        String.Format 
+                        ("Open?id={0}",
+                        item.AdvisoryID); // 0
+                    Advise adv = new Advise() 
+                    {
+                        Link = Link,
+                        Date = item.Created,
+                        Address = item.Address,
+                        Coords = item.AddressID
+                    };
+                    Advises.Add(adv); 
+                }
             return View("~/Views/ScannedAdvises/AllItems.cshtml", Advises);
         }
 
-        
-        public async Task<string> GetAdvises()
+        public async Task RefreshToken()
         {
             var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
             var clientid = Environment.GetEnvironmentVariable("SPClientID");
@@ -117,7 +137,59 @@ namespace ACCmobile.Controllers
             dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
             string token = results.access_token.ToString();
             HttpContext.Session.SetString("SessionToken", token);
+        }
+        public async Task<string> GetAdvises()
+        {
+            var token = HttpContext.Session.GetString("SessionToken");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/GetFolderByServerRelativeUrl('ScannedAdvises')/Files";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
+        public async Task<string> GetIncidents()
+        {
+            var token = HttpContext.Session.GetString("SessionToken");
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
+
+        public async Task<IActionResult> Open(string id)
+        {
+            await GetIncident(id);
+            var content = GetIncident(id).Result; 
+            dynamic item = JObject.Parse(content)["value"][0];
+            GetIncident adv = new GetIncident() 
+            {
+                OwnersLastName = item.OwnersLastName,
+                OwnersFirstName = item.OwnersFirstName,
+                OwnersTelephoneNumber = item.OwnersTelephone,
+                PGHCode = item.ADVPGHCode,
+                CitationNumber = item.CitationNumber,
+                ReasonForVisit = item.ReasonforVisit,
+                Comments = item.Comments,
+                CallOrigin = item.CallOrigin,
+                IncidentID = item.AdvisoryID,
+                Address = item.Address,
+                AddressID = item.AddressID,
+                Date = item.Created
+            };
+            return View("~/Views/Incident/IncidentReport.cshtml", adv);
+        }
+        public async Task<string> GetIncident(string id)
+        {
+            var token = HttpContext.Session.GetString("SessionToken");
+            var sharepointUrl = 
+            String.Format 
+            ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items?$filter=AdvisoryID eq '{0}'",
+                id); // 0
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Authorization = 

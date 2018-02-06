@@ -38,7 +38,7 @@ namespace ACCmobile.Controllers
         }
 
         // Post animal
-        public async Task<IActionResult> PostAnimal(AnimalViewModel model)
+        public async Task<IActionResult> PostAnimal(NewAnimal model)
         {
             // execute post request 
             // then return here
@@ -47,7 +47,7 @@ namespace ACCmobile.Controllers
             // incase there are more to add
             return RedirectToAction(nameof(AnimalController.AnimalForm));
         }
-        public async Task Execute(AnimalViewModel model)
+        public async Task Execute(NewAnimal model)
         {
             // get necessary header values for api call from environment variables
             var SessionToken = HttpContext.Session.GetString("SessionToken");

@@ -44,7 +44,7 @@ namespace ACCmobile.Controllers
                 ("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap",
                     googleapikey); // 0
             // generate new incident model to pass to view
-            var incidentmodel = new IncidentViewModel
+            var incidentmodel = new NewIncident
                 {
                     // generate guid and assign as incident id
                     IncidentID = (Guid.NewGuid().ToString()),
@@ -57,7 +57,7 @@ namespace ACCmobile.Controllers
         }
 
         // Post incident data and continue to animal module
-        public async Task<IActionResult> Create(IncidentViewModel model)
+        public async Task<IActionResult> Create(NewIncident model)
         {
             // set incident id to session variable
             string IncidentID = model.IncidentID.ToString();
@@ -68,7 +68,7 @@ namespace ACCmobile.Controllers
             // continue to animal module
             return RedirectToAction(nameof(AnimalController.AnimalForm), "Animal");
         }
-        public async Task Execute(IncidentViewModel model)
+        public async Task Execute(NewIncident model)
         {
             // collect current logged in user from _usermanager
             // set to variable
@@ -89,7 +89,7 @@ namespace ACCmobile.Controllers
             // craft repo-friendly api string with necessary values
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}' }}",
                     model.OwnersFirstName, // 0
                     model.OwnersLastName, // 1
                     model.OwnersTelephoneNumber, // 2
@@ -100,7 +100,8 @@ namespace ACCmobile.Controllers
                     AddressID, // 7 
                     model.IncidentID, // 8
                     SubmittedBy, //9
-                    model.CallOrigin); // 10
+                    model.CallOrigin, // 10
+                    model.Address); // 11
                     
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post
