@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Collections.Specialized;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace ACCmobile.Controllers 
 {
@@ -42,6 +43,7 @@ namespace ACCmobile.Controllers
 
                     char[] whitespace = {' ',' '};
                     char[] period = {'.',' '};
+                    char[] brackets={'{','}',' '};
                     char[] adv_char = {'A', 'D','V','a','d','v',' ' };
                     char[] pdf_char = {'P','D','F','p','d','f',' ' };
                     string name = item.Name.ToString();
@@ -69,12 +71,14 @@ namespace ACCmobile.Controllers
                     string formatted_address = deseralize_4address.formatted_address.ToString();
                     dynamic deseralize_4coords = JsonConvert.DeserializeObject<dynamic>(address_geocoded)["results"][0]["geometry"];
                     string formatted_coords = deseralize_4coords.location.ToString();
+                    var formatted_coords_nobrackets = formatted_coords.TrimEnd(brackets);
+                    var formatted_coords_clean = formatted_coords_nobrackets.TrimStart(brackets);
                     Advise adv = new Advise() 
                     {
                         Link = doclink,
                         Date = date_trimmed,
                         Address = formatted_address,
-                        Coords = formatted_coords
+                        Coords = formatted_coords_clean
                     };
                     Advises.Add(adv);  
                 }

@@ -50,10 +50,9 @@ function initMap() {
       };
       var circle = new google.maps.Circle({
         center: geolocation,
-        radius: 10000
+        radius: position.coords.accuracy
       });
       autocomplete.setBounds(circle.getBounds());
-      autocomplete.setOptions({strictBounds: true})
     });
   }
 
