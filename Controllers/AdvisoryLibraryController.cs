@@ -39,10 +39,42 @@ namespace ACCmobile.Controllers
                         String.Format
                         ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/ScannedAdvises/{0}",
                             encodedName); // 0
+
+                    char[] whitespace = {' ',' '};
+                    char[] period = {'.',' '};
+                    char[] adv_char = {'A', 'D','V','a','d','v',' ' };
+                    char[] pdf_char = {'P','D','F','p','d','f',' ' };
+                    string name = item.Name.ToString();
+                    string adv_trimmed = name.TrimStart(adv_char);
+                    string pdf_trimmed = adv_trimmed.TrimEnd(pdf_char);
+                    string date = pdf_trimmed.Split(' ').First();
+                    string date_trimmed= date.TrimEnd(whitespace);
+                    string address = pdf_trimmed.Remove(0, pdf_trimmed.IndexOf(' ') + 1);
+                    string address_nowhitespace = address.TrimStart(whitespace);
+                    string address_trimmed = address_nowhitespace.TrimEnd(period);
+                    string address_formatted = 
+                        String.Format 
+                        ("{0}, Pittsburgh PA",
+                            address_trimmed); // 0
+                    string address_encoded = address_formatted.Replace(" ", "+");
+                    var key = Environment.GetEnvironmentVariable("googleapikey");
+                    var geo_call =
+                        String.Format 
+                        ("https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}",
+                        address_encoded, // 0
+                        key); // 1
+                    client.DefaultRequestHeaders.Clear();
+                    string address_geocoded = await client.GetStringAsync(geo_call);
+                    dynamic deseralize_4address = JsonConvert.DeserializeObject<dynamic>(address_geocoded)["results"][0];
+                    string formatted_address = deseralize_4address.formatted_address.ToString();
+                    dynamic deseralize_4coords = JsonConvert.DeserializeObject<dynamic>(address_geocoded)["results"][0]["geometry"];
+                    string formatted_coords = deseralize_4coords.location.ToString();
                     Advise adv = new Advise() 
                     {
                         Link = doclink,
-                        Name = item.Name
+                        Date = date_trimmed,
+                        Address = formatted_address,
+                        Coords = formatted_coords
                     };
                     Advises.Add(adv);  
                 }
