@@ -20,6 +20,7 @@ using System.Text.RegularExpressions;
 
 namespace ACCmobile.Controllers 
 {
+    [Authorize]
     public class AdvisoryLibraryController : Controller
     {
         // initialize httpclient to be used by all methods
