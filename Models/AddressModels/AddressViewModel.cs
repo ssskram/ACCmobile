@@ -12,7 +12,5 @@ namespace ACCmobile.Models
         // begin hidden fields
         public string AddressID { get; set; }
         public string Address { get; set; }
-        public string AddressClass { get; set; }
-        public string MapCoordinates { get; set; }
     }
 }

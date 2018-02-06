@@ -78,7 +78,7 @@ namespace ACCmobile.Controllers
 
         public IActionResult Next(AddressViewModel model)
         {
-            HttpContext.Session.SetString("Address", model.AddressClass);
+            HttpContext.Session.SetString("Address", model.Address);
             HttpContext.Session.SetString("AddressID", model.AddressID);
             return RedirectToAction(nameof(PostIncidentController.IncidentForm), "PostIncident");
         }

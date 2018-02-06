@@ -24,11 +24,11 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class GetIncidentsController : Controller
     {   
-               // initialize httpclient to be used by all methods
+        // initialize httpclient to be used by all methods
         HttpClient client = new HttpClient();
 
-        // return all advises new advisory lib
-        public async Task<IActionResult> AllItems()
+        // return all incidents by address
+        public async Task<IActionResult> ByAddress()
         {
             await RefreshToken();
             await GetAdvises();
@@ -105,9 +105,28 @@ namespace ACCmobile.Controllers
                     };
                     Advises.Add(adv); 
                 }
-            return View("~/Views/GetIncidents/AllItems.cshtml", Advises);
+            return View("~/Views/GetIncidents/ByAddress.cshtml", Advises);
         }
 
+        // // return all incidents by date
+        // public async Task<IActionResult> ByDate()
+        // {
+
+        // }
+
+        // // return electronic incidents by animal
+        // public async Task<IActionResult> ByAnimal()
+        // {
+
+        // }
+
+        // //return electronic incidents by owner
+        // public async Task<IActionResult> ByOwner()
+        // {
+
+        // }
+
+        // services       
         public async Task RefreshToken()
         {
             var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";

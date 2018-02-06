@@ -50,7 +50,7 @@ namespace ACCmobile.Controllers
             string IncidentID = model.IncidentID.ToString();
             HttpContext.Session.SetString("IncidentID", IncidentID);
             await Execute(model);
-            return RedirectToAction(nameof(PostAnimalController.AnimalForm), "Animal");
+            return RedirectToAction(nameof(PostAnimalController.AnimalForm), "PostAnimal");
         }
         public async Task Execute(PostIncident model)
         {

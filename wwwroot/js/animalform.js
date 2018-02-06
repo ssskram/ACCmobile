@@ -49,7 +49,7 @@ function revealbuttons () {
 // reboot bootstrap-select
 function addAnimal()
 {
-    if($("#name").val().length != 0 && $("#typerelay").val().length != 0)
+    if($("#typerelay").val().length != 0)
     {
         $("animal").hide();
         $("#AddAnimal").hide();
@@ -60,7 +60,7 @@ function addAnimal()
         $('#sex').val( $('#sexrelay').val() );
         $.ajax(
             {
-                url: "/Animal/PostAnimal",
+                url: "/PostAnimal/PostAnimal",
                 type: 'POST',
                 data: $('form').serialize(),
                 error: function(result) {
@@ -71,7 +71,7 @@ function addAnimal()
         $("animal").remove();
         $.ajax(
             {
-                url: "/Animal/AddAnimal",
+                url: "/PostAnimal/AddAnimal",
                 type: 'GET',
                 success:function(result) {
                     var newDiv = $(document.createElement('animal'));
@@ -92,14 +92,14 @@ function addAnimal()
     }
     else
     {
-        alert("Animal name & animal type are required fields");
+        alert("Animal type is a required field");
     }
 }
 
 // validate entries and return home
 function returnHome()
 {
-    if($("#name").val().length != 0 && $("#typerelay").val().length != 0)
+    if($("#typerelay").val().length != 0)
     {
         $("#form").hide();
         $('#type').val( $('#typerelay').val() );
@@ -108,7 +108,7 @@ function returnHome()
         $('#sex').val( $('#sexrelay').val() );
         $.ajax(
             {
-                url: "/Animal/PostAnimal",
+                url: "/PostAnimal/PostAnimal",
                 type: 'POST',
                 data: $('#form').serialize(),
                 success:function(result) {
@@ -123,7 +123,7 @@ function returnHome()
     }
     else
     {
-        alert("Animal name & animal type are required fields");
+        alert("Animal type is a required field");
     }
 }
 
