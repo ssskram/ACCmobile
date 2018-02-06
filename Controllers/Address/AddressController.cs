@@ -26,7 +26,7 @@ namespace ACCmobile.Controllers
     {   
         HttpClient client = new HttpClient();
 
-        public async Task<IActionResult> AddressForm()
+        public async Task<IActionResult> Validation()
         {
             await RefreshToken();
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
@@ -80,7 +80,7 @@ namespace ACCmobile.Controllers
         {
             HttpContext.Session.SetString("Address", model.Address);
             HttpContext.Session.SetString("AddressID", model.AddressID);
-            return RedirectToAction(nameof(PostIncidentController.IncidentForm), "PostIncident");
+            return RedirectToAction(nameof(NewIncidentController.Form), "NewIncident");
         }
     }
 }

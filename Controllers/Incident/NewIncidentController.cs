@@ -20,16 +20,16 @@ using Microsoft.AspNetCore.Identity;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class PostIncidentController : Controller
+    public class NewIncidentController : Controller
     {   
         private readonly UserManager<ApplicationUser> _userManager;
-        public PostIncidentController(UserManager<ApplicationUser> userManager)
+        public NewIncidentController(UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
         }
         HttpClient client = new HttpClient();
 
-        public IActionResult IncidentForm()
+        public IActionResult Form()
         {
             var address = HttpContext.Session.GetString("Address");
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
@@ -50,7 +50,7 @@ namespace ACCmobile.Controllers
             string IncidentID = model.IncidentID.ToString();
             HttpContext.Session.SetString("IncidentID", IncidentID);
             await Execute(model);
-            return RedirectToAction(nameof(PostAnimalController.AnimalForm), "PostAnimal");
+            return RedirectToAction(nameof(NewAnimalController.Form), "NewAnimal");
         }
         public async Task Execute(PostIncident model)
         {

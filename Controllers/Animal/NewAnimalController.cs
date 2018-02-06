@@ -19,16 +19,16 @@ using Microsoft.AspNetCore.Http;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class PostAnimalController : Controller
+    public class NewAnimalController : Controller
     {   
         HttpClient client = new HttpClient();
 
-        public IActionResult AnimalForm()
+        public IActionResult Form()
         {
             return View();
         }
 
-        public IActionResult AddAnimal()
+        public IActionResult _AddAnimal()
         {
             return PartialView();
         }
@@ -36,7 +36,7 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> PostAnimal(PostAnimal model)
         {
             await Execute(model);
-            return RedirectToAction(nameof(PostAnimalController.AnimalForm));
+            return RedirectToAction(nameof(NewAnimalController.Form));
         }
         public async Task Execute(PostAnimal model)
         {
