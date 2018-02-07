@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class HomeController : Controller
+    public class Home : Controller
     {
         public IActionResult Index()
         {

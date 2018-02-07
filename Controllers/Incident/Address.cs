@@ -22,7 +22,7 @@ using Microsoft.AspNetCore.Identity;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class AddressController : Controller
+    public class Address : Controller
     {   
         HttpClient client = new HttpClient();
 
@@ -41,7 +41,7 @@ namespace ACCmobile.Controllers
         {
             HttpContext.Session.SetString("Address", model.Address);
             HttpContext.Session.SetString("AddressID", model.AddressID);
-            return RedirectToAction(nameof(NewIncidentController.Description), "NewIncident");
+            return RedirectToAction(nameof(New_Incident.Description), "New_Incident");
         }
 
         [HttpPost]

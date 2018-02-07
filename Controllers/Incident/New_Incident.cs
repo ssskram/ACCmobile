@@ -20,13 +20,13 @@ using Microsoft.AspNetCore.Identity;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class NewIncidentController : Controller
+    public class New_Incident : Controller
     {   
 
         // dependencies and services
 
         private readonly UserManager<ApplicationUser> _userManager;
-            public NewIncidentController(UserManager<ApplicationUser> userManager)
+            public New_Incident(UserManager<ApplicationUser> userManager)
             {
                 _userManager = userManager;
             }

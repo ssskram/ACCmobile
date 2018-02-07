@@ -22,7 +22,7 @@ namespace ACCmobile.Controllers
 {
     [Authorize]
     [Route("[controller]/[action]")]
-    public class AccountController : Controller
+    public class Account : Controller
     {
         HttpClient client = new HttpClient();
 
@@ -30,10 +30,10 @@ namespace ACCmobile.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
 
-        public AccountController(
+        public Account(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<AccountController> logger)
+            ILogger<Account> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -61,7 +61,7 @@ namespace ACCmobile.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(Home.Index), "Home");
         }
         [HttpPost]
         [AllowAnonymous]
@@ -116,7 +116,7 @@ namespace ACCmobile.Controllers
                             _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
                         }
                     }
-                    return RedirectToAction(nameof(HomeController.Index), "Home");
+                    return RedirectToAction(nameof(Home.Index), "Home");
                 }                
                 else 
                 {
@@ -189,7 +189,7 @@ namespace ACCmobile.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(Home.Index), "Home");
             }
         }
 

@@ -22,7 +22,7 @@ using System.Text.RegularExpressions;
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class GetIncidentsController : Controller
+    public class Get_Incidents : Controller
     {   
         // initialize httpclient to be used by all methods
         HttpClient client = new HttpClient();
