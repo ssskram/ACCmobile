@@ -24,10 +24,8 @@ namespace ACCmobile.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
-        // initialize httpclient to be used by controller
         HttpClient client = new HttpClient();
 
-        // dependency injections
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger _logger;
@@ -42,7 +40,6 @@ namespace ACCmobile.Controllers
             _logger = logger;
         }
 
-        // login, logout, and redirect for microsoft oauth client
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Login(string returnUrl = null)
@@ -128,8 +125,6 @@ namespace ACCmobile.Controllers
             }
         }
 
-        // async method to get user group from SP
-        // pass contents from GET back to ExternalLoginCallback
         [HttpPost]
         public async Task GetUserGroup()
         {
@@ -162,14 +157,12 @@ namespace ACCmobile.Controllers
                 var content = await response.Content.ReadAsStringAsync();
                 dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
                 
-                // end refresh token call, begin user group call
                 string accesstoken = results.access_token.ToString();
                 var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Accmobileusers')/items";
                 client.DefaultRequestHeaders.Clear();
                 client.DefaultRequestHeaders.Authorization = 
                 new AuthenticationHeaderValue ("Bearer", accesstoken);
                 client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
-                // execute get request
                 try
                 {              
                     string group = await client.GetStringAsync(sharepointUrl);

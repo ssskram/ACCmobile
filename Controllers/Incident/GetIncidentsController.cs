@@ -186,7 +186,7 @@ namespace ACCmobile.Controllers
             await GetIncident(id);
             var content = GetIncident(id).Result; 
             dynamic item = JObject.Parse(content)["value"][0];
-            GetIncident adv = new GetIncident() 
+            IncidentReport adv = new IncidentReport() 
             {
                 OwnersLastName = item.OwnersLastName,
                 OwnersFirstName = item.OwnersFirstName,

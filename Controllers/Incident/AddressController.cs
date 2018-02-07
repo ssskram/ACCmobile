@@ -37,6 +37,13 @@ namespace ACCmobile.Controllers
             return View();
         }
 
+        public IActionResult Next(AddressModel model)
+        {
+            HttpContext.Session.SetString("Address", model.Address);
+            HttpContext.Session.SetString("AddressID", model.AddressID);
+            return RedirectToAction(nameof(NewIncidentController.Description), "NewIncident");
+        }
+
         [HttpPost]
         public async Task RefreshToken()
         {
@@ -74,13 +81,6 @@ namespace ACCmobile.Controllers
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
-        }
-
-        public IActionResult Next(AddressViewModel model)
-        {
-            HttpContext.Session.SetString("Address", model.Address);
-            HttpContext.Session.SetString("AddressID", model.AddressID);
-            return RedirectToAction(nameof(NewIncidentController.Form), "NewIncident");
         }
     }
 }

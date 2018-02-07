@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ACCmobile.Models
 {
-    public class PostIncident
+    public class NewIncident
     {
 
         [Display(Prompt = "Owners Last Name")]
