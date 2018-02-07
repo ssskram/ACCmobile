@@ -32,6 +32,11 @@ namespace ACCmobile.Controllers
         {
             await RefreshToken();
             await GetAdvises();
+            var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
+            ViewData["apistring"] = 
+                String.Format 
+                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
+                    googleapikey); // 0
             var papercontent = GetAdvises().Result; 
             dynamic PaperAdvises = JObject.Parse(papercontent)["value"];
             await GetIncidents();
@@ -86,7 +91,8 @@ namespace ACCmobile.Controllers
                         Link = doclink,
                         Date = date_trimmed,
                         Address = formatted_address,
-                        Coords = formatted_coords_clean
+                        Coords = formatted_coords_clean,
+                        Format = "Paper"
                     };
                     Advises.Add(adv);  
                 }
@@ -101,7 +107,8 @@ namespace ACCmobile.Controllers
                         Link = Link,
                         Date = item.Created,
                         Address = item.Address,
-                        Coords = item.AddressID
+                        Coords = item.AddressID,
+                        Format = "Eletronic"
                     };
                     Advises.Add(adv); 
                 }

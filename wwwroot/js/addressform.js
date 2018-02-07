@@ -15,27 +15,6 @@ function initMap() {
     disableDefaultUI: true
   });
 
-  // disable heatmap feature for demo purposes
-
-  // heatmap = new google.maps.visualization.HeatmapLayer({
-  //   data: [],
-  //   dissipating: true,
-  //   opacity: 0.5,
-  //   map: map
-  // });
-
-  // var jsonArray = [];
-  // var points = $('#mapdata').val();
-  // $.each(JSON.parse(points), function(i, jsondata) {
-  //   var jsonObject = {};
-  //   jsonObject.lat = jsondata[0];
-  //   jsonObject.long = jsondata[1];
-  //   jsonArray.push(new google.maps.LatLng(jsonObject.lat, jsonObject.long));
-  // });
-  // var pointArray = new google.maps.MVCArray(jsonArray);
-  // heatmap.setData(pointArray);
-  // heatmap.setMap(map);
-
   var card = document.getElementById('addresscontainer');
   var input = document.getElementById('autocomplete');
 
