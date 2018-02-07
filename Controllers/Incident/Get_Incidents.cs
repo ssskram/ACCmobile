@@ -30,8 +30,10 @@ namespace ACCmobile.Controllers
         // return all incidents by address
         public async Task<IActionResult> ByAddress()
         {
+            string HeatMapData= "";
             await RefreshToken();
             await GetAdvises();
+            //await HeatMapData();
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistring"] = 
                 String.Format 
@@ -58,6 +60,7 @@ namespace ACCmobile.Controllers
                     char[] brackets={'{','}',' '};
                     char[] adv_char = {'A', 'D','V','a','d','v',' ' };
                     char[] pdf_char = {'P','D','F','p','d','f',' ' };
+                    char[] lat = {'"','l','a','t',':',' ' };
                     string name = item.Name.ToString();
                     string adv_trimmed = name.TrimStart(adv_char);
                     string pdf_trimmed = adv_trimmed.TrimEnd(pdf_char);
@@ -85,16 +88,30 @@ namespace ACCmobile.Controllers
                     string formatted_coords = deseralize_4coords.location.ToString();
                     var formatted_coords_nobrackets = formatted_coords.TrimEnd(brackets);
                     var formatted_coords_clean = formatted_coords_nobrackets.TrimStart(brackets);
+                    string formatted_coords_lat = formatted_coords_clean.Remove(0, formatted_coords_clean.IndexOf(' ') + 1);
+                    string formatted_coords_lat2 = formatted_coords_lat.TrimStart(lat);
+                    string longitude_dirty = formatted_coords_lat2.Split(' ').Last();
+                    string longitude = longitude_dirty.TrimEnd(whitespace);
+                    string latitude = formatted_coords_lat2.Split(' ').FirstOrDefault();
+                    var finalcoord =
+                        String.Format 
+                        ("({0} {1})",
+                        latitude, // 0
+                        longitude); // 1
 
                     AllIncidents adv = new AllIncidents() 
                     {
                         Link = doclink,
                         Date = date_trimmed,
                         Address = formatted_address,
-                        Coords = formatted_coords_clean,
+                        Coords = finalcoord,
                         Format = "Paper"
                     };
                     Advises.Add(adv);  
+                    string coord = adv.Coords.ToString();
+                    var clean = Regex.Replace(coord, "[()]", "");
+                    var bracketed = "[" + clean + "],";
+                    HeatMapData += bracketed;
                 }
                 foreach (var item in ElectronicIncidents)
                 {
@@ -111,7 +128,14 @@ namespace ACCmobile.Controllers
                         Format = "Eletronic"
                     };
                     Advises.Add(adv); 
+                    string coord = adv.Coords.ToString();
+                    var clean = Regex.Replace(coord, "[()]", "");
+                    var bracketed = "[" + clean + "],";
+                    HeatMapData += bracketed;
                 }
+            HeatMapData = HeatMapData.TrimEnd(',');
+            var done = "[" + HeatMapData + "]";
+            ViewBag.heatmap = done;
             return View(Advises);
         }
 

@@ -6,24 +6,42 @@ function initMap() {
       disableDefaultUI: true
     });
 
-    // heatmap = new google.maps.visualization.HeatmapLayer({
-    //   data: [],
-    //   dissipating: true,
-    //   opacity: 0.5,
-    //   map: map
-    // });
+    var gradient = [
+      'rgba(0, 255, 255, 0)',
+      'rgba(0, 255, 255, 1)',
+      'rgba(0, 191, 255, 1)',
+      'rgba(0, 127, 255, 1)',
+      'rgba(0, 63, 255, 1)',
+      'rgba(0, 0, 255, 1)',
+      'rgba(0, 0, 223, 1)',
+      'rgba(0, 0, 191, 1)',
+      'rgba(0, 0, 159, 1)',
+      'rgba(0, 0, 127, 1)',
+      'rgba(63, 0, 91, 1)',
+      'rgba(127, 0, 63, 1)',
+      'rgba(191, 0, 31, 1)',
+      'rgba(255, 0, 0, 1)'
+    ]
+    heatmap = new google.maps.visualization.HeatmapLayer({
+      data: [],
+      dissipating: true,
+      gradient: gradient,
+      radius: 7,
+      opacity: .6,
+      map: map
+    });
   
-    // var jsonArray = [];
-    // var points = $('#mapdata').val();
-    // $.each(JSON.parse(points), function(i, jsondata) {
-    //   var jsonObject = {};
-    //   jsonObject.lat = jsondata[0];
-    //   jsonObject.long = jsondata[1];
-    //   jsonArray.push(new google.maps.LatLng(jsonObject.lat, jsonObject.long));
-    // });
-    // var pointArray = new google.maps.MVCArray(jsonArray);
-    // heatmap.setData(pointArray);
-    // heatmap.setMap(map);
+    var jsonArray = [];
+    var points = $('#mapdata').val();
+    $.each(JSON.parse(points), function(i, jsondata) {
+      var jsonObject = {};
+      jsonObject.lat = jsondata[0];
+      jsonObject.long = jsondata[1];
+      jsonArray.push(new google.maps.LatLng(jsonObject.lat, jsonObject.long));
+    });
+    var pointArray = new google.maps.MVCArray(jsonArray);
+    heatmap.setData(pointArray);
+    heatmap.setMap(map);
   
     var card = document.getElementById('addresscontainer');
     var input = document.getElementById('search');

@@ -3,6 +3,7 @@
 }
 @model List<AllIncidents>
 <h3 style="margin-left:20px;">Search incidents by address</h3>
+<input style="display:none;" id="mapdata" value='@ViewBag.heatmap'/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/incidentsbyaddress.js"></script>
 <script src=@ViewData["apistring"] async defer ></script>
