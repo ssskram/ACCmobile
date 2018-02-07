@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
-namespace ACCmobile.Models.ManageViewModels
+namespace ACCmobile.Models.AccountModels
 {
     public class ExternalLoginsViewModel
     {

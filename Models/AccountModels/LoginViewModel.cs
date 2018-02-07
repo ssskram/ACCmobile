@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ACCmobile.Models.AccountViewModels
+namespace ACCmobile.Models.AccountModels
 {
     public class LoginViewModel
     {
