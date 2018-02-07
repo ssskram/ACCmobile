@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ACCmobile.Models
 {
-    public class IncidentReport
+    public class SingleIncident
     {
         public string OwnersLastName { get; set; }
         public string OwnersFirstName { get; set; }

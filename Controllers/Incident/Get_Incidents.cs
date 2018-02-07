@@ -105,7 +105,7 @@ namespace ACCmobile.Controllers
                     };
                     Advises.Add(adv); 
                 }
-            return View("~/Views/GetIncidents/ByAddress.cshtml", Advises);
+            return View(Advises);
         }
 
         // // return all incidents by date
@@ -184,9 +184,10 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> Open(string id)
         {
             await GetIncident(id);
+            // await GetAnimals(id);
             var content = GetIncident(id).Result; 
             dynamic item = JObject.Parse(content)["value"][0];
-            IncidentReport adv = new IncidentReport() 
+            SingleIncident adv = new SingleIncident() 
             {
                 OwnersLastName = item.OwnersLastName,
                 OwnersFirstName = item.OwnersFirstName,
@@ -201,7 +202,8 @@ namespace ACCmobile.Controllers
                 AddressID = item.AddressID,
                 Date = item.Created
             };
-            return View("~/Views/GetIncidents/IncidentReport.cshtml", adv);
+            // create animals model and pass to view somehow
+            return View("~/Views/Get_Incidents/IncidentReport.cshtml", adv);
         }
         public async Task<string> GetIncident(string id)
         {
@@ -217,5 +219,9 @@ namespace ACCmobile.Controllers
             string listitems = await client.GetStringAsync(sharepointUrl);
             return listitems;
         }
+        // public async Task<string> GetAnimals(string id)
+        // {
+
+        // }
     }
 }
