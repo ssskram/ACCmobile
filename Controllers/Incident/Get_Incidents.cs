@@ -226,24 +226,40 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> Open(string id)
         {
             await GetIncident(id);
-            // await GetAnimals(id);
-            var content = GetIncident(id).Result; 
-            dynamic item = JObject.Parse(content)["value"][0];
+            var incidentcontent = GetIncident(id).Result; 
+            dynamic incidentitem = JObject.Parse(incidentcontent)["value"][0];
             SingleIncident adv = new SingleIncident() 
             {
-                OwnersLastName = item.OwnersLastName,
-                OwnersFirstName = item.OwnersFirstName,
-                OwnersTelephoneNumber = item.OwnersTelephone,
-                PGHCode = item.ADVPGHCode,
-                CitationNumber = item.CitationNumber,
-                ReasonForVisit = item.ReasonforVisit,
-                Comments = item.Comments,
-                CallOrigin = item.CallOrigin,
-                IncidentID = item.AdvisoryID,
-                Address = item.Address,
-                AddressID = item.AddressID,
-                Date = item.Created
+                OwnersLastName = incidentitem.OwnersLastName,
+                OwnersFirstName = incidentitem.OwnersFirstName,
+                OwnersTelephoneNumber = incidentitem.OwnersTelephone,
+                PGHCode = incidentitem.ADVPGHCode,
+                CitationNumber = incidentitem.CitationNumber,
+                ReasonForVisit = incidentitem.ReasonforVisit,
+                Comments = incidentitem.Comments,
+                CallOrigin = incidentitem.CallOrigin,
+                IncidentID = incidentitem.AdvisoryID,
+                Address = incidentitem.Address,
+                AddressID = incidentitem.AddressID,
+                Date = incidentitem.Created
             };
+            await GetAnimals(id);
+            var animalcontent = GetAnimals(id).Result; 
+            dynamic animalitems = JObject.Parse(animalcontent)["value"];
+            List<GetAnimal> Animals = new List<GetAnimal>();
+            foreach (var item in animalitems)
+            {
+                GetAnimal amnl = new GetAnimal() 
+                {
+                    AnimalName = item.Name,
+                    Type = item.Type,
+                    Breed = item.Breed,
+                    Coat = item.Coat,
+                    Sex = item.Sex,
+                };
+                Animals.Add(amnl); 
+            }
+            ViewBag.Animals = Animals;
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistring"] = 
             String.Format 
@@ -265,9 +281,19 @@ namespace ACCmobile.Controllers
             string listitems = await client.GetStringAsync(sharepointUrl);
             return listitems;
         }
-        // public async Task<string> GetAnimals(string id)
-        // {
-
-        // }
+        public async Task<string> GetAnimals(string id)
+        {
+            var token = HttpContext.Session.GetString("SessionToken");
+            var sharepointUrl = 
+            String.Format 
+            ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items?$filter=AdvisoryID eq '{0}'",
+                id); // 0
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
     }
 }

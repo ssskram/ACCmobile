@@ -36,7 +36,26 @@
             </tr>
         </thead>
         <tbody>
-
+        @foreach(var Animal in ViewBag.Animals)
+        {
+        <tr>
+            <td>
+            <div>@Animal.Type</div>
+            </td>
+            <td>
+            <div>@Animal.AnimalName</div>
+            </td>
+            <td>
+            <div>@Animal.Breed</div>
+            </td>   
+            <td>
+            <div>@Animal.Coat</div>
+            </td>  
+            <td>
+            <div>@Animal.Sex</div>
+            </td> 
+        </tr>
+        }
         </tbody>
     </table>
     </div>
