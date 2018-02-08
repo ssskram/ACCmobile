@@ -15,21 +15,21 @@
     </div>
     <div id="row">
         <div id="map" style="height: 350px;"></div>
-        <div id="infowindow-content">
-            <span id="place-address" class="title"></span><br>
-            <span id="date">02/06/2018</span><br>
-            <span id="link"><a href="https://en.wikipedia.org/wiki/Earth,_Wind_%26_Fire" target="_blank">Open</a></span>
+        <div id="infowindow-content" style="padding: 5px;" class="scrollFix">
+            <span id="place-address" class="title" style="font-size:14px;"></span><br>
+            <span id="status" style="font-style: italic !important;"></span><br>
+            <span id="date"></span><br>
+            <span id="link"></span>
         </div>
     </div>
-    <div class="row" style="margin: 15px;">
+    <div class="row" style="margin: 15px 50px;">
         <table id="dt" class="table table-striped dataTable" cellspacing="0">
             <thead>
             </tr>
                 <tr>
-                    <th style="width:100px !important;"></th>
-                    <th class="all" style="width:450px !important;">Address</th>
+                    <th style="width:140px !important;"></th>
                     <th style="width:200px !important;">Date</th>
-                    <th style="width:100px !important;">Format</th>
+                    <th class="all">Address</th>
                 </tr>
             </thead>
             <tbody>

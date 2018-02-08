@@ -1,16 +1,13 @@
 @model AllIncidents
 <tr>
     <td>
-    <a href="@Model.Link" target="_blank">Open</a>
+    <a href="@Model.Link" target="_blank" style="font-size: 16px;">Open report</a>
+    </td>
+    <td>
+    <input asp-for="Date" class="no-border" readonly="true" id="date"></input>
     </td>
     <td>
     <input asp-for="Address" class="no-border" readonly="true" style="width:100% !important;"></input>
-    </td>
-    <td>
-    <input asp-for="Date" class="no-border" readonly="true"></input>
-    </td>
-    <td>
-    <input asp-for="Coords" class="no-border" readonly="true"></input>
     </td>
 </tr>
    

@@ -73,6 +73,7 @@ h1, h2, h3, h4, h5 {
 .no-border {
     border: 0;
     box-shadow: none;
+    background-color: transparent !important;
 }
 /* hide overflow of text area boxes, in conjunction with script in site.js */
 textarea { 
@@ -234,7 +235,11 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 #map #infowindow-content {
     display: inline;
 }
-
+.scrollFix {
+    line-height: 1.8;
+    overflow: hidden;
+    white-space: nowrap;
+}
 /* datatable elements */
 .dataTables_filter, .dataTables_info { 
     display: none; 

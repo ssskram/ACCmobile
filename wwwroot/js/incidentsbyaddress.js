@@ -62,7 +62,7 @@ function initMap() {
         autocomplete.setBounds(circle.getBounds());
       });
     }
-  
+
     var infowindow = new google.maps.InfoWindow();
     var infowindowContent = document.getElementById('infowindow-content');
     infowindow.setContent(infowindowContent);
@@ -79,7 +79,7 @@ function initMap() {
         window.alert("No details available for input: '" + place.name + "'");
       }
 
-    $('input[id="search"]').val(place.formatted_address).keyup()
+    $('input[id="search"]').val(place.name).keyup()
 
 
       // if the place has a geometry, then present it on a map.
@@ -100,8 +100,30 @@ function initMap() {
           (place.address_components[2] && place.address_components[2].short_name || '')
         ].join(' ');
       }
+      	
+      date = $ ( "td" ).eq(1).find( "#date" ).val();
+      href = $( "td" ).first().find( 'a' ).attr('href');
+      href_formatted = '<a href="'+ href +'" target="_blank">Open report</a>'
+      nothing = "No documented activity at this address"
+      something = "Most recent activity at this address:"
 
       infowindowContent.children['place-address'].textContent = address;
+      if (href != null)
+      {
+        infowindowContent.children['status'].innerHTML = something;
+        infowindowContent.children['date'].textContent = date;
+        infowindowContent.children['link'].innerHTML = href_formatted;
+        $( "td" ).css("background-color", "rgba(57, 172, 205, 0.03)");
+        $( "td" ).children().css("background-color", "rgba(57, 172, 205, 0.03)");
+      }
+      else
+      {
+        infowindowContent.children['status'].textContent = nothing;
+        infowindowContent.children['date'].textContent = "";
+        infowindowContent.children['link'].innerHTML = "";
+      }
       infowindow.open(map, marker);
     });
   }
+
+    
