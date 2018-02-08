@@ -1,41 +1,40 @@
 @model SingleIncident
-
-<div class="col-md-12">
-    <h3 id="address">@Model.Address</h3>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Incident ID</h5>
-    <h4>@Model.IncidentID</h4>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Date</h5>
-    <h4>@Model.Date</h4>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Owners Name</h5>
-    <h4>@Model.OwnersFirstName @Model.OwnersLastName</h4>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Owners Telephone Number</h5>
-    <h4>@Model.OwnersTelephoneNumber</h4>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">PGH Code(s)</h5>
-    <h4>@Model.PGHCode</h4>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Citation Number</h5>
-    <h4>@Model.CitationNumber</h4>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Reason For Visit</h5>
-    <h4>@Model.ReasonForVisit</h4>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Comments</h5>
-    <h4>@Model.Comments</h4>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Call Origin</h5>
-    <h4>@Model.CallOrigin</h4>
-</div>
+<div id="id" hidden>@Model.IncidentID</div>
+<br>
+<h4 style="margin:10px;" id="address">@Model.Address</h4>
+<table class="table" id="incidenttable">
+  <tbody>
+    <tr>
+      <th style="width: 30%;" scope="row">Incident Date</th>
+      <td>@Model.Date</td>
+    </tr>
+    <tr>
+      <th scope="row">Owners Name</th>
+      <td>@Model.OwnersFirstName @Model.OwnersLastName</td>
+    </tr>
+    <tr>
+      <th scope="row">Telephone Number</th>
+      <td>@Model.OwnersTelephoneNumber</td>
+    </tr>
+    <tr>
+      <th scope="row">Call Origin</th>
+      <td>@Model.CallOrigin</td>
+    </tr>
+    <tr>
+      <th scope="row">Reason(s) For Visit</th>
+      <td>@Model.ReasonForVisit</td>
+    </tr>
+    <tr>
+      <th scope="row">PGH Code(s)</th>
+      <td>@Model.PGHCode</td>
+    </tr>
+    <tr>
+      <th scope="row">Citation Number</th>
+      <td>@Model.CitationNumber</td>
+    </tr>
+    <tr>
+      <th scope="row">Comments</th>
+      <td>@Model.Comments</td>
+    </tr>
+  </tbody>
+</table>

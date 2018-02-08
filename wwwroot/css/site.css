@@ -89,10 +89,10 @@ button.bs-placeholder[role='button']>span {
 }
 /* coloring success icon */
 .icon-textbox {
-    font-size: 2.3em; 
-    margin-right: -5px; 
-    margin-top: 8px; 
-    text-shadow: 5px 0 10px #5B5B5B; 
+    font-size: 1.8em; 
+    color: #29a329;
+    margin-top: 2px;  
+    margin-right: -4px;
 }
 
 /* button styles */

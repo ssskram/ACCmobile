@@ -5,19 +5,39 @@
 <script type="text/javascript" src="~/js/incidentreport.js"></script>
 <script src=@ViewData["apistring"] async defer ></script>
 <div class="row">
-    <div class="col-md-6">
-        <form id="form">
-        @Html.Partial("~/Views/Get_Incidents/_incidentReport.cshtml")
-        </form>
+    <div class="col-md-6 col-xs-12">
+        <div class="incident-card">
+            <form id="form">
+            @Html.Partial("~/Views/Get_Incidents/_incidentReport.cshtml")
+            </form>
+        </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6 hidden-xs">
         <br>
-        <br>
-        <div id="map" style="height: 350px; width: 100%;"></div>
+        <div id="map" style="height: 400px; width: 100%;"></div>
         <div id="infowindow-content">
-        <img src="" width="16" height="16" id="place-icon">
-        <span id="place-name"  class="title"></span><br>
-        <span id="place-address"></span>
+            <span id="place-address"></span><br>
+            <span id="place-id"></span>
+        </div>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+    <h4 style="margin-left: 10px;">Animals:</h4>
+    <table id="dt" class="table table-striped dataTable" cellspacing="0">
+        <thead>
+        </tr>
+            <tr>
+                <th>Type</th>
+                <th>Name</th>
+                <th>Breed</th>
+                <th>Coat</th>
+                <th>Sex</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
     </div>
 </div>
