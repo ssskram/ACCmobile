@@ -1,12 +1,11 @@
 @model NewAnimal
 
-<h4 id="header" style="display:none;"><img src="~/images/animalglyph.png" style="margin-left: 5px; margin-top: -3px;"/><input class="no-border animal-heading" style="padding-left: 15px; letter-spacing: 2px; font-weight: 800; color:#010005;" asp-for="AnimalHeading" id="heading" readonly></input></h4>
 <div class="container" data-role="page" id="animalPage">
   <div class="row">
     <div class="col-md-6">
 
         <div class="form-group" style="margin-bottom: 10px;">
-            <input asp-for="AnimalName" class="form-control animal-name" id="name" onchange="setheader()"></input>
+            <input asp-for="AnimalName" class="form-control animal-name" id="name" onchange="setName()"></input>
             <span asp-validation-for="AnimalName" class="text-danger" />
         </div>
 

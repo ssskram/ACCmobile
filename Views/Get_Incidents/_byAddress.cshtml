@@ -4,11 +4,12 @@
     <a href="@Model.Link" target="_blank" style="font-size: 16px;">Open report</a>
     </td>
     <td>
-    <input asp-for="Date" class="no-border" readonly="true" id="date"></input>
+    <div id="date">@Model.Date</div>
     </td>
     <td>
-    <input asp-for="Address" class="no-border" readonly="true" style="width:100% !important;"></input>
+    <div>@Model.Address</div>
     </td>
 </tr>
+   
    
    

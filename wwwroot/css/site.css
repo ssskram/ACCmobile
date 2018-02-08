@@ -235,11 +235,12 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 #map #infowindow-content {
     display: inline;
 }
-.scrollFix {
-    line-height: 1.8;
-    overflow: hidden;
-    white-space: nowrap;
+.gm-style .gm-style-iw, .gm-style .gm-style-iw a, .gm-style .gm-style-iw span, .gm-style .gm-style-iw label, .gm-style .gm-style-iw div {
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    line-height: 1.4;
 }
+
 /* datatable elements */
 .dataTables_filter, .dataTables_info { 
     display: none; 

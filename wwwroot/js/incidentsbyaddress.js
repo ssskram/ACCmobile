@@ -72,14 +72,20 @@ function initMap() {
     });
   
     autocomplete.addListener('place_changed', function() {
+      var ACcheck = $('#search').val();
       infowindow.close();
       marker.setVisible(false);
       var place = autocomplete.getPlace();
       if (!place.geometry) {
         window.alert("No details available for input: '" + place.name + "'");
       }
+      if (!ACcheck.includes("Pittsburgh")) {
+        window.alert("Only Pittsburgh addresses are permitted");
+        input.value = "";
+      }
 
-    $('input[id="search"]').val(place.name).keyup()
+      if (ACcheck.includes("Pittsburgh")){
+      $('input[id="search"]').val(place.name + " Pittsburgh").keyup()
 
 
       // if the place has a geometry, then present it on a map.
@@ -100,13 +106,12 @@ function initMap() {
           (place.address_components[2] && place.address_components[2].short_name || '')
         ].join(' ');
       }
-      	
-      date = $ ( "td" ).eq(1).find( "#date" ).val();
+        
+      date = $ ( "td" ).eq(1).find( "#date" ).text();
       href = $( "td" ).first().find( 'a' ).attr('href');
       href_formatted = '<a href="'+ href +'" target="_blank">Open report</a>'
       nothing = "No documented activity at this address"
       something = "Most recent activity at this address:"
-
       infowindowContent.children['place-address'].textContent = address;
       if (href != null)
       {
@@ -114,7 +119,6 @@ function initMap() {
         infowindowContent.children['date'].textContent = date;
         infowindowContent.children['link'].innerHTML = href_formatted;
         $( "td" ).css("background-color", "rgba(57, 172, 205, 0.03)");
-        $( "td" ).children().css("background-color", "rgba(57, 172, 205, 0.03)");
       }
       else
       {
@@ -123,6 +127,11 @@ function initMap() {
         infowindowContent.children['link'].innerHTML = "";
       }
       infowindow.open(map, marker);
+    }
+    else
+    {
+      $('input[id="search"]').val('').keyup()
+    }
     });
   }
 
