@@ -1,6 +1,7 @@
 using System;
 using System.Web;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -64,8 +65,14 @@ namespace ACCmobile.Controllers
                     string name = item.Name.ToString();
                     string adv_trimmed = name.TrimStart(adv_char);
                     string pdf_trimmed = adv_trimmed.TrimEnd(pdf_char);
+
                     string date = pdf_trimmed.Split(' ').First();
                     string date_trimmed= date.TrimEnd(whitespace);
+                    string date_trimmed2 = date_trimmed.Replace(".", "-");
+                    string date_trimmed3 = date_trimmed.Replace("-", "/");
+                    // string dateformat = "dd/MM/yyyy hh:mm:ss:tt";
+                    // DateTime date_cleaned = DateTime.ParseExact(date_trimmed3, dateformat, 
+                    //                         CultureInfo.InvariantCulture);
                     string address = pdf_trimmed.Remove(0, pdf_trimmed.IndexOf(' ') + 1);
                     string address_nowhitespace = address.TrimStart(whitespace);
                     string address_trimmed = address_nowhitespace.TrimEnd(period);
@@ -102,7 +109,7 @@ namespace ACCmobile.Controllers
                     AllIncidents adv = new AllIncidents() 
                     {
                         Link = doclink,
-                        Date = date_trimmed,
+                        Date = date_trimmed3,
                         Address = formatted_address,
                         Coords = finalcoord,
                         Format = "Paper"

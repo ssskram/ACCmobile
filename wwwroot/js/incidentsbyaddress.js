@@ -78,7 +78,10 @@ function initMap() {
       if (!place.geometry) {
         window.alert("No details available for input: '" + place.name + "'");
       }
-  
+
+    $('input[id="search"]').val(place.formatted_address).keyup()
+
+
       // if the place has a geometry, then present it on a map.
       if (place.geometry.viewport) {
         map.fitBounds(place.geometry.viewport);
@@ -97,9 +100,7 @@ function initMap() {
           (place.address_components[2] && place.address_components[2].short_name || '')
         ].join(' ');
       }
-  
-      infowindowContent.children['place-icon'].src = place.icon;
-      infowindowContent.children['place-name'].textContent = place.name;
+
       infowindowContent.children['place-address'].textContent = address;
       infowindow.open(map, marker);
     });
