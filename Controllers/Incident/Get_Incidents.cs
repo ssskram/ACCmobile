@@ -69,10 +69,12 @@ namespace ACCmobile.Controllers
                     string date = pdf_trimmed.Split(' ').First();
                     string date_trimmed= date.TrimEnd(whitespace);
                     string date_trimmed2 = date_trimmed.Replace(".", "-");
-                    string date_trimmed3 = date_trimmed.Replace("-", "/");
-                    // string dateformat = "dd/MM/yyyy hh:mm:ss:tt";
-                    // DateTime date_cleaned = DateTime.ParseExact(date_trimmed3, dateformat, 
-                    //                         CultureInfo.InvariantCulture);
+                    //string date_trimmed3 = date_trimmed.Replace("-", "/");
+                    string date_cleaned = "20" + date_trimmed2;
+                    DateTime datecleaned2; 
+                    bool parsed = DateTime.TryParseExact(date_cleaned, "yyyy-M-d", CultureInfo.InvariantCulture,
+                               DateTimeStyles.AllowWhiteSpaces,
+                               out datecleaned2);
                     string address = pdf_trimmed.Remove(0, pdf_trimmed.IndexOf(' ') + 1);
                     string address_nowhitespace = address.TrimStart(whitespace);
                     string address_trimmed = address_nowhitespace.TrimEnd(period);
@@ -105,11 +107,12 @@ namespace ACCmobile.Controllers
                         ("({0} {1})",
                         latitude, // 0
                         longitude); // 1
+                    var dateformat = "MM/dd/yyyy";
 
                     AllIncidents adv = new AllIncidents() 
                     {
                         Link = doclink,
-                        Date = date_trimmed3,
+                        Date = datecleaned2.ToString(dateformat),
                         Address = formatted_address,
                         Coords = finalcoord,
                         Format = "Paper"
@@ -126,10 +129,11 @@ namespace ACCmobile.Controllers
                         String.Format 
                         ("Open?id={0}",
                         item.AdvisoryID); // 0
+                        var dateformat = "MM/dd/yyyy";
                     AllIncidents adv = new AllIncidents() 
                     {
                         Link = Link,
-                        Date = item.Created,
+                        Date = item.Created.ToString(dateformat),
                         Address = item.Address,
                         Coords = item.AddressID,
                         Format = "Eletronic"
