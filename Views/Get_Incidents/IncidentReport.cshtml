@@ -12,7 +12,7 @@
             </form>
         </div>
     </div>
-    <div class="col-md-6 hidden-xs">
+    <div class="col-md-6 hidden-sm hidden-xs">
         <br>
         <div id="map" style="height: 400px; width: 100%;"></div>
         <div id="infowindow-content">
@@ -23,16 +23,23 @@
 </div>
 <div class="row">
     <div class="col-md-12">
-    <h4 style="margin-left: 10px;">Animals:</h4>
+    <h4 style="margin-left: 10px; font-weight:600;">Animals:</h4>
     <table id="dt" class="table table-striped dataTable" cellspacing="0">
         <thead>
         </tr>
             <tr>
-                <th>Type</th>
+                <th class="all">Type</th>
                 <th>Name</th>
+                <th>Age</th>
+                <th>Sex</th>
                 <th>Breed</th>
                 <th>Coat</th>
-                <th>Sex</th>
+                <th class="none">License Number</th>
+                <th class="none">License Year</th>
+                <th class="none">Rabbies Vac. No.</th>
+                <th class="none">Rabbies Vac. Exp.</th>
+                <th class="none">Veterinarian</th>
+                <th class="none">Comments</th>
             </tr>
         </thead>
         <tbody>
@@ -46,13 +53,34 @@
             <div>@Animal.AnimalName</div>
             </td>
             <td>
+            <div>@Animal.Age</div>
+            </td> 
+            <td>
+            <div>@Animal.Sex</div>
+            </td> 
+            <td>
             <div>@Animal.Breed</div>
             </td>   
             <td>
             <div>@Animal.Coat</div>
             </td>  
             <td>
-            <div>@Animal.Sex</div>
+            <div>@Animal.LicenseNumber</div>
+            </td> 
+            <td>
+            <div>@Animal.LicenseYear</div>
+            </td> 
+            <td>
+            <div>@Animal.RabbiesVacNo</div>
+            </td> 
+            <td>
+            <div>@Animal.RabbiesVacExp</div>
+            </td> 
+            <td>
+            <div>@Animal.Veterinarian</div>
+            </td>
+            <td>
+            <div>@Animal.Comments</div>
             </td> 
         </tr>
         }

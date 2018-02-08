@@ -256,6 +256,13 @@ namespace ACCmobile.Controllers
                     Breed = item.Breed,
                     Coat = item.Coat,
                     Sex = item.Sex,
+                    Age = item.Age,
+                    LicenseNumber = item.LicenseNumber,
+                    RabbiesVacNo = item.RabbiesVacNo,
+                    RabbiesVacExp = item.RabbiesVacExp,
+                    Veterinarian = item.Veterinarian,
+                    LicenseYear = item.LicenseYear,
+                    Comments = item.Comments
                 };
                 Animals.Add(amnl); 
             }

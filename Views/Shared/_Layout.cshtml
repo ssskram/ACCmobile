@@ -64,12 +64,15 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+<script src='https://code.jquery.com/jquery-1.12.3.js'></script>
 <script src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js'></script>
 <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" charset="utf-8"></script>
-<script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
-
+<script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
 <script>
     var table = $("#dt").DataTable({
         pageLength : 25,
@@ -81,6 +84,9 @@
         ]
     });
     $('#search').on( 'keyup', function () {
+        table.search( this.value ).draw();
+    } );
+    $('#search2').on( 'keyup', function () {
         table.search( this.value ).draw();
     } );
     $('#dropdown').on( 'change' , function () {

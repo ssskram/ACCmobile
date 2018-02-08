@@ -2,18 +2,23 @@
     ViewData["Title"] = "Incidents";
 }
 @model List<AllIncidents>
-<h3 style="margin-left:20px;">Search incidents by address</h3>
+<br>
 <input style="display:none;" id="mapdata" value='@ViewBag.heatmap'/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/incidentsbyaddress.js"></script>
 <script src=@ViewData["apistring"] async defer ></script>
 <form id="form">
-    <div id="row">
+    <div id="row" class="hidden-sm hidden-xs">
         <div class="addresscontainer" id="addresscontainer" style="margin: 20px;">
-            <input id="search" placeholder="Enter an address" class="form-control" type="text" style="padding-top: 8px; padding-bottom: 8px; padding-right: 28px; box-shadow: 5px 5px 5px; rgba(0, 0, 0, 0.4);">
+            <input id="search" placeholder="Enter an address" class="form-control" type="text" style="padding-top: 8px; padding-bottom: 8px; box-shadow: 5px 5px 5px; rgba(0, 0, 0, 0.4);">
         </div>
     </div>
-    <div id="row">
+    <div id="row" class="hidden-md hidden-lg">
+        <div style="margin: 15px 50px;">
+            <input id="search2" placeholder="Enter an address" class="form-control" type="text" style="padding-top: 8px; padding-bottom: 8px;">
+        </div>
+    </div>
+    <div id="row" class="hidden-sm hidden-xs">
         <div id="map" style="height: 350px;"></div>
         <div id="infowindow-content" style="padding: 5px;">
             <span id="place-address" class="title" style="font-size:14px;"></span><br>
@@ -27,7 +32,7 @@
             <thead>
             </tr>
                 <tr>
-                    <th style="width:20% !important;"></th>
+                    <th style="width:20% !important;" class="all"></th>
                     <th style="width:20% !important;">Date</th>
                     <th class="all" style="width:60% !important;">Address</th>
                 </tr>
