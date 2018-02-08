@@ -244,7 +244,11 @@ namespace ACCmobile.Controllers
                 AddressID = item.AddressID,
                 Date = item.Created
             };
-            // create animals model and pass to view somehow
+            var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
+            ViewData["apistring"] = 
+            String.Format 
+            ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
+                googleapikey); // 0
             return View("~/Views/Get_Incidents/IncidentReport.cshtml", adv);
         }
         public async Task<string> GetIncident(string id)

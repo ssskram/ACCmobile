@@ -1,46 +1,41 @@
 @model SingleIncident
 
 <div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Address</h5>
-    <input asp-for="Address" class="no-border" readonly="true" style="font-size: 27px;" />
+    <h3 id="address">@Model.Address</h3>
 </div>
 <div class="col-md-12">
     <h5 style="font-weight: bold; font-style: italic;">Incident ID</h5>
-    <input asp-for="IncidentID" class="no-border" readonly="true" style="font-size: 12px;"/>
+    <h4>@Model.IncidentID</h4>
 </div>
 <div class="col-md-12">
     <h5 style="font-weight: bold; font-style: italic;">Date</h5>
-    <input asp-for="Date" class="no-border" readonly="true" style="font-size: 16px;"/>
+    <h4>@Model.Date</h4>
 </div>
 <div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Owners Last Name</h5>
-    <input asp-for="OwnersLastName" class="no-border" readonly="true" style="font-size: 16px;"/>
-</div>
-<div class="col-md-12">
-    <h5 style="font-weight: bold; font-style: italic;">Owners First Name</h5>
-    <input asp-for="OwnersFirstName" class="no-border" readonly="true" style="font-size: 16px;"/>
+    <h5 style="font-weight: bold; font-style: italic;">Owners Name</h5>
+    <h4>@Model.OwnersFirstName @Model.OwnersLastName</h4>
 </div>
 <div class="col-md-12">
     <h5 style="font-weight: bold; font-style: italic;">Owners Telephone Number</h5>
-    <input asp-for="OwnersTelephoneNumber" class="no-border" readonly="true" style="font-size: 16px;"/>
+    <h4>@Model.OwnersTelephoneNumber</h4>
 </div>
 <div class="col-md-12">
     <h5 style="font-weight: bold; font-style: italic;">PGH Code(s)</h5>
-    <input asp-for="PGHCode" class="no-border" readonly="true" style="font-size: 16px;"/>
+    <h4>@Model.PGHCode</h4>
 </div>
 <div class="col-md-12">
     <h5 style="font-weight: bold; font-style: italic;">Citation Number</h5>
-    <input asp-for="CitationNumber" class="no-border" readonly="true" style="font-size: 16px;"/>
+    <h4>@Model.CitationNumber</h4>
 </div>
 <div class="col-md-12">
     <h5 style="font-weight: bold; font-style: italic;">Reason For Visit</h5>
-    <input asp-for="ReasonForVisit" class="no-border" readonly="true" style="font-size: 16px;"/>
+    <h4>@Model.ReasonForVisit</h4>
 </div>
 <div class="col-md-12">
     <h5 style="font-weight: bold; font-style: italic;">Comments</h5>
-    <input asp-for="Comments" class="no-border" readonly="true" style="font-size: 16px;"/>
+    <h4>@Model.Comments</h4>
 </div>
 <div class="col-md-12">
     <h5 style="font-weight: bold; font-style: italic;">Call Origin</h5>
-    <input asp-for="CallOrigin" class="no-border" readonly="true" style="font-size: 16px;"/>
+    <h4>@Model.CallOrigin</h4>
 </div>

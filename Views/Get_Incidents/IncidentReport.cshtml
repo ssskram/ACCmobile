@@ -1,10 +1,23 @@
 @{
     ViewData["Title"] = "Incident";
 }
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/incidentreport.js"></script>
+<script src=@ViewData["apistring"] async defer ></script>
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-6">
         <form id="form">
         @Html.Partial("~/Views/Get_Incidents/_incidentReport.cshtml")
         </form>
+    </div>
+    <div class="col-md-6">
+        <br>
+        <br>
+        <div id="map" style="height: 350px; width: 100%;"></div>
+        <div id="infowindow-content">
+        <img src="" width="16" height="16" id="place-icon">
+        <span id="place-name"  class="title"></span><br>
+        <span id="place-address"></span>
+    </div>
     </div>
 </div>
