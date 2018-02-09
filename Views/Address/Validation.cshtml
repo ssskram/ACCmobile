@@ -1,5 +1,6 @@
 @{
     ViewData["Title"] = "New incident";
+    Layout = "~/Views/Shared/_AddressLayout.cshtml";
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -7,23 +8,24 @@
 <link rel="stylesheet" href="~/css/address.css">
 <script src=@ViewData["apistring"] async defer ></script>
 
-<form asp-controller="Address" asp-action="Next" method="post" id="AddressForm" class="map-containers">
-<div class="row map-containers" style="margin-top: 10px;">
-  <div class="col-md-12 map-containers">
+<form asp-controller="Address" asp-action="Next" method="post" id="AddressForm" style="height: 100% !important; width: 100% !important;">
+<div class="row" style="height: 100% !important; width: 100% !important;">
+  <div class="col-md-12" style="height: 100% !important; width: 100% !important;">
       <div class="addresscontainer" id="addresscontainer">
       <div>
+            <h3 style="margin-left: 30px; color:#fffaee;">First, enter a valid address</h3>
             <div>@Html.Partial("_Address")</div> 
+            <div class="col-md-12 text-center" style="margin-top: 20px;">
+              <input id="button" type="submit" value="Next &raquo;" class="btn btn-default" style="display:none;"/>
+            </div>
       </div>
     </div>
-    <div id="map"></div>
+    <div id="map" style="height: 100% !important; width: 100% !important;"></div>
     <div id="infowindow-content">
       <img src="" width="16" height="16" id="place-icon">
       <span id="place-name"  class="title"></span><br>
       <span id="place-address"></span>
     </div>
   </div>
-</div>
-<div class="col-md-12 text-center" style="margin-top: 20px; margin-bottom: 10px">
-    <input id="button" type="submit" value="Next &raquo;" class="btn btn-default" disabled="true"/>
 </div>
 </form>

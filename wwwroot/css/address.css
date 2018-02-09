@@ -1,25 +1,47 @@
 html, body, {
   width: 100% !important;
   height: 100% !important;
-  margin: 0 !important;
+  margin: 10 !important;
   padding: 0 !important;
 }
-
 #map {
   width:100% !important;
   height:100% !important;
   position: absolute !important;
   top: 0px !important;
   left: 0px !important;
+  padding: 10px !important;
 }
-
-.map-containers {
+.body-content {
   width:100% !important;
   height:100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 .container, .body-content, {
   width: 100% !important;
   height: 100% !important;
   margin: 0 !important;
   padding: 0 !important;
+}
+.row {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.addresscontainer {
+  background-color: rgba(56, 56, 56, 0.85);
+  padding: 10px 10px 15px 0px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+  border-radius: 5px;
+  max-width: 600px;
+  -webkit-box-shadow: 10px 10px 24px 11px rgba(0,0,0,0.62);
+  -moz-box-shadow: 10px 10px 24px 11px rgba(0,0,0,0.62);
+  box-shadow: 10px 10px 24px 11px rgba(0,0,0,0.62);
+}
+#autocomplete {
+  padding-top: 10px; 
+  padding-bottom: 10px; 
+  padding-right: 30px; 
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
 }

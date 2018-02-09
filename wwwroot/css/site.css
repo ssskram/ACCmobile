@@ -165,7 +165,7 @@ button.bs-placeholder[role='button']>span {
     /* other */
     background-color:white;
     padding: 20px;
-    margin: 20px;
+    margin-bottom: 20px;
     -moz-box-shadow: 0 0 2px 2px #888;
     -webkit-box-shadow: 5px 5px 20px 20px #888;
     box-shadow: 2px 3px 8px 2px #888;

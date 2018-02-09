@@ -112,12 +112,13 @@ function checkAddress () {
     var address = $('#address').val();
     if ( autocomplete !== "" && autocomplete == address )
     {
-        $("#button").prop("disabled",false);
+        $("#button").css("display", "block");
+        $("#button").css("margin", "0 auto");
         $("#checkmark").css("display", "block");
     } 
     else 
     {
-        $("#button").prop("disabled",true);
+        $("#button").css("display", "none");
         $("#checkmark").css("display", "none");
     }
 }
