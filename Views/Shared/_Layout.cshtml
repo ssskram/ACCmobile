@@ -81,7 +81,10 @@
         bLengthChange: false,
         columnDefs : [
             { "type": "html-input", "targets": [0,1,2] }
-        ]
+        ],
+        language: {
+            emptyTable: "No animals associated with this incident"
+        }
     });
     $('#search').on( 'keyup', function () {
         table.search( this.value ).draw();

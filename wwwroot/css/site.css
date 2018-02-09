@@ -96,20 +96,20 @@ button.bs-placeholder[role='button']>span {
 }
 
 /* button styles */
-.btn-default:active, .btn-primary:active, .btn-link:active {
+.btn-default:active, .btn-big:active, .btn-link:active {
     outline: none !important;
     box-shadow: none !important;
     background-color: #383838 !important;
     color: white !important;
     transform: translateY(4px);
  }
-.btn-default:focus, .btn-primary:focus, .btn-link:focus { 
+.btn-default:focus, .btn-big:focus, .btn-link:focus { 
     background-color: #383838 !important;
     color: white !important;
     box-shadow: none !important;
     outline: none !important;
  }
-.btn-default:hover, .btn-primary:hover, .btn-link:hover {
+.btn-default:hover, .btn-big:hover, .btn-link:hover {
     color:white !important;
     background-color:#383838 !important;
     box-shadow: none !important;
@@ -146,27 +146,31 @@ button.bs-placeholder[role='button']>span {
     box-shadow: 2px 3px 8px 2px #888;
     width: 200px;
   }
-.btn-primary {
+.btn-big {
     /* font */
     color: #383838;
-    font-size: 18px;
+    font-size: 22px;
     font-family: helvetica;
+    text-shadow: #fffaee 0 0 10px;
+    line-height: 1.5em;
     /* remove blue underline */
     text-decoration: none;
     /* border */
     border: 0px;
+    border-radius: 10px;
     /* transitions */
     transition-duration: .2s;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     /* other */
     background-color:white;
-    padding: 10px 30px;
-    margin: 7px;
+    padding: 20px;
+    margin: 20px;
     -moz-box-shadow: 0 0 2px 2px #888;
     -webkit-box-shadow: 5px 5px 20px 20px #888;
     box-shadow: 2px 3px 8px 2px #888;
-    width: 300px;
+    width: 250px;
+    height: 150px;
 }
 .btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
     padding: 6px 12px !important;
