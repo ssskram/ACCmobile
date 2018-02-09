@@ -17,6 +17,9 @@ function initMap() {
 
   var card = document.getElementById('addresscontainer');
   var input = document.getElementById('autocomplete');
+  $('#autocomplete').keydown(function (e) {
+    if (e.which == 13 && $('.pac-container:visible').length) return false;
+  });
 
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(card);
   var autocomplete = new google.maps.places.Autocomplete(input);

@@ -2,7 +2,7 @@ html, body, {
   width: 100% !important;
   height: 100% !important;
   margin: 10 !important;
-  padding-bottom: 0 !important;
+  padding-bottom: 0px !important;
 }
 #map {
   width:100% !important;
