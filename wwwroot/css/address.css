@@ -31,8 +31,7 @@ html, body, {
 .addresscontainer {
   background-color: rgba(56, 56, 56, 0.85);
   padding: 10px 10px 15px 0px;
-  margin-top: 20px;
-  margin-bottom: 40px;
+  margin: 20px 10px 50px 10px;
   border-radius: 5px;
   max-width: 600px;
   -webkit-box-shadow: 5px 5px 12px 5px rgba(0,0,0,0.62);
