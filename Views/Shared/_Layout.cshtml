@@ -73,16 +73,18 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+
 <script>
+    $.fn.dataTable.moment( 'MM/DD/YYYY HH:mm');
     var table = $("#dt").DataTable({
         pageLength : 25,
         searching: true,
         paging: true,
-        ordering: false,
+        ordering: true,
+        order: [[ 1, "desc" ]],
         bLengthChange: false,
-        columnDefs : [
-            { "type": "html-input", "targets": [0,1,2] }
-        ],
         language: {
             emptyTable: "No animals associated with this incident"
         }

@@ -107,7 +107,7 @@ namespace ACCmobile.Controllers
                         ("({0} {1})",
                         latitude, // 0
                         longitude); // 1
-                    var dateformat = "MM/dd/yyyy";
+                    var dateformat = "MM/dd/yyyy HH:mm";
 
                     AllIncidents adv = new AllIncidents() 
                     {
@@ -129,11 +129,14 @@ namespace ACCmobile.Controllers
                         String.Format 
                         ("Open?id={0}",
                         item.AdvisoryID); // 0
-                        var dateformat = "MM/dd/yyyy";
+                        //var dateformat = "MM/dd/yyyy";
+                    DateTime utc_date = item.Created;
+                    DateTime easternTime = utc_date.AddHours(-5);
+                    var dateformat = "MM/dd/yyyy HH:mm";
                     AllIncidents adv = new AllIncidents() 
                     {
                         Link = Link,
-                        Date = item.Created.ToString(dateformat),
+                        Date = easternTime.ToString(dateformat),
                         Address = item.Address,
                         Coords = item.AddressID,
                         Format = "Eletronic"
