@@ -149,10 +149,10 @@ button.bs-placeholder[role='button']>span {
 .btn-big {
     /* font */
     color: #383838;
-    font-size: 22px;
+    font-size: 28px;
     font-family: helvetica;
     text-shadow: #fffaee 0 0 10px;
-    line-height: 1.5em;
+    line-height: 1.2em;
     /* remove blue underline */
     text-decoration: none;
     /* border */
@@ -169,7 +169,7 @@ button.bs-placeholder[role='button']>span {
     -moz-box-shadow: 0 0 2px 2px #888;
     -webkit-box-shadow: 5px 5px 20px 20px #888;
     box-shadow: 2px 3px 8px 2px #888;
-    width: 250px;
+    width: 300px;
     height: 150px;
 }
 .btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
