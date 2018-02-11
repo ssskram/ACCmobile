@@ -1,7 +1,16 @@
-html, body, {
+html, body, .body-content, .container, .row, #column, #AddresForm, #column {
   width: 100% !important;
   height: 100% !important;
-  margin: 10 !important;
+  padding-bottom: 0px !important;
+}
+.body-content {
+  padding: 0px !important;
+}
+#AddressForm, .row {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
   padding-bottom: 0px !important;
 }
 #map {
@@ -11,22 +20,6 @@ html, body, {
   top: 0px !important;
   left: 0px !important;
   padding: 10px !important;
-}
-.body-content {
-  width:100% !important;
-  height:100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-.container, .body-content, {
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-.row {
-  margin: 0 !important;
-  padding: 0 !important;
 }
 .addresscontainer {
   background-color: rgba(56, 56, 56, 0.85);
