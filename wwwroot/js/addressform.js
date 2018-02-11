@@ -115,13 +115,13 @@ function checkAddress () {
     var address = $('#address').val();
     if ( autocomplete !== "" && autocomplete == address )
     {
-        $("#button").css("display", "block");
-        $("#button").css("margin", "0 auto");
+        $("#submit").css("display", "block");
+        $("#submit").css("margin", "0 auto");
         $("#checkmark").css("display", "block");
     } 
     else 
     {
-        $("#button").css("display", "none");
+        $("#submit").css("display", "none");
         $("#checkmark").css("display", "none");
     }
 }
