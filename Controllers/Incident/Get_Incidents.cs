@@ -153,24 +153,6 @@ namespace ACCmobile.Controllers
             return View(Advises);
         }
 
-        // // return all incidents by date
-        // public async Task<IActionResult> ByDate()
-        // {
-
-        // }
-
-        // // return electronic incidents by animal
-        // public async Task<IActionResult> ByAnimal()
-        // {
-
-        // }
-
-        // //return electronic incidents by owner
-        // public async Task<IActionResult> ByOwner()
-        // {
-
-        // }
-
         // services       
         public async Task RefreshToken()
         {
