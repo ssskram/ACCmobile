@@ -10,7 +10,7 @@
         <table style="margin-bottom: 0 !important;" class="table">
             <tbody>
                 <tr>
-                <th style="width: 40%; border:none;" scope="row">Reason(s) for Visit</th>
+                <th style="width: 25%; border:none;" scope="row">Reason(s) for Visit</th>
                 <td style="border:none;">@ViewBag.IncidentReason</td>
                 </tr>
                 <tr>
@@ -28,7 +28,7 @@
 <form asp-controller="New_Incident" asp-action="PostAnimal" method="post" id="form" style="display:none;">
 <div class="row">
   <div class="col-sm-12">
-        <h3>Add an animal</h3>
+        <h3 style="padding-left: 10px;">Add an animal</h3>
         <div class="repeatcontainer">
             <animal>@Html.Partial("_AddAnimal")</animal>
         </div>
