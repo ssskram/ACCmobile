@@ -294,6 +294,14 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+/* animalform elements */
+.incidentsummary {
+    background-color: rgba(255, 250, 238, 0.3);
+    border: 1px solid #ccc!important;
+    border-radius: 5px 5px 20px 20px;
+    margin: 0 20px;
+}
+
 /* incidentreport elements */
 .incidentcard {    
     box-shadow: 0 8px 22px rgba(0,0,0,0.30), 0 8px 8px rgba(0,0,0,0.22);
@@ -303,6 +311,6 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 .incidentheader {
     color: #383838;
     letter-spacing: .15em;
-    text-shadow: 1px 2px 1.5px rgba(0,0,0,0.3);
     padding-left: 15px;
+    font-weight: 550;
 }

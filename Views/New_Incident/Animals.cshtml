@@ -4,11 +4,31 @@
 @Html.Hidden("RedirectHome", Url.Action("Index", "Home"))
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/animalform.js"></script>
-
+<div class="row">
+    <div class="col-md-8 incidentsummary">
+        <h4 class="incidentheader" id="address" style="padding: 0 !important;">@ViewBag.IncidentAddress</h4>
+        <table style="margin-bottom: 0 !important;" class="table">
+            <tbody>
+                <tr>
+                <th style="width: 40%; border:none;" scope="row">Reason(s) for Visit</th>
+                <td style="border:none;">@ViewBag.IncidentReason</td>
+                </tr>
+                <tr>
+                <th scope="row">Owners Name</th>
+                <td>@ViewBag.IncidentFirstName @ViewBag.IncidentLastName</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-2 incidentsummary text-center hidden-sm hidden-xs">
+        <h5 class="incidentheader" style="padding: 0 !important; margin-bottom: 0 !important;">Animals</h5><br>
+        <h2 class="incidentheader" style="padding: 0 !important; margin-top: 0 !important;" id="numberanimals">0</h2>
+    </div>
+</div>
 <form asp-controller="New_Incident" asp-action="PostAnimal" method="post" id="form" style="display:none;">
 <div class="row">
   <div class="col-sm-12">
-        <h3>Identify the animals</h3>
+        <h3>Add an animal</h3>
         <div class="repeatcontainer">
             <animal>@Html.Partial("_AddAnimal")</animal>
         </div>

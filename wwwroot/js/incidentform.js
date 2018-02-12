@@ -41,7 +41,7 @@ $( document ).ready(function() {
 
 // on submit, copy multi-selection contents to relay field for simple string posting
 $(document).ready(function () {
-$('#button').click(function(){
+$('#overlaytrigger2').click(function(){
     $('#reason').val( $('#reasonrelay').val() );
     $('#code').val( $('#coderelay').val() );
 });

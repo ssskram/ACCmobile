@@ -56,6 +56,10 @@ namespace ACCmobile.Controllers
             string IncidentID = model.IncidentID.ToString();
             HttpContext.Session.SetString("IncidentID", IncidentID);
             await Execute(model);
+            TempData["Address"] = model.Address;
+            TempData["OwnersFirstName"] = model.OwnersFirstName;
+            TempData["OwnersLastName"] = model.OwnersLastName;
+            TempData["Reason"] = model.ReasonForVisit;
             return RedirectToAction("Animals");
         }
         public async Task Execute(NewIncident model)
@@ -105,6 +109,10 @@ namespace ACCmobile.Controllers
 
         public IActionResult Animals()
         {
+            ViewBag.IncidentAddress = TempData.Peek("Address");
+            ViewBag.IncidentFirstName = TempData.Peek("OwnersFirstName");
+            ViewBag.IncidentLastName = TempData.Peek("OwnersLastName");
+            ViewBag.IncidentReason = TempData.Peek("Reason");
             return View();
         }
 

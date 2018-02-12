@@ -134,5 +134,15 @@ $(document).ready(function () {
     });
 });
 
+// render number of animals in box
+$(document).ready(function () {
+    $('#AddAnimal,#overlaytrigger1').click(function(){
+        var old_quantity = $('#numberanimals').text();
+        var new_animal = 1;
+        var new_quantity = +old_quantity + +new_animal;
+        $( "#numberanimals" ).text( new_quantity );
+    });
+});
+
 
 
