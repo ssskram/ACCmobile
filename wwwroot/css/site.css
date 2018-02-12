@@ -220,7 +220,7 @@ button.bs-placeholder[role='button']>span {
 }
 #map {
     height: 125px;
-    width: auto;
+    width: 100%;
 }
 .gmnoprint { 
     display: none; 
@@ -293,4 +293,16 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+/* incidentreport elements */
+.incidentcard {    
+    box-shadow: 0 8px 22px rgba(0,0,0,0.30), 0 8px 8px rgba(0,0,0,0.22);
+    margin: 5px;
+    background-color: rgba(255, 250, 238, 0.15);
+}
+.incidentheader {
+    color: #383838;
+    letter-spacing: .15em;
+    text-shadow: 1px 2px 1.5px rgba(0,0,0,0.3);
+    padding-left: 15px;
 }

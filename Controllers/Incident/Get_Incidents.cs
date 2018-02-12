@@ -108,7 +108,6 @@ namespace ACCmobile.Controllers
                         latitude, // 0
                         longitude); // 1
                     var dateformat = "MM/dd/yyyy HH:mm";
-
                     AllIncidents adv = new AllIncidents() 
                     {
                         Link = doclink,
@@ -129,7 +128,6 @@ namespace ACCmobile.Controllers
                         String.Format 
                         ("Open?id={0}",
                         item.AdvisoryID); // 0
-                        //var dateformat = "MM/dd/yyyy";
                     DateTime utc_date = item.Created;
                     DateTime easternTime = utc_date.AddHours(-5);
                     var dateformat = "MM/dd/yyyy HH:mm";
@@ -213,6 +211,9 @@ namespace ACCmobile.Controllers
             await GetIncident(id);
             var incidentcontent = GetIncident(id).Result; 
             dynamic incidentitem = JObject.Parse(incidentcontent)["value"][0];
+            DateTime utc_date = incidentitem.Created;
+            DateTime easternTime = utc_date.AddHours(-5);
+            var dateformat = "MM/dd/yyyy HH:mm";
             SingleIncident adv = new SingleIncident() 
             {
                 OwnersLastName = incidentitem.OwnersLastName,
@@ -226,7 +227,8 @@ namespace ACCmobile.Controllers
                 IncidentID = incidentitem.AdvisoryID,
                 Address = incidentitem.Address,
                 AddressID = incidentitem.AddressID,
-                Date = incidentitem.Created
+                Date = easternTime.ToString(dateformat),
+                SubmittedBy = incidentitem.SubmittedBy
             };
             await GetAnimals(id);
             var animalcontent = GetAnimals(id).Result; 

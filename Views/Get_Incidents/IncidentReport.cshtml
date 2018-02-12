@@ -6,7 +6,7 @@
 <script src=@ViewData["apistring"] async defer ></script>
 <div class="row">
     <div class="col-md-6 col-xs-12">
-        <div class="incident-card">
+        <div>
             <form id="form">
             @Html.Partial("~/Views/Get_Incidents/_incidentReport.cshtml")
             </form>
@@ -21,14 +21,13 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row" style="margin-top:15px;">
     <div class="col-md-12">
-    <h4 style="margin-left: 10px; font-weight:600;">Animals:</h4>
     <table id="dt" class="table table-striped dataTable" cellspacing="0">
         <thead>
         </tr>
             <tr>
-                <th class="all">Type</th>
+                <th class="all">Animal Type</th>
                 <th>Name</th>
                 <th>Age</th>
                 <th>Sex</th>

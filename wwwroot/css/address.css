@@ -1,7 +1,8 @@
-html, body, .body-content, .container, .row, #column, #AddresForm, #column {
+html, body, .container, .row, #column, #AddresForm, #column {
   width: 100% !important;
   height: 100% !important;
   padding-bottom: 0px !important;
+  margin-bottom:0px; 
 }
 .body-content {
   padding: 0px !important;
@@ -36,4 +37,7 @@ html, body, .body-content, .container, .row, #column, #AddresForm, #column {
   padding-bottom: 10px; 
   padding-right: 30px; 
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.4);
+}
+footer {
+  display: none;
 }
