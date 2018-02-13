@@ -269,6 +269,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     border-radius: 0px !important;
 }
 
+/* loader to save screen on network activity */
 .overlayloader {
     align-items: center;
     justify-content: center;
