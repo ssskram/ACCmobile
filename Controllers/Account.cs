@@ -10,13 +10,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-
 using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
-
 using ACCmobile.Models;
 using ACCmobile.Models.AccountModels;
 
@@ -52,7 +50,7 @@ namespace ACCmobile.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-        public async Task<IActionResult> ExternalUser(string returnUrl = null)
+        public async Task<IActionResult> AccessDenied(string returnUrl = null)
         {
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
             return View();
@@ -122,7 +120,7 @@ namespace ACCmobile.Controllers
                 }                
                 else 
                 {
-                    return View("ExternalUser");
+                    return View("AccessDenied");
                 }
             }
         }
