@@ -213,7 +213,7 @@ namespace ACCmobile.Controllers
             dynamic incidentitem = JObject.Parse(incidentcontent)["value"][0];
             DateTime utc_date = incidentitem.Created;
             DateTime easternTime = utc_date.AddHours(-5);
-            var dateformat = "MM/dd/yyyy HH:mm";
+            var dateformat = "MM/dd/yyyy";
             SingleIncident adv = new SingleIncident() 
             {
                 OwnersLastName = incidentitem.OwnersLastName,
