@@ -1,4 +1,8 @@
+// this document contains the client side functions for the incident report
 
+// create map
+// locate incident on map
+// set infowindow content to incident address, and incident guid
 var map, infoWindow;
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {

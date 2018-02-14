@@ -2,10 +2,7 @@
     ViewData["Title"] = "New incident";
     Layout = "~/Views/Shared/_AddressLayout.cshtml";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="~/js/addressform.js"></script>
 <link rel="stylesheet" href="~/css/address.css">
-<script src=@ViewData["apistring"] async defer ></script>
 
 <form asp-controller="Address" asp-action="Next" method="post" id="AddressForm">
 <div class="row">
@@ -28,3 +25,7 @@
   </div>
 </div>
 </form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/addressform.js"></script>
+<script src=@ViewData["apistring"] async defer ></script>

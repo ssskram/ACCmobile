@@ -1,4 +1,4 @@
-// this document contains the client side functions for the animal module
+// this document contains the client side functions for the animal form
 
 // load bootstrap-select dropdowns
 // if mobile, default to native mobile menu

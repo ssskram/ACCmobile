@@ -1,9 +1,9 @@
 @{
     ViewData["Title"] = "Incident";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="~/js/incidentreport.js"></script>
-<script src=@ViewData["apistring"] async defer ></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.0/css/responsive.bootstrap.min.css">
+
 <div class="row">
     <div class="col-md-6 col-xs-12">
         <div>
@@ -87,3 +87,13 @@
     </table>
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src='https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js'></script>
+<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js" charset="utf-8"></script>
+<script src="https://cdn.datatables.net/responsive/2.2.1/js/dataTables.responsive.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script src="//cdn.datatables.net/plug-ins/1.10.16/sorting/datetime-moment.js"></script>
+<script type="text/javascript" src="~/js/incidentreportDT.js"></script>
+<script type="text/javascript" src="~/js/incidentreport.js"></script>
+<script src=@ViewData["apistring"] async defer ></script>

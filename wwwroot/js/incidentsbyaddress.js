@@ -1,4 +1,12 @@
+// this document contains the client side functions for the incidents-by-address view
 
+// create map with visualization layer
+// heatmap points passed from controller
+// get value from search field
+// autocomplete based on geolocation
+// filter table based on autocompleted address
+// on successful autocomplete, pass to infowindow data from first row on table (most recent acitivity at address)
+// if nothing exists in table, return 404 to infowindow
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 40.450714, lng: -79.985514},

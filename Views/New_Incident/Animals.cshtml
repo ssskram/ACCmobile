@@ -2,8 +2,10 @@
     ViewData["Title"] = "Animals";
 }
 @Html.Hidden("RedirectHome", Url.Action("Index", "Home"))
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/animalform.js"></script>
+
 <div class="row">
     <div class="col-md-8 incidentsummary">
         <h4 class="incidentheader" id="address" style="padding: 0 !important;">@ViewBag.IncidentAddress</h4>

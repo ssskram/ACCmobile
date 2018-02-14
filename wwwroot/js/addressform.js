@@ -1,13 +1,10 @@
-// this document contains the client side functions for the address module
+// this document contains the client side functions for the address validation form
 
 // creates map
-// heatmaps coordinates returned from address controller
 // on field focus, geolocate via browser to improve autocomplete responses
-// set hard boundary for autocomplete responses to 10000 m radius surrounding geolocation
 // logs field data, validates vield data, autocompletes field data
 // geocodes address
 // locates on map
-// for more information, visit https://developers.google.com/maps/documentation/javascript/
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.450714, lng: -79.985514},
@@ -54,6 +51,7 @@ function initMap() {
     if (!place.geometry) {
       window.alert("No details available for input: '" + place.name + "'");
     }
+    // only permit Pittsburgh addresses
     if (!ACcheck.includes("Pittsburgh")) {
       window.alert("Only Pittsburgh addresses are permitted");
       input.value = "";
