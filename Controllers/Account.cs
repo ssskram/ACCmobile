@@ -7,16 +7,11 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Microsoft.AspNetCore.Http;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
 using ACCmobile.Models;
-using ACCmobile.Models.AccountModels;
 
 namespace ACCmobile.Controllers
 {
@@ -28,16 +23,13 @@ namespace ACCmobile.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger _logger;
 
         public Account(
             UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            ILogger<Account> logger)
+            SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;
         }
 
         [HttpGet]
@@ -46,23 +38,10 @@ namespace ACCmobile.Controllers
         {
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            // add async method to GET user group members
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
-        public async Task<IActionResult> AccessDenied(string returnUrl = null)
-        {
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-            return View();
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
-            return RedirectToAction(nameof(Home.Index), "Home");
-        }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -79,49 +58,37 @@ namespace ACCmobile.Controllers
         // check returned credentials against group
         // and make sure returned credentials contain @pittsburghpa.gov
         // if yes to both conditions, create account for user in in-memory db
-        // if no to either condition, redirect to ExternalUser view
+        // if no to either condition, redirect to 401
         [HttpPost]
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
             await GetUserGroup();
-            if (remoteError != null)
-            {
-                return RedirectToAction(nameof(Login));
-            }
             var info = await _signInManager.GetExternalLoginInfoAsync();
-            if (info == null)
+            // create user account, and log user in.
+            ViewData["ReturnUrl"] = returnUrl;
+            ViewData["LoginProvider"] = info.LoginProvider;
+            var usergroup = TempData["usergroup"].ToString();
+            var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+            // check email address against domain name and membership in user group
+            if (email.Contains("@pittsburghpa.gov") && (usergroup.Contains(email)))
             {
-                return RedirectToAction(nameof(Login));
-            }
-            else
-            {
-                // create user account, and log user in.
-                ViewData["ReturnUrl"] = returnUrl;
-                ViewData["LoginProvider"] = info.LoginProvider;
-                var usergroup = TempData["usergroup"].ToString();
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                // check email address against domain name and membership in user group
-                if (email.Contains("@pittsburghpa.gov") && (usergroup.Contains(email)))
+                var user = new ApplicationUser { UserName = email, Email = email };
+                var add = await _userManager.CreateAsync(user);
+                if (add.Succeeded)
                 {
-                    var user = new ApplicationUser { UserName = email, Email = email };
-                    var add = await _userManager.CreateAsync(user);
+                    add = await _userManager.AddLoginAsync(user, info);
                     if (add.Succeeded)
                     {
-                        add = await _userManager.AddLoginAsync(user, info);
-                        if (add.Succeeded)
-                        {
-                            await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
-                            _logger.LogInformation("User created an account using {Name} provider.", info.LoginProvider);
-                        }
+                        await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
                     }
-                    return RedirectToAction(nameof(Home.Index), "Home");
-                }                
-                else 
-                {
-                    return View("AccessDenied");
                 }
+                return RedirectToAction(nameof(Home.Index), "Home");
+            }                
+            else 
+            {
+                return View("AccessDenied");
             }
         }
 
@@ -177,6 +144,20 @@ namespace ACCmobile.Controllers
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
+        }
+
+        public async Task<IActionResult> AccessDenied(string returnUrl = null)
+        {
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(Home.Index), "Home");
         }
 
         #region Helpers
