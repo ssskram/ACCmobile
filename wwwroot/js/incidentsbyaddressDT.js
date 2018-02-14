@@ -9,7 +9,7 @@ var table = $("#dt").DataTable({
     order: [[ 1, "desc" ]],
     bLengthChange: false,
     language: {
-        emptyTable: "No animals associated with this incident"
+        emptyTable: "No incidents"
     },
     columnDefs: [
         { orderable: false, targets: 0 }

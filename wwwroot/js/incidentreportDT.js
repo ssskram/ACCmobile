@@ -3,26 +3,13 @@
 $.fn.dataTable.moment( 'MM/DD/YYYY HH:mm');
 var table = $("#dt").DataTable({
     pageLength : 25,
-    searching: true,
-    paging: true,
-    ordering: true,
+    searching: false,
+    paging: false,
+    ordering: false,
     order: [[ 1, "desc" ]],
     bLengthChange: false,
     language: {
         emptyTable: "No animals associated with this incident"
     },
-    columnDefs: [
-        { orderable: false, targets: 0 }
-    ]
 });
-$('#search').on( 'keyup', function () {
-    table.search( this.value ).draw();
-} );
-$('#search2').on( 'keyup', function () {
-    table.search( this.value ).draw();
-} );
-$('#dropdown').on( 'change' , function () {
-    table.search( this.value ).draw();
-    $('#search').val('');
-} );
 new $.fn.dataTable.Responsive( table, {} );
