@@ -154,7 +154,7 @@ namespace ACCmobile.Controllers
             DateTime utc_date = incidentitem.Created;
             DateTime easternTime = utc_date.AddHours(-5);
             var dateformat = "MM/dd/yyyy";
-            SingleIncident adv = new SingleIncident() 
+            IncidentReport adv = new IncidentReport() 
             {
                 OwnersLastName = incidentitem.OwnersLastName,
                 OwnersFirstName = incidentitem.OwnersFirstName,
@@ -173,10 +173,10 @@ namespace ACCmobile.Controllers
             await GetAnimals(id);
             var animalcontent = GetAnimals(id).Result; 
             dynamic animalitems = JObject.Parse(animalcontent)["value"];
-            List<GetAnimal> Animals = new List<GetAnimal>();
+            List<GetAnimals> Animals = new List<GetAnimals>();
             foreach (var item in animalitems)
             {
-                GetAnimal amnl = new GetAnimal() 
+                GetAnimals amnl = new GetAnimals() 
                 {
                     AnimalName = item.Name,
                     Type = item.Type,

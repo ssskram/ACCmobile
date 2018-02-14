@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace ACCmobile.Models
 {
-    public class SingleIncident
+    public class IncidentReport
     {
         public string OwnersLastName { get; set; }
         public string OwnersFirstName { get; set; }

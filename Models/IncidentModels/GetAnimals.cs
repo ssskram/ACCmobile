@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace ACCmobile.Models
 {
-    public class GetAnimal
+    public class GetAnimals
     {
         public string AnimalName { get; set; }
         public string Type { get; set; }
