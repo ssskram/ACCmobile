@@ -296,18 +296,18 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     100% { transform: rotate(360deg); }
 }
 
-/* animalform elements */
-.incidentsummary {
-    background-color: rgba(56, 56, 56, 0.04);
-    border: 1px solid #ccc!important;
-    border-radius: 0px 0px 20px 20px;
-    margin: 0 20px;
-}
-
 /* incidentreport elements */
 .incidentheader {
     color: #383838;
     letter-spacing: .15em;
     padding-left: 15px;
     font-weight: 550;
+}
+
+/* animalform elements */
+.incidentsummary {
+    background-color: rgba(56, 56, 56, 0.04);
+    border: 1px solid #ccc!important;
+    border-radius: 0px 0px 20px 20px;
+    margin: 0 20px;
 }

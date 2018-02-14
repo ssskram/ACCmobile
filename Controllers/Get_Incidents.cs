@@ -263,7 +263,7 @@ namespace ACCmobile.Controllers
             return listitems;
         }
 
-        // get incident chosen from table
+        // get incident selected from table
         public async Task<string> GetIncident(string id)
         {
             var token = HttpContext.Session.GetString("SessionToken");
@@ -279,7 +279,7 @@ namespace ACCmobile.Controllers
             return listitems;
         }
 
-        // get all animals associated with chosen incident
+        // get all animals associated with selected incident
         public async Task<string> GetAnimals(string id)
         {
             var token = HttpContext.Session.GetString("SessionToken");

@@ -8,11 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using ACCmobile.Models;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
-using System.Net;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using System.Collections.Specialized;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
@@ -21,9 +18,6 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class New_Incident : Controller
     {   
-
-        // dependencies and services
-
         private readonly UserManager<ApplicationUser> _userManager;
             public New_Incident(UserManager<ApplicationUser> userManager)
             {
@@ -32,8 +26,8 @@ namespace ACCmobile.Controllers
         HttpClient client = new HttpClient();
 
 
-        // actions related to defining and posting a new incident
-
+        // initialize NewIncident model with address data
+        // open description view and pass along google api key
         public IActionResult Description()
         {
             var address = HttpContext.Session.GetString("Address");
@@ -50,6 +44,8 @@ namespace ACCmobile.Controllers
             return View(incidentmodel);
         }
 
+        // save incident description
+        // open animal view, with relevant incident description data set to temp
         public async Task<IActionResult> Create(NewIncident model)
         {
             string IncidentID = model.IncidentID.ToString();
@@ -61,6 +57,33 @@ namespace ACCmobile.Controllers
             TempData["Reason"] = model.ReasonForVisit;
             return RedirectToAction("Animals");
         }
+
+        // open animal view and pass incident description data along
+        public IActionResult Animals()
+        {
+            ViewBag.IncidentAddress = TempData.Peek("Address");
+            ViewBag.IncidentFirstName = TempData.Peek("OwnersFirstName");
+            ViewBag.IncidentLastName = TempData.Peek("OwnersLastName");
+            ViewBag.IncidentReason = TempData.Peek("Reason");
+            return View();
+        }
+
+        // load animal form from client
+        public IActionResult _AddAnimal()
+        {
+            return PartialView();
+        }
+
+        // save animal
+        public async Task<IActionResult> PostAnimal(NewAnimal model)
+        {
+            await Execute(model);
+            return RedirectToAction("Animals");
+        }
+
+        // api calls
+
+        // post incident
         public async Task Execute(NewIncident model)
         {
             string SubmittedBy = _userManager.GetUserName(HttpContext.User);
@@ -104,27 +127,7 @@ namespace ACCmobile.Controllers
             }
         }
 
-        // action related to defining and posting a new animal
-
-        public IActionResult Animals()
-        {
-            ViewBag.IncidentAddress = TempData.Peek("Address");
-            ViewBag.IncidentFirstName = TempData.Peek("OwnersFirstName");
-            ViewBag.IncidentLastName = TempData.Peek("OwnersLastName");
-            ViewBag.IncidentReason = TempData.Peek("Reason");
-            return View();
-        }
-
-        public IActionResult _AddAnimal()
-        {
-            return PartialView();
-        }
-
-        public async Task<IActionResult> PostAnimal(NewAnimal model)
-        {
-            await Execute(model);
-            return RedirectToAction("Animals");
-        }
+        // post animal
         public async Task Execute(NewAnimal model)
         {
             var SessionToken = HttpContext.Session.GetString("SessionToken");
