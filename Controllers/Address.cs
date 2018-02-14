@@ -7,14 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ACCmobile.Models;
-using ACCmobile.Models.AccountModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
-using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Net.Http.Headers;
-using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Collections.Specialized;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -26,6 +23,8 @@ namespace ACCmobile.Controllers
     {   
         HttpClient client = new HttpClient();
 
+        // Get access token for SP api calls
+        // Load address view, and pass along google api key to client
         public async Task<IActionResult> Validation()
         {
             await RefreshToken();
@@ -37,6 +36,8 @@ namespace ACCmobile.Controllers
             return View();
         }
 
+        // Set address & address ID to session to be used throughout rest of process
+        // Redirect to "Incident Description"
         public IActionResult Next(AddressModel model)
         {
             HttpContext.Session.SetString("Address", model.Address);
@@ -44,6 +45,7 @@ namespace ACCmobile.Controllers
             return RedirectToAction(nameof(New_Incident.Description), "New_Incident");
         }
 
+        // Get access token, & set to session
         [HttpPost]
         public async Task RefreshToken()
         {

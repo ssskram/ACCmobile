@@ -7,16 +7,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ACCmobile.Models;
-using ACCmobile.Models.AccountModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
-using System.Net;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using System.Collections.Specialized;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
@@ -25,7 +20,6 @@ namespace ACCmobile.Controllers
     [Authorize]
     public class Get_Incidents : Controller
     {   
-        // initialize httpclient to be used by all methods
         HttpClient client = new HttpClient();
 
         // return all incidents by address
@@ -151,61 +145,7 @@ namespace ACCmobile.Controllers
             return View(Advises);
         }
 
-        // services       
-        public async Task RefreshToken()
-        {
-            var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
-            var clientid = Environment.GetEnvironmentVariable("SPClientID");
-            var clientsecret = Environment.GetEnvironmentVariable("SPClientSecret");
-            var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
-            var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
-            var SPresource = Environment.GetEnvironmentVariable("spresourceid");
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
-            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
-
-            var json =
-                String.Format 
-            ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
-                clientid, // 0
-                clientsecret, // 1
-                refreshtoken, // 2
-                redirecturi, // 3
-                SPresource); // 4
-
-            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
-            StringContent strContent = new StringContent(json);               
-            strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
-            HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;       
-            response.EnsureSuccessStatusCode();
-            var content = await response.Content.ReadAsStringAsync();
-            dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
-            string token = results.access_token.ToString();
-            HttpContext.Session.SetString("SessionToken", token);
-        }
-        public async Task<string> GetAdvises()
-        {
-            var token = HttpContext.Session.GetString("SessionToken");
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/GetFolderByServerRelativeUrl('ScannedAdvises')/Files";
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
-            string listitems = await client.GetStringAsync(sharepointUrl);
-            return listitems;
-        }
-        public async Task<string> GetIncidents()
-        {
-            var token = HttpContext.Session.GetString("SessionToken");
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
-            string listitems = await client.GetStringAsync(sharepointUrl);
-            return listitems;
-        }
-
+        // Open individual incident
         public async Task<IActionResult> Open(string id)
         {
             await GetIncident(id);
@@ -261,6 +201,69 @@ namespace ACCmobile.Controllers
                 googleapikey); // 0
             return View("~/Views/Get_Incidents/IncidentReport.cshtml", adv);
         }
+
+        // Get access token, & set to session      
+        public async Task RefreshToken()
+        {
+            var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
+            var clientid = Environment.GetEnvironmentVariable("SPClientID");
+            var clientsecret = Environment.GetEnvironmentVariable("SPClientSecret");
+            var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
+            var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
+            var SPresource = Environment.GetEnvironmentVariable("spresourceid");
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+
+            var json =
+                String.Format 
+            ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
+                clientid, // 0
+                clientsecret, // 1
+                refreshtoken, // 2
+                redirecturi, // 3
+                SPresource); // 4
+
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            StringContent strContent = new StringContent(json);               
+            strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;       
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
+            string token = results.access_token.ToString();
+            HttpContext.Session.SetString("SessionToken", token);
+        }
+
+        // api calls
+
+        // get all advises from pdf library
+        public async Task<string> GetAdvises()
+        {
+            var token = HttpContext.Session.GetString("SessionToken");
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/GetFolderByServerRelativeUrl('ScannedAdvises')/Files";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
+
+        // get all incidents from incident table
+        public async Task<string> GetIncidents()
+        {
+            var token = HttpContext.Session.GetString("SessionToken");
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
+
+        // get incident chosen from table
         public async Task<string> GetIncident(string id)
         {
             var token = HttpContext.Session.GetString("SessionToken");
@@ -275,6 +278,8 @@ namespace ACCmobile.Controllers
             string listitems = await client.GetStringAsync(sharepointUrl);
             return listitems;
         }
+
+        // get all animals associated with chosen incident
         public async Task<string> GetAnimals(string id)
         {
             var token = HttpContext.Session.GetString("SessionToken");

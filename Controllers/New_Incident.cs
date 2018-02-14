@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ACCmobile.Models;
-using ACCmobile.Models.AccountModels;
 using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using System.Net;
