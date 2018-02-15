@@ -22,7 +22,7 @@ namespace ACCmobile.Controllers
     {   
         HttpClient client = new HttpClient();
 
-        // return all incidents by address
+        // return all incidents
         public async Task<IActionResult> ByAddress()
         {
             string HeatMapData= "";
@@ -145,7 +145,7 @@ namespace ACCmobile.Controllers
             return View(Advises);
         }
 
-        // Open individual incident
+        // Return specific incident
         public async Task<IActionResult> Open(string id)
         {
             await GetIncident(id);
@@ -153,7 +153,7 @@ namespace ACCmobile.Controllers
             dynamic incidentitem = JObject.Parse(incidentcontent)["value"][0];
             DateTime utc_date = incidentitem.Created;
             DateTime easternTime = utc_date.AddHours(-5);
-            var dateformat = "MM/dd/yyyy";
+            var dateformat = "MM/dd/yyyy HH:mm";
             IncidentReport adv = new IncidentReport() 
             {
                 OwnersLastName = incidentitem.OwnersLastName,
@@ -202,6 +202,8 @@ namespace ACCmobile.Controllers
             return View("~/Views/Get_Incidents/IncidentReport.cshtml", adv);
         }
 
+        // api calls
+
         // Get access token, & set to session      
         public async Task RefreshToken()
         {
@@ -234,8 +236,6 @@ namespace ACCmobile.Controllers
             string token = results.access_token.ToString();
             HttpContext.Session.SetString("SessionToken", token);
         }
-
-        // api calls
 
         // get all advises from pdf library
         public async Task<string> GetAdvises()
