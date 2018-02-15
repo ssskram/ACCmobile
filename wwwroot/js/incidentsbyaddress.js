@@ -82,6 +82,8 @@ function initMap() {
   var input = document.getElementById('search');
 
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(card);
+  $('#search').delay(1500).fadeIn(1000);
+
   var autocomplete = new google.maps.places.Autocomplete(input);
 
   if (navigator.geolocation) {
@@ -145,7 +147,7 @@ function initMap() {
     href = $( "td" ).first().find( 'a' ).attr('href');
     href_formatted = '<a href="'+ href +'" target="_blank">Open report</a>'
     nothing = "No documented activity at this address"
-    something = "Most recent activity at this address:"
+    something = "Most recent activity here:"
     infowindowContent.children['place-address'].textContent = address;
     if (href != null)
     {
