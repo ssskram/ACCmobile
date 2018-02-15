@@ -14,6 +14,8 @@ function initMap() {
 
   var card = document.getElementById('addresscontainer');
   var input = document.getElementById('autocomplete');
+
+  // prohibit enter from submitting form
   $('#autocomplete').keydown(function (e) {
     if (e.which == 13 && $('.pac-container:visible').length) return false;
   });
