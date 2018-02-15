@@ -64,6 +64,7 @@ namespace ACCmobile.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
+            // get user group from sp site
             await GetUserGroup();
             var info = await _signInManager.GetExternalLoginInfoAsync();
             // create user account, and log user in.

@@ -21,8 +21,8 @@ function initMap() {
   });
 
   map.controls[google.maps.ControlPosition.TOP_CENTER].push(card);
-  var autocomplete = new google.maps.places.Autocomplete(input);
 
+  var autocomplete = new google.maps.places.Autocomplete(input);
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var geolocation = {
@@ -89,6 +89,7 @@ function initMap() {
 
   autocomplete.addListener('place_changed', fillInAddress);
   autocomplete.addListener('place_changed', checkAddress);
+  $('#addresscontainer').fadeIn(2500);
 }
 
 // check for pittsburgh address
