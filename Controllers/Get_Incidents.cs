@@ -27,8 +27,8 @@ namespace ACCmobile.Controllers
         {
             string HeatMapData= "";
             await RefreshToken();
+            // change get advises to call on new geocodedadvises table
             await GetAdvises();
-            //await HeatMapData();
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistring"] = 
                 String.Format 
@@ -40,75 +40,14 @@ namespace ACCmobile.Controllers
             var electroniccontent = GetIncidents().Result;
             dynamic ElectronicIncidents = JObject.Parse(electroniccontent)["value"];
             List<AllIncidents> Advises = new List<AllIncidents>();
-
                 foreach (var item in PaperAdvises)
                 {
-                    var uncodedName = item.Name.ToString();
-                    var encodedName = System.Web.HttpUtility.UrlPathEncode(uncodedName);
-                    var doclink =
-                        String.Format
-                        ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/ScannedAdvises/{0}",
-                            encodedName); // 0
-
-                    char[] whitespace = {' ',' '};
-                    char[] period = {'.',' '};
-                    char[] brackets={'{','}',' '};
-                    char[] adv_char = {'A', 'D','V','a','d','v',' ' };
-                    char[] pdf_char = {'P','D','F','p','d','f',' ' };
-                    char[] lat = {'"','l','a','t',':',' ' };
-                    string name = item.Name.ToString();
-                    string adv_trimmed = name.TrimStart(adv_char);
-                    string pdf_trimmed = adv_trimmed.TrimEnd(pdf_char);
-
-                    string date = pdf_trimmed.Split(' ').First();
-                    string date_trimmed= date.TrimEnd(whitespace);
-                    string date_trimmed2 = date_trimmed.Replace(".", "-");
-                    //string date_trimmed3 = date_trimmed.Replace("-", "/");
-                    string date_cleaned = "20" + date_trimmed2;
-                    DateTime datecleaned2; 
-                    bool parsed = DateTime.TryParseExact(date_cleaned, "yyyy-M-d", CultureInfo.InvariantCulture,
-                               DateTimeStyles.AllowWhiteSpaces,
-                               out datecleaned2);
-                    string address = pdf_trimmed.Remove(0, pdf_trimmed.IndexOf(' ') + 1);
-                    string address_nowhitespace = address.TrimStart(whitespace);
-                    string address_trimmed = address_nowhitespace.TrimEnd(period);
-                    string address_formatted = 
-                        String.Format 
-                        ("{0}, Pittsburgh PA",
-                            address_trimmed); // 0
-                    string address_encoded = address_formatted.Replace(" ", "+");
-                    var key = Environment.GetEnvironmentVariable("googleapikey");
-                    var geo_call =
-                        String.Format 
-                        ("https://maps.googleapis.com/maps/api/geocode/json?address={0}&key={1}",
-                        address_encoded, // 0
-                        key); // 1
-                    client.DefaultRequestHeaders.Clear();
-                    string address_geocoded = await client.GetStringAsync(geo_call);
-                    dynamic deseralize_4address = JsonConvert.DeserializeObject<dynamic>(address_geocoded)["results"][0];
-                    string formatted_address = deseralize_4address.formatted_address.ToString();
-                    dynamic deseralize_4coords = JsonConvert.DeserializeObject<dynamic>(address_geocoded)["results"][0]["geometry"];
-                    string formatted_coords = deseralize_4coords.location.ToString();
-                    var formatted_coords_nobrackets = formatted_coords.TrimEnd(brackets);
-                    var formatted_coords_clean = formatted_coords_nobrackets.TrimStart(brackets);
-                    string formatted_coords_lat = formatted_coords_clean.Remove(0, formatted_coords_clean.IndexOf(' ') + 1);
-                    string formatted_coords_lat2 = formatted_coords_lat.TrimStart(lat);
-                    string longitude_dirty = formatted_coords_lat2.Split(' ').Last();
-                    string longitude = longitude_dirty.TrimEnd(whitespace);
-                    string latitude = formatted_coords_lat2.Split(' ').FirstOrDefault();
-                    var finalcoord =
-                        String.Format 
-                        ("({0} {1})",
-                        latitude, // 0
-                        longitude); // 1
-                    var dateformat = "MM/dd/yyyy HH:mm";
                     AllIncidents adv = new AllIncidents() 
                     {
-                        Link = doclink,
-                        Date = datecleaned2.ToString(dateformat),
-                        Address = formatted_address,
-                        Coords = finalcoord,
-                        Format = "Paper"
+                        Link = item.link,
+                        Date = item.Date,
+                        Address = item.address,
+                        Coords = item.Geo
                     };
                     Advises.Add(adv);  
                     string coord = adv.Coords.ToString();
@@ -241,7 +180,7 @@ namespace ACCmobile.Controllers
         public async Task<string> GetAdvises()
         {
             var token = HttpContext.Session.GetString("SessionToken");
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/GetFolderByServerRelativeUrl('ScannedAdvises')/Files";
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Authorization = 
