@@ -25,21 +25,18 @@ namespace ACCmobile.Controllers
         // return all incidents
         public async Task<IActionResult> ByAddress()
         {
-            string HeatMapData= "";
             await RefreshToken();
-            // change get advises to call on new geocodedadvises table
+
+            // instantiate empty string to populate with heat map coords
+            string HeatMapData = "";
+
+            // instatiate list to populate with paper and electronic incidents
+            List<AllIncidents> Advises = new List<AllIncidents>();
+
+            // get and set advises
             await GetAdvises();
-            var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
-            ViewData["apistring"] = 
-                String.Format 
-                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
-                    googleapikey); // 0
             var papercontent = GetAdvises().Result; 
             dynamic PaperAdvises = JObject.Parse(papercontent)["value"];
-            await GetIncidents();
-            var electroniccontent = GetIncidents().Result;
-            dynamic ElectronicIncidents = JObject.Parse(electroniccontent)["value"];
-            List<AllIncidents> Advises = new List<AllIncidents>();
                 foreach (var item in PaperAdvises)
                 {
                     AllIncidents adv = new AllIncidents() 
@@ -55,6 +52,11 @@ namespace ACCmobile.Controllers
                     var bracketed = "[" + clean + "],";
                     HeatMapData += bracketed;
                 }
+
+            // get and set incidents
+            await GetIncidents();
+            var electroniccontent = GetIncidents().Result;
+            dynamic ElectronicIncidents = JObject.Parse(electroniccontent)["value"];
                 foreach (var item in ElectronicIncidents)
                 {
                     string Link = 
@@ -78,9 +80,17 @@ namespace ACCmobile.Controllers
                     var bracketed = "[" + clean + "],";
                     HeatMapData += bracketed;
                 }
+
+            // clean and set heatmap data
             HeatMapData = HeatMapData.TrimEnd(',');
             var done = "[" + HeatMapData + "]";
             ViewBag.heatmap = done;
+            var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
+            ViewData["apistring"] = 
+                String.Format 
+                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
+                    googleapikey); // 0
+
             return View(Advises);
         }
 
@@ -180,7 +190,7 @@ namespace ACCmobile.Controllers
         public async Task<string> GetAdvises()
         {
             var token = HttpContext.Session.GetString("SessionToken");
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items";
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items?$top=5000";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Authorization = 

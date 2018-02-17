@@ -3,8 +3,8 @@
 }
 @model List<AllIncidents>
 <link rel="stylesheet" href="~/css/datatables.css">
-
-<input style="display:none;" id="mapdata" value='@ViewBag.heatmap'/>
+@ViewBag.count
+<div style="display:none;" id="mapdata">@ViewBag.heatmap</div>
 <form id="form">
     <div id="row" class="hidden-md hidden-lg hidden-xl">
         <div style="margin: 15px 0px;">

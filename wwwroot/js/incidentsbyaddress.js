@@ -67,7 +67,7 @@ function initMap() {
   });
 
   var jsonArray = [];
-  var points = $('#mapdata').val();
+  var points = $('#mapdata').text();
   $.each(JSON.parse(points), function(i, jsondata) {
     var jsonObject = {};
     jsonObject.lat = jsondata[0];
@@ -147,7 +147,7 @@ function initMap() {
     href = $( "td" ).first().find( 'a' ).attr('href');
     href_formatted = '<a href="'+ href +'" target="_blank">Open report</a>'
     nothing = "No documented activity at this address"
-    something = "Most recent activity here:"
+    something = "Most recent activity near here:"
     infowindowContent.children['place-address'].textContent = address;
     if (href != null)
     {
