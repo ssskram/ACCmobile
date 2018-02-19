@@ -30,7 +30,7 @@ namespace ACCmobile.Controllers
             // instantiate empty string to populate with heat map coords
             string HeatMapData = "";
 
-            // instatiate list to populate with paper and electronic incidents
+            // instantiate list to populate with paper and electronic incidents
             List<AllIncidents> Advises = new List<AllIncidents>();
 
             // get and set advises

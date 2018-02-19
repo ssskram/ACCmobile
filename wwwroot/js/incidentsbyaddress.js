@@ -61,7 +61,7 @@ function initMap() {
     data: [],
     dissipating: true,
     gradient: gradient,
-    radius: 7,
+    radius: 6,
     opacity: .6,
     map: map
   });
