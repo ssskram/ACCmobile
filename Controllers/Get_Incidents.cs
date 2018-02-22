@@ -71,8 +71,7 @@ namespace ACCmobile.Controllers
                         Link = Link,
                         Date = easternTime.ToString(dateformat),
                         Address = item.Address,
-                        Coords = item.AddressID,
-                        Format = "Eletronic"
+                        Coords = item.AddressID
                     };
                     Advises.Add(adv); 
                     string coord = adv.Coords.ToString();

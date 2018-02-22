@@ -8,6 +8,5 @@ namespace ACCmobile.Models
         public string Date { get; set; }
         public string Address { get; set; }
         public string Coords { get; set; }
-        public string Format { get; set; }
     }
 }
