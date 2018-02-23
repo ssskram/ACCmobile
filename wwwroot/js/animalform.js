@@ -19,12 +19,12 @@ function setName () {
     if ( animalname !== "" )
     {
         $('#AddAnimal span').text(Addbuttontext);
-        $('#overlaytrigger1 span').text(Submitbuttontext);
+        $('#complete span').text(Submitbuttontext);
     }
     else
     {
         $('#AddAnimal span').text(Addbuttontext);
-        $('#overlaytrigger1 span').text(Submitbuttontext);
+        $('#complete span').text(Submitbuttontext);
     }
 }
 
@@ -34,9 +34,9 @@ function revealbuttons () {
     var Addbuttontext = `+ Save ${animalname} and add another animal`;
     var Submitbuttontext = `+ Save ${animalname} and return home`;
     $('#AddAnimal span').text(Addbuttontext);
-    $('#overlaytrigger1 span').text(Submitbuttontext);
+    $('#complete span').text(Submitbuttontext);
     $("#AddAnimal").show();
-    $("#overlaytrigger1").show();
+    $("#complete").show();
 }
 
 // post animal
@@ -50,7 +50,7 @@ function addAnimal()
     {
         $("animal").hide();
         $("#AddAnimal").hide();
-        $("#overlaytrigger1").hide();
+        $("#complete").hide();
         $('#type').val( $('#typerelay').val() );
         $('#breed').val( $('#breedrelay').val() );
         $('#coat').val( $('#coatrelay').val() );
@@ -126,7 +126,7 @@ function returnHome()
 
 // on submit, copy multi-selection contents to relay field for simple string posting
 $(document).ready(function () {
-    $('#overlaytrigger1').click(function(){
+    $('#complete').click(function(){
         $('#type').val( $('#typerelay').val() );
         $('#breed').val( $('#breedrelay').val() );
         $('#coat').val( $('#coatrelay').val() );
@@ -136,7 +136,7 @@ $(document).ready(function () {
 
 // render number of animals in box
 $(document).ready(function () {
-    $('#AddAnimal,#overlaytrigger1').click(function(){
+    $('#AddAnimal,#complete').click(function(){
         var old_quantity = $('#numberanimals').text();
         var new_animal = 1;
         var new_quantity = +old_quantity + +new_animal;
