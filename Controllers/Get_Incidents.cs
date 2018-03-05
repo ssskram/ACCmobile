@@ -39,6 +39,7 @@ namespace ACCmobile.Controllers
             dynamic PaperAdvises = JObject.Parse(papercontent)["value"];
                 foreach (var item in PaperAdvises)
                 {
+                    DateTime dt = item.Date;
                     AllIncidents adv = new AllIncidents() 
                     {
                         Link = item.link,
@@ -47,10 +48,14 @@ namespace ACCmobile.Controllers
                         Coords = item.Geo
                     };
                     Advises.Add(adv);  
-                    string coord = adv.Coords.ToString();
-                    var clean = Regex.Replace(coord, "[()]", "");
-                    var bracketed = "[" + clean + "],";
-                    HeatMapData += bracketed;
+                    // write coords to heatmap data if incident occured within last year
+                    if (dt.Year == DateTime.Now.Year - 2)
+                    {
+                        string coord = adv.Coords.ToString();
+                        var clean = Regex.Replace(coord, "[()]", "");
+                        var bracketed = "[" + clean + "],";
+                        HeatMapData += bracketed;
+                    }
                 }
 
             // get and set incidents
@@ -74,10 +79,15 @@ namespace ACCmobile.Controllers
                         Coords = item.AddressID
                     };
                     Advises.Add(adv); 
-                    string coord = adv.Coords.ToString();
-                    var clean = Regex.Replace(coord, "[()]", "");
-                    var bracketed = "[" + clean + "],";
-                    HeatMapData += bracketed;
+
+                    // write coords to heatmap data if incident occured within last year
+                    if (easternTime.Year == DateTime.Now.Year - 2)
+                    {
+                        string coord = adv.Coords.ToString();
+                        var clean = Regex.Replace(coord, "[()]", "");
+                        var bracketed = "[" + clean + "],";
+                        HeatMapData += bracketed;
+                    }
                 }
 
             // clean and set heatmap data
