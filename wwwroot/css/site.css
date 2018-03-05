@@ -33,7 +33,6 @@ h1, h2, h3, h4, h5 {
 .navbar-brand {
     color: #383838 !important;
     font-weight: 5400 !important;
-    border-radius: 3px;
 }
 .navbar-inverse .navbar-brand:hover, 
 .navbar-inverse .navbar-brand:focus {
@@ -144,9 +143,7 @@ button.bs-placeholder[role='button']>span {
     background-color:white;
     padding: 10px 15px;
     margin: 7px;
-    -moz-box-shadow: 0 0 2px 2px #888;
-    -webkit-box-shadow: 5px 5px 5px 5px #888;
-    box-shadow: 2px 3px 8px 2px #888;
+    box-shadow: 1px 1px 1px 1px #888;
     width: 200px;
   }
 .btn-big {
@@ -169,9 +166,7 @@ button.bs-placeholder[role='button']>span {
     background-color:white;
     padding: 20px;
     margin-bottom: 20px;
-    -moz-box-shadow: 0 0 2px 2px #888;
-    -webkit-box-shadow: 5px 5px 20px 20px #888;
-    box-shadow: 2px 3px 8px 2px #888;
+    box-shadow: 1px 1px 1px 1px #888;
     width: 300px;
     height: 160px;
 }
