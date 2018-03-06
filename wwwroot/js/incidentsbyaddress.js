@@ -37,8 +37,7 @@ $("#search2").keyup(function(){
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 40.450714, lng: -79.985514},
-    zoom: 11,
-    disableDefaultUI: true
+    zoom: 11
   });
 
   var gradient = [
@@ -62,7 +61,7 @@ function initMap() {
     dissipating: true,
     gradient: gradient,
     radius: 8,
-    opacity: .3,
+    opacity: .4,
     map: map
   });
 

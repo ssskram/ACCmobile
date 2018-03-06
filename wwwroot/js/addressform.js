@@ -89,7 +89,7 @@ function initMap() {
 
   autocomplete.addListener('place_changed', fillInAddress);
   autocomplete.addListener('place_changed', checkAddress);
-  $('#addresscontainer').delay(500).fadeIn(1500);
+  $('#addresscontainer').delay(500).fadeIn(1000);
 }
 
 // check for pittsburgh address
