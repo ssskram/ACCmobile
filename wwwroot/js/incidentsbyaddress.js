@@ -36,7 +36,7 @@ $("#search2").keyup(function(){
 // if nothing exists in table, return 404 to infowindow
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.450714, lng: -79.985514},
+    center: {lat: 40.426150, lng: -79.986672},
     zoom: 11
   });
 
