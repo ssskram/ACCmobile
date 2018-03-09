@@ -259,6 +259,15 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     border-radius: 0px !important;
 }
 
+/* center login page */
+.login {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
 /* loader to save screen on network activity */
 .overlayloader {
     align-items: center;
