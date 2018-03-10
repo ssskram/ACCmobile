@@ -1,7 +1,6 @@
 using System;
 using System.Web;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,14 +11,15 @@ using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
 using System.Text.RegularExpressions;
 
 namespace ACCmobile.Controllers
 {
     [Authorize]
-    public class Get_Incidents : Controller
-    {   
+    public class Incidents : Controller
+    {
         HttpClient client = new HttpClient();
 
         // return all incidents
@@ -112,7 +112,7 @@ namespace ACCmobile.Controllers
             DateTime utc_date = incidentitem.Created;
             DateTime easternTime = utc_date.AddHours(-5);
             var dateformat = "MM/dd/yyyy HH:mm";
-            IncidentReport adv = new IncidentReport() 
+            GetIncident adv = new GetIncident() 
             {
                 OwnersLastName = incidentitem.OwnersLastName,
                 OwnersFirstName = incidentitem.OwnersFirstName,
@@ -131,10 +131,10 @@ namespace ACCmobile.Controllers
             await GetAnimals(id);
             var animalcontent = GetAnimals(id).Result; 
             dynamic animalitems = JObject.Parse(animalcontent)["value"];
-            List<GetAnimals> Animals = new List<GetAnimals>();
+            List<GetAnimal> Animals = new List<GetAnimal>();
             foreach (var item in animalitems)
             {
-                GetAnimals amnl = new GetAnimals() 
+                GetAnimal amnl = new GetAnimal() 
                 {
                     AnimalName = item.Name,
                     Type = item.Type,
@@ -251,6 +251,224 @@ namespace ACCmobile.Controllers
             new AuthenticationHeaderValue ( "Bearer", token);
             string listitems = await client.GetStringAsync(sharepointUrl);
             return listitems;
+        }
+
+    }
+    
+    [Authorize]
+    public class NewIncident : Controller
+    {
+        HttpClient client = new HttpClient();
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        public NewIncident(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+        // Get access token
+        // Load address view, and pass along google api key to client
+        public async Task<IActionResult> Address()
+        {
+            await RefreshToken();
+            var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
+            ViewData["apistring"] = 
+                String.Format 
+                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
+                    googleapikey); // 0
+            return View();
+        }
+
+        // Set address & address ID to session to be used throughout rest of process
+        // Redirect to "Incident Description"
+        public IActionResult Next(AddressModel model)
+        {
+            // switch to temp data
+            HttpContext.Session.SetString("Address", model.Address);
+            HttpContext.Session.SetString("AddressID", model.AddressID);
+            return RedirectToAction("Description");
+        }
+
+        // initialize NewIncident model with address data
+        // open description view and pass along google api key
+        public IActionResult Description()
+        {
+            var address = HttpContext.Session.GetString("Address");
+            var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
+            ViewData["apistringmap"] = 
+                String.Format 
+                ("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap",
+                    googleapikey); // 0
+            var incidentmodel = new NewDescription
+            {
+                IncidentID = (Guid.NewGuid().ToString()),
+                Address = address
+            };
+            return View(incidentmodel);
+        }
+
+        // save incident description
+        // open animal view, with relevant incident description data set to temp
+        public async Task<IActionResult> Create(NewDescription model)
+        {
+            string IncidentID = model.IncidentID.ToString();
+            HttpContext.Session.SetString("IncidentID", IncidentID);
+            await Execute(model);
+            TempData["Address"] = model.Address;
+            TempData["OwnersFirstName"] = model.OwnersFirstName;
+            TempData["OwnersLastName"] = model.OwnersLastName;
+            TempData["Reason"] = model.ReasonForVisit;
+            return RedirectToAction("Animals");
+        }
+
+        // open animal view and pass incident description data along
+        public IActionResult Animals()
+        {
+            ViewBag.IncidentAddress = TempData.Peek("Address");
+            ViewBag.IncidentFirstName = TempData.Peek("OwnersFirstName");
+            ViewBag.IncidentLastName = TempData.Peek("OwnersLastName");
+            ViewBag.IncidentReason = TempData.Peek("Reason");
+            return View();
+        }
+
+        // load animal form from client
+        public IActionResult _AddAnimal()
+        {
+            return PartialView();
+        }
+
+        // save animal
+        public async Task<IActionResult> PostAnimal(NewAnimal model)
+        {
+            await Execute(model);
+            return RedirectToAction("Animals");
+        }
+
+        // post incident
+        public async Task Execute(NewDescription model)
+        {
+            string SubmittedBy = _userManager.GetUserName(HttpContext.User);
+            var SessionToken = HttpContext.Session.GetString("SessionToken");
+            var AddressID = HttpContext.Session.GetString("AddressID");
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ("Bearer", SessionToken);
+            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+            var json = 
+                String.Format
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}' }}",
+                    model.OwnersFirstName, // 0
+                    model.OwnersLastName, // 1
+                    model.OwnersTelephoneNumber, // 2
+                    model.ReasonForVisit, // 3
+                    model.PGHCode, // 4
+                    model.CitationNumber, // 5
+                    model.Comments, // 6
+                    AddressID, // 7 
+                    model.IncidentID, // 8
+                    SubmittedBy, //9
+                    model.CallOrigin, // 10
+                    model.Address); // 11
+                    
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            try // post
+            {
+                StringContent strContent = new StringContent(json);               
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+        
+        // post animal
+        public async Task Execute(NewAnimal model)
+        {
+            var SessionToken = HttpContext.Session.GetString("SessionToken");
+            var AddressID = HttpContext.Session.GetString("AddressID");
+            var IncidentID = HttpContext.Session.GetString("IncidentID");
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ("Bearer", SessionToken);
+            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+            var json = 
+                String.Format
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}' }}",
+                    model.Type, // 0
+                    model.Breed, // 1
+                    model.Coat, //2
+                    model.Sex, // 3
+                    model.LicenseNumber, // 4
+                    model.RabbiesVacNo, // 5
+                    model.RabbiesVacExp, // 6
+                    model.Veterinarian, // 7
+                    model.LicenseYear, // 8
+                    model.Age, // 9
+                    AddressID, // 10
+                    IncidentID, // 11
+                    model.AnimalName, // 12
+                    model.Comments); // 13
+
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            try // post
+            {
+                StringContent strContent = new StringContent(json);               
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;       
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public async Task RefreshToken()
+        {
+            var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
+            var clientid = Environment.GetEnvironmentVariable("SPClientID");
+            var clientsecret = Environment.GetEnvironmentVariable("SPClientSecret");
+            var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
+            var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
+            var SPresource = Environment.GetEnvironmentVariable("spresourceid");
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+            var json =
+                String.Format 
+            ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
+                clientid, // 0
+                clientsecret, // 1
+                refreshtoken, // 2
+                redirecturi, // 3
+                SPresource); // 4
+
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            try // POST to ms access control service
+            {
+                StringContent strContent = new StringContent(json);           
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+                HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+                dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
+                string token = results.access_token.ToString();
+                HttpContext.Session.SetString("SessionToken", token);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
         }
     }
 }
