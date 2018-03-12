@@ -6,7 +6,7 @@
 <script type="text/javascript" src="~/js/description.js"></script>
 <script src=@ViewData["apistringmap"] async defer ></script>
 
-<form asp-controller="Incidents" asp-action="Animal" method="post" id="form" style="display:none;">
+<form asp-controller="NewIncident" asp-action="Animal" method="post" id="form" style="display:none;">
 <div class="row">
   <div class="col-sm-3"></div>
     <div class="col-md-12">
@@ -18,7 +18,7 @@
     <div class="col-md-12">
         <h3>Describe the incident</h3>
         <div>
-            @Html.Partial("_Description")
+            @Html.Partial("~/Views/Incidents/New/_Description.cshtml")
         </div>
     </div>
 </div>

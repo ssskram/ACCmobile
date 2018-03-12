@@ -1,16 +1,16 @@
 @{
     ViewData["Title"] = "New incident";
-    Layout = "~/Views/Incidents/New/_Address.cshtml";
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
 }
 <link rel="stylesheet" href="~/css/address.css">
 
-<form asp-controller="Incidents" asp-action="Description" method="post" id="AddressForm">
+<form asp-controller="NewIncident" asp-action="Description" method="post" id="AddressForm">
 <div class="row">
   <div class="col-md-12" id="column">
       <div class="addresscontainer" id="addresscontainer" style="display:none;">
       <div>
             <h3 style="margin-left: 30px; color:#fffaee;">Enter a valid address</h3>
-            <div>@Html.Partial("_Address")</div> 
+            <div>@Html.Partial("~/Views/Incidents/New/_Address.cshtml")</div> 
             <div class="col-md-12 text-center" style="margin-top: 20px;">
               <input id="submit" type="submit" value="Next &raquo;" class="btn btn-default" style="display:none;"/>
             </div>

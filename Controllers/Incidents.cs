@@ -99,7 +99,7 @@ namespace ACCmobile.Controllers
                 ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
                     googleapikey); // 0
 
-            return View(Advises);
+            return View("~/Views/Incidents/Get/All.cshtml", Advises);
         }
 
         // get single incident
@@ -156,7 +156,7 @@ namespace ACCmobile.Controllers
             String.Format 
             ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
                 googleapikey); // 0
-            return View("~/Views/Get_Incidents/IncidentReport.cshtml", adv);
+            return View("~/Views/Incidents/Get/Report.cshtml", adv);
         }
 
         // api calls
@@ -277,16 +277,15 @@ namespace ACCmobile.Controllers
                 String.Format 
                 ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
                     googleapikey); // 0
-            return View();
+            return View("~/Views/Incidents/New/Address.cshtml");
         }
 
         // initialize NewIncident model with address data
         // open description view and pass along google api key
         public IActionResult Description(NewAddress model)
         {
-            HttpContext.Session.SetString("Address", model.Address);
             HttpContext.Session.SetString("AddressID", model.AddressID);
-            var address = HttpContext.Session.GetString("Address");
+            var address = model.Address;
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistringmap"] = 
                 String.Format 
@@ -297,7 +296,7 @@ namespace ACCmobile.Controllers
                 IncidentID = (Guid.NewGuid().ToString()),
                 Address = address
             };
-            return View(incidentmodel);
+            return View("~/Views/Incidents/New/Description.cshtml", incidentmodel);
         }
 
         // post incident description
@@ -311,7 +310,7 @@ namespace ACCmobile.Controllers
             ViewBag.IncidentFirstName = model.OwnersFirstName;
             ViewBag.IncidentLastName = model.OwnersLastName;
             ViewBag.IncidentReason = model.ReasonForVisit;
-            return View();
+            return View("~/Views/Incidents/New/Animal.cshtml");
         }
 
         // load animal form from client
