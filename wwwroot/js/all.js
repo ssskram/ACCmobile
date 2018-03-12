@@ -116,14 +116,7 @@ function initMap() {
       window.alert("No details available for input: '" + place.name + "'");
     }
 
-    if (!ACcheck.includes("Pittsburgh")) {
-      window.alert("Only Pittsburgh addresses are permitted");
-      input.value = "";
-    }
-
-  if (ACcheck.includes("Pittsburgh")){
-
-    $('input[id="search"]').val(place.name + " Pittsburgh");
+    $('input[id="search"]').val(place.name);
     var set = $('input[id="search"]').val();
     table.search(set).draw();
 
@@ -162,13 +155,6 @@ function initMap() {
       infowindowContent.children['link'].innerHTML = "";
     }
     infowindow.open(map, marker);
-  }
-  else
-  {
-    $('input[id="search"]').val("");
-    var set = $('input[id="search"]').val();
-    table.search(set).draw();
-  }
   });
 }
     

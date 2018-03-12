@@ -2,7 +2,7 @@
     ViewData["Title"] = "Incident";
 }
 <div id="mapdata">@ViewData["coords"]</div>
-<form asp-controller="NewIncident" asp-action="Animal" method="post" id="form" style="display:none;">
+<form asp-controller="NewIncident" asp-action="Next" method="post" id="form" style="display:none;">
 <div class="row">
   <div class="col-sm-3"></div>
     <div class="col-md-12">
@@ -21,7 +21,7 @@
 <div class="row" style="margin-bottom: 10px; margin-top: 10px;">
     <div class="col-md-12">
         <input style="float: left; margin: 10px; width: 100px;" type="button" value="&laquo; Back" class="btn btn-default overlaytrigger" onclick="location.href='@Url.Action("Address", "NewIncident")'"/>
-        <input style="float: right; margin: 10px; width: 100px;" type="submit" id="submit" value="Next &raquo;" class="btn btn-default overlaytrigger"/>
+        <input style="float: right; margin: 10px; width: 100px;" type="submit" id="submit" value="Next &raquo;" class="btn btn-default overlaytrigger" disabled/>
     </div>
 </div>
 </form>

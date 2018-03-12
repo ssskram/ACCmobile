@@ -20,7 +20,7 @@
                 <p>
                     @foreach (var provider in loginProviders)
                     {
-                        <button style="margin-top: 15px; letter-spacing: 1px; font-weight: bold;" type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">Log in</button>
+                        <button style="margin-top: 15px; letter-spacing: 1px; font-weight: bold;" type="submit" class="btn btn-default overlaytrigger" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">Log in</button>
                     }
                 </p>
             </div>

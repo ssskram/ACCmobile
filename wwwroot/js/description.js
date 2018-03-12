@@ -1,7 +1,6 @@
-// this document contains the client side functions for the incident description form
+// this document contains the client side functions for new/description
 
 // call google map
-// geocode address
 var map, infoWindow;
 var address = document.getElementById('address').value;
 var lat = parseFloat(document.getElementById('lat').value);
@@ -37,3 +36,16 @@ $('#submit').click(function(){
     $('#code').val( $('#coderelay').val() );
 });
 });
+
+// enable button when mandatory fields are addressed
+function enableButton () {
+    var reason = $("#reasonrelay").val();
+    if ( reason !== null )
+    {
+        $("#submit").prop("disabled",false);
+    }
+    else
+    {
+        $("#submit").prop("disabled",true);
+    }
+}

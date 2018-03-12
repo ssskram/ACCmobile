@@ -27,7 +27,7 @@ html, body, .container, .row, #column, #AddresForm, #column {
   padding: 5px 5px 10px 0px;
   margin: 20px 10px 50px 10px;
   border-radius: 5px;
-  max-width: 600px;
+  max-width: 400px;
   box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.62);
 }
 .navbar-head { 
@@ -38,5 +38,8 @@ html, body, .container, .row, #column, #AddresForm, #column {
   line-height: 20px;
 }
 .navbar-right {
+  margin-right: -5px;
+}
+.navbar-toggle {
   margin-right: -5px;
 }

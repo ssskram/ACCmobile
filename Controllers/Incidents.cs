@@ -126,6 +126,15 @@ namespace ACCmobile.Controllers
                 Date = easternTime.ToString(dateformat),
                 SubmittedBy = incidentitem.SubmittedBy
             };
+            // clean coords for map
+            char[] comma = {',',' '};
+            string coord = incidentitem.AddressID;
+            string coord_clean = Regex.Replace(coord, "[()]", "");
+            string lat_dirty = coord_clean.Split(' ').First();
+            string lat = lat_dirty.TrimEnd(comma);
+            string lng = coord_clean.Split(' ').Last();
+            ViewBag.Lat = lat;
+            ViewBag.Long = lng;
             await GetAnimals(id);
             var animalcontent = GetAnimals(id).Result;
             dynamic animalitems = JObject.Parse(animalcontent)["value"];
@@ -283,13 +292,13 @@ namespace ACCmobile.Controllers
         // open description view and pass along google api key
         public IActionResult Description(NewAddress model)
         {
-            char[] comma = {',',' '};
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistringmap"] =
                 String.Format
                 ("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap",
                     googleapikey); // 0
             // clean coords for map
+            char[] comma = {',',' '};
             string coord = model.Coords.ToString();
             string coord_clean = Regex.Replace(coord, "[()]", "");
             string lat_dirty = coord_clean.Split(' ').First();
@@ -307,19 +316,34 @@ namespace ACCmobile.Controllers
         }
 
         // post incident description
-        // open animal view
-        public async Task<IActionResult> Animal(NewDescription model)
+        public async Task<IActionResult> Next(NewDescription model)
         {
             await PostIncident(model);
-            ViewBag.IncidentAddress = model.Address;
-            ViewBag.IncidentFirstName = model.OwnersFirstName;
-            ViewBag.IncidentLastName = model.OwnersLastName;
-            ViewBag.IncidentReason = model.ReasonForVisit;
+            TempData["IncidentID"] = model.IncidentID;
+            TempData["Address"] = model.Address;
+            TempData["OwnersFirstName"] = model.OwnersFirstName;
+            TempData["OwnersLastName"] = model.OwnersLastName;
+            TempData["ReasonforVisit"] = model.ReasonForVisit;
+            TempData["Coords"] = model.Coords;
+            return Redirect("Animal");
+        }
+        // open animal view
+        public async Task<IActionResult> Animal()
+        {
+            string id = TempData.Peek("IncidentID").ToString();
+            string address = TempData.Peek("Address").ToString();
+            string coords = TempData.Peek("Coords").ToString();
+            await CountAnimals(id);
+            ViewBag.Animals = CountAnimals(id).Result;
+            ViewBag.IncidentAddress = address;
+            ViewBag.IncidentFirstName = TempData.Peek("OwnersFirstName");
+            ViewBag.IncidentLastName = TempData.Peek("OwnersLastName");
+            ViewBag.IncidentReason = TempData.Peek("ReasonforVisit");
             var animalmodel = new NewAnimal
             {
-                IncidentID = model.IncidentID,
-                Address = model.Address,
-                Coords = model.Coords
+                IncidentID = id,
+                Address = address,
+                Coords = coords
             };
             return View("~/Views/Incidents/New/Animal.cshtml", animalmodel);
         }
@@ -335,8 +359,8 @@ namespace ACCmobile.Controllers
         {
             await refreshtoken();
             var token = refreshtoken().Result;
-            var AddressID = HttpContext.Session.GetString("AddressID");
-            var IncidentID = HttpContext.Session.GetString("IncidentID");
+            var AddressID = model.Coords;
+            var IncidentID = model.IncidentID;
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization =
@@ -384,7 +408,6 @@ namespace ACCmobile.Controllers
             await refreshtoken();
             var token = refreshtoken().Result;
             string SubmittedBy = _userManager.GetUserName(HttpContext.User);
-            var AddressID = HttpContext.Session.GetString("AddressID");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization =
@@ -402,7 +425,7 @@ namespace ACCmobile.Controllers
                     model.PGHCode, // 4
                     model.CitationNumber, // 5
                     model.Comments, // 6
-                    AddressID, // 7 
+                    model.Coords, // 7 
                     model.IncidentID, // 8
                     SubmittedBy, //9
                     model.CallOrigin, // 10
@@ -421,6 +444,28 @@ namespace ACCmobile.Controllers
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
+        }
+
+        public async Task<int> CountAnimals(string id)
+        {
+            int counter = 0;
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var sharepointUrl =
+            String.Format
+            ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items?$filter=AdvisoryID eq '{0}'",
+                id); // 0
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            dynamic animalitems = JObject.Parse(listitems)["value"];
+            foreach (var item in animalitems)
+            {
+                counter++;
+            }
+            return counter;
         }
 
         private async Task<string> refreshtoken()

@@ -53,11 +53,6 @@ function initMap() {
     if (!place.geometry) {
       window.alert("No details available for input: '" + place.name + "'");
     }
-    // only permit Pittsburgh addresses
-    if (!ACcheck.includes("Pittsburgh")) {
-      window.alert("Only Pittsburgh addresses are permitted");
-      input.value = "";
-    }
 
     // write lat/long to addressid field
     $('#coords').val(place.geometry.location);
@@ -96,7 +91,7 @@ function initMap() {
 // copy field entry into duplicate field to validate with string == string
 function fillInAddress() {
   var autocomplete = $('#autocomplete').val();
-  if (autocomplete.includes('Pittsburgh') && autocomplete !== null)
+  if (autocomplete !== null)
   {
     $(
       function(){

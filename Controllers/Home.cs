@@ -14,10 +14,6 @@ namespace ACCmobile.Controllers
     {
         public IActionResult Index()
         {
-            HttpContext.Session.Remove("AddressID");
-            HttpContext.Session.Remove("IncidentID");
-            HttpContext.Session.Remove("Address");
-            HttpContext.Session.Remove("HeatMap");
             return View();
         }
 

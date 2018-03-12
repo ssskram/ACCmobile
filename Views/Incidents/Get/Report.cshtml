@@ -38,6 +38,7 @@
                 <th class="none">Rabbies Vac. Exp.</th>
                 <th class="none">Veterinarian</th>
                 <th class="none">Comments</th>
+                <th class="all"></th>
             </tr>
         </thead>
         <tbody>
@@ -80,12 +81,19 @@
             <td>
             <div>@Animal.Comments</div>
             </td> 
+            <td>    
+            <div><a class="btn btn-link" onclick="edit()" id="edit" style="width:100%">Edit</a></div>
+            </td> 
         </tr>
         }
         </tbody>
     </table>
     </div>
 </div>
+
+<!-- hidden fields -->
+<input value="@ViewBag.Lat" id="lat" hidden></input>
+<input value="@ViewBag.Long" id="lng" hidden></input>
 
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/datatables.js"></script>

@@ -36,7 +36,7 @@
 
 <div class="form-group" style="margin-bottom: 5px;">
     <div class="col-md-12">
-        <select asp-for="ReasonForVisitRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Reason(s) for visit" data-selected-text-format="count > 4" data-dropup-auto="false" id="reasonrelay" required="true">
+        <select asp-for="ReasonForVisitRelay" data-style="btn-info" multiple class="selectpicker form-control" onchange="enableButton()" title="Reason(s) for visit" data-selected-text-format="count > 4" data-dropup-auto="false" id="reasonrelay" required="true">
             <option>Barking</option>
             <option>FWS</option>
             <option>Animal waste in yard</option>
