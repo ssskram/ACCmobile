@@ -60,7 +60,7 @@ function initMap() {
     }
 
     // write lat/long to addressid field
-    $('#addressid').val(place.geometry.location);
+    $('#coords').val(place.geometry.location);
 
     // if the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {

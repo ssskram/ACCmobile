@@ -17,7 +17,6 @@ using System.Text.RegularExpressions;
 
 namespace ACCmobile.Controllers
 {
-
     // get methods
     [Authorize]
     public class Incidents : Controller
@@ -27,75 +26,75 @@ namespace ACCmobile.Controllers
         // get all incidents
         public async Task<IActionResult> All()
         {
-            // instantiate empty string to populate with heat map coords
+            // empty string to populate with heat map coords
             string HeatMapData = "";
-            // instantiate list to populate with "paper" and electronic incidents
+            // list to populate with "paper" and electronic incidents
             List<AllIncidents> Advises = new List<AllIncidents>();
 
             // get and set advises
             await GetAdvises();
-            var papercontent = GetAdvises().Result; 
+            var papercontent = GetAdvises().Result;
             dynamic PaperAdvises = JObject.Parse(papercontent)["value"];
-                foreach (var item in PaperAdvises)
+            foreach (var item in PaperAdvises)
+            {
+                DateTime dt = item.Date;
+                AllIncidents adv = new AllIncidents()
                 {
-                    DateTime dt = item.Date;
-                    AllIncidents adv = new AllIncidents() 
-                    {
-                        Link = item.link,
-                        Date = item.Date,
-                        Address = item.address,
-                        Coords = item.Geo
-                    };
-                    Advises.Add(adv);  
-                    // write coords to heatmap data if incident occured within last year
-                    if (dt.Year == DateTime.Now.Year - 2)
-                    {
-                        string coord = adv.Coords.ToString();
-                        var clean = Regex.Replace(coord, "[()]", "");
-                        var bracketed = "[" + clean + "],";
-                        HeatMapData += bracketed;
-                    }
+                    Link = item.link,
+                    Date = item.Date,
+                    Address = item.address,
+                    Coords = item.Geo
+                };
+                Advises.Add(adv);
+                // write coords to heatmap data if incident occured within last year
+                if (dt.Year == DateTime.Now.Year - 2)
+                {
+                    string coord = adv.Coords.ToString();
+                    var clean = Regex.Replace(coord, "[()]", "");
+                    var bracketed = "[" + clean + "],";
+                    HeatMapData += bracketed;
                 }
+            }
 
             // get and set incidents
             await GetIncidents();
             var electroniccontent = GetIncidents().Result;
             dynamic ElectronicIncidents = JObject.Parse(electroniccontent)["value"];
-                foreach (var item in ElectronicIncidents)
+            foreach (var item in ElectronicIncidents)
+            {
+                string Link =
+                    String.Format
+                    ("Report?id={0}",
+                    item.AdvisoryID); // 0
+                DateTime utc_date = item.Created;
+                DateTime easternTime = utc_date.AddHours(-5);
+                var dateformat = "MM/dd/yyyy HH:mm";
+                AllIncidents adv = new AllIncidents()
                 {
-                    string Link = 
-                        String.Format 
-                        ("Report?id={0}",
-                        item.AdvisoryID); // 0
-                    DateTime utc_date = item.Created;
-                    DateTime easternTime = utc_date.AddHours(-5);
-                    var dateformat = "MM/dd/yyyy HH:mm";
-                    AllIncidents adv = new AllIncidents() 
-                    {
-                        Link = Link,
-                        Date = easternTime.ToString(dateformat),
-                        Address = item.Address,
-                        Coords = item.AddressID
-                    };
-                    Advises.Add(adv); 
+                    Link = Link,
+                    Date = easternTime.ToString(dateformat),
+                    Address = item.Address,
+                    Coords = item.AddressID
+                };
+                Advises.Add(adv);
 
-                    // write coords to heatmap data if incident occured within last year
-                    if (easternTime.Year == DateTime.Now.Year - 2)
-                    {
-                        string coord = adv.Coords.ToString();
-                        var clean = Regex.Replace(coord, "[()]", "");
-                        var bracketed = "[" + clean + "],";
-                        HeatMapData += bracketed;
-                    }
+                // write coords to heatmap data if incident occured within last year
+                if (easternTime.Year == DateTime.Now.Year - 2)
+                {
+                    string coord = adv.Coords.ToString();
+                    var clean = Regex.Replace(coord, "[()]", "");
+                    var bracketed = "[" + clean + "],";
+                    HeatMapData += bracketed;
                 }
+            }
 
             // clean and set heatmap data
             HeatMapData = HeatMapData.TrimEnd(',');
             var done = "[" + HeatMapData + "]";
             ViewBag.heatmap = done;
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
-            ViewData["apistring"] = 
-                String.Format 
+            ViewData["apistring"] =
+                String.Format
                 ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
                     googleapikey); // 0
 
@@ -106,12 +105,12 @@ namespace ACCmobile.Controllers
         public async Task<IActionResult> Report(string id)
         {
             await GetIncident(id);
-            var incidentcontent = GetIncident(id).Result; 
+            var incidentcontent = GetIncident(id).Result;
             dynamic incidentitem = JObject.Parse(incidentcontent)["value"][0];
             DateTime utc_date = incidentitem.Created;
             DateTime easternTime = utc_date.AddHours(-5);
             var dateformat = "MM/dd/yyyy HH:mm";
-            GetIncident adv = new GetIncident() 
+            GetIncident adv = new GetIncident()
             {
                 OwnersLastName = incidentitem.OwnersLastName,
                 OwnersFirstName = incidentitem.OwnersFirstName,
@@ -128,12 +127,12 @@ namespace ACCmobile.Controllers
                 SubmittedBy = incidentitem.SubmittedBy
             };
             await GetAnimals(id);
-            var animalcontent = GetAnimals(id).Result; 
+            var animalcontent = GetAnimals(id).Result;
             dynamic animalitems = JObject.Parse(animalcontent)["value"];
             List<GetAnimal> Animals = new List<GetAnimal>();
             foreach (var item in animalitems)
             {
-                GetAnimal amnl = new GetAnimal() 
+                GetAnimal amnl = new GetAnimal()
                 {
                     AnimalName = item.Name,
                     Type = item.Type,
@@ -148,12 +147,12 @@ namespace ACCmobile.Controllers
                     LicenseYear = item.LicenseYear,
                     Comments = item.Comments
                 };
-                Animals.Add(amnl); 
+                Animals.Add(amnl);
             }
             ViewBag.Animals = Animals;
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
-            ViewData["apistring"] = 
-            String.Format 
+            ViewData["apistring"] =
+            String.Format
             ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
                 googleapikey); // 0
             return View("~/Views/Incidents/Get/Report.cshtml", adv);
@@ -169,8 +168,8 @@ namespace ACCmobile.Controllers
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items?$top=5000";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
             string listitems = await client.GetStringAsync(sharepointUrl);
             return listitems;
         }
@@ -183,8 +182,8 @@ namespace ACCmobile.Controllers
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
             string listitems = await client.GetStringAsync(sharepointUrl);
             return listitems;
         }
@@ -194,14 +193,14 @@ namespace ACCmobile.Controllers
         {
             await refreshtoken();
             var token = refreshtoken().Result;
-            var sharepointUrl = 
-            String.Format 
+            var sharepointUrl =
+            String.Format
             ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items?$filter=AdvisoryID eq '{0}'",
                 id); // 0
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
             string listitems = await client.GetStringAsync(sharepointUrl);
             return listitems;
         }
@@ -211,14 +210,14 @@ namespace ACCmobile.Controllers
         {
             await refreshtoken();
             var token = refreshtoken().Result;
-            var sharepointUrl = 
-            String.Format 
+            var sharepointUrl =
+            String.Format
             ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items?$filter=AdvisoryID eq '{0}'",
                 id); // 0
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
             string listitems = await client.GetStringAsync(sharepointUrl);
             return listitems;
         }
@@ -237,7 +236,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
 
             var json =
-                String.Format 
+                String.Format
             ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
                 clientid, // 0
                 clientsecret, // 1
@@ -246,9 +245,9 @@ namespace ACCmobile.Controllers
                 SPresource); // 4
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
-            StringContent strContent = new StringContent(json);               
+            StringContent strContent = new StringContent(json);
             strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
-            HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;       
+            HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
@@ -256,7 +255,7 @@ namespace ACCmobile.Controllers
             return token;
         }
     }
-    
+
     // post methods
     [Authorize]
     public class NewIncident : Controller
@@ -268,13 +267,13 @@ namespace ACCmobile.Controllers
         {
             _userManager = userManager;
         }
-        
+
         // Load address view, and pass along google api key to client
         public IActionResult Address()
         {
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
-            ViewData["apistring"] = 
-                String.Format 
+            ViewData["apistring"] =
+                String.Format
                 ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
                     googleapikey); // 0
             return View("~/Views/Incidents/New/Address.cshtml");
@@ -284,17 +283,25 @@ namespace ACCmobile.Controllers
         // open description view and pass along google api key
         public IActionResult Description(NewAddress model)
         {
-            HttpContext.Session.SetString("AddressID", model.AddressID);
-            var address = model.Address;
+            char[] comma = {',',' '};
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
-            ViewData["apistringmap"] = 
-                String.Format 
+            ViewData["apistringmap"] =
+                String.Format
                 ("https://maps.googleapis.com/maps/api/js?key={0}&callback=initMap",
                     googleapikey); // 0
+            // clean coords for map
+            string coord = model.Coords.ToString();
+            string coord_clean = Regex.Replace(coord, "[()]", "");
+            string lat_dirty = coord_clean.Split(' ').First();
+            string lat = lat_dirty.TrimEnd(comma);
+            string lng = coord_clean.Split(' ').Last();
+            ViewBag.Lat = lat;
+            ViewBag.Long = lng;
             var incidentmodel = new NewDescription
             {
                 IncidentID = (Guid.NewGuid().ToString()),
-                Address = address
+                Address = model.Address,
+                Coords = model.Coords
             };
             return View("~/Views/Incidents/New/Description.cshtml", incidentmodel);
         }
@@ -303,20 +310,24 @@ namespace ACCmobile.Controllers
         // open animal view
         public async Task<IActionResult> Animal(NewDescription model)
         {
-            string IncidentID = model.IncidentID.ToString();
-            HttpContext.Session.SetString("IncidentID", IncidentID);
             await PostIncident(model);
             ViewBag.IncidentAddress = model.Address;
             ViewBag.IncidentFirstName = model.OwnersFirstName;
             ViewBag.IncidentLastName = model.OwnersLastName;
             ViewBag.IncidentReason = model.ReasonForVisit;
-            return View("~/Views/Incidents/New/Animal.cshtml");
+            var animalmodel = new NewAnimal
+            {
+                IncidentID = model.IncidentID,
+                Address = model.Address,
+                Coords = model.Coords
+            };
+            return View("~/Views/Incidents/New/Animal.cshtml", animalmodel);
         }
 
-        // load animal form from client
+        // add another animal
         public IActionResult _Animal()
         {
-            return PartialView();
+            return PartialView("~/Views/Incidents/New/_Animal.cshtml");
         }
 
         // post animal
@@ -328,12 +339,12 @@ namespace ACCmobile.Controllers
             var IncidentID = HttpContext.Session.GetString("IncidentID");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
             client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ("Bearer", token);
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
-            var json = 
+            var json =
                 String.Format
                 ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}' }}",
                     model.Type, // 0
@@ -354,9 +365,9 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post
             {
-                StringContent strContent = new StringContent(json);               
+                StringContent strContent = new StringContent(json);
                 strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-                HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;       
+                HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
             }
@@ -376,12 +387,12 @@ namespace ACCmobile.Controllers
             var AddressID = HttpContext.Session.GetString("AddressID");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
             client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ("Bearer", token);
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
-            var json = 
+            var json =
                 String.Format
                 ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}' }}",
                     model.OwnersFirstName, // 0
@@ -396,11 +407,11 @@ namespace ACCmobile.Controllers
                     SubmittedBy, //9
                     model.CallOrigin, // 10
                     model.Address); // 11
-                    
+
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post
             {
-                StringContent strContent = new StringContent(json);               
+                StringContent strContent = new StringContent(json);
                 strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
                 HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;
                 response.EnsureSuccessStatusCode();
@@ -425,7 +436,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
 
             var json =
-                String.Format 
+                String.Format
             ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
                 clientid, // 0
                 clientsecret, // 1
@@ -434,9 +445,9 @@ namespace ACCmobile.Controllers
                 SPresource); // 4
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
-            StringContent strContent = new StringContent(json);               
+            StringContent strContent = new StringContent(json);
             strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
-            HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;       
+            HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;
             response.EnsureSuccessStatusCode();
             var content = await response.Content.ReadAsStringAsync();
             dynamic results = JsonConvert.DeserializeObject<dynamic>(content);

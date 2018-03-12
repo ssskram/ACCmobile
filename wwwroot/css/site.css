@@ -68,7 +68,7 @@ h1, h2, h3, h4, h5 {
 /* form styles */
 /* text box */
 .form-control {
-    margin: 5px !important;
+    margin: 5px 0 !important;
     height: auto;
 }
 /* formatting for read-only fields */

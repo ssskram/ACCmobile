@@ -10,7 +10,7 @@ namespace ACCmobile.Models
         public string AddressRelay { get; set; }
 
         // begin hidden fields
-        public string AddressID { get; set; }
+        public string Coords { get; set; }
         public string Address { get; set; }
     }
 
@@ -47,6 +47,7 @@ namespace ACCmobile.Models
         public string ReasonForVisit { get; set; }
         public string PGHCode { get; set; }
         public string Address { get; set; }
+        public string Coords { get; set; }
     }
 
     public class NewAnimal
@@ -93,6 +94,9 @@ namespace ACCmobile.Models
         public string Breed { get; set; }
         public string Coat { get; set; }
         public string Sex { get; set; }
+        public string IncidentID { get; set; }
+        public string Address { get; set; }
+        public string Coords { get; set; }
     }
     
     // get view models

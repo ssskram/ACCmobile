@@ -57,7 +57,7 @@ function addAnimal()
         $('#sex').val( $('#sexrelay').val() );
         $.ajax(
             {
-                url: "/New_Incident/PostAnimal",
+                url: "/NewIncident/PostAnimal",
                 type: 'POST',
                 data: $('form').serialize(),
                 error: function(result) {
@@ -68,7 +68,7 @@ function addAnimal()
         $("animal").remove();
         $.ajax(
             {
-                url: "/New_Incident/_AddAnimal",
+                url: "/NewIncident/_Animal",
                 type: 'GET',
                 success:function(result) {
                     var newDiv = $(document.createElement('animal'));
@@ -105,7 +105,7 @@ function returnHome()
         $('#sex').val( $('#sexrelay').val() );
         $.ajax(
             {
-                url: "/New_Incident/PostAnimal",
+                url: "/NewIncident/PostAnimal",
                 type: 'POST',
                 data: $('#form').serialize(),
                 success:function(result) {

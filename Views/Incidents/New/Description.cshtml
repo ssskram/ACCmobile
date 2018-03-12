@@ -1,11 +1,7 @@
 @{
     ViewData["Title"] = "Incident";
 }
-
-<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="~/js/description.js"></script>
-<script src=@ViewData["apistringmap"] async defer ></script>
-
+<div id="mapdata">@ViewData["coords"]</div>
 <form asp-controller="NewIncident" asp-action="Animal" method="post" id="form" style="display:none;">
 <div class="row">
   <div class="col-sm-3"></div>
@@ -29,3 +25,7 @@
     </div>
 </div>
 </form>
+
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/description.js"></script>
+<script src=@ViewData["apistringmap"] async defer ></script>

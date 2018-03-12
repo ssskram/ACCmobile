@@ -3,30 +3,22 @@
 // call google map
 // geocode address
 var map, infoWindow;
+var address = document.getElementById('address').value;
+var lat = parseFloat(document.getElementById('lat').value);
+var lng = parseFloat(document.getElementById('lng').value);
+var lat_lng = {lat: lat, lng: lng};
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 16,
+        center: lat_lng,
+        zoom: 16
+      });
+    var infoWindow = new google.maps.InfoWindow({
+        content: address,
+        center: lat_lng,
+        position: lat_lng
     });
-    var geocoder = new google.maps.Geocoder();
-    var set = function() {
-        geocodeAddress(geocoder, map);
-    };
-    set();
-}
-function geocodeAddress(geocoder, resultsMap) {
-    infoWindow = new google.maps.InfoWindow;
-    var address = document.getElementById('address').value;
-    geocoder.geocode({'address': address}, function(results, status) {
-      if (status === 'OK') {
-        resultsMap.setCenter(results[0].geometry.location);
-        infoWindow.setPosition(results[0].geometry.location);
-        infoWindow.setContent(address);
-        infoWindow.open(resultsMap);
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-}
+    infoWindow.open(map);
+}                                                       
     
 // load bootstrap-select dropdowns
 // if mobile, default to native mobile menu
