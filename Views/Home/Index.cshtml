@@ -1,30 +1,44 @@
 ﻿@{
     ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_MapLayout.cshtml";
 }
-<br>
-<br>
-<div class="row" style="margin-top: 10x;">
-    <div class="col-md-6" style="margin-top:-10px;">
-        <div>
-            <img src="~/images/acclogo.png" class="img-responsive center-block" style="min-width: 285px;"/>
-            <br>
-        </div>
-    </div>
-    <div class="col-md-6">
-        <br>
-        <div class="row">
-            <div class="col text-center">
-                <div class="vcenter">
-                <p><a href="/NewIncident/Address" class="btn btn-big overlaytrigger"><i style="font-size:2.5em" class="glyphicon glyphicon-plus"></i><br> New incident &raquo;</a></p>
-                </div>
+<link rel="stylesheet" href="~/css/home.css">
+<div class="row hidden-xs">
+        <div class="pull-left left">
+            <div class="col">
+                <p><a href="/NewIncident/Address" class="btn btn-big btn-big-left overlaytrigger"><i style="font-size:2.5em" class="glyphicon glyphicon-plus"></i><br>New incident</a></p>
             </div>
         </div>
-        <div class="row">
-            <div class="col text-center">
-                <div class="vcenter">
-                <p><a href="/Incidents/All" class="btn btn-big overlaytrigger"><i style="font-size:2.5em" class="glyphicon glyphicon-search"></i><br> Search incidents &raquo;</a></p>
-                </div>
+        <div class="col-md-6 home hidden-sm">
+            <div>
+                <img src="~/images/acclogo.png" class="img-responsive center-block" style="min-width: 200px;"/>
             </div>
         </div>
-    </div>
+        <div class="pull-right right">
+            <div class="col">
+                <p><a href="/Incidents/All" class="btn btn-big btn-big-right overlaytrigger"><i style="font-size:2.5em" class="glyphicon glyphicon-search"></i><br> Search incidents</a></p>
+            </div>
+        </div>
 </div>
+<div class="hidden-sm hidden-md hidden-lg">
+        <div class="row">
+            <div>
+                <br>
+                <img src="~/images/acclogo.png" class="img-responsive center-block" style="max-width: 250px;"/>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><a href="/NewIncident/Address" class="btn btn-big btn-big-full overlaytrigger"><i style="font-size:2em; vertical-align: middle;" class="glyphicon glyphicon-plus"></i>New incident</a></p>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <p><a href="/Incidents/All" class="btn btn-big btn-big-full overlaytrigger"><i style="font-size:2em; vertical-align: middle;" class="glyphicon glyphicon-search"></i> Search incidents</a></p>
+            </div>
+        </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/home.js"></script>

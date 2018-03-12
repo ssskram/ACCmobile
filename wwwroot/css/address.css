@@ -22,9 +22,6 @@ html, body, .container, .row, #column, #AddresForm, #column {
   left: 0px !important;
   padding: 10px !important;
 }
-footer {
-  display: none;
-}
 .addresscontainer {
   background-color: rgba(56, 56, 56, 0.85);
   padding: 5px 5px 10px 0px;
@@ -32,4 +29,14 @@ footer {
   border-radius: 5px;
   max-width: 600px;
   box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.62);
+}
+.navbar-head { 
+  float: left;
+  height: 50px;
+  padding: 15px 10px;
+  font-size: 18px;
+  line-height: 20px;
+}
+.navbar-right {
+  margin-right: -5px;
 }

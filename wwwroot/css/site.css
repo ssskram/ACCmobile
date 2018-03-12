@@ -93,8 +93,7 @@ button.bs-placeholder[role='button']>span {
 .icon-textbox {
     font-size: 1.8em; 
     color: #29a329;
-    margin-top: 2px;  
-    margin-right: -4px;
+    margin-top: 1px;  
 }
 
 /* button styles */
@@ -146,7 +145,51 @@ button.bs-placeholder[role='button']>span {
     margin: 7px;
     width: 200px;
   }
-.btn-big {
+.btn-big-left {
+    /* font */
+    color: #383838;
+    font-size: 28px;
+    font-family: helvetica;
+    text-shadow: #fffaee 0 0 10px;
+    line-height: 1.6em;
+    /* remove blue underline */
+    text-decoration: none;
+    /* border */
+    border-radius: 0px 25px 25px 0px;
+    /* transitions */
+    transition-duration: .2s;
+    -webkit-transition-duration: .2s;
+    -moz-transition-duration: .2s;
+    /* other */
+    background-color:rgba(136, 130, 149,.15);
+    padding: 65px 20px;
+    margin-bottom: 20px;
+    width: 275px;
+    height: 250px;
+}
+.btn-big-right {
+    /* font */
+    color: #383838;
+    font-size: 28px;
+    font-family: helvetica;
+    text-shadow: #fffaee 0 0 10px;
+    line-height: 1.6em;
+    /* remove blue underline */
+    text-decoration: none;
+    /* border */
+    border-radius: 25px 0px 0px 25px;
+    /* transitions */
+    transition-duration: .2s;
+    -webkit-transition-duration: .2s;
+    -moz-transition-duration: .2s;
+    /* other */
+    background-color:rgba(136, 130, 149,.15);
+    padding: 65px 20px;
+    margin-bottom: 20px;
+    width: 275px;
+    height: 250px;
+}
+.btn-big-full {
     /* font */
     color: #383838;
     font-size: 28px;
@@ -155,20 +198,15 @@ button.bs-placeholder[role='button']>span {
     line-height: 1.4em;
     /* remove blue underline */
     text-decoration: none;
-    /* border */
-    border: .5px;
-    border-style: solid;
-    border-radius: 2px;
     /* transitions */
     transition-duration: .2s;
     -webkit-transition-duration: .2s;
     -moz-transition-duration: .2s;
     /* other */
     background-color:rgba(136, 130, 149,.15);
-    padding: 20px;
-    margin-bottom: 20px;
-    width: 300px;
-    height: 160px;
+    width: 100%;
+    padding: 30px 0;
+    height: 120px;
 }
 .btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
     padding: 6px 12px !important;
@@ -263,7 +301,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 .login {
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 45%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
