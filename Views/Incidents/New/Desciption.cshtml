@@ -3,10 +3,10 @@
 }
 
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="~/js/incidentdescription.js"></script>
+<script type="text/javascript" src="~/js/description.js"></script>
 <script src=@ViewData["apistringmap"] async defer ></script>
 
-<form asp-controller="New_Incident" asp-action="Create" method="post" id="form" style="display:none;">
+<form asp-controller="Incidents" asp-action="Animal" method="post" id="form" style="display:none;">
 <div class="row">
   <div class="col-sm-3"></div>
     <div class="col-md-12">
@@ -18,13 +18,13 @@
     <div class="col-md-12">
         <h3>Describe the incident</h3>
         <div>
-            @Html.Partial("_AddDescription")
+            @Html.Partial("_Description")
         </div>
     </div>
 </div>
 <div class="row" style="margin-bottom: 10px; margin-top: 10px;">
     <div class="col-md-12">
-        <input style="float: left; margin: 10px;" type="button" value="&laquo; Back" class="btn btn-default overlaytrigger" onclick="location.href='@Url.Action("Validation", "Address")'"/>
+        <input style="float: left; margin: 10px;" type="button" value="&laquo; Back" class="btn btn-default overlaytrigger" onclick="location.href='@Url.Action("Address", "Incidents")'"/>
         <input style="float: right; margin: 10px;" type="submit" id="submit" value="Next &raquo;" class="btn btn-default overlaytrigger"/>
     </div>
 </div>

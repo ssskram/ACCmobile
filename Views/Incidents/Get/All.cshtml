@@ -32,7 +32,7 @@
             <tbody>
                 @foreach(AllIncidents item in Model)
                 {
-                    @Html.Partial("~/Views/Get_Incidents/_byAddress.cshtml", item)
+                    @Html.Partial("~/Views/Incidents/Get/_All.cshtml", item)
                 }
             </tbody>
         </table>
@@ -46,5 +46,5 @@
 
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/datatables.js"></script>
-<script type="text/javascript" src="~/js/incidentsbyaddress.js"></script>
+<script type="text/javascript" src="~/js/all.js"></script>
 <script src=@ViewData["apistring"] async defer ></script>

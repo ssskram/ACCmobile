@@ -1,4 +1,4 @@
-// this document contains the client side functions for the incident report
+// this document contains the client side functions for get/report
 
 // datatable 
 $.fn.dataTable.moment( 'MM/DD/YYYY HH:mm');

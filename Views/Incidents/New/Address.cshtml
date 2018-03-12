@@ -1,10 +1,10 @@
 @{
     ViewData["Title"] = "New incident";
-    Layout = "~/Views/Shared/_AddressLayout.cshtml";
+    Layout = "~/Views/Incidents/New/_Address.cshtml";
 }
 <link rel="stylesheet" href="~/css/address.css">
 
-<form asp-controller="Address" asp-action="Next" method="post" id="AddressForm">
+<form asp-controller="Incidents" asp-action="Description" method="post" id="AddressForm">
 <div class="row">
   <div class="col-md-12" id="column">
       <div class="addresscontainer" id="addresscontainer" style="display:none;">
@@ -27,5 +27,5 @@
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="~/js/addressform.js"></script>
+<script type="text/javascript" src="~/js/address.js"></script>
 <script src=@ViewData["apistring"] async defer ></script>

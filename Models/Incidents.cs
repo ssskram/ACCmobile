@@ -3,8 +3,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ACCmobile.Models
 {
-    // new incident view models
+    // address view model
+    public class NewAddress
+    {
+        [Display(Prompt = "Enter an address")]
+        public string AddressRelay { get; set; }
 
+        // begin hidden fields
+        public string AddressID { get; set; }
+        public string Address { get; set; }
+    }
+
+    // post view models
     public class NewDescription
     {
 
@@ -85,8 +95,7 @@ namespace ACCmobile.Models
         public string Sex { get; set; }
     }
     
-    // search incidents view models
-
+    // get view models
     public class AllIncidents
     {
         public string Link { get; set; }

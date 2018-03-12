@@ -17,20 +17,19 @@ using System.Text.RegularExpressions;
 
 namespace ACCmobile.Controllers
 {
+
+    // get methods
     [Authorize]
     public class Incidents : Controller
     {
         HttpClient client = new HttpClient();
 
-        // return all incidents
-        public async Task<IActionResult> ByAddress()
+        // get all incidents
+        public async Task<IActionResult> All()
         {
-            await RefreshToken();
-
             // instantiate empty string to populate with heat map coords
             string HeatMapData = "";
-
-            // instantiate list to populate with paper and electronic incidents
+            // instantiate list to populate with "paper" and electronic incidents
             List<AllIncidents> Advises = new List<AllIncidents>();
 
             // get and set advises
@@ -66,7 +65,7 @@ namespace ACCmobile.Controllers
                 {
                     string Link = 
                         String.Format 
-                        ("Open?id={0}",
+                        ("Report?id={0}",
                         item.AdvisoryID); // 0
                     DateTime utc_date = item.Created;
                     DateTime easternTime = utc_date.AddHours(-5);
@@ -103,8 +102,8 @@ namespace ACCmobile.Controllers
             return View(Advises);
         }
 
-        // Return specific incident
-        public async Task<IActionResult> Open(string id)
+        // get single incident
+        public async Task<IActionResult> Report(string id)
         {
             await GetIncident(id);
             var incidentcontent = GetIncident(id).Result; 
@@ -162,8 +161,70 @@ namespace ACCmobile.Controllers
 
         // api calls
 
-        // Get access token, & set to session      
-        public async Task RefreshToken()
+        // get all advises from pdf library
+        public async Task<string> GetAdvises()
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items?$top=5000";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
+
+        // get all incidents
+        public async Task<string> GetIncidents()
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
+
+        // get incident selected from table
+        public async Task<string> GetIncident(string id)
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var sharepointUrl = 
+            String.Format 
+            ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items?$filter=AdvisoryID eq '{0}'",
+                id); // 0
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
+
+        // get all animals associated with selected incident
+        public async Task<string> GetAnimals(string id)
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var sharepointUrl = 
+            String.Format 
+            ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items?$filter=AdvisoryID eq '{0}'",
+                id); // 0
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
+
+        // Get access token   
+        private async Task<string> refreshtoken()
         {
             var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
             var clientid = Environment.GetEnvironmentVariable("SPClientID");
@@ -192,69 +253,11 @@ namespace ACCmobile.Controllers
             var content = await response.Content.ReadAsStringAsync();
             dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
             string token = results.access_token.ToString();
-            HttpContext.Session.SetString("SessionToken", token);
+            return token;
         }
-
-        // get all advises from pdf library
-        public async Task<string> GetAdvises()
-        {
-            var token = HttpContext.Session.GetString("SessionToken");
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items?$top=5000";
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
-            string listitems = await client.GetStringAsync(sharepointUrl);
-            return listitems;
-        }
-
-        // get all incidents from incident table
-        public async Task<string> GetIncidents()
-        {
-            var token = HttpContext.Session.GetString("SessionToken");
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
-            string listitems = await client.GetStringAsync(sharepointUrl);
-            return listitems;
-        }
-
-        // get incident selected from table
-        public async Task<string> GetIncident(string id)
-        {
-            var token = HttpContext.Session.GetString("SessionToken");
-            var sharepointUrl = 
-            String.Format 
-            ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items?$filter=AdvisoryID eq '{0}'",
-                id); // 0
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
-            string listitems = await client.GetStringAsync(sharepointUrl);
-            return listitems;
-        }
-
-        // get all animals associated with selected incident
-        public async Task<string> GetAnimals(string id)
-        {
-            var token = HttpContext.Session.GetString("SessionToken");
-            var sharepointUrl = 
-            String.Format 
-            ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items?$filter=AdvisoryID eq '{0}'",
-                id); // 0
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Add("Accept", "application/json");
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ( "Bearer", token);
-            string listitems = await client.GetStringAsync(sharepointUrl);
-            return listitems;
-        }
-
     }
     
+    // post methods
     [Authorize]
     public class NewIncident : Controller
     {
@@ -265,11 +268,10 @@ namespace ACCmobile.Controllers
         {
             _userManager = userManager;
         }
-        // Get access token
+        
         // Load address view, and pass along google api key to client
-        public async Task<IActionResult> Address()
+        public IActionResult Address()
         {
-            await RefreshToken();
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistring"] = 
                 String.Format 
@@ -278,20 +280,12 @@ namespace ACCmobile.Controllers
             return View();
         }
 
-        // Set address & address ID to session to be used throughout rest of process
-        // Redirect to "Incident Description"
-        public IActionResult Next(AddressModel model)
-        {
-            // switch to temp data
-            HttpContext.Session.SetString("Address", model.Address);
-            HttpContext.Session.SetString("AddressID", model.AddressID);
-            return RedirectToAction("Description");
-        }
-
         // initialize NewIncident model with address data
         // open description view and pass along google api key
-        public IActionResult Description()
+        public IActionResult Description(NewAddress model)
         {
+            HttpContext.Session.SetString("Address", model.Address);
+            HttpContext.Session.SetString("AddressID", model.AddressID);
             var address = HttpContext.Session.GetString("Address");
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistringmap"] = 
@@ -306,97 +300,37 @@ namespace ACCmobile.Controllers
             return View(incidentmodel);
         }
 
-        // save incident description
-        // open animal view, with relevant incident description data set to temp
-        public async Task<IActionResult> Create(NewDescription model)
+        // post incident description
+        // open animal view
+        public async Task<IActionResult> Animal(NewDescription model)
         {
             string IncidentID = model.IncidentID.ToString();
             HttpContext.Session.SetString("IncidentID", IncidentID);
-            await Execute(model);
-            TempData["Address"] = model.Address;
-            TempData["OwnersFirstName"] = model.OwnersFirstName;
-            TempData["OwnersLastName"] = model.OwnersLastName;
-            TempData["Reason"] = model.ReasonForVisit;
-            return RedirectToAction("Animals");
-        }
-
-        // open animal view and pass incident description data along
-        public IActionResult Animals()
-        {
-            ViewBag.IncidentAddress = TempData.Peek("Address");
-            ViewBag.IncidentFirstName = TempData.Peek("OwnersFirstName");
-            ViewBag.IncidentLastName = TempData.Peek("OwnersLastName");
-            ViewBag.IncidentReason = TempData.Peek("Reason");
+            await PostIncident(model);
+            ViewBag.IncidentAddress = model.Address;
+            ViewBag.IncidentFirstName = model.OwnersFirstName;
+            ViewBag.IncidentLastName = model.OwnersLastName;
+            ViewBag.IncidentReason = model.ReasonForVisit;
             return View();
         }
 
         // load animal form from client
-        public IActionResult _AddAnimal()
+        public IActionResult _Animal()
         {
             return PartialView();
         }
 
-        // save animal
+        // post animal
         public async Task<IActionResult> PostAnimal(NewAnimal model)
         {
-            await Execute(model);
-            return RedirectToAction("Animals");
-        }
-
-        // post incident
-        public async Task Execute(NewDescription model)
-        {
-            string SubmittedBy = _userManager.GetUserName(HttpContext.User);
-            var SessionToken = HttpContext.Session.GetString("SessionToken");
-            var AddressID = HttpContext.Session.GetString("AddressID");
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
-            client.DefaultRequestHeaders.Clear();
-            client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ("Bearer", SessionToken);
-            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
-            client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
-            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
-            var json = 
-                String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}' }}",
-                    model.OwnersFirstName, // 0
-                    model.OwnersLastName, // 1
-                    model.OwnersTelephoneNumber, // 2
-                    model.ReasonForVisit, // 3
-                    model.PGHCode, // 4
-                    model.CitationNumber, // 5
-                    model.Comments, // 6
-                    AddressID, // 7 
-                    model.IncidentID, // 8
-                    SubmittedBy, //9
-                    model.CallOrigin, // 10
-                    model.Address); // 11
-                    
-            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
-            try // post
-            {
-                StringContent strContent = new StringContent(json);               
-                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
-                HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;
-                response.EnsureSuccessStatusCode();
-                var content = await response.Content.ReadAsStringAsync();
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
-        }
-        
-        // post animal
-        public async Task Execute(NewAnimal model)
-        {
-            var SessionToken = HttpContext.Session.GetString("SessionToken");
+            await refreshtoken();
+            var token = refreshtoken().Result;
             var AddressID = HttpContext.Session.GetString("AddressID");
             var IncidentID = HttpContext.Session.GetString("IncidentID");
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization = 
-            new AuthenticationHeaderValue ("Bearer", SessionToken);
+            new AuthenticationHeaderValue ("Bearer", token);
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
@@ -431,9 +365,55 @@ namespace ACCmobile.Controllers
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
+            return RedirectToAction("Animal");
         }
 
-        public async Task RefreshToken()
+        // post incident
+        public async Task PostIncident(NewDescription model)
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            string SubmittedBy = _userManager.GetUserName(HttpContext.User);
+            var AddressID = HttpContext.Session.GetString("AddressID");
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ("Bearer", token);
+            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+            var json = 
+                String.Format
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}' }}",
+                    model.OwnersFirstName, // 0
+                    model.OwnersLastName, // 1
+                    model.OwnersTelephoneNumber, // 2
+                    model.ReasonForVisit, // 3
+                    model.PGHCode, // 4
+                    model.CitationNumber, // 5
+                    model.Comments, // 6
+                    AddressID, // 7 
+                    model.IncidentID, // 8
+                    SubmittedBy, //9
+                    model.CallOrigin, // 10
+                    model.Address); // 11
+                    
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            try // post
+            {
+                StringContent strContent = new StringContent(json);               
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                HttpResponseMessage response = client.PostAsync(sharepointUrl, strContent).Result;
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+
+        private async Task<string> refreshtoken()
         {
             var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
             var clientid = Environment.GetEnvironmentVariable("SPClientID");
@@ -444,6 +424,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+
             var json =
                 String.Format 
             ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
@@ -454,21 +435,14 @@ namespace ACCmobile.Controllers
                 SPresource); // 4
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
-            try // POST to ms access control service
-            {
-                StringContent strContent = new StringContent(json);           
-                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
-                HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;
-                response.EnsureSuccessStatusCode();
-                var content = await response.Content.ReadAsStringAsync();
-                dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
-                string token = results.access_token.ToString();
-                HttpContext.Session.SetString("SessionToken", token);
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine(ex.Message);
-            }
+            StringContent strContent = new StringContent(json);               
+            strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;       
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
+            string token = results.access_token.ToString();
+            return token;
         }
     }
 }

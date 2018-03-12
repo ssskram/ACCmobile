@@ -4,7 +4,7 @@
 @Html.Hidden("RedirectHome", Url.Action("Index", "Home"))
 
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="~/js/animalform.js"></script>
+<script type="text/javascript" src="~/js/animal.js"></script>
 
 <div class="row">
     <div class="col-md-8 incidentsummary">
@@ -32,7 +32,7 @@
   <div class="col-sm-12">
         <h3 style="padding-left: 10px;">Add an animal</h3>
         <div class="repeatcontainer">
-            <animal>@Html.Partial("_AddAnimal")</animal>
+            <animal>@Html.Partial("_Animal")</animal>
         </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-// this document contains the client side functions for the incidents-by-address view
+// this document contains the client side functions for the get/all view
 
 // datatable
 $.fn.dataTable.moment( 'MM/DD/YYYY HH:mm');
