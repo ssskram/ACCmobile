@@ -33,14 +33,14 @@ html, body, .container, .row, #column {
 /* left button on home page */
 .left {
   position: sticky;
-  top: 35%;
+  top: 25%;
   padding: 0;
   margin: 0;
 }
 /* right button on home page */
 .right {
   position: sticky;
-  top: 35%;
+  top: 25%;
   padding: 0;
   margin: 0;
 }

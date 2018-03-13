@@ -37,3 +37,35 @@ function initMap() {
     });
     infoWindow.open(map);
 }                
+
+$( "#editIncident" ).dialog({
+    autoOpen: false,
+});
+$( "#incidentbutton" ).on( "click", function() {
+    $( "#editIncident" ).dialog({
+        width: 500,
+        height: 550,
+        autoOpen: false,
+        hide: {
+        effect: "explode",
+        duration: 250
+        }
+    });
+    $( "#editIncident" ).dialog( "open" );
+});
+
+$( "#editAnimal" ).dialog({
+    autoOpen: false,
+});
+$( "#animaledit" ).on( "click", function() {
+    $( "#editAnimal" ).dialog({
+        width: 600,
+        height: 550,
+        autoOpen: false,
+        hide: {
+        effect: "explode",
+        duration: 250
+        }
+    });
+    $( "#editAnimal" ).dialog( "open" );
+});

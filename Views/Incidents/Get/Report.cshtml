@@ -82,13 +82,23 @@
             <div>@Animal.Comments</div>
             </td> 
             <td>    
-            <div><a class="btn btn-link" onclick="edit()" id="edit" style="width:100%">Edit</a></div>
+            <div><a class="btn btn-link" id="animaledit" style="width:100%">Edit</a></div>
             </td> 
         </tr>
         }
         </tbody>
     </table>
+    <a class="btn btn-link" id="animaladd">> Add animal</a>
     </div>
+</div>
+
+<!-- update forms, jquery ui -->
+<div id="editAnimal" title="Update animal">
+@Html.Partial("~/Views/Incidents/Update/_Animal.cshtml")
+</div>
+
+<div id="editIncident" title="Update incident">
+@Html.Partial("~/Views/Incidents/Update/_Incident.cshtml")
 </div>
 
 <!-- hidden fields -->
@@ -97,5 +107,6 @@
 
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/datatables.js"></script>
+<script type="text/javascript" src="~/js/jqueryUI.js"></script>
 <script type="text/javascript" src="~/js/report.js"></script>
 <script src=@ViewData["apistring"] async defer ></script>

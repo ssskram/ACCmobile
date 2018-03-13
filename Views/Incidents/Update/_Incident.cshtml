@@ -1,0 +1,81 @@
+@model GetIncident
+<form asp-controller="UpdateIncident" class="text-center" asp-action="UpdateIncident" method="post" id="form">
+<div class="form-group">
+    <div class="col-md-12">
+        <input asp-for="OwnersLastName" class="form-control"></input>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <input asp-for="OwnersFirstName" class="form-control"></input>
+    </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 10px;">
+    <div class="col-md-12">
+        <input asp-for="OwnersTelephoneNumber" class="form-control"></input>
+    </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 5px;">
+    <div class="col-md-12">
+        <select asp-for="CallOrigin" data-style="btn-info" class="selectpicker form-control" title="Call Origin" data-dropup-auto="false">
+            <option>911</option>
+            <option>311</option>
+            <option>Office</option>
+            <option>Police</option>
+            <option>Other</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 5px;">
+    <div class="col-md-12">
+        <select asp-for="ReasonForVisit" data-style="btn-info" multiple class="selectpicker form-control" onchange="enableButton()" title="Reason(s) for visit" data-selected-text-format="count > 4" data-dropup-auto="false" id="reasonrelay" required="true">
+            <option>Barking</option>
+            <option>FWS</option>
+            <option>Animal waste in yard</option>
+            <option>Animal waste off property</option>
+            <option>Feeding wildlife</option>
+            <option>Count cats</option>
+            <option>Count animals</option>
+            <option>Feeding stray cats</option>
+            <option>Running at large</option>
+            <option>Other</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group" style="margin-bottom: 10px;">
+    <div class="col-md-12">
+        <select asp-for="PGHCode" data-style="btn-info" multiple class="selectpicker form-control" title="ADV. PGH Code(s)" data-selected-text-format="count > 4" data-dropup-auto="false" id="coderelay" data-size="7">
+            <option>633.02a</option>
+            <option>633.03</option>
+            <option>633.05</option>
+            <option>633.07a</option>
+            <option>633.09a</option>
+            <option>633.09b</option>
+            <option>633.09c</option>
+            <option>633.10a</option>
+            <option>633.10b</option>
+            <option>633.12</option>
+            <option>633.23</option>
+            <option>633.24</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <input asp-for="CitationNumber" class="form-control"></input>
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="col-md-12">
+        <textarea rows="3" asp-for="Comments" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
+    </div>
+</div>
+<input style="width: 60%; margin-top: 20px;" type="submit" id="submit" value="Save" class="btn btn-default overlaytrigger" disabled/>
+</form>

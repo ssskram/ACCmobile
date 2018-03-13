@@ -124,7 +124,8 @@ namespace ACCmobile.Controllers
                 Address = incidentitem.Address,
                 AddressID = incidentitem.AddressID,
                 Date = easternTime.ToString(dateformat),
-                SubmittedBy = incidentitem.SubmittedBy
+                SubmittedBy = incidentitem.SubmittedBy,
+                itemID = incidentitem.Id
             };
             // clean coords for map
             char[] comma = {',',' '};
@@ -154,7 +155,8 @@ namespace ACCmobile.Controllers
                     RabbiesVacExp = item.RabbiesVacExp,
                     Veterinarian = item.Veterinarian,
                     LicenseYear = item.LicenseYear,
-                    Comments = item.Comments
+                    Comments = item.Comments,
+                    itemID = item.itemID
                 };
                 Animals.Add(amnl);
             }
@@ -351,7 +353,16 @@ namespace ACCmobile.Controllers
         // add another animal
         public IActionResult _Animal()
         {
-            return PartialView("~/Views/Incidents/New/_Animal.cshtml");
+            string id = TempData.Peek("IncidentID").ToString();
+            string address = TempData.Peek("Address").ToString();
+            string coords = TempData.Peek("Coords").ToString();
+            var animalmodel = new NewAnimal
+            {
+                IncidentID = id,
+                Address = address,
+                Coords = coords
+            };
+            return PartialView("~/Views/Incidents/New/_Animal.cshtml", animalmodel);
         }
 
         // post animal
@@ -360,7 +371,6 @@ namespace ACCmobile.Controllers
             await refreshtoken();
             var token = refreshtoken().Result;
             var AddressID = model.Coords;
-            var IncidentID = model.IncidentID;
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization =
@@ -382,7 +392,7 @@ namespace ACCmobile.Controllers
                     model.LicenseYear, // 8
                     model.Age, // 9
                     AddressID, // 10
-                    IncidentID, // 11
+                    model.IncidentID, // 11
                     model.AnimalName, // 12
                     model.Comments); // 13
 
