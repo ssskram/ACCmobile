@@ -530,6 +530,10 @@ namespace ACCmobile.Controllers
             return Redirect("Animal");
         }
 
+        // put updated incident
+
+        // put updated animal
+
         // open animal view
         public async Task<IActionResult> Animal()
         {

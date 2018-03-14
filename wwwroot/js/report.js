@@ -59,9 +59,11 @@ $( "#incidentbutton" ).on( "click", function() {
 $( "#editAnimal" ).dialog({
     autoOpen: false,
 });
-$( "#animaledit" ).on( "click", function() {
+
+var animalbuttons = document.getElementsByClassName('animaledit');
+var dialog = function() {
     $( "#editAnimal" ).dialog({
-        width: 600,
+        width: 500,
         height: 550,
         modal: true,
         title: "Edit animal information",
@@ -72,4 +74,7 @@ $( "#animaledit" ).on( "click", function() {
     });
     $( "#editAnimal" ).dialog( "open" );
     $("select option[value='"+id+"']").prop("selected", false);
-});
+};
+Array.from(animalbuttons).forEach(function(element) {
+    element.addEventListener('click', dialog);
+  });
