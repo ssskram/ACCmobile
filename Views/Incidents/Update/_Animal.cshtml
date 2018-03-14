@@ -1,49 +1,54 @@
-<form asp-controller="UpdateIncident" class="text-center" asp-action="UpdateAnimal" method="post">
+<form asp-controller="UpdateIncident" asp-action="UpdateAnimal" method="post">
     <div class="row">
-
         <div class="form-group" style="margin-bottom: 5px;">
             <div class="col-md-12">
-                <input class="form-control animal-name" id="name" onchange="setName()"></input>
+                <div style="margin-left: 5px; padding-top: 5px;">Animal's name</div>
+                <input class="form-control" id="name"></input>
             </div>
         </div>
 
         <div class="form-group" style="margin-bottom: 5px;">
             <div class="col-md-12">
-                <select data-style="btn-info" class="selectpicker form-control animal-type" title="Type" data-dropup-auto="false" id="typerelay" required="true" onchange="revealbuttons()">
-                    <option>Dog</option>
-                    <option>Cat</option>
-                    <option>Other</option>
+                <div style="margin-left: 5px; padding-top: 5px;">Type</div>
+                <select data-style="btn-info" class="selectpicker form-control animal-type" title="" data-dropup-auto="false" id="typerelay" required="true">
+                    <option selected></option>
+                    <option data-divider="true"></option>
+                    <option value="id">Dog</option>
+                    <option value="id">Cat</option>
+                    <option value="id">Other</option>
                 </select>    
             </div>
         </div>
 
         <div class="form-group" style="margin-bottom: 5px;">
             <div class="col-md-12">
-                <select data-style="btn-info" multiple class="selectpicker form-control" title="Breed" data-selected-text-format="count > 3" data-dropup-auto="false" id="breedrelay">
+                <div style="margin-left: 5px; padding-top: 5px;">Breed</div>
+                <select data-style="btn-info" multiple class="selectpicker form-control" title="" data-selected-text-format="count > 3" data-dropup-auto="false" id="breedrelay">
+                    <option selected></option>
                     <optgroup label="Cats">
-                        <option>Domestic Short Hair</option>
-                        <option>Domestic Long Hair</option>
-                        <option>Feral</option>
-                        <option>Tabby</option>
-                        <option>Siamese</option>
+                        <option value="id">Domestic Short Hair</option>
+                        <option value="id">Domestic Long Hair</option>
+                        <option value="id">Feral</option>
+                        <option value="id">Tabby</option>
+                        <option value="id">Siamese</option>
                     </optgroup>
                     <optgroup label="Dogs">
-                        <option>Mix</option>
-                        <option>Pit Bull</option>
-                        <option>Terrier</option>
-                        <option>German Shepherd</option>
-                        <option>Rottweiler</option>
-                        <option>Bulldog</option>
-                        <option>Beagle</option>
-                        <option>Poodle</option>
-                        <option>Yorkie</option>
-                        <option>Boxer</option>
-                        <option>Great Dane</option>
-                        <option>Doberman</option>
-                        <option>Australian Shepherd</option>
-                        <option>Shih Tzu</option>
-                        <option>Pomeranian</option>
-                        <option>Spaniel</option>
+                        <option value="id">Mix</option>
+                        <option value="id">Pit Bull</option>
+                        <option value="id">Terrier</option>
+                        <option value="id">German Shepherd</option>
+                        <option value="id">Rottweiler</option>
+                        <option value="id">Bulldog</option>
+                        <option value="id">Beagle</option>
+                        <option value="id">Poodle</option>
+                        <option value="id"> Yorkie</option>
+                        <option value="id">Boxer</option>
+                        <option value="id">Great Dane</option>
+                        <option value="id">Doberman</option>
+                        <option value="id">Australian Shepherd</option>
+                        <option value="id">Shih Tzu</option>
+                        <option value="id">Pomeranian</option>
+                        <option value="id">Spaniel</option>
                     </optgroup>
                     <optgroup>
                         <option>Other</option>
@@ -54,24 +59,26 @@
 
         <div class="form-group" style="margin-bottom: 5px;">
             <div class="col-md-12">
-                <select data-style="btn-info" multiple class="selectpicker form-control" title="Coat" data-selected-text-format="count > 3" data-dropup-auto="false" id="coatrelay">
+                <div style="margin-left: 5px; padding-top: 5px;">Coat</div>
+                <select data-style="btn-info" multiple class="selectpicker form-control" title="" data-selected-text-format="count > 3" data-dropup-auto="false" id="coatrelay">
+                    <option selected></option>
                     <optgroup label="Cats">
-                        <option>Tabby</option>
-                        <option>Calico</option>
+                        <option value="id">Tabby</option>
+                        <option value="id">Calico</option>
                     </optgroup>
                     <optgroup label="Dogs">
-                        <option>Brindle</option>
+                        <option value="id">Brindle</option>
                     </optgroup>
                     <optgroup label="Universal">
-                        <option>Black</option>
-                        <option>White</option>
-                        <option>Gray</option>
-                        <option>Brown</option>
-                        <option>Tan</option>
-                        <option>Blue</option>
-                        <option>Orange</option>
-                        <option>Yellow</option>
-                        <option>Golden</option>
+                        <option value="id">Black</option>
+                        <option value="id">White</option>
+                        <option value="id">Gray</option>
+                        <option value="id">Brown</option>
+                        <option value="id">Tan</option>
+                        <option value="id">Blue</option>
+                        <option value="id">Orange</option>
+                        <option value="id">Yellow</option>
+                        <option value="id">Golden</option>
                     </optgroup>
                 </select>
             </div>
@@ -79,69 +86,86 @@
 
         <div class="form-group" style="margin-bottom: 10px;">
             <div class="col-md-12">
-
+                <div style="margin-left: 5px; padding-top: 5px;">Sex</div>
+                <select data-style="btn-info" class="selectpicker form-control" title="" data-dropup-auto="false" id="sexrelay">
+                    <option selected></option>
+                    <option data-divider="true"></option>
+                    <option value="id">Male</option>
+                    <option value="id">Female</option>
+                    <option value="id">Other</option>
+                </select>  
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-12">
+                <div style="margin-left: 5px; padding-top: 5px;">Age</div>
                 <input class="form-control"></input>    
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-12">
+                <div style="margin-left: 5px; padding-top: 5px;">License number</div>
                 <input class="form-control"></input>     
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-12">
+                <div style="margin-left: 5px; padding-top: 5px;">License year</div>
                 <input class="form-control"></input>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-12">
+                <div style="margin-left: 5px; padding-top: 5px;">Rabbies vac. number</div>
                 <input class="form-control"></input>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-12">
+                <div style="margin-left: 5px; padding-top: 5px;">Rabbies vac. expiration</div>
                 <input class="form-control"></input>  
             </div>
         </div>
 
         <div class="form-group" style="margin-bottom: 10px;">
             <div class="col-md-12">
-                <select data-style="btn-info" class="selectpicker form-control" title="Veterinarian" data-dropup-auto="false">
-                    <option>VCA Met Vet West Animal Hospital, 5309 Campbells Run Rd</option>
-                    <option>Penn Animal Hospital, 2205 Penn Ave</option>
-                    <option>Banfield Pet Hospital, 5986 Centre Ave</option>
-                    <option>The Big Easy Animal Hospital, 12 McCandless Ave</option>
-                    <option>Greenfield Veterinary Hospital, 611 Greenfield Ave</option>
-                    <option>Point Breeze Veterinary Clinic, 6742 Reynolds St</option>
-                    <option>VCA Castle Shannon Animal Hospital, 3610 Library Rd</option>
-                    <option>Spay Neuter Clinic, 11675 Frankstown Rd. Penn Hills</option>
-                    <option>Edgebrook Veterinary Clinic, 1405 Saw Mill Run Blvd</option>
-                    <option>Vetco, 976 Freeport Rd PGH 15238</option>
-                    <option>Harts Run Veterinary Hospital, 728 Dorseyville Rd</option>
-                    <option>East End Veterinary Medical Centre, 5875 Ellsworth Ave</option>
-                    <option>Cat Clinic and Hospital, 5170 Liberty Ave</option>
-                    <option>Humane Animal Rescue East, 6966 Hamilton Ave</option>
-                    <option>Humane Animal Rescue North, 1101 Western Ave</option>
-                    <option>Animal Friends, 562 Camp Horne Rd</option>
-                    <option>Other</option>
+                <div style="margin-left: 5px; padding-top: 5px;">Veterinarian</div>
+                <select data-style="btn-info" class="selectpicker form-control" title="" data-dropup-auto="false">
+                    <option selected></option>
+                    <option data-divider="true"></option>
+                    <option value="id">VCA Met Vet West Animal Hospital, 5309 Campbells Run Rd</option>
+                    <option value="id">Penn Animal Hospital, 2205 Penn Ave</option>
+                    <option value="id">Banfield Pet Hospital, 5986 Centre Ave</option>
+                    <option value="id">The Big Easy Animal Hospital, 12 McCandless Ave</option>
+                    <option value="id">Greenfield Veterinary Hospital, 611 Greenfield Ave</option>
+                    <option value="id">Point Breeze Veterinary Clinic, 6742 Reynolds St</option>
+                    <option value="id">VCA Castle Shannon Animal Hospital, 3610 Library Rd</option>
+                    <option value="id">Spay Neuter Clinic, 11675 Frankstown Rd. Penn Hills</option>
+                    <option value="id">Edgebrook Veterinary Clinic, 1405 Saw Mill Run Blvd</option>
+                    <option value="id">Vetco, 976 Freeport Rd PGH 15238</option>
+                    <option value="id">Harts Run Veterinary Hospital, 728 Dorseyville Rd</option>
+                    <option value="id">East End Veterinary Medical Centre, 5875 Ellsworth Ave</option>
+                    <option value="id">Cat Clinic and Hospital, 5170 Liberty Ave</option>
+                    <option value="id">Humane Animal Rescue East, 6966 Hamilton Ave</option>
+                    <option value="id">Humane Animal Rescue North, 1101 Western Ave</option>
+                    <option value="id">Animal Friends, 562 Camp Horne Rd</option>
+                    <option value="id">Other</option>
                 </select>
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-12">
+                <div style="margin-left: 5px; padding-top: 5px;">Comments</div>
                 <textarea rows="3" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
             </div>
         </div>
     </div>
-    <input style="width: 60%; margin-top: 20px;" type="submit" value="Save" class="btn btn-default overlaytrigger" disabled/>
+    <div class="text-center">
+        <input style="width: 60%; margin-top: 20px;" type="submit" value="Save" class="btn btn-default overlaytrigger" disabled/>
+    </div>
 </form>

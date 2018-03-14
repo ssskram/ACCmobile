@@ -381,7 +381,17 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   .ui-widget-content { 
     color: #383838;
     font-size: 14px;
+    margin-bottom: 10px;
   }
   .ui-dialog-title { 
     font-style: italic;
   }
+  .ui-dialog-bottomdrag {
+    position: absolute !important;
+    background-color: #fffaee;
+    height: 10px !important;
+    width: 99%;
+    bottom: 0px;
+    margin: 0 !important;
+    padding: 0 !important;
+}

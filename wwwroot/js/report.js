@@ -48,12 +48,12 @@ $( "#incidentbutton" ).on( "click", function() {
         modal: true,
         title: "Update incident",
         autoOpen: false,
-        hide: {
-        effect: "explode",
-        duration: 250
+        create: function( event, ui ) {
+            $('.ui-dialog').append('<span class="ui-dialog-titlebar ui-dialog-bottomdrag"></span>');
         }
     });
     $( "#editIncident" ).dialog( "open" );
+    $("select option[value='"+id+"']").prop("selected", false);
 });
 
 $( "#editAnimal" ).dialog({
@@ -64,12 +64,12 @@ $( "#animaledit" ).on( "click", function() {
         width: 600,
         height: 550,
         modal: true,
-        title: "Update incident",
+        title: "Edit animal information",
         autoOpen: false,
-        hide: {
-        effect: "explode",
-        duration: 250
+        create: function( event, ui ) {
+            $('.ui-dialog').append('<span class="ui-dialog-titlebar ui-dialog-bottomdrag"></span>');
         }
     });
     $( "#editAnimal" ).dialog( "open" );
+    $("select option[value='"+id+"']").prop("selected", false);
 });

@@ -111,22 +111,14 @@ namespace ACCmobile.Models
 
     public class GetIncident
     {
-        [Display(Prompt = "Owners Last Name")]
         public string OwnersLastName { get; set; }
-        [Display(Prompt = "Owners First Name")]
         public string OwnersFirstName { get; set; }
-        [Display(Prompt = "Owners Phone Number")]
         public string OwnersTelephoneNumber { get; set; }
-        [Display(Prompt = "ADV. PGH Code")]
         public string PGHCode { get; set; }
-        [Display(Prompt = "Citation Number")]
         public string CitationNumber { get; set; }
-        [Display(Prompt = "Reason for Visit")]
         public string ReasonForVisit { get; set; }
-        [Display(Prompt = "Comments")]
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
-        [Display(Prompt = "Call Origin")]
         public string CallOrigin { get; set; }
         public string IncidentID { get; set; }
         public string Address { get; set; }
