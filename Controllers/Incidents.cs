@@ -371,7 +371,6 @@ namespace ACCmobile.Controllers
         {
             await refreshtoken();
             var token = refreshtoken().Result;
-            var AddressID = model.Coords;
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Authorization =
@@ -381,7 +380,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
             var json =
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}', 'Address' : '{14}' }}",
                     model.Type, // 0
                     model.Breed, // 1
                     model.Coat, //2
@@ -392,10 +391,11 @@ namespace ACCmobile.Controllers
                     model.Veterinarian, // 7
                     model.LicenseYear, // 8
                     model.Age, // 9
-                    AddressID, // 10
+                    model.Coords, // 10
                     model.IncidentID, // 11
                     model.AnimalName, // 12
-                    model.Comments); // 13
+                    model.Comments, // 13
+                    model.Address); // 14
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post
@@ -531,6 +531,47 @@ namespace ACCmobile.Controllers
         }
 
         // put updated incident
+        public async Task PutIncident(GetIncident model)
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var postUrl = 
+                string.Format
+                ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items({0})",
+                model.itemID); // 0
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ("Bearer", token);
+            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "MERGE");
+            client.DefaultRequestHeaders.Add("IF-MATCH", "*");
+            var json = 
+                String.Format
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}' }}",
+                    model.OwnersFirstName, // 0
+                    model.OwnersLastName, // 1
+                    model.OwnersTelephoneNumber, // 2
+                    model.ReasonForVisitRelay, // 3
+                    model.PGHCodeRelay, // 4
+                    model.CitationNumber, // 5
+                    model.Comments, // 6
+                    model.CallOrigin); // 7
+
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            try // post
+            {
+                StringContent strContent = new StringContent(json);               
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                HttpResponseMessage response = client.PostAsync(postUrl, strContent).Result;
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
 
         // put updated animal
 

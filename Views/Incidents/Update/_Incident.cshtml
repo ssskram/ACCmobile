@@ -1,5 +1,5 @@
 @model GetIncident
-<form asp-controller="UpdateIncident" asp-action="UpdateIncident" method="post">
+<form id="update">
 <div class="form-group">
     <div class="col-md-12">
         <div style="margin-left: 5px; padding-top: 5px;">Owner's last name</div>
@@ -39,19 +39,20 @@
 <div class="form-group" style="margin-bottom: 5px;">
     <div class="col-md-12">
         <div style="margin-left: 5px; padding-top: 5px;">Reason(s) for visit</div>
-        <select asp-for="ReasonForVisit" data-style="btn-info" multiple class="selectpicker form-control" title="" data-selected-text-format="count > 4" data-dropup-auto="false" id="reasonrelay" required="true">
+        <select asp-for="ReasonForVisit" data-style="btn-info" multiple class="selectpicker form-control" title="" data-selected-text-format="count > 2" data-dropup-auto="false" onchange="enableButton()" id="reasonrelay" required="true">
             <option selected>@Model.ReasonForVisit</option>
             <option data-divider="true"></option>
-            <option value="id">Barking</option>
-            <option value="id">FWS</option>
-            <option value="id">Animal waste in yard</option>
-            <option value="id">Animal waste off property</option>
-            <option value="id">Feeding wildlife</option>
-            <option value="id">Count cats</option>
-            <option value="id">Count animals</option>
-            <option value="id">Feeding stray cats</option>
-            <option value="id">Running at large</option>
-            <option value="id">Other</option>
+            <option id="uncheck">Barking</option>
+            <option id="uncheck">FWS</option>
+            <option id="uncheck">Animal waste in yard</option>
+            <option id="uncheck">Animal waste off property</option>
+            <option id="uncheck">Feeding wildlife</option>
+            <option id="uncheck">Count cats</option>
+            <option id="uncheck">Count animals</option>
+            <option id="uncheck">Feeding stray cats</option>
+            <option id="uncheck">Running at large</option>
+            <option id="uncheck">Abandoned animal</option>
+            <option id="uncheck">Other</option>
         </select>
     </div>
 </div>
@@ -59,21 +60,22 @@
 <div class="form-group" style="margin-bottom: 10px;">
     <div class="col-md-12">
         <div style="margin-left: 5px; padding-top: 5px;">ADV. PGH Code(s)</div>
-        <select asp-for="PGHCode" data-style="btn-info" multiple class="selectpicker form-control" data-selected-text-format="count > 4" data-dropup-auto="false" id="coderelay" data-size="7" Title="">
+        <select asp-for="PGHCode" data-style="btn-info" multiple class="selectpicker form-control" data-selected-text-format="count > 3" data-dropup-auto="false" id="coderelay" data-size="7" Title="">
             <option selected>@Model.PGHCode</option>
             <option data-divider="true"></option>
-            <option value="id">633.02a</option>
-            <option value="id">633.03</option>
-            <option value="id">633.05</option>
-            <option value="id">633.07a</option>
-            <option value="id">633.09a</option>
-            <option value="id">633.09b</option>
-            <option value="id">633.09c</option>
-            <option value="id">633.10a</option>
-            <option value="id">633.10b</option>
-            <option value="id">633.12</option>
-            <option value="id">633.23</option>
-            <option value="id">633.24</option>
+            <option id="uncheck">633.02a</option>
+            <option id="uncheck">633.03</option>
+            <option id="uncheck">633.05</option>
+            <option id="uncheck">633.07a</option>
+            <option id="uncheck">633.08</option>
+            <option id="uncheck">633.09a</option>
+            <option id="uncheck">633.09b</option>
+            <option id="uncheck">633.09c</option>
+            <option id="uncheck">633.10a</option>
+            <option id="uncheck">633.10b</option>
+            <option id="uncheck">633.12</option>
+            <option id="uncheck">633.23</option>
+            <option id="uncheck">633.24</option>
         </select>
     </div>
 </div>
@@ -91,7 +93,14 @@
         <textarea rows="3" asp-for="Comments" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
     </div>
 </div>
+
+<!-- begin hidden fields -->
+<input asp-for="itemID" hidden>
+<input asp-for="ReasonForVisitRelay" id="reason" hidden></input>
+<input asp-for="PGHCodeRelay" id="code" hidden></input>
+
+
 <div class="text-center">
-<input style="width: 60%; margin-top: 20px;" type="submit" value="Save" class="btn btn-default overlaytrigger" disabled/>
+<input style="width: 60%; margin-top: 20px;"  onclick="putIncident()" value="Save" id="submit" class="btn btn-default overlaytrigger"/>
 </div>
 </form>

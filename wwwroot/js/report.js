@@ -53,7 +53,7 @@ $( "#incidentbutton" ).on( "click", function() {
         }
     });
     $( "#editIncident" ).dialog( "open" );
-    $("select option[value='"+id+"']").prop("selected", false);
+    $("select option[id='"+uncheck+"']").prop("selected", false);
 });
 
 $( "#editAnimal" ).dialog({
@@ -66,15 +66,64 @@ var dialog = function() {
         width: 500,
         height: 550,
         modal: true,
-        title: "Edit animal information",
+        title: "Edit animal information (coming soon!)",
         autoOpen: false,
         create: function( event, ui ) {
             $('.ui-dialog').append('<span class="ui-dialog-titlebar ui-dialog-bottomdrag"></span>');
         }
     });
     $( "#editAnimal" ).dialog( "open" );
-    $("select option[value='"+id+"']").prop("selected", false);
+    $("select option[id='"+uncheck+"']").prop("selected", false);
 };
 Array.from(animalbuttons).forEach(function(element) {
     element.addEventListener('click', dialog);
   });
+
+  function putIncident()
+  {
+    if ($('#reasonrelay').val() != null)
+    {
+        var reason = $('#reasonrelay').val().toString().split(',').join(', ');
+        $('#reason').val( reason );
+    }
+    else
+    {
+        $('#reason').val($('#reasonrelay').val());
+    }
+    if ($('#coderelay').val() != null)
+    {
+        var code = $('#coderelay').val().toString().split(',').join(', ');
+        $('#code').val( code );
+    }
+    else
+    {
+        $('#code').val( $('#coderelay').val());
+    }
+    var data = $('#update').serialize();
+    $.ajax(
+        {
+            url: "/UpdateIncident/PutIncident",
+            type: 'POST',
+            data: data,
+            success:function(result) {
+                location.reload(true);
+            },
+            error: function(result) {
+                alert("Failed to post.  Please try again.");
+            }
+        }
+    );
+  }
+
+// enable button when mandatory fields are addressed
+function enableButton () {
+    var reason = $("#reasonrelay").val();
+    if ( reason !== null )
+    {
+        $("#submit").prop("disabled",false);
+    }
+    else
+    {
+        $("#submit").prop("disabled",true);
+    }
+}

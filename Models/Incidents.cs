@@ -115,8 +115,10 @@ namespace ACCmobile.Models
         public string OwnersFirstName { get; set; }
         public string OwnersTelephoneNumber { get; set; }
         public string PGHCode { get; set; }
+        public string PGHCodeRelay { get; set; }
         public string CitationNumber { get; set; }
         public string ReasonForVisit { get; set; }
+        public string ReasonForVisitRelay { get; set; }
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
         public string CallOrigin { get; set; }
