@@ -130,7 +130,7 @@ namespace ACCmobile.Models
         public string CallOrigin { get; set; }
         public string IncidentID { get; set; }
         public string Address { get; set; }
-        public string AddressID { get; set; }
+        public string Coords { get; set; }
         public string Date { get; set; }
         public string SubmittedBy { get; set; }
         public string itemID { get; set; }

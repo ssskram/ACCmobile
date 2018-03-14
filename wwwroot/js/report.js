@@ -45,6 +45,8 @@ $( "#incidentbutton" ).on( "click", function() {
     $( "#editIncident" ).dialog({
         width: 500,
         height: 550,
+        modal: true,
+        title: "Update incident",
         autoOpen: false,
         hide: {
         effect: "explode",
@@ -61,6 +63,8 @@ $( "#animaledit" ).on( "click", function() {
     $( "#editAnimal" ).dialog({
         width: 600,
         height: 550,
+        modal: true,
+        title: "Update incident",
         autoOpen: false,
         hide: {
         effect: "explode",

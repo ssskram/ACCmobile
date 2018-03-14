@@ -42,4 +42,14 @@
     </tr>
   </tbody>
 </table>
+
+<!-- hidden form fields for new animal put -->
+<input asp-for="IncidentID" value="@Model.IncidentID" hidden></input>
+<input asp-for="Address" value="@Model.Address" hidden></input>
+<input asp-for="Coords" value="@Model.Coords" hidden></input>
+<input asp-for="OwnersFirstName" value="@Model.OwnersFirstName" hidden></input>
+<input asp-for="OwnersLastName" value="@Model.OwnersLastName" hidden></input>
+<input asp-for="ReasonForVisit" value="@Model.ReasonForVisit" hidden></input>
+
 <a class="btn btn-link" id="incidentbutton">> Edit incident</a>
+<input class="btn btn-link overlaytrigger" type="submit" value="> Add animal" id="animaladd"></input>

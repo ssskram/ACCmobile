@@ -1,5 +1,5 @@
 @model GetIncident
-<form asp-controller="UpdateIncident" class="text-center" asp-action="UpdateIncident" method="post" id="form">
+<form asp-controller="UpdateIncident" class="text-center" asp-action="UpdateIncident" method="post">
 <div class="form-group">
     <div class="col-md-12">
         <input asp-for="OwnersLastName" class="form-control"></input>
@@ -77,5 +77,5 @@
         <textarea rows="3" asp-for="Comments" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
     </div>
 </div>
-<input style="width: 60%; margin-top: 20px;" type="submit" id="submit" value="Save" class="btn btn-default overlaytrigger" disabled/>
+<input style="width: 60%; margin-top: 20px;" type="submit" value="Save" class="btn btn-default overlaytrigger" disabled/>
 </form>

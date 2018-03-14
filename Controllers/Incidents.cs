@@ -122,7 +122,7 @@ namespace ACCmobile.Controllers
                 CallOrigin = incidentitem.CallOrigin,
                 IncidentID = incidentitem.AdvisoryID,
                 Address = incidentitem.Address,
-                AddressID = incidentitem.AddressID,
+                Coords = incidentitem.AddressID,
                 Date = easternTime.ToString(dateformat),
                 SubmittedBy = incidentitem.SubmittedBy,
                 itemID = incidentitem.Id
@@ -317,7 +317,7 @@ namespace ACCmobile.Controllers
             return View("~/Views/Incidents/New/Description.cshtml", incidentmodel);
         }
 
-        // post incident description
+        // post incident description, pass to animal
         public async Task<IActionResult> Next(NewDescription model)
         {
             await PostIncident(model);
@@ -329,6 +329,7 @@ namespace ACCmobile.Controllers
             TempData["Coords"] = model.Coords;
             return Redirect("Animal");
         }
+
         // open animal view
         public async Task<IActionResult> Animal()
         {
@@ -455,6 +456,102 @@ namespace ACCmobile.Controllers
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
         }
+
+        public async Task<int> CountAnimals(string id)
+        {
+            int counter = 0;
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var sharepointUrl =
+            String.Format
+            ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items?$filter=AdvisoryID eq '{0}'",
+                id); // 0
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            dynamic animalitems = JObject.Parse(listitems)["value"];
+            foreach (var item in animalitems)
+            {
+                counter++;
+            }
+            return counter;
+        }
+
+        private async Task<string> refreshtoken()
+        {
+            var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
+            var clientid = Environment.GetEnvironmentVariable("SPClientID");
+            var clientsecret = Environment.GetEnvironmentVariable("SPClientSecret");
+            var refreshtoken = Environment.GetEnvironmentVariable("refreshtoken");
+            var redirecturi = Environment.GetEnvironmentVariable("redirecturi");
+            var SPresource = Environment.GetEnvironmentVariable("spresourceid");
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/x-www-form-urlencoded");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+
+            var json =
+                String.Format
+            ("grant_type=refresh_token&client_id={0}&client_secret={1}&refresh_token={2}&redirect_uri={3}&resource={4}",
+                clientid, // 0
+                clientsecret, // 1
+                refreshtoken, // 2
+                redirecturi, // 3
+                SPresource); // 4
+
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            StringContent strContent = new StringContent(json);
+            strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/x-www-form-urlencoded");
+            HttpResponseMessage response = client.PostAsync(MSurl, strContent).Result;
+            response.EnsureSuccessStatusCode();
+            var content = await response.Content.ReadAsStringAsync();
+            dynamic results = JsonConvert.DeserializeObject<dynamic>(content);
+            string token = results.access_token.ToString();
+            return token;
+        }
+    }
+
+    // put methods
+    [Authorize]
+    public class UpdateIncident : Controller
+    {
+        HttpClient client = new HttpClient();
+
+        // add another animal to an existing incident
+        public IActionResult AddAnother(GetIncident model)
+        {
+            TempData["IncidentID"] = model.IncidentID;
+            TempData["Address"] = model.Address;
+            TempData["OwnersFirstName"] = model.OwnersFirstName;
+            TempData["OwnersLastName"] = model.OwnersLastName;
+            TempData["ReasonforVisit"] = model.ReasonForVisit;
+            TempData["Coords"] = model.Coords;
+            return Redirect("Animal");
+        }
+
+        // open animal view
+        public async Task<IActionResult> Animal()
+        {
+            string id = TempData.Peek("IncidentID").ToString();
+            string address = TempData.Peek("Address").ToString();
+            string coords = TempData.Peek("Coords").ToString();
+            await CountAnimals(id);
+            ViewBag.Animals = CountAnimals(id).Result;
+            ViewBag.IncidentAddress = address;
+            ViewBag.IncidentFirstName = TempData.Peek("OwnersFirstName");
+            ViewBag.IncidentLastName = TempData.Peek("OwnersLastName");
+            ViewBag.IncidentReason = TempData.Peek("ReasonforVisit");
+            var animalmodel = new NewAnimal
+            {
+                IncidentID = id,
+                Address = address,
+                Coords = coords
+            };
+            return View("~/Views/Incidents/New/Animal.cshtml", animalmodel);
+        }
+
+        // API calls
 
         public async Task<int> CountAnimals(string id)
         {

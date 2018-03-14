@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-6 col-xs-12">
         <div>
-            <form id="form">
+            <form id="form" asp-controller="UpdateIncident" asp-action="AddAnother" method="post">
             @Html.Partial("~/Views/Incidents/Get/_Report.cshtml")
             </form>
         </div>
@@ -88,16 +88,15 @@
         }
         </tbody>
     </table>
-    <a class="btn btn-link" id="animaladd">> Add animal</a>
     </div>
 </div>
 
 <!-- update forms, jquery ui -->
-<div id="editAnimal" title="Update animal">
+<div id="editAnimal">
 @Html.Partial("~/Views/Incidents/Update/_Animal.cshtml")
 </div>
 
-<div id="editIncident" title="Update incident">
+<div id="editIncident">
 @Html.Partial("~/Views/Incidents/Update/_Incident.cshtml")
 </div>
 
