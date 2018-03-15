@@ -32,10 +32,24 @@ $( document ).ready(function() {
 // on submit, copy multi-selection contents to relay field for simple string posting
 $(document).ready(function () {
 $('#submit').click(function(){
-    var reason = $('#reasonrelay').val().toString().split(',').join(', ');
-    $('#reason').val( reason );
-    var code = $('#coderelay').val().toString().split(',').join(', ');
-    $('#code').val( code );
+    if ($('#reasonrelay').val() != null)
+    {
+        var reason = $('#reasonrelay').val().toString().split(',').join(', ');
+        $('#reason').val( reason );
+    }
+    else
+    {
+        $('#reason').val($('#reasonrelay').val());
+    }
+    if ($('#coderelay').val() != null)
+    {
+        var code = $('#coderelay').val().toString().split(',').join(', ');
+        $('#code').val( code );
+    }
+    else
+    {
+        $('#code').val( $('#coderelay').val());
+    }
 });
 });
 

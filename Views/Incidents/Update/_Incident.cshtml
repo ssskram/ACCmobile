@@ -2,7 +2,7 @@
 <form id="update">
 <div class="form-group">
     <div class="col-md-12">
-        <div style="margin-left: 5px; padding-top: 5px;">Owner's last name</div>
+        <div style="margin-left: 5px;">Owner's last name</div>
         <input asp-for="OwnersLastName" class="form-control"></input>
     </div>
 </div>
@@ -25,7 +25,7 @@
     <div class="col-md-12">
         <div style="margin-left: 5px; padding-top: 5px;">Call origin</div>
         <select asp-for="CallOrigin" data-style="btn-info" class="selectpicker form-control" data-dropup-auto="false" title="">
-            <option selected>@Model.CallOrigin</option>
+            <option>@Model.CallOrigin</option>
             <option data-divider="true"></option>
             <option>911</option>
             <option>311</option>
@@ -39,20 +39,20 @@
 <div class="form-group" style="margin-bottom: 5px;">
     <div class="col-md-12">
         <div style="margin-left: 5px; padding-top: 5px;">Reason(s) for visit</div>
-        <select asp-for="ReasonForVisit" data-style="btn-info" multiple class="selectpicker form-control" title="" data-selected-text-format="count > 2" data-dropup-auto="false" onchange="enableButton()" id="reasonrelay" required="true">
-            <option selected>@Model.ReasonForVisit</option>
+        <select asp-for="ReasonForVisit" data-style="btn-info" multiple class="selectpicker form-control" title="" data-selected-text-format="count > 2" data-size="7" onchange="enableButton()" id="reasonrelay">
+            <option>@Model.ReasonForVisit</option>
             <option data-divider="true"></option>
-            <option id="uncheck">Barking</option>
-            <option id="uncheck">FWS</option>
-            <option id="uncheck">Animal waste in yard</option>
-            <option id="uncheck">Animal waste off property</option>
-            <option id="uncheck">Feeding wildlife</option>
-            <option id="uncheck">Count cats</option>
-            <option id="uncheck">Count animals</option>
-            <option id="uncheck">Feeding stray cats</option>
-            <option id="uncheck">Running at large</option>
-            <option id="uncheck">Abandoned animal</option>
-            <option id="uncheck">Other</option>
+            <option>Barking</option>
+            <option>FWS</option>
+            <option>Animal waste in yard</option>
+            <option>Animal waste off property</option>
+            <option>Feeding wildlife</option>
+            <option>Count cats</option>
+            <option>Count animals</option>
+            <option>Feeding stray cats</option>
+            <option>Running at large</option>
+            <option>Abandoned animal</option>
+            <option>Other</option>
         </select>
     </div>
 </div>
@@ -60,22 +60,22 @@
 <div class="form-group" style="margin-bottom: 10px;">
     <div class="col-md-12">
         <div style="margin-left: 5px; padding-top: 5px;">ADV. PGH Code(s)</div>
-        <select asp-for="PGHCode" data-style="btn-info" multiple class="selectpicker form-control" data-selected-text-format="count > 3" data-dropup-auto="false" id="coderelay" data-size="7" Title="">
-            <option selected>@Model.PGHCode</option>
+        <select asp-for="PGHCode" data-style="btn-info" multiple class="selectpicker form-control" data-selected-text-format="count > 3" id="coderelay" data-size="7" Title="">
+            <option>@Model.PGHCode</option>
             <option data-divider="true"></option>
-            <option id="uncheck">633.02a</option>
-            <option id="uncheck">633.03</option>
-            <option id="uncheck">633.05</option>
-            <option id="uncheck">633.07a</option>
-            <option id="uncheck">633.08</option>
-            <option id="uncheck">633.09a</option>
-            <option id="uncheck">633.09b</option>
-            <option id="uncheck">633.09c</option>
-            <option id="uncheck">633.10a</option>
-            <option id="uncheck">633.10b</option>
-            <option id="uncheck">633.12</option>
-            <option id="uncheck">633.23</option>
-            <option id="uncheck">633.24</option>
+            <option >633.02a</option>
+            <option >633.03</option>
+            <option >633.05</option>
+            <option >633.07a</option>
+            <option >633.08</option>
+            <option >633.09a</option>
+            <option >633.09b</option>
+            <option >633.09c</option>
+            <option >633.10a</option>
+            <option >633.10b</option>
+            <option >633.12</option>
+            <option >633.23</option>
+            <option >633.24</option>
         </select>
     </div>
 </div>

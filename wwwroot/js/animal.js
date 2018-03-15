@@ -51,10 +51,42 @@ function addAnimal()
         $("animal").hide();
         $("#AddAnimal").hide();
         $("#complete").hide();
-        $('#type').val( $('#typerelay').val() );
-        $('#breed').val( $('#breedrelay').val() );
-        $('#coat').val( $('#coatrelay').val() );
-        $('#sex').val( $('#sexrelay').val() );
+        if ($('#typerelay').val() != null)
+        {
+            var type = $('#typerelay').val().toString().split(',').join(', ');
+            $('#type').val( type );
+        }
+        else
+        {
+            $('#type').val($('#typerelay').val());
+        }
+        if ($('#breedrelay').val() != null)
+        {
+            var breed = $('#breedrelay').val().toString().split(',').join(', ');
+            $('#breed').val( breed );
+        }
+        else
+        {
+            $('#breed').val($('#breedrelay').val());
+        }
+        if ($('#coatrelay').val() != null)
+        {
+            var coat = $('#coatrelay').val().toString().split(',').join(', ');
+            $('#coat').val( coat );
+        }
+        else
+        {
+            $('#coat').val($('#coatrelay').val());
+        }
+        if ($('#sexrelay').val() != null)
+        {
+            var sex = $('#sexrelay').val().toString().split(',').join(', ');
+            $('#sex').val( sex );
+        }
+        else
+        {
+            $('#sex').val($('#sexrelay').val());
+        }
         $.ajax(
             {
                 url: "/NewIncident/PostAnimal",
@@ -96,13 +128,45 @@ function addAnimal()
 // validate entries and return home
 function returnHome()
 {
-    if($("#typerelay").val().length != 0)
+    if ($("#typerelay").val().length != 0)
     {
         $("#form").hide();
-        $('#type').val( $('#typerelay').val() );
-        $('#breed').val( $('#breedrelay').val() );
-        $('#coat').val( $('#coatrelay').val() );
-        $('#sex').val( $('#sexrelay').val() );
+        if ($('#typerelay').val() != null)
+        {
+            var type = $('#typerelay').val().toString().split(',').join(', ');
+            $('#type').val( type );
+        }
+        else
+        {
+            $('#type').val($('#typerelay').val());
+        }
+        if ($('#breedrelay').val() != null)
+        {
+            var breed = $('#breedrelay').val().toString().split(',').join(', ');
+            $('#breed').val( breed );
+        }
+        else
+        {
+            $('#breed').val($('#breedrelay').val());
+        }
+        if ($('#coatrelay').val() != null)
+        {
+            var coat = $('#coatrelay').val().toString().split(',').join(', ');
+            $('#coat').val( coat );
+        }
+        else
+        {
+            $('#coat').val($('#coatrelay').val());
+        }
+        if ($('#sexrelay').val() != null)
+        {
+            var sex = $('#sexrelay').val().toString().split(',').join(', ');
+            $('#sex').val( sex );
+        }
+        else
+        {
+            $('#sex').val($('#sexrelay').val());
+        }
         $.ajax(
             {
                 url: "/NewIncident/PostAnimal",
@@ -123,16 +187,6 @@ function returnHome()
         alert("Animal type is a required field");
     }
 }
-
-// on submit, copy multi-selection contents to relay field for simple string posting
-$(document).ready(function () {
-    $('#complete').click(function(){
-        $('#type').val( $('#typerelay').val() );
-        $('#breed').val( $('#breedrelay').val() );
-        $('#coat').val( $('#coatrelay').val() );
-        $('#sex').val( $('#sexrelay').val() );
-    });
-});
 
 // render number of animals in box
 $(document).ready(function () {
