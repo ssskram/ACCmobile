@@ -33,10 +33,6 @@
       <td>@Model.CitationNumber</td>
     </tr>
     <tr>
-      <th scope="row">Comments</th>
-      <td>@Model.Comments</td>
-    </tr>
-    <tr>
       <th scope="row">Submitted by</th>
       <td>@Model.SubmittedBy</td>
     </tr>
@@ -50,6 +46,7 @@
 <input asp-for="OwnersFirstName" value="@Model.OwnersFirstName" hidden></input>
 <input asp-for="OwnersLastName" value="@Model.OwnersLastName" hidden></input>
 <input asp-for="ReasonForVisit" value="@Model.ReasonForVisit" hidden></input>
+<textarea asp-for="Comments" value="@Model.Comments" hidden></textarea>
 
 <a class="btn btn-link" id="incidentbutton">> Edit incident</a>
 <input class="btn btn-link overlaytrigger" type="submit" value="> Add animal" id="animaladd"></input>
