@@ -67,6 +67,9 @@ $( "#editAnimal" ).dialog({
 var animalbuttons = document.getElementsByClassName('animaledit');
 var getdata = function() {
     // set regular input boxes
+        // set itemid
+        var id = $(this).parent().parent().find( "#itemid" ).text();
+        $('#animalitemid').val( id );
         // set animal name
         var name = $(this).parent().parent().find( "#name" ).text();
         $('#animalname').val( name );
@@ -137,41 +140,93 @@ Array.from(animalbuttons).forEach(function(element) {
 // put incident updates to controller
 function putIncident()
 {
-if ($('#reasonrelay').val() != null)
-{
-    var reason = $('#reasonrelay').val().toString().split(',').join(', ');
-    $('#reason').val( reason );
-}
-else
-{
-    $('#reason').val($('#reasonrelay').val());
-}
-if ($('#coderelay').val() != null)
-{
-    var code = $('#coderelay').val().toString().split(',').join(', ');
-    $('#code').val( code );
-}
-else
-{
-    $('#code').val( $('#coderelay').val());
-}
-var data = $('#update').serialize();
-$.ajax(
+    if ($('#reasonrelay').val() != null)
     {
-        url: "/UpdateIncident/PutIncident",
-        type: 'POST',
-        data: data,
-        success:function(result) {
-            location.reload(true);
-        },
-        error: function(result) {
-            alert("Failed to post.  Please try again.");
-        }
+        var reason = $('#reasonrelay').val().toString().split(',').join(', ');
+        $('#reason').val( reason );
     }
-);
+    else
+    {
+        $('#reason').val($('#reasonrelay').val());
+    }
+    if ($('#coderelay').val() != null)
+    {
+        var code = $('#coderelay').val().toString().split(',').join(', ');
+        $('#code').val( code );
+    }
+    else
+    {
+        $('#code').val( $('#coderelay').val());
+    }
+    var data = $('#update').serialize();
+    $.ajax(
+        {
+            url: "/UpdateIncident/PutIncident",
+            type: 'POST',
+            data: data,
+            success:function(result) {
+                location.reload(true);
+            },
+            error: function(result) {
+                alert("Failed to post.  Please try again.");
+            }
+        }
+    );
 }
 
 // put animal updates to controller
+function putAnimal()
+{
+    if ($('#typerelay').val() != null)
+    {
+        var type = $('#typerelay').val().toString().split(',').join(', ');
+        $('#puttype').val( type );
+    }
+    else
+    {
+        $('#puttype').val($('#typerelay').val().toString());
+    }
+    if ($('#breedrelay').val() != null)
+    {
+        var breed = $('#breedrelay').val().toString().split(',').join(', ');
+        $('#putbreed').val( breed );
+    }
+    else
+    {
+        $('#putbreed').val($('#breedrelay').val().toString());
+    }
+    if ($('#coatrelay').val() != null)
+    {
+        var coat = $('#coatrelay').val().toString().split(',').join(', ');
+        $('#putcoat').val( coat );
+    }
+    else
+    {
+        $('#putcoat').val($('#coatrelay').val().toString());
+    }
+    if ($('#sexrelay').val() != null)
+    {
+        var sex = $('#sexrelay').val().toString().split(',').join(', ');
+        $('#putsex').val( sex );
+    }
+    else
+    {
+        $('#putsex').val($('#sexrelay').val().toString());
+    }
+    $.ajax(
+        {
+            url: "/UpdateIncident/PutAnimal",
+            type: 'POST',
+            data: $('#editanimal').serialize(),
+            success:function(result) {
+                location.reload(true);
+            },
+            error: function(result) {
+                alert("Failed to post.  Please try again.");
+            }
+        }
+    );
+}
 
 // enable button when mandatory fields are addressed
 function enableButton () {

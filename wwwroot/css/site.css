@@ -366,11 +366,11 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 }
 .reportcomments {
     padding: 5px 15px 15px 15px; 
-    width: 95%;
+    width: 96%;
     margin: 0 auto;
     margin-top: 20px;
     border-radius: 15px;
-    background-color: rgba(221, 221, 221, .3);
+    background-color: rgba(221, 221, 221, .15);
     border: 1px solid rgba(221, 221, 221, .8);
 }
 

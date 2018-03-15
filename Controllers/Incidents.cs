@@ -156,7 +156,7 @@ namespace ACCmobile.Controllers
                     Veterinarian = item.Veterinarian,
                     LicenseYear = item.LicenseYear,
                     Comments = item.Comments,
-                    itemID = item.itemID
+                    itemID = item.Id
                 };
                 Animals.Add(amnl);
             }
@@ -574,6 +574,51 @@ namespace ACCmobile.Controllers
         }
 
         // put updated animal
+        public async Task PutAnimal(GetIncident model)
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var postUrl = 
+                string.Format
+                ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items({0})",
+                model.animalitemID); // 0
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ("Bearer", token);
+            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "MERGE");
+            client.DefaultRequestHeaders.Add("IF-MATCH", "*");
+            var json =
+                String.Format
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'Name' : '{10}', 'Comments' : '{11}' }}",
+                    model.TypeRelay, // 0
+                    model.BreedRelay, // 1
+                    model.CoatRelay, //2
+                    model.SexRelay, // 3
+                    model.LicenseNumber, // 4
+                    model.RabbiesVacNo, // 5
+                    model.RabbiesVacExp, // 6
+                    model.Veterinarian, // 7
+                    model.LicenseYear, // 8
+                    model.Age, // 9
+                    model.AnimalName, // 10
+                    model.AnimalComments); // 11
+
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            try // post
+            {
+                StringContent strContent = new StringContent(json);               
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                HttpResponseMessage response = client.PostAsync(postUrl, strContent).Result;
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
 
         // open animal view
         public async Task<IActionResult> Animal()

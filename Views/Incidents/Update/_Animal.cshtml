@@ -1,15 +1,16 @@
+@model GetIncident
 <form id="editanimal">
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px;">Animal's name</div>
-            <input class="form-control" id="animalname"></input>
+            <input asp-for="AnimalName" class="form-control" id="animalname">
         </div>
     </div>
 
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Type</div>
-            <select data-style="btn-info" class="selectpicker form-control animal-type" title="" data-dropup-auto="false" id="typerelay" required="true">
+            <select asp-for="Type" data-style="btn-info" class="selectpicker form-control animal-type" title="" data-dropup-auto="false" id="typerelay" required="true">
                 <option></option>
                 <option data-divider="true"></option>
                 <option>Dog</option>
@@ -22,7 +23,7 @@
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Breed</div>
-            <select data-style="btn-info" multiple class="selectpicker form-control" title="" data-size="7" data-selected-text-format="count > 3" data-dropup-auto="false" id="breedrelay">
+            <select asp-for="Breed" data-style="btn-info" multiple class="selectpicker form-control" title="" data-size="7" data-selected-text-format="count > 3" data-dropup-auto="false" id="breedrelay">
                 <option></option>
                 <optgroup label="Cats">
                     <option>Domestic Short Hair</option>
@@ -59,7 +60,7 @@
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Coat</div>
-            <select data-style="btn-info" multiple class="selectpicker form-control" title="" data-size="5" data-selected-text-format="count > 3" id="coatrelay">
+            <select asp-for="Coat" data-style="btn-info" multiple class="selectpicker form-control" title="" data-size="7" data-selected-text-format="count > 3" id="coatrelay">
                 <option></option>
                 <optgroup label="Cats">
                     <option>Tabby</option>
@@ -86,7 +87,7 @@
     <div class="form-group" style="margin-bottom: 10px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Sex</div>
-            <select data-style="btn-info" class="selectpicker form-control" title="" id="sexrelay">
+            <select asp-for="Sex" data-style="btn-info" class="selectpicker form-control" title="" id="sexrelay">
                 <option></option>
                 <option data-divider="true"></option>
                 <option>Male</option>
@@ -99,42 +100,42 @@
     <div class="form-group">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Age</div>
-            <input class="form-control" id="animalage"></input>    
+            <input asp-for="Age" class="form-control" id="animalage">    
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">License number</div>
-            <input class="form-control" id="animallicenseno"></input>     
+            <input asp-for="LicenseNumber" class="form-control" id="animallicenseno">     
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">License year</div>
-            <input class="form-control" id="animallicenseyr"></input>
+            <input asp-for="LicenseYear" class="form-control" id="animallicenseyr">
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Rabbies vac. number</div>
-            <input class="form-control" id="animalrabbiesvacno"></input>
+            <input asp-for="RabbiesVacNo" class="form-control" id="animalrabbiesvacno">
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Rabbies vac. expiration</div>
-            <input class="form-control" id="animalrabbiesvacexp"></input>  
+            <input asp-for="RabbiesVacExp" class="form-control" id="animalrabbiesvacexp">  
         </div>
     </div>
 
     <div class="form-group" style="margin-bottom: 10px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Veterinarian</div>
-            <select data-style="btn-info" class="selectpicker form-control" title="" data-size="7" id="vetrelay">
+            <select asp-for="Veterinarian" data-style="btn-info" class="selectpicker form-control" title="" data-size="7" id="vetrelay">
                 <option></option>
                 <option data-divider="true"></option>
                 <option>VCA Met Vet West Animal Hospital, 5309 Campbells Run Rd</option>
@@ -157,13 +158,22 @@
             </select>
         </div>
     </div>
+
     <div class="form-group">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Comments</div>
-            <textarea rows="3" class="form-control" id="animalcomments" onkeyup="textAreaAdjust(this)"></textarea>
+            <textarea asp-for="AnimalComments" rows="3" class="form-control" id="animalcomments" onkeyup="textAreaAdjust(this)"></textarea>
         </div>
     </div>
+
+    <!-- begin hidden fields -->
+    <input asp-for="TypeRelay" id="puttype" hidden></input>
+    <input asp-for="BreedRelay" id="putbreed" hidden></input>
+    <input asp-for="CoatRelay" id="putcoat" hidden></input>
+    <input asp-for="SexRelay" id="putsex" hidden></input>
+    <input asp-for="animalitemID" id="animalitemid" hidden></input>
+
     <div class="text-center">
-        <input style="width: 60%; margin-top: 20px;" value="Save" class="btn btn-default overlaytrigger" disabled/>
+        <input style="width: 60%; margin-top: 20px;" onclick="putAnimal()" value="Save" id="submit" class="btn btn-default overlaytrigger"/>
     </div>
 </form>
