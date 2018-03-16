@@ -670,6 +670,43 @@ namespace ACCmobile.Controllers
                 HttpResponseMessage response = client.PostAsync(postUrl, strContent).Result;
                 response.EnsureSuccessStatusCode();
                 var content = await response.Content.ReadAsStringAsync();
+                await LastModified(model);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }
+        }
+
+        public async Task LastModified(GetIncident model)
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            string ModifiedBy = _userManager.GetUserName(HttpContext.User);
+            var postUrl = 
+                string.Format
+                ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items({0})",
+                model.itemID); // 0
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ("Bearer", token);
+            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add("X-HTTP-Method", "MERGE");
+            client.DefaultRequestHeaders.Add("IF-MATCH", "*");
+            var json = 
+                String.Format
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'ModifiedBy' : '{0}' }}",
+                    ModifiedBy); // 0
+
+            client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
+            try // post
+            {
+                StringContent strContent = new StringContent(json);               
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json;odata=verbose");
+                HttpResponseMessage response = client.PostAsync(postUrl, strContent).Result;
+                response.EnsureSuccessStatusCode();
+                var content = await response.Content.ReadAsStringAsync();
             }
             catch (Exception ex)
             {
