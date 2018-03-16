@@ -6,7 +6,6 @@
 
         <div class="form-group" style="margin-bottom: 10px;">
             <input asp-for="AnimalName" class="form-control animal-name" id="name" onchange="setName()"></input>
-            <span asp-validation-for="AnimalName" class="text-danger" />
         </div>
 
         <div class="form-group" style="margin-bottom: 5px;">
@@ -15,7 +14,6 @@
                 <option>Cat</option>
                 <option>Other</option>
             </select>    
-            <span asp-validation-for="Type" class="text-danger" />
         </div>
 
         <div class="form-group" style="margin-bottom: 5px;">
@@ -49,7 +47,6 @@
                     <option>Other</option>
                 </optgroup>
             </select>
-            <span asp-validation-for="Breed" class="text-danger" />
         </div>
 
         <div class="form-group" style="margin-bottom: 5px;">
@@ -73,7 +70,6 @@
                     <option>Golden</option>
                 </optgroup>
             </select>
-            <span asp-validation-for="Coat" class="text-danger" />
         </div>
 
         <div class="form-group" style="margin-bottom: 10px;">
@@ -82,7 +78,6 @@
                 <option>Female</option>
                 <option>Other</option>
             </select>
-            <span asp-validation-for="Sex" class="text-danger" />
         </div>
 
     </div>
@@ -90,60 +85,53 @@
 
         <div class="form-group">
             <input asp-for="Age" class="form-control"></input>
-            <span asp-validation-for="Age" class="text-danger" />
         </div>
 
         <div class="form-group">
             <input asp-for="LicenseNumber" class="form-control"></input>
-            <span asp-validation-for="LicenseNumber" class="text-danger" />
         </div>
 
         <div class="form-group">
             <input asp-for="LicenseYear" class="form-control"></input>
-            <span asp-validation-for="LicenseYear" class="text-danger" />
         </div>
 
         <div class="form-group">
             <input asp-for="RabbiesVacNo" class="form-control"></input>
-            <span asp-validation-for="RabbiesVacNo" class="text-danger" />
         </div>
 
         <div class="form-group">
-            <input asp-for="RabbiesVacExp" class="form-control"></input>
-            <span asp-validation-for="RabbiesVacExp" class="text-danger" />
+            <input asp-for="RabbiesVacExp" class="form-control datepicker" readonly></input>
         </div>
 
     </div>
     </div>
 
     <div class="form-group" class="col-md-12" style="margin-bottom: 10px;">
-        <select asp-for="Veterinarian" data-style="btn-info" class="selectpicker form-control" title="Veterinarian" data-dropup-auto="false">
-            <option>VCA Met Vet West Animal Hospital, 5309 Campbells Run Rd</option>
-            <option>Penn Animal Hospital, 2205 Penn Ave</option>
+        <select asp-for="Veterinarian" data-style="btn-info" class="selectpicker form-control" title="Veterinarian" data-live-search="true" data-dropup-auto="false">
+            <option>Animal Friends, 562 Camp Horne Rd</option>
             <option>Banfield Pet Hospital, 5986 Centre Ave</option>
-            <option>The Big Easy Animal Hospital, 12 McCandless Ave</option>
-            <option>Greenfield Veterinary Hospital, 611 Greenfield Ave</option>
-            <option>Point Breeze Veterinary Clinic, 6742 Reynolds St</option>
-            <option>VCA Castle Shannon Animal Hospital, 3610 Library Rd</option>
-            <option>Spay Neuter Clinic, 11675 Frankstown Rd. Penn Hills</option>
-            <option>Edgebrook Veterinary Clinic, 1405 Saw Mill Run Blvd</option>
-            <option>Vetco, 976 Freeport Rd PGH 15238</option>
-            <option>Harts Run Veterinary Hospital, 728 Dorseyville Rd</option>
-            <option>East End Veterinary Medical Centre, 5875 Ellsworth Ave</option>
             <option>Cat Clinic and Hospital, 5170 Liberty Ave</option>
+            <option>East End Veterinary Medical Centre, 5875 Ellsworth Ave</option>
+            <option>Edgebrook Veterinary Clinic, 1405 Saw Mill Run Blvd</option>
+            <option>Greenfield Veterinary Hospital, 611 Greenfield Ave</option>
+            <option>Harts Run Veterinary Hospital, 728 Dorseyville Rd</option>
             <option>Humane Animal Rescue East, 6966 Hamilton Ave</option>
             <option>Humane Animal Rescue North, 1101 Western Ave</option>
-            <option>Animal Friends, 562 Camp Horne Rd</option>
+            <option>Penn Animal Hospital, 2205 Penn Ave</option>
+            <option>Point Breeze Veterinary Clinic, 6742 Reynolds St</option>
+            <option>Spay Neuter Clinic, 11675 Frankstown Rd. Penn Hills</option>
+            <option>The Big Easy Animal Hospital, 12 McCandless Ave</option>
+            <option>VCA Castle Shannon Animal Hospital, 3610 Library Rd</option>
+            <option>VCA Met Vet West Animal Hospital, 5309 Campbells Run Rd</option>
+            <option>Vetco, 976 Freeport Rd PGH 15238</option>
             <option>Other</option>
         </select>
-        <span asp-validation-for="Veterinarian" class="text-danger" />
     </div>
 
 
     <div class="form-group" class="col-md-12">
         <div>
             <textarea rows="3" asp-for="Comments" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
-            <span asp-validation-for="Comments" class="text-danger" />
         </div>
     </div>
   </div>

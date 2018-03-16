@@ -2,6 +2,7 @@
     ViewData["Title"] = "Incident";
 }
 <link rel="stylesheet" href="~/css/datatables.css">
+<link rel="stylesheet" href="~/css/datepicker.css" />
 
 <div class="row">
     <div class="col-md-6 col-xs-12">
@@ -13,7 +14,7 @@
     </div>
     <div class="col-md-6 hidden-sm hidden-xs">
         <br>
-        <div id="map" style="height: 400px; width: 100%;"></div>
+        <div id="map" style="height: 400px; width: 100%; margin-top:15px;"></div>
         <div id="infowindow-content">
             <span id="place-address"></span><br>
             <span id="place-id"></span>
@@ -118,5 +119,6 @@
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/datatables.js"></script>
 <script type="text/javascript" src="~/js/jqueryUI.js"></script>
+<script type="text/javascript" src="~/js/datepicker.js"></script>
 <script type="text/javascript" src="~/js/report.js"></script>
 <script src=@ViewData["apistring"] async defer ></script>

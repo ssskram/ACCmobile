@@ -2,9 +2,7 @@
     ViewData["Title"] = "Animals";
 }
 @Html.Hidden("RedirectHome", Url.Action("Index", "Home"))
-
-<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="~/js/animal.js"></script>
+<link rel="stylesheet" href="~/css/datepicker.css" />
 
 <div class="row">
     <div class="col-md-8 incidentsummary">
@@ -40,3 +38,8 @@
 <br>
 <a class="btn btn-link overlaytrigger" id="complete" onclick="returnHome()" style="display:none; font-size: 16px; margin-top: 10px;"><span></span></a>
 </form>
+
+<script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="~/js/jqueryUI.js"></script>
+<script type="text/javascript" src="~/js/datepicker.js"></script>
+<script type="text/javascript" src="~/js/animal.js"></script>

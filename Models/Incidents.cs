@@ -42,6 +42,7 @@ namespace ACCmobile.Models
         [Display(Prompt = "Call Origin")]
         public string CallOrigin { get; set; }
         public string OfficersRelay { get; set; }
+        public string Open { get; set; }
         
         // begin hidden fields
         public string IncidentID { get; set; }
@@ -151,6 +152,7 @@ namespace ACCmobile.Models
         public string OfficersRelay { get; set; }
         public string Officers { get; set; }
         public string ModifiedBy { get; set; }
+        public string Open { get; set; }
     }
     
     public class GetAnimal

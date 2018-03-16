@@ -1,5 +1,10 @@
 // this document contains the client side functions for get/report
 
+// datepicker
+$('.datepicker').datepicker({
+    format: "mm/dd/yyyy"
+});  
+
 // datatable 
 $.fn.dataTable.moment( 'MM/DD/YYYY HH:mm');
 var table = $("#dt").DataTable({

@@ -40,7 +40,7 @@ html, body, .container, .row, #column {
 /* right button on home page */
 .right {
   position: sticky;
-  top: 25%;
+  top: 15%;
   padding: 0;
   margin: 0;
 }

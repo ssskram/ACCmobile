@@ -106,6 +106,18 @@
         </div>
     </div>
 
+<div class="form-group" style="margin-bottom: 10px;">
+    <div class="col-md-12">
+        <div style="margin-left: 5px; padding-top: 5px;">Keep open?</div>
+        <select asp-for="Open" data-style="btn-info" class="selectpicker form-control" title="">
+            <option>@Model.Open</option>
+            <option data-divider="true"></option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </div>
+</div>
+
     <!-- begin hidden fields -->
     <input asp-for="itemID" hidden>
     <input asp-for="ReasonForVisitRelay" id="reason" hidden></input>

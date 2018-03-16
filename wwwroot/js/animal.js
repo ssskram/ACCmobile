@@ -1,5 +1,10 @@
 // this document contains the client side functions for the animal form
 
+// datepicker
+$('.datepicker').datepicker({
+    format: "mm/dd/yyyy"
+});  
+
 // load bootstrap-select dropdowns
 // if mobile, default to native mobile menu
 $( document ).ready(function() {

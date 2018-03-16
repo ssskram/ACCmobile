@@ -26,8 +26,6 @@ namespace ACCmobile.Controllers
         // get all incidents
         public async Task<IActionResult> All()
         {
-            // empty string to populate with heat map coords
-            string HeatMapData = "";
             // list to populate with "paper" and electronic incidents
             List<AllIncidents> Advises = new List<AllIncidents>();
 
@@ -47,14 +45,6 @@ namespace ACCmobile.Controllers
                     Coords = item.Geo
                 };
                 Advises.Add(adv);
-                // write coords to heatmap data if incident occured within last year
-                if (dt.Year == DateTime.Now.Year - 2)
-                {
-                    string coord = adv.Coords.ToString();
-                    var clean = Regex.Replace(coord, "[()]", "");
-                    var bracketed = "[" + clean + "],";
-                    HeatMapData += bracketed;
-                }
             }
 
             // get and set incidents
@@ -79,21 +69,8 @@ namespace ACCmobile.Controllers
                     Coords = item.AddressID
                 };
                 Advises.Add(adv);
-
-                // write coords to heatmap data if incident occured within last year
-                if (easternTime.Year == DateTime.Now.Year - 2)
-                {
-                    string coord = adv.Coords.ToString();
-                    var clean = Regex.Replace(coord, "[()]", "");
-                    var bracketed = "[" + clean + "],";
-                    HeatMapData += bracketed;
-                }
             }
 
-            // clean and set heatmap data
-            HeatMapData = HeatMapData.TrimEnd(',');
-            var done = "[" + HeatMapData + "]";
-            ViewBag.heatmap = done;
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistring"] =
                 String.Format
@@ -101,6 +78,45 @@ namespace ACCmobile.Controllers
                     googleapikey); // 0
 
             return View("~/Views/Incidents/Get/All.cshtml", Advises);
+        }
+
+        // get open incidents
+        public async Task<IActionResult> Open()
+        {
+            // list to populate with electronic incidents
+            List<AllIncidents> Advises = new List<AllIncidents>();
+
+            // get and set incidents
+            await GetOpenIncidents();
+            var electroniccontent = GetOpenIncidents().Result;
+            dynamic ElectronicIncidents = JObject.Parse(electroniccontent)["value"];
+            foreach (var item in ElectronicIncidents)
+            {
+                string Link =
+                    String.Format
+                    ("Report?id={0}",
+                    item.AdvisoryID); // 0
+                DateTime utc_date = item.Created;
+                DateTime easternTime = utc_date.AddHours(-4);
+                var dateformat = "MM/dd/yyyy HH:mm";
+                AllIncidents adv = new AllIncidents()
+                {
+                    Link = Link,
+                    Date = easternTime.ToString(dateformat),
+                    Address = item.Address,
+                    id = item.Id,
+                    Coords = item.AddressID
+                };
+                Advises.Add(adv);
+            }
+
+            var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
+            ViewData["apistring"] =
+                String.Format
+                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
+                    googleapikey); // 0
+
+            return View("~/Views/Incidents/Get/Today.cshtml", Advises);
         }
 
         // get single incident
@@ -129,8 +145,17 @@ namespace ACCmobile.Controllers
                 SubmittedBy = incidentitem.SubmittedBy,
                 ModifiedBy = incidentitem.ModifiedBy,
                 Officers = incidentitem.Officers,
-                itemID = incidentitem.Id
+                itemID = incidentitem.Id,
+                Open = incidentitem.Open
             };
+            if (incidentitem.Open == "Yes")
+            {
+                ViewBag.Open = ("Open incident");
+            }
+            else
+            {
+                ViewBag.Open = "Closed incident";
+            }
             // clean coords for map
             char[] comma = {',',' '};
             string coord = incidentitem.AddressID;
@@ -195,6 +220,20 @@ namespace ACCmobile.Controllers
             await refreshtoken();
             var token = refreshtoken().Result;
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
+        }
+
+        // get open incidents
+        public async Task<string> GetOpenIncidents()
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items?$filter=Open eq 'Yes'";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Authorization =
@@ -432,7 +471,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
             var json =
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}' }}",
                     model.OwnersFirstName, // 0
                     model.OwnersLastName, // 1
                     model.OwnersTelephoneNumber, // 2
@@ -446,7 +485,8 @@ namespace ACCmobile.Controllers
                     model.CallOrigin, // 10
                     model.Address, // 11
                     SubmittedBy, // 12
-                    model.Officers); // 13
+                    model.Officers, // 13
+                    model.Open); // 14
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post
@@ -562,7 +602,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("IF-MATCH", "*");
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}', 'Officers' : '{8}', 'ModifiedBy' : '{9}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}', 'Officers' : '{8}', 'ModifiedBy' : '{9}', 'Open' : '{10}' }}",
                     model.OwnersFirstName, // 0
                     model.OwnersLastName, // 1
                     model.OwnersTelephoneNumber, // 2
@@ -572,7 +612,8 @@ namespace ACCmobile.Controllers
                     model.Comments, // 6
                     model.CallOrigin, // 7
                     model.OfficersRelay, // 8
-                    ModifiedBy); // 9
+                    ModifiedBy, // 9
+                    model.Open); // 10
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post

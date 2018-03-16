@@ -1,13 +1,14 @@
 @model GetIncident
 <div id="id" hidden>@Model.IncidentID</div>
 <br>
+<h4 class="incidentheader" style="color: #973b3b">@ViewBag.Open</h4>
 <h4 class="incidentheader" id="address">@Model.Address</h4>
 <a class="btn btn-link" id="incidentbutton">> Edit incident</a>
 <input class="btn btn-link overlaytrigger" type="submit" value="> Add animal" id="animaladd"></input>
 <table class="table" id="incidenttable">
   <tbody>
     <tr>
-      <th style="width: 30%; border:none;" scope="row">Incident Date</th>
+      <th style="width: 30%; border:none;" scope="row">Date</th>
       <td style="border:none;">@Model.Date</td>
     </tr>
     <tr>
