@@ -43,6 +43,7 @@ namespace ACCmobile.Controllers
                     Link = item.link,
                     Date = item.Date,
                     Address = item.address,
+                    id = item.Id,
                     Coords = item.Geo
                 };
                 Advises.Add(adv);
@@ -74,6 +75,7 @@ namespace ACCmobile.Controllers
                     Link = Link,
                     Date = easternTime.ToString(dateformat),
                     Address = item.Address,
+                    id = item.Id,
                     Coords = item.AddressID
                 };
                 Advises.Add(adv);
@@ -125,6 +127,8 @@ namespace ACCmobile.Controllers
                 Coords = incidentitem.AddressID,
                 Date = easternTime.ToString(dateformat),
                 SubmittedBy = incidentitem.SubmittedBy,
+                ModifiedBy = incidentitem.ModifiedBy,
+                Officers = incidentitem.Officers,
                 itemID = incidentitem.Id
             };
             // clean coords for map
@@ -428,7 +432,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
             var json =
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}' }}",
                     model.OwnersFirstName, // 0
                     model.OwnersLastName, // 1
                     model.OwnersTelephoneNumber, // 2
@@ -440,7 +444,9 @@ namespace ACCmobile.Controllers
                     model.IncidentID, // 8
                     SubmittedBy, //9
                     model.CallOrigin, // 10
-                    model.Address); // 11
+                    model.Address, // 11
+                    SubmittedBy, // 12
+                    model.Officers); // 13
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post
@@ -518,6 +524,13 @@ namespace ACCmobile.Controllers
     {
         HttpClient client = new HttpClient();
 
+
+        private readonly UserManager<ApplicationUser> _userManager;
+        public UpdateIncident(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
         // add another animal to an existing incident
         public IActionResult AddAnother(GetIncident model)
         {
@@ -535,6 +548,7 @@ namespace ACCmobile.Controllers
         {
             await refreshtoken();
             var token = refreshtoken().Result;
+            string ModifiedBy = _userManager.GetUserName(HttpContext.User);
             var postUrl = 
                 string.Format
                 ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items({0})",
@@ -548,7 +562,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("IF-MATCH", "*");
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}', 'Officers' : '{8}', 'ModifiedBy' : '{9}' }}",
                     model.OwnersFirstName, // 0
                     model.OwnersLastName, // 1
                     model.OwnersTelephoneNumber, // 2
@@ -556,7 +570,9 @@ namespace ACCmobile.Controllers
                     model.PGHCodeRelay, // 4
                     model.CitationNumber, // 5
                     model.Comments, // 6
-                    model.CallOrigin); // 7
+                    model.CallOrigin, // 7
+                    model.OfficersRelay, // 8
+                    ModifiedBy); // 9
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post

@@ -41,6 +41,7 @@ namespace ACCmobile.Models
         public string Comments { get; set; }
         [Display(Prompt = "Call Origin")]
         public string CallOrigin { get; set; }
+        public string OfficersRelay { get; set; }
         
         // begin hidden fields
         public string IncidentID { get; set; }
@@ -48,6 +49,7 @@ namespace ACCmobile.Models
         public string PGHCode { get; set; }
         public string Address { get; set; }
         public string Coords { get; set; }
+        public string Officers { get; set; }
     }
 
     public class NewAnimal
@@ -104,6 +106,7 @@ namespace ACCmobile.Models
     public class AllIncidents
     {
         public string Link { get; set; }
+        public string id { get; set; }
         public string Date { get; set; }
         public string Address { get; set; }
         public string Coords { get; set; }
@@ -145,6 +148,9 @@ namespace ACCmobile.Models
         public string AnimalName { get; set; }
         public string AnimalComments { get; set; }
         public string animalitemID { get; set; }
+        public string OfficersRelay { get; set; }
+        public string Officers { get; set; }
+        public string ModifiedBy { get; set; }
     }
     
     public class GetAnimal

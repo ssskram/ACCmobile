@@ -28,7 +28,11 @@
 </div>
 <div class="row" style="margin-top:15px;">
     <div class="col-md-12">
-    <table id="dt" class="table table-striped dataTable" cellspacing="0">
+    <div>
+    <button id="btn-show-all-children" class="btn btn-link" type="button">> Expand all</button>
+    <button id="btn-hide-all-children" class="btn btn-link" type="button">> Collapse all</button>
+    </div>
+    <table id="dt" class="table table-striped dataTable" cellspacing="0" width="100%">
         <thead>
         </tr>
             <tr>
@@ -86,7 +90,7 @@
             <div id="vet">@Animal.Veterinarian</div>
             </td>
             <td>
-            <div id="comments">@Animal.Comments</div>
+            <div id="comments" class="wordwrap">@Animal.Comments</div>
             </td> 
             <td>    
             <div class="animaledit"><a class="btn btn-link" style="width:100%">Edit</a></div>

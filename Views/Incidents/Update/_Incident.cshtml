@@ -59,7 +59,7 @@
 
     <div class="form-group" style="margin-bottom: 10px;">
         <div class="col-md-12">
-            <div style="margin-left: 5px; padding-top: 5px;">ADV. PGH Code(s)</div>
+            <div style="margin-left: 5px; padding-top: 5px;">ADV. PGH code(s)</div>
             <select asp-for="PGHCode" data-style="btn-info" multiple class="selectpicker form-control" data-selected-text-format="count > 3" id="coderelay" data-size="7" Title="">
                 <option>@Model.PGHCode</option>
                 <option data-divider="true"></option>
@@ -87,6 +87,18 @@
         </div>
     </div>
 
+    <div class="form-group" style="margin-bottom: 10px;">
+        <div class="col-md-12">
+            <div style="margin-left: 5px; padding-top: 5px;">Officers involved</div>
+            <select data-style="btn-info" multiple class="selectpicker form-control" data-selected-text-format="count > 3" id="officersrelay" data-size="7" Title="">
+                <option>@Model.Officers</option>
+                <option data-divider="true"></option>
+                <option>PM</option>
+                <option>CC</option>
+            </select>
+        </div>
+    </div>
+
     <div class="form-group">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Comments</div>
@@ -98,6 +110,7 @@
     <input asp-for="itemID" hidden>
     <input asp-for="ReasonForVisitRelay" id="reason" hidden></input>
     <input asp-for="PGHCodeRelay" id="code" hidden></input>
+    <input asp-for="OfficersRelay" id="officers" hidden></input>
 
 
     <div class="text-center">

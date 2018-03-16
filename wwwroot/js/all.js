@@ -7,13 +7,14 @@ var table = $("#dt").DataTable({
     searching: true,
     paging: true,
     ordering: true,
-    order: [[ 1, "desc" ]],
+    order: [[ 2, "desc" ]],
     bLengthChange: false,
     language: {
         emptyTable: "No incidents"
     },
     columnDefs: [
-        { orderable: false, targets: 0 }
+        { orderable: false, targets: 0 },
+        { orderable: false, targets: 1 }
     ]
 });
 new $.fn.dataTable.Responsive( table, {} );

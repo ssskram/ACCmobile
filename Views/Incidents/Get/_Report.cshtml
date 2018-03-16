@@ -2,6 +2,8 @@
 <div id="id" hidden>@Model.IncidentID</div>
 <br>
 <h4 class="incidentheader" id="address">@Model.Address</h4>
+<a class="btn btn-link" id="incidentbutton">> Edit incident</a>
+<input class="btn btn-link overlaytrigger" type="submit" value="> Add animal" id="animaladd"></input>
 <table class="table" id="incidenttable">
   <tbody>
     <tr>
@@ -9,32 +11,40 @@
       <td style="border:none;">@Model.Date</td>
     </tr>
     <tr>
-      <th scope="row">Owners Name</th>
+      <th scope="row">Owners name</th>
       <td>@Model.OwnersFirstName @Model.OwnersLastName</td>
     </tr>
     <tr>
-      <th scope="row">Telephone Number</th>
+      <th scope="row">Telephone number</th>
       <td>@Model.OwnersTelephoneNumber</td>
     </tr>
     <tr>
-      <th scope="row">Call Origin</th>
+      <th scope="row">Call origin</th>
       <td>@Model.CallOrigin</td>
     </tr>
     <tr>
-      <th scope="row">Reason(s) For Visit</th>
+      <th scope="row">Reason(s) For visit</th>
       <td>@Model.ReasonForVisit</td>
     </tr>
     <tr>
-      <th scope="row">PGH Code(s)</th>
+      <th scope="row">PGH code(s)</th>
       <td>@Model.PGHCode</td>
     </tr>
     <tr>
-      <th scope="row">Citation Number</th>
+      <th scope="row">Citation number</th>
       <td>@Model.CitationNumber</td>
+    </tr>
+    <tr>
+      <th scope="row">Officers involved</th>
+      <td>@Model.Officers</td>
     </tr>
     <tr>
       <th scope="row">Submitted by</th>
       <td>@Model.SubmittedBy</td>
+    </tr>
+    <tr>
+      <th scope="row">Last modified by</th>
+      <td>@Model.ModifiedBy</td>
     </tr>
   </tbody>
 </table>
@@ -47,6 +57,3 @@
 <input asp-for="OwnersLastName" value="@Model.OwnersLastName" hidden></input>
 <input asp-for="ReasonForVisit" value="@Model.ReasonForVisit" hidden></input>
 <textarea asp-for="Comments" value="@Model.Comments" hidden></textarea>
-
-<a class="btn btn-link" id="incidentbutton">> Edit incident</a>
-<input class="btn btn-link overlaytrigger" type="submit" value="> Add animal" id="animaladd"></input>

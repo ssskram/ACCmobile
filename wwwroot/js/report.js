@@ -48,7 +48,7 @@ $( "#incidentbutton" ).on( "click", function() {
         height: 550,
         modal: true,
         resizable: true,
-        title: "Update incident",
+        title: "Edit incident information",
         autoOpen: false,
         create: function( event, ui ) {
             $('.ui-dialog').append('<span class="ui-dialog-titlebar ui-dialog-bottomdrag"></span>');
@@ -114,7 +114,7 @@ var dialog = function() {
         height: 550,
         modal: true,
         resizable: true,
-        title: "Edit animal information (coming soon!)",
+        title: "Edit animal information",
         autoOpen: false,
         create: function( event, ui ) {
             $('.ui-dialog').append('<span class="ui-dialog-titlebar ui-dialog-bottomdrag"></span>');
@@ -157,6 +157,15 @@ function putIncident()
     else
     {
         $('#code').val( $('#coderelay').val());
+    }
+    if ($('#officersrelay').val() != null)
+    {
+        var officers = $('#officersrelay').val().toString().split(',').join(', ');
+        $('#officers').val( officers );
+    }
+    else
+    {
+        $('#officers').val( $('#officersrelay').val());
     }
     var data = $('#update').serialize();
     $.ajax(
@@ -240,3 +249,15 @@ function enableButton () {
         $("#submit").prop("disabled",true);
     }
 }
+
+// expand and collapse all rows on button
+$('#btn-show-all-children').on('click', function(){
+    // Expand
+    table.rows(':not(.parent)').nodes().to$().find('td:first-child').trigger('click');
+});
+
+// Handle click on "Collapse All" button
+$('#btn-hide-all-children').on('click', function(){
+    // Collapse
+    table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
+});

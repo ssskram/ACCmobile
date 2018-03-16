@@ -50,6 +50,15 @@ $('#submit').click(function(){
     {
         $('#code').val( $('#coderelay').val());
     }
+    if ($('#officersrelay').val() != null)
+    {
+        var officers = $('#officersrelay').val().toString().split(',').join(', ');
+        $('#officers').val( officers );
+    }
+    else
+    {
+        $('#officers').val( $('#officersrelay').val());
+    }
 });
 });
 
