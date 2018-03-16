@@ -26,6 +26,9 @@ namespace ACCmobile.Controllers
         // get all incidents
         public async Task<IActionResult> All()
         {
+            // instantiate empty string to populate with heat map coords
+            string HeatMapData = "";
+
             // list to populate with "paper" and electronic incidents
             List<AllIncidents> Advises = new List<AllIncidents>();
 
@@ -45,6 +48,14 @@ namespace ACCmobile.Controllers
                     Coords = item.Geo
                 };
                 Advises.Add(adv);
+                // write coords to heatmap data if incident occured within last year
+                if (dt.Year == DateTime.Now.Year - 2)
+                {
+                    string coord = adv.Coords.ToString();
+                    var clean = Regex.Replace(coord, "[()]", "");
+                    var bracketed = "[" + clean + "],";
+                    HeatMapData += bracketed;
+                }
             }
 
             // get and set incidents
@@ -69,8 +80,20 @@ namespace ACCmobile.Controllers
                     Coords = item.AddressID
                 };
                 Advises.Add(adv);
+                // write coords to heatmap data if incident occured within last year
+                if (easternTime.Year == DateTime.Now.Year - 2)
+                {
+                    string coord = adv.Coords.ToString();
+                    var clean = Regex.Replace(coord, "[()]", "");
+                    var bracketed = "[" + clean + "],";
+                    HeatMapData += bracketed;
+                }
             }
-
+            
+            // clean and set heatmap data
+            HeatMapData = HeatMapData.TrimEnd(',');
+            var done = "[" + HeatMapData + "]";
+            ViewBag.heatmap = done;
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistring"] =
                 String.Format
@@ -83,6 +106,9 @@ namespace ACCmobile.Controllers
         // get open incidents
         public async Task<IActionResult> Open()
         {
+            // instantiate empty string to populate with coords
+            string Points = "";
+
             // list to populate with electronic incidents
             List<AllIncidents> Advises = new List<AllIncidents>();
 
@@ -108,15 +134,25 @@ namespace ACCmobile.Controllers
                     Coords = item.AddressID
                 };
                 Advises.Add(adv);
+                string coord = adv.Coords.ToString();
+                string itemID = adv.id.ToString();
+                string merged = coord + "," + itemID;
+                var clean = Regex.Replace(merged, "[()]", "");
+                var bracketed = "[" + clean + "],";
+                Points += bracketed;
             }
 
+            // clean and set points data
+            Points = Points.TrimEnd(',');
+            var done = "[" + Points + "]";
+            ViewBag.points = done;
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistring"] =
                 String.Format
                 ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
                     googleapikey); // 0
 
-            return View("~/Views/Incidents/Get/Today.cshtml", Advises);
+            return View("~/Views/Incidents/Get/Open.cshtml", Advises);
         }
 
         // get single incident
@@ -165,6 +201,11 @@ namespace ACCmobile.Controllers
             string lng = coord_clean.Split(' ').Last();
             ViewBag.Lat = lat;
             ViewBag.Long = lng;
+            string encodedaddress = System.Web.HttpUtility.UrlPathEncode(incidentitem.Address.ToString()); 
+            ViewBag.directions = 
+                String.Format
+                ("https://www.google.com/maps/dir/?api=1&destination={0}",
+                    encodedaddress); // 0
             await GetAnimals(id);
             var animalcontent = GetAnimals(id).Result;
             dynamic animalitems = JObject.Parse(animalcontent)["value"];

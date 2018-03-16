@@ -1,4 +1,4 @@
-// this document contains the client side functions for the get/all view
+// this document contains the client side functions for the get/open view
 
 // datepicker
 $('.datepicker').datepicker({
@@ -48,6 +48,7 @@ var $dates2 = $('#datesearch2').datepicker();
 $('#clear').on('click', function () {
   $dates.datepicker('setDate', null);
   $dates2.datepicker('setDate', null);
+  table.columns( 1 ).search("").draw();
   $('#search').val('');
   $('#search').keyup();
 });
@@ -60,55 +61,56 @@ $('#clear').on('click', function () {
 // on successful autocomplete, pass to infowindow data from first row on table (most recent acitivity at address)
 // if nothing exists in table, return 404 to infowindow
 var map;
+var i;
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.426150, lng: -79.986672},
+    center: {lat: 40.436288, lng: -79.994808},
     zoom: 11
   });
 
   // reset map
   $('#clear').on('click', function () {
-    map.setCenter({lat: 40.426150, lng: -79.986672}); 
+    map.setCenter({lat: 40.436288, lng: -79.994808}); 
     map.setZoom(11);
     infowindow.close();
   });
 
-  var gradient = [
-    'rgba(0, 255, 255, 0)',
-    'rgba(0, 255, 255, 1)',
-    'rgba(0, 191, 255, 1)',
-    'rgba(0, 127, 255, 1)',
-    'rgba(0, 63, 255, 1)',
-    'rgba(0, 0, 255, 1)',
-    'rgba(0, 0, 223, 1)',
-    'rgba(0, 0, 191, 1)',
-    'rgba(0, 0, 159, 1)',
-    'rgba(0, 0, 127, 1)',
-    'rgba(63, 0, 91, 1)',
-    'rgba(127, 0, 63, 1)',
-    'rgba(191, 0, 31, 1)',
-    'rgba(255, 0, 0, 1)'
-  ]
-  heatmap = new google.maps.visualization.HeatmapLayer({
-    data: [],
-    dissipating: true,
-    gradient: gradient,
-    radius: 8,
-    opacity: .4,
-    map: map
-  });
-
   var jsonArray = [];
+  var itemid;
   var points = $('#mapdata').text();
   $.each(JSON.parse(points), function(i, jsondata) {
     var jsonObject = {};
     jsonObject.lat = jsondata[0];
     jsonObject.long = jsondata[1];
-    jsonArray.push(new google.maps.LatLng(jsonObject.lat, jsonObject.long));
+    var itemid = jsondata[2];
+    latlng = new google.maps.LatLng(jsonObject.lat, jsonObject.long);
+    var icon = {
+      url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png", 
+      scaledSize: new google.maps.Size(35, 35), 
+    };
+    var marker = new google.maps.Marker(
+      {        
+      position: latlng,
+      map: map, 
+      optimized: false,
+      icon: icon
+      });
+    marker.addListener('click', function() {
+      map.setCenter(this.getPosition()); 
+      map.setZoom(16);
+      table.columns( 1 ).search( itemid ).draw();
+      address = $ ( "td" ).eq(3).find( "#addressrelay" ).text();
+      date = $ ( "td" ).eq(2).find( "#date" ).text();
+      href = $( "td" ).first().find( 'a' ).attr('href');
+      href_formatted = '<a href="'+ href +'" target="_blank">Open report</a>'
+      infowindowContent.children['place-address'].textContent = address;
+      infowindowContent.children['status'].innerHTML = "  Open incident";
+      infowindowContent.children['date'].textContent = date;
+      infowindowContent.children['link'].innerHTML = href_formatted;
+      infowindow.open(map, marker);
+
+    });
   });
-  var pointArray = new google.maps.MVCArray(jsonArray);
-  heatmap.setData(pointArray);
-  heatmap.setMap(map);
 
   var card = document.getElementById('addresscontainer');
   var input = document.getElementById('search');
@@ -172,7 +174,7 @@ function initMap() {
     date = $ ( "td" ).eq(2).find( "#date" ).text();
     href = $( "td" ).first().find( 'a' ).attr('href');
     href_formatted = '<a href="'+ href +'" target="_blank">Open report</a>'
-    nothing = "No documented activity at this address"
+    nothing = "No open incidents at this address"
     something = "Most recent activity near here:"
     infowindowContent.children['place-address'].textContent = address;
     if (href != null)

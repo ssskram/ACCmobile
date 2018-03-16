@@ -111,6 +111,7 @@ namespace ACCmobile.Models
         public string Date { get; set; }
         public string Address { get; set; }
         public string Coords { get; set; }
+        public string googledir { get; set; }
     }
 
     public class GetIncident

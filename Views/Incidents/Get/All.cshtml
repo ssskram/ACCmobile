@@ -2,6 +2,7 @@
     ViewData["Title"] = "Incidents";
 }
 @model List<AllIncidents>
+<div style="display:none;" id="mapdata">@ViewBag.heatmap</div>
 <link rel="stylesheet" href="~/css/datatables.css">
 <link rel="stylesheet" href="~/css/datepicker.css" />
 
@@ -43,14 +44,14 @@
     <div id="row" class="hidden-sm hidden-xs">
         <div class="addresscontainer" id="addresscontainer" style="margin: 10px;">
             <div class="col-md-2 text-center" style="margin-top: 6px;">
-                <input id="clear" value="Clear" type="button" class="btn btn-clear" >
+                <input id="clear" value="Clear" type="button" class="btn btn-clear" style="display:none;" >
             </div>
             <div class="col-md-3 text-center">
-                <input id="datesearch" placeholder="Select a date" class="form-control datepicker" readonly type="text" style="box-shadow: 3px 3px 3px;">
+                <input id="datesearch" placeholder="Select a date" class="form-control datepicker" readonly type="text" style="box-shadow: 3px 3px 3px; display:none;">
             </div>
             <div class="col-md-7 text-center">
-                <input id="search" placeholder="Enter an address" class="form-control" type="text" style="box-shadow: 3px 3px 3px;">
-            </div>
+                <input id="search" placeholder="Enter an address" class="form-control" type="text" style="box-shadow: 3px 3px 3px; display:none;">
+            </div>     
         </div>
     </div>
 </form>

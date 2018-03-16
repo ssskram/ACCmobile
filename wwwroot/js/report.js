@@ -24,9 +24,11 @@ new $.fn.dataTable.Responsive( table, {} );
 // locate incident on map
 // set infowindow content to incident address, and incident guid
 var map, infoWindow;
+var href = $( "#href" ).text();
 var address = $ ( "#address" ).text();
 var incidentid = $ ( "#id" ).text();
-var content = "<b>" + address + "</b> <br/>Incident ID:<br/>" + incidentid;
+var link = '<a href="'+ href +'" target="_blank" style="font-size: 16px;">Take me there</a>'
+var content = "<b>" + address + "</b> <br/>Incident ID:<br/>" + incidentid + "<br/>" + link;
 var lat = parseFloat(document.getElementById('lat').value);
 var lng = parseFloat(document.getElementById('lng').value);
 var lat_lng = {lat: lat, lng: lng};
