@@ -78,8 +78,22 @@
 <div class="form-group" style="margin-bottom: 10px;">
     <div class="col-md-12">
         <select asp-for="OfficersRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Officers involved" data-selected-text-format="count > 4" data-dropup-auto="false" id="officersrelay">
-            <option>PM</option>
+            <option>BG</option>
             <option>CC</option>
+            <option>DD</option>
+            <option>DE</option>
+            <option>DM</option>
+            <option>DS</option>
+            <option>JG</option>
+            <option>JL</option>
+            <option>JLE</option>
+            <option>KJ</option>
+            <option>LM</option>
+            <option>PC</option>
+            <option>RH</option>
+            <option>RS</option>
+            <option>SC</option>
+            <option>TG</option>
         </select>
     </div>
 </div>
@@ -94,9 +108,9 @@
 
 <div class="form-group" style="margin-bottom: 10px;">
     <div class="col-md-12">
-        <select asp-for="Open" data-style="btn-info" class="selectpicker form-control" title="Keep open?" data-dropup-auto="false">
-            <option>Yes</option>
-            <option>No</option>
+        <select asp-for="Open" data-style="btn-info" class="selectpicker form-control" data-dropup-auto="false">
+            <option selected value="Yes">Open</option>
+            <option value="No">Closed</option>
         </select>
     </div>
 </div>

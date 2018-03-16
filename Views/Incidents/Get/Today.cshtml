@@ -3,6 +3,7 @@
 }
 @model List<AllIncidents>
 <link rel="stylesheet" href="~/css/datatables.css">
+<link rel="stylesheet" href="~/css/datepicker.css" />
 
 <form id="form">
     <div id="row" class="hidden-md hidden-lg hidden-xl">
@@ -39,13 +40,23 @@
         </table>
     </div>
     <div id="row" class="hidden-sm hidden-xs">
-        <div class="addresscontainer" id="addresscontainer" style="margin: 20px;">
-            <input id="search" placeholder="Enter an address" class="form-control" type="text" style="padding-top: 8px; padding-bottom: 8px; box-shadow: 5px 5px 5px; rgba(0, 0, 0, 0.4); display:none;">
+        <div class="addresscontainer" id="addresscontainer" style="margin: 10px;">
+            <div class="col-md-2 text-center" style="margin-top: 6px;">
+                <input id="clear" value="Clear" type="button" class="btn btn-clear" >
+            </div>
+            <div class="col-md-3 text-center">
+                <input id="datesearch" placeholder="Select a date" class="form-control datepicker" readonly type="text" style="box-shadow: 3px 3px 3px;">
+            </div>
+            <div class="col-md-7 text-center">
+                <input id="search" placeholder="Enter an address" class="form-control" type="text" style="box-shadow: 3px 3px 3px;">
+            </div>        
         </div>
     </div>
 </form>
 
 <script type="text/javascript" src="~/lib/jquery/dist/jquery.min.js"></script>
 <script type="text/javascript" src="~/js/datatables.js"></script>
+<script type="text/javascript" src="~/js/jqueryUI.js"></script>
+<script type="text/javascript" src="~/js/datepicker.js"></script>
 <script type="text/javascript" src="~/js/all.js"></script>
 <script src=@ViewData["apistring"] async defer ></script>

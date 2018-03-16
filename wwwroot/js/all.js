@@ -1,5 +1,10 @@
 // this document contains the client side functions for the get/all view
 
+// datepicker
+$('.datepicker').datepicker({
+  format: "mm/dd/yyyy"
+});  
+
 // datatable
 $.fn.dataTable.moment( 'MM/DD/YYYY HH:mm');
 var table = $("#dt").DataTable({
@@ -19,6 +24,7 @@ var table = $("#dt").DataTable({
 });
 new $.fn.dataTable.Responsive( table, {} );
 
+// search fields
 $("#search").keyup(function(){
     table.search( this.value ).draw();
     $( "td" ).css("background-color", "");
@@ -26,6 +32,24 @@ $("#search").keyup(function(){
 $("#search2").keyup(function(){
     table.search( this.value ).draw();
     $( "td" ).css("background-color", "");
+});
+$("#datesearch").change(function(){
+    table.search( this.value ).draw();
+    $( "td" ).css("background-color", "");
+});
+$("#datesearch2").change(function(){
+    table.search( this.value ).draw();
+    $( "td" ).css("background-color", "");
+});
+
+// clear search fields
+var $dates = $('#datesearch').datepicker();
+var $dates2 = $('#datesearch2').datepicker();
+$('#clear').on('click', function () {
+  $dates.datepicker('setDate', null);
+  $dates2.datepicker('setDate', null);
+  $('#search').val('');
+  $('#search').keyup();
 });
 
 // create map with visualization layer
@@ -45,7 +69,7 @@ function initMap() {
   var input = document.getElementById('search');
 
   map.controls[google.maps.ControlPosition.BOTTOM_CENTER].push(card);
-  $('#search').delay(1500).fadeIn(1000);
+  $('#addresscontainer').delay(1500).fadeIn(1000);
 
   var autocomplete = new google.maps.places.Autocomplete(input);
 
@@ -72,7 +96,6 @@ function initMap() {
   });
 
   autocomplete.addListener('place_changed', function() {
-    var ACcheck = $('#search').val();
     infowindow.close();
     marker.setVisible(false);
     var place = autocomplete.getPlace();
