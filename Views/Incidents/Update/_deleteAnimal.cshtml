@@ -1,0 +1,11 @@
+@model GetIncident
+<h4 class="text-center">
+    Are you sure you want to delete this animal?
+</h4>
+<form id="deleteanimal">
+    <input asp-for="animalitemID" id="animalitemid2" hidden></input>
+    <div class="text-center">
+        <input style="width: 60%; margin-top: 20px;" onclick="deleteAnimal()" value="Delete" class="btn btn-default overlaytrigger"/>
+    </div>
+</form>
+ 

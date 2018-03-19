@@ -233,9 +233,9 @@ namespace ACCmobile.Controllers
             ViewBag.Animals = Animals;
             var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
             ViewData["apistring"] =
-            String.Format
-            ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
-                googleapikey); // 0
+                String.Format
+                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
+                    googleapikey); // 0
             return View("~/Views/Incidents/Get/Report.cshtml", adv);
         }
 
@@ -643,7 +643,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("IF-MATCH", "*");
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}', 'Officers' : '{8}', 'ModifiedBy' : '{9}', 'Open' : '{10}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}', 'Officers' : '{8}', 'ModifiedBy' : '{9}', 'Open' : '{10}', 'AddressID' : '{11}', 'Address' : '{12}' }}",
                     model.OwnersFirstName, // 0
                     model.OwnersLastName, // 1
                     model.OwnersTelephoneNumber, // 2
@@ -654,7 +654,9 @@ namespace ACCmobile.Controllers
                     model.CallOrigin, // 7
                     model.OfficersRelay, // 8
                     ModifiedBy, // 9
-                    model.Open); // 10
+                    model.Open, // 10
+                    model.Coords,  // 11 
+                    model.AddressRelay); // 12
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post
@@ -717,6 +719,31 @@ namespace ACCmobile.Controllers
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
             }
+        }
+        public async Task DeleteAnimal(GetIncident model)
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            var deleteUrl = 
+                string.Format
+                ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items({0})",
+                model.animalitemID); // 0
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Authorization = 
+            new AuthenticationHeaderValue ( "Bearer", token);
+            client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add("IF-MATCH", "*");
+            try
+            {
+                HttpResponseMessage response = client.DeleteAsync(deleteUrl).Result;
+                response.EnsureSuccessStatusCode();
+                await response.Content.ReadAsStringAsync();
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.Message);
+            }   
         }
 
         public async Task LastModified(GetIncident model)

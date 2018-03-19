@@ -101,7 +101,7 @@ button.bs-placeholder[role='button']>span {
 }
 /* coloring success icon */
 .icon-textbox {
-    font-size: 1.8em; 
+    font-size: 1.5em; 
     color: #29a329;
     margin-top: 1px;  
 }
@@ -417,16 +417,6 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   .ui-dialog-title { 
     font-style: italic;
   }
-  .ui-dialog-bottomdrag {
-    position: absolute !important;
-    background-color: #fffaee;
-    height: 10px !important;
-    width: 99%;
-    bottom: 0px;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
 .wordwrap { 
     word-break: break-all; 
     word-wrap: break-word;

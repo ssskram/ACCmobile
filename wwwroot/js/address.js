@@ -87,8 +87,7 @@ function initMap() {
   $('#addresscontainer').delay(500).fadeIn(500);
 }
 
-// check for pittsburgh address
-// copy field entry into duplicate field to validate with string == string
+// copy validated field entry into duplicate field to validate with string == string
 function fillInAddress() {
   var autocomplete = $('#autocomplete').val();
   if (autocomplete !== null)

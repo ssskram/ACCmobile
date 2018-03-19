@@ -1,5 +1,26 @@
 @model GetIncident
-<form id="update">
+<form id="update" style="overflow:visible">
+<div class="form-group">
+    <div class="col-md-10" style="margin-bottom: 10px;">
+        <div style="margin-left: 5px;">Address</div>
+        <div class="right-inner-addon">
+        <input id="autocomplete" asp-for="Address" class="form-control" type="text" onchange="enableButton()">
+            <span class="glyphicon glyphicon-ok form-control-feedback icon-textbox" style="display:none;" id="checkmark" ></span>
+        </div>
+        <input asp-for="AddressRelay" id="addresscheck" hidden/>
+        <input asp-for="Coords" id="coords" hidden/>
+    </div>
+    <div class="col-md-2" style="margin-bottom: 10px;">
+        <div style="margin-left: 5px;">Keep open?</div>
+        <select asp-for="Open" data-style="btn-info" class="selectpicker form-control" title="">
+            <option>@Model.Open</option>
+            <option data-divider="true"></option>
+            <option>Yes</option>
+            <option>No</option>
+        </select>
+    </div>
+</div>
+<div class="col-md-6">
     <div class="form-group">
         <div class="col-md-12">
             <div style="margin-left: 5px;">Owner's last name</div>
@@ -35,10 +56,11 @@
             </select>
         </div>
     </div>
-
+</div>
+<div class="col-md-6">
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
-            <div style="margin-left: 5px; padding-top: 5px;">Reason(s) for visit</div>
+            <div style="margin-left: 5px">Reason(s) for visit</div>
             <select asp-for="ReasonForVisit" data-style="btn-info" multiple class="selectpicker form-control" title="" data-selected-text-format="count > 2" data-size="7" onchange="enableButton()" id="reasonrelay">
                 <option>@Model.ReasonForVisit</option>
                 <option data-divider="true"></option>
@@ -112,23 +134,12 @@
             </select>
         </div>
     </div>
+</div>
 
-    <div class="form-group">
-        <div class="col-md-12">
-            <div style="margin-left: 5px; padding-top: 5px;">Comments</div>
-            <textarea rows="3" asp-for="Comments" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
-        </div>
-    </div>
-
-<div class="form-group" style="margin-bottom: 10px;">
+<div class="form-group">
     <div class="col-md-12">
-        <div style="margin-left: 5px; padding-top: 5px;">Keep open?</div>
-        <select asp-for="Open" data-style="btn-info" class="selectpicker form-control" title="">
-            <option>@Model.Open</option>
-            <option data-divider="true"></option>
-            <option>Yes</option>
-            <option>No</option>
-        </select>
+        <div style="margin-left: 5px; padding-top: 5px;">Comments</div>
+        <textarea rows="3" asp-for="Comments" class="form-control" id="incidentcomments" onkeyup="textAreaAdjust(this)"></textarea>
     </div>
 </div>
 
@@ -139,7 +150,7 @@
     <input asp-for="OfficersRelay" id="officers" hidden></input>
 
 
-    <div class="text-center">
-        <input style="width: 60%; margin-top: 20px;"  onclick="putIncident()" value="Save" id="submit" class="btn btn-default overlaytrigger"/>
-    </div>
+<div class="col-md-12 text-center">
+    <input style="max-width: 250px; margin: 20px;"  onclick="putIncident()" value="Save" id="submitincident" class="btn btn-default overlaytrigger"/>
+</div>
 </form>

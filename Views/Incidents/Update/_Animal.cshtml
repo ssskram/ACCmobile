@@ -1,5 +1,6 @@
 @model GetIncident
-<form id="editanimal">
+<form id="editanimal" style="overflow:visible">
+<div class="col-md-6">
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px;">Animal's name</div>
@@ -96,10 +97,11 @@
             </select>  
         </div>
     </div>
-
+</div>
+<div class="col-md-6">
     <div class="form-group">
         <div class="col-md-12">
-            <div style="margin-left: 5px; padding-top: 5px;">Age</div>
+            <div style="margin-left: 5px;">Age</div>
             <input asp-for="Age" class="form-control" id="animalage">    
         </div>
     </div>
@@ -131,40 +133,41 @@
             <input asp-for="RabbiesVacExp" class="form-control datepicker" readonly id="animalrabbiesvacexp">  
         </div>
     </div>
+</div>
 
-    <div class="form-group" style="margin-bottom: 10px;">
-        <div class="col-md-12">
-            <div style="margin-left: 5px; padding-top: 5px;">Veterinarian</div>
-            <select asp-for="Veterinarian" data-style="btn-info" class="selectpicker form-control" data-live-search="true" title="" data-size="7"  data-dropup-auto="false" id="vetrelay">
-                <option></option>
-                <option data-divider="true"></option>
-                <option>Animal Friends, 562 Camp Horne Rd</option>
-                <option>Banfield Pet Hospital, 5986 Centre Ave</option>
-                <option>Cat Clinic and Hospital, 5170 Liberty Ave</option>
-                <option>East End Veterinary Medical Centre, 5875 Ellsworth Ave</option>
-                <option>Edgebrook Veterinary Clinic, 1405 Saw Mill Run Blvd</option>
-                <option>Greenfield Veterinary Hospital, 611 Greenfield Ave</option>
-                <option>Harts Run Veterinary Hospital, 728 Dorseyville Rd</option>
-                <option>Humane Animal Rescue East, 6966 Hamilton Ave</option>
-                <option>Humane Animal Rescue North, 1101 Western Ave</option>
-                <option>Penn Animal Hospital, 2205 Penn Ave</option>
-                <option>Point Breeze Veterinary Clinic, 6742 Reynolds St</option>
-                <option>Spay Neuter Clinic, 11675 Frankstown Rd. Penn Hills</option>
-                <option>The Big Easy Animal Hospital, 12 McCandless Ave</option>
-                <option>VCA Castle Shannon Animal Hospital, 3610 Library Rd</option>
-                <option>VCA Met Vet West Animal Hospital, 5309 Campbells Run Rd</option>
-                <option>Vetco, 976 Freeport Rd PGH 15238</option>
-                <option>Other</option>
-            </select>
-        </div>
+<div class="form-group" style="margin-bottom: 10px;">
+    <div class="col-md-12">
+        <div style="margin-left: 5px; padding-top: 5px;">Veterinarian</div>
+        <select asp-for="Veterinarian" data-style="btn-info" class="selectpicker form-control" data-live-search="true" title="" data-size="7"  data-dropup-auto="false" id="vetrelay">
+            <option></option>
+            <option data-divider="true"></option>
+            <option>Animal Friends, 562 Camp Horne Rd</option>
+            <option>Banfield Pet Hospital, 5986 Centre Ave</option>
+            <option>Cat Clinic and Hospital, 5170 Liberty Ave</option>
+            <option>East End Veterinary Medical Centre, 5875 Ellsworth Ave</option>
+            <option>Edgebrook Veterinary Clinic, 1405 Saw Mill Run Blvd</option>
+            <option>Greenfield Veterinary Hospital, 611 Greenfield Ave</option>
+            <option>Harts Run Veterinary Hospital, 728 Dorseyville Rd</option>
+            <option>Humane Animal Rescue East, 6966 Hamilton Ave</option>
+            <option>Humane Animal Rescue North, 1101 Western Ave</option>
+            <option>Penn Animal Hospital, 2205 Penn Ave</option>
+            <option>Point Breeze Veterinary Clinic, 6742 Reynolds St</option>
+            <option>Spay Neuter Clinic, 11675 Frankstown Rd. Penn Hills</option>
+            <option>The Big Easy Animal Hospital, 12 McCandless Ave</option>
+            <option>VCA Castle Shannon Animal Hospital, 3610 Library Rd</option>
+            <option>VCA Met Vet West Animal Hospital, 5309 Campbells Run Rd</option>
+            <option>Vetco, 976 Freeport Rd PGH 15238</option>
+            <option>Other</option>
+        </select>
     </div>
+</div>
 
-    <div class="form-group">
-        <div class="col-md-12">
-            <div style="margin-left: 5px; padding-top: 5px;">Comments</div>
-            <textarea asp-for="AnimalComments" rows="3" class="form-control" id="animalcomments" onkeyup="textAreaAdjust(this)"></textarea>
-        </div>
+<div class="form-group">
+    <div class="col-md-12">
+        <div style="margin-left: 5px; padding-top: 5px;">Comments</div>
+        <textarea asp-for="AnimalComments" rows="3" class="form-control" id="animalcomments" onkeyup="textAreaAdjust(this)"></textarea>
     </div>
+</div>
 
     <!-- begin hidden fields -->
     <input asp-for="itemID" hidden></input>
@@ -175,6 +178,6 @@
     <input asp-for="animalitemID" id="animalitemid" hidden></input>
 
     <div class="text-center">
-        <input style="width: 60%; margin-top: 20px;" onclick="putAnimal()" value="Save" id="submit" class="btn btn-default overlaytrigger"/>
+        <input style="max-width: 250px; margin-top: 20px;" onclick="putAnimal()" value="Save" id="submit" class="btn btn-default overlaytrigger"/>
     </div>
 </form>

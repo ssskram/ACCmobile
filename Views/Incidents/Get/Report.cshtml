@@ -15,7 +15,7 @@
     </div>
     <div class="col-md-6 hidden-sm hidden-xs">
         <br>
-        <div id="map" style="height: 400px; width: 100%; margin-top:15px;"></div>
+        <div id="map" style="height: 525px; width: 100%; margin-top:15px;"></div>
         <div id="infowindow-content">
             <span id="place-address"></span><br>
             <span id="place-id"></span>
@@ -51,6 +51,7 @@
                 <th class="none">Veterinarian</th>
                 <th class="none">Comments</th>
                 <th class="all"></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -97,6 +98,9 @@
             <td>    
             <div class="animaledit"><a class="btn btn-link" style="width:100%">Edit</a></div>
             </td> 
+            <td>    
+            <div class="animaldelete"><a class="btn btn-link" style="width:100%">Delete</a></div>
+            </td> 
         </tr>
         }
         </tbody>
@@ -105,12 +109,17 @@
 </div>
 
 <!-- update forms, jquery ui -->
-<div id="editAnimal">
+<div id="editAnimal" style="overflow:visible">
 @Html.Partial("~/Views/Incidents/Update/_Animal.cshtml")
 </div>
 
-<div id="editIncident">
+<div id="editIncident" style="overflow:visible">
 @Html.Partial("~/Views/Incidents/Update/_Incident.cshtml")
+</div>
+
+<!-- delete animal confirmation, jquery ui -->
+<div id="deleteAnimal">
+@Html.Partial("~/Views/Incidents/Update/_deleteAnimal.cshtml")
 </div>
 
 <!-- hidden fields -->

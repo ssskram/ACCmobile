@@ -1,5 +1,9 @@
 // this document contains the client side functions for get/report
 
+$(function() {
+    $('#addresscheck').val( $('#autocomplete').val() );
+});
+
 // datepicker
 $('.datepicker').datepicker({
     format: "mm/dd/yyyy"
@@ -43,34 +47,80 @@ function initMap() {
         position: lat_lng
     });
     infoWindow.open(map);
-}                
+
+    var input = document.getElementById('autocomplete');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete.setBounds(circle.getBounds());
+      });
+    }
+    autocomplete.addListener('place_changed', function() {
+        var place = autocomplete.getPlace();
+        // write lat/long to addressid field
+        $('#coords').val(place.geometry.location);
+        $('#addresscheck').val( $('#autocomplete').val() );
+    });
+    autocomplete.addListener('place_changed', enableButton);
+}           
+
+// enable button when mandatory fields are addressed
+function enableButton () 
+{
+    var autocomplete = $('#autocomplete').val();
+    var address = $('#addresscheck').val();
+    var reason = $("#reasonrelay").val();
+    if ( reason !== null && autocomplete == address  )
+    {
+        $("#submitincident").prop("disabled",false);
+    }
+    else
+    {
+        $("#submitincident").prop("disabled",true);
+        $("#checkmark").css("display", "none");
+    }
+    if ( autocomplete !== "" && autocomplete == address )
+    {
+        $("#checkmark").css("display", "block");
+    }
+}
 
 // load edit incident form
 $( "#editIncident" ).dialog({
     autoOpen: false,
 });
+var iWidth = $(window).width();
+var incidentWidth = iWidth * 0.8;
 $( "#incidentbutton" ).on( "click", function() {
     $( "#editIncident" ).dialog({
-        width: 500,
-        height: 550,
+        width: incidentWidth,
+        height: 'auto',
         modal: true,
         resizable: true,
-        title: "Edit incident information",
-        autoOpen: false,
-        create: function( event, ui ) {
-            $('.ui-dialog').append('<span class="ui-dialog-titlebar ui-dialog-bottomdrag"></span>');
-        }
+        title: "Edit incident",
+        autoOpen: false
     });
     $('#reasonrelay').selectpicker("deselectAll", true).selectpicker("refresh");
     $('#coderelay').selectpicker("deselectAll", true).selectpicker("refresh");
     $('select option:nth-child(1)').prop("selected", true).change();
     $( "#editIncident" ).dialog( "open" );
+    document.getElementById("incidentcomments").focus();
 });
 
 // load edit animal form
 $( "#editAnimal" ).dialog({
     autoOpen: false,
 });
+var aWidth = $(window).width();
+var animalWidth = iWidth * 0.8;
 var animalbuttons = document.getElementsByClassName('animaledit');
 var getdata = function() {
     // set regular input boxes
@@ -117,15 +167,12 @@ var getdata = function() {
 };
 var dialog = function() {
     $( "#editAnimal" ).dialog({
-        width: 550,
-        height: 550,
+        width: animalWidth,
+        height: 'auto',
         modal: true,
         resizable: true,
-        title: "Edit animal information",
-        autoOpen: false,
-        create: function( event, ui ) {
-            $('.ui-dialog').append('<span class="ui-dialog-titlebar ui-dialog-bottomdrag"></span>');
-        }
+        title: "Edit animal",
+        autoOpen: false
     });
     $('#typerelay').selectpicker("deselectAll", true).selectpicker("refresh");
     $('#breedrelay').selectpicker("deselectAll", true).selectpicker("refresh");
@@ -142,6 +189,32 @@ var dialog = function() {
 Array.from(animalbuttons).forEach(function(element) {
     element.addEventListener('click', getdata);
     element.addEventListener('click', dialog);
+  });
+
+// load delete animal confirmation
+$( "#deleteAnimal" ).dialog({
+    autoOpen: false,
+});
+var deletebuttons = document.getElementsByClassName('animaldelete');
+var getdeletedata = function() {
+    // set itemid
+    var id = $(this).parent().parent().find( "#itemid" ).text();
+    $('#animalitemid2').val( id );
+};
+var deletedialog = function() {
+    $( "#deleteAnimal" ).dialog({
+        width: 325,
+        height: 'auto',
+        modal: true,
+        resizable: true,
+        title: "Delete animal",
+        autoOpen: false
+    });
+    $( "#deleteAnimal" ).dialog( "open" );
+}
+Array.from(deletebuttons).forEach(function(element) {
+    element.addEventListener('click', getdeletedata);
+    element.addEventListener('click', deletedialog);
   });
 
 // put incident updates to controller
@@ -244,17 +317,21 @@ function putAnimal()
     );
 }
 
-// enable button when mandatory fields are addressed
-function enableButton () {
-    var reason = $("#reasonrelay").val();
-    if ( reason !== null )
-    {
-        $("#submit").prop("disabled",false);
-    }
-    else
-    {
-        $("#submit").prop("disabled",true);
-    }
+function deleteAnimal () 
+{ 
+    $.ajax(
+        {
+            url: "/UpdateIncident/DeleteAnimal",
+            type: 'POST',
+            data: $('#deleteanimal').serialize(),
+            success:function(result) {
+                location.reload(true);
+            },
+            error: function(result) {
+                alert("Failed to post.  Please try again.");
+            }
+        }
+    );
 }
 
 // expand and collapse all rows on button
