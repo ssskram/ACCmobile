@@ -29,6 +29,7 @@
 <div class="row">
   <div class="col-sm-12">
         <h3 style="padding-left: 10px;">Add an animal</h3>
+        <a class="btn btn-link overlaytrigger" onclick="location.href='@Url.Action("Index", "Home")'" style="font-size: 16px; margin-left: 10px; margin-top: -5px; margin-bottom: 10px;">or, return home</a>
         <div class="repeatcontainer">
             <animal>@Html.Partial("~/Views/Incidents/New/_Animal.cshtml")</animal>
         </div>
