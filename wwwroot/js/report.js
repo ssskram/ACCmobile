@@ -139,13 +139,13 @@ var getdata = function() {
         // set license year
         var licenseyr = $(this).parent().parent().find( "#licenseyr" ).text();
         $('#animallicenseyr').val( licenseyr );
-        // set rabbies vac no
-        var rabbiesvacno = $(this).parent().parent().find( "#rabbiesvacno" ).text();
-        $('#animalrabbiesvacno').val( rabbiesvacno );
-        // set rabbies vac exp
-        var rabbiesvacexp = $(this).parent().parent().find( "#rabbiesvacexp" ).text();
-        $('#animalrabbiesvacexp').val( rabbiesvacexp );
-        // set rabbies vac exp
+        // set rabies vac no
+        var rabiesvacno = $(this).parent().parent().find( "#rabiesvacno" ).text();
+        $('#animalrabiesvacno').val( rabiesvacno );
+        // set rabies vac exp
+        var rabiesvacexp = $(this).parent().parent().find( "#rabiesvacexp" ).text();
+        $('#animalrabiesvacexp').val( rabiesvacexp );
+        // set rabies vac exp
         var comments = $(this).parent().parent().find( "#comments" ).text();
         $('#animalcomments').val( comments );
     // set dropdowns

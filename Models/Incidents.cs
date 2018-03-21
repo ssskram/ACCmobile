@@ -70,11 +70,11 @@ namespace ACCmobile.Models
         [Display(Prompt = "License #")]
         public string LicenseNumber { get; set; }
 
-        [Display(Prompt = "Rabbies Vac. #")]
-        public string RabbiesVacNo { get; set; }
+        [Display(Prompt = "Rabies Vac. #")]
+        public string RabiesVacNo { get; set; }
 
-        [Display(Prompt = "Rabbies Vac. Exp.")]
-        public string RabbiesVacExp { get; set; }
+        [Display(Prompt = "Rabies Vac. Exp.")]
+        public string RabiesVacExp { get; set; }
 
         [Display(Prompt = "Veterinarian")]
         [DataType(DataType.MultilineText)]
@@ -143,8 +143,8 @@ namespace ACCmobile.Models
         public string Sex { get; set; }
         public string SexRelay { get; set; }
         public string LicenseNumber { get; set; }
-        public string RabbiesVacNo { get; set; }
-        public string RabbiesVacExp { get; set; }
+        public string RabiesVacNo { get; set; }
+        public string RabiesVacExp { get; set; }
         public string Veterinarian { get; set; }
         public string LicenseYear { get; set; }
         public string Age { get; set; }
@@ -165,8 +165,8 @@ namespace ACCmobile.Models
         public string Coat { get; set; }
         public string Sex { get; set; }
         public string LicenseNumber { get; set; }
-        public string RabbiesVacNo { get; set; }
-        public string RabbiesVacExp { get; set; }
+        public string RabiesVacNo { get; set; }
+        public string RabiesVacExp { get; set; }
         public string Veterinarian { get; set; }
         public string LicenseYear { get; set; }
         public string Age { get; set; }

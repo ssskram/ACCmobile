@@ -221,8 +221,8 @@ namespace ACCmobile.Controllers
                     Sex = item.Sex,
                     Age = item.Age,
                     LicenseNumber = item.LicenseNumber,
-                    RabbiesVacNo = item.RabbiesVacNo,
-                    RabbiesVacExp = item.RabbiesVacExp,
+                    RabiesVacNo = item.RabiesVacNo,
+                    RabiesVacExp = item.RabiesVacExp,
                     Veterinarian = item.Veterinarian,
                     LicenseYear = item.LicenseYear,
                     Comments = item.Comments,
@@ -482,26 +482,26 @@ namespace ACCmobile.Controllers
             {
                 LicenseYear = LicenseYear.Replace("'", "");
             }
-            var RabbiesVacExp = model.RabbiesVacExp;
-            if (RabbiesVacExp != null && RabbiesVacExp.Contains("'"))
+            var RabiesVacExp = model.RabiesVacExp;
+            if (RabiesVacExp != null && RabiesVacExp.Contains("'"))
             {
-                RabbiesVacExp = RabbiesVacExp.Replace("'", "");
+                RabiesVacExp = RabiesVacExp.Replace("'", "");
             }
-            var RabbiesVacNo = model.RabbiesVacNo;
-            if (RabbiesVacNo != null && RabbiesVacNo.Contains("'"))
+            var RabiesVacNo = model.RabiesVacNo;
+            if (RabiesVacNo != null && RabiesVacNo.Contains("'"))
             {
-                RabbiesVacNo = RabbiesVacNo.Replace("'", "");
+                RabiesVacNo = RabiesVacNo.Replace("'", "");
             }
             var json =
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}', 'Address' : '{14}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabiesVacNo' : '{5}', 'RabiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}', 'Address' : '{14}' }}",
                     model.Type, // 0
                     model.Breed, // 1
                     model.Coat, //2
                     model.Sex, // 3
                     LicenseNumber, // 4
-                    RabbiesVacNo, // 5
-                    RabbiesVacExp, // 6
+                    RabiesVacNo, // 5
+                    RabiesVacExp, // 6
                     model.Veterinarian, // 7
                     LicenseYear, // 8
                     Age, // 9
@@ -746,14 +746,14 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("IF-MATCH", "*");
             var json =
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'Name' : '{10}', 'Comments' : '{11}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabiesVacNo' : '{5}', 'RabiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'Name' : '{10}', 'Comments' : '{11}' }}",
                     model.TypeRelay, // 0
                     model.BreedRelay, // 1
                     model.CoatRelay, //2
                     model.SexRelay, // 3
                     model.LicenseNumber, // 4
-                    model.RabbiesVacNo, // 5
-                    model.RabbiesVacExp, // 6
+                    model.RabiesVacNo, // 5
+                    model.RabiesVacExp, // 6
                     model.Veterinarian, // 7
                     model.LicenseYear, // 8
                     model.Age, // 9
