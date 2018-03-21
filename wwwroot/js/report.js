@@ -248,11 +248,12 @@ function putIncident()
         $('#officers').val( $('#officersrelay').val());
     }
     var data = $('#update').serialize();
+    var cleandata = data.replace(/\'/g, '');
     $.ajax(
         {
             url: "/UpdateIncident/PutIncident",
             type: 'POST',
-            data: data,
+            data: cleandata,
             success:function(result) {
                 location.reload(true);
             },
@@ -302,11 +303,13 @@ function putAnimal()
     {
         $('#putsex').val($('#sexrelay').val().toString());
     }
+    var data = $('#editanimal').serialize();
+    var cleandata = data.replace(/\'/g, '');
     $.ajax(
         {
             url: "/UpdateIncident/PutAnimal",
             type: 'POST',
-            data: $('#editanimal').serialize(),
+            data: cleandata,
             success:function(result) {
                 location.reload(true);
             },
@@ -319,11 +322,13 @@ function putAnimal()
 
 function deleteAnimal () 
 { 
+    var data = $('#deleteanimal').serialize();
+    var cleandata = data.replace(/\'/g, '');
     $.ajax(
         {
             url: "/UpdateIncident/DeleteAnimal",
             type: 'POST',
-            data: $('#deleteanimal').serialize(),
+            data: cleandata,
             success:function(result) {
                 location.reload(true);
             },

@@ -408,16 +408,16 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 .ui-widget-header {
     background: #fffaee;
     color: #383838;
-  }
-  .ui-widget-content { 
+}
+.ui-widget-content { 
     color: #383838;
     font-size: 14px;
     margin-bottom: 10px;
-  }
-  .ui-dialog-title { 
+}
+.ui-dialog-title { 
     font-style: italic;
-  }
+}
 .wordwrap { 
     word-break: break-all; 
     word-wrap: break-word;
- }
+}

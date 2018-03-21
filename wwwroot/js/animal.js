@@ -92,11 +92,13 @@ function addAnimal()
         {
             $('#sex').val($('#sexrelay').val());
         }
+        var data = $('form').serialize();
+        var cleandata = data.replace(/\'/g, '');
         $.ajax(
             {
                 url: "/NewIncident/PostAnimal",
                 type: 'POST',
-                data: $('form').serialize(),
+                data: cleandata,
                 error: function(result) {
                     alert("Failed to post.  Please try again.");
                 }
@@ -172,11 +174,13 @@ function returnHome()
         {
             $('#sex').val($('#sexrelay').val());
         }
+        var data = $('#form').serialize();
+        var cleandata = data.replace(/\'/g, '');
         $.ajax(
             {
                 url: "/NewIncident/PostAnimal",
                 type: 'POST',
-                data: $('#form').serialize(),
+                data: cleandata,
                 success:function(result) {
                     var url = $("#RedirectHome").val();
                     location.href = url;

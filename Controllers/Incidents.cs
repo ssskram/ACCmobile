@@ -462,6 +462,36 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+            var Name = model.AnimalName;
+            if (Name != null && Name.Contains("'"))
+            {
+                Name = Name.Replace("'", "");
+            }
+            var Age = model.Age;
+            if (Age != null && Age.Contains("'"))
+            {
+                Age = Age.Replace("'", "");
+            }
+            var LicenseNumber = model.LicenseNumber;
+            if (LicenseNumber != null && LicenseNumber.Contains("'"))
+            {
+                LicenseNumber = LicenseNumber.Replace("'", "");
+            }
+            var LicenseYear = model.LicenseYear;
+            if (LicenseYear != null && LicenseYear.Contains("'"))
+            {
+                LicenseYear = LicenseYear.Replace("'", "");
+            }
+            var RabbiesVacExp = model.RabbiesVacExp;
+            if (RabbiesVacExp != null && RabbiesVacExp.Contains("'"))
+            {
+                RabbiesVacExp = RabbiesVacExp.Replace("'", "");
+            }
+            var RabbiesVacNo = model.RabbiesVacNo;
+            if (RabbiesVacNo != null && RabbiesVacNo.Contains("'"))
+            {
+                RabbiesVacNo = RabbiesVacNo.Replace("'", "");
+            }
             var json =
                 String.Format
                 ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}', 'Address' : '{14}' }}",
@@ -469,15 +499,15 @@ namespace ACCmobile.Controllers
                     model.Breed, // 1
                     model.Coat, //2
                     model.Sex, // 3
-                    model.LicenseNumber, // 4
-                    model.RabbiesVacNo, // 5
-                    model.RabbiesVacExp, // 6
+                    LicenseNumber, // 4
+                    RabbiesVacNo, // 5
+                    RabbiesVacExp, // 6
                     model.Veterinarian, // 7
-                    model.LicenseYear, // 8
-                    model.Age, // 9
+                    LicenseYear, // 8
+                    Age, // 9
                     model.Coords, // 10
                     model.IncidentID, // 11
-                    model.AnimalName, // 12
+                    Name, // 12
                     model.Comments, // 13
                     model.Address); // 14
 
@@ -510,16 +540,41 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("Accept", "application/json;odata=verbose");
             client.DefaultRequestHeaders.Add("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add("X-HTTP-Method", "POST");
+            var OwnersFirstName = model.OwnersFirstName;
+            if (OwnersFirstName != null && OwnersFirstName.Contains("'"))
+            {
+                OwnersFirstName = OwnersFirstName.Replace("'", "");
+            }
+            var OwnersLastName = model.OwnersLastName;
+            if (OwnersLastName != null && OwnersLastName.Contains("'"))
+            {
+                OwnersLastName = OwnersLastName.Replace("'", "");
+            }
+            var OwnersTelephone = model.OwnersTelephoneNumber;
+            if (OwnersTelephone != null && OwnersTelephone.Contains("'"))
+            {
+                OwnersTelephone = OwnersTelephone.Replace("'", "");
+            }
+            var CitationNumber = model.CitationNumber;
+            if (CitationNumber != null && CitationNumber.Contains("'"))
+            {
+                CitationNumber = CitationNumber.Replace("'", "");
+            }
+            var Comments = model.Comments;
+            if (Comments != null && Comments.Contains("'"))
+            {
+                Comments = Comments.Replace("'", "");
+            }
             var json =
                 String.Format
                 ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}' }}",
-                    model.OwnersFirstName, // 0
-                    model.OwnersLastName, // 1
-                    model.OwnersTelephoneNumber, // 2
+                    OwnersFirstName, // 0
+                    OwnersLastName, // 1
+                    OwnersTelephone, // 2
                     model.ReasonForVisit, // 3
                     model.PGHCode, // 4
-                    model.CitationNumber, // 5
-                    model.Comments, // 6
+                    CitationNumber, // 5
+                    Comments, // 6
                     model.Coords, // 7 
                     model.IncidentID, // 8
                     SubmittedBy, //9
