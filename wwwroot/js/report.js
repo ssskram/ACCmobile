@@ -113,15 +113,15 @@ $( "#incidentbutton" ).on( "click", function() {
     $('#officersrelay').selectpicker("deselectAll", true).selectpicker("refresh");
     if ($('select[id=officersrelay] option:first').val() != "")
     {
-        $('select[id=officersrelay] option:first').prop("selected", true).change();
+        $('select[id=officersrelay] option:first').prop("selected", true).change().selectpicker("refresh");
     }
     if ($('select[id=coderelay] option:first').val() != "")
     {
-        $('select[id=coderelay] option:first').prop("selected", true).change();
+        $('select[id=coderelay] option:first').prop("selected", true).change().selectpicker("refresh");
     }
     if ($('select[id=reasonrelay] option:first').val() != "")
     {
-        $('select[id=reasonrelay] option:first').prop("selected", true).change();
+        $('select[id=reasonrelay] option:first').prop("selected", true).change().selectpicker("refresh");
     }
     $( "#editIncident" ).dialog( "open" );
     document.getElementById("incidentcomments").focus();
@@ -197,7 +197,7 @@ var dialog = function() {
     }
     if ($('select[id=typerelay] option:first').val() != "")
     {
-        $('select[id=typerelay] option:first').prop("selected", "").change();
+        $('select[id=typerelay] option:first').prop("selected", true).change();
     }
     if ($('select[id=coatrelay] option:first').val() != "")
     {
