@@ -260,7 +260,7 @@ button.bs-placeholder[role='button']>span {
     padding: 30px 0;
     height: 120px;
 }
-.btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open > .dropdown-toggle.btn-info {
+.btn-info, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info:disabled, .btn-info.active, .open > .dropdown-toggle.btn-info {
     padding: 6px 12px !important;
     font-size: 14px  !important;
     font-weight: normal  !important;
@@ -285,7 +285,6 @@ button.bs-placeholder[role='button']>span {
     /* other */
     background-color:rgba(202, 205, 206,.35);
     padding: 10px 30px;
-    margin: 7px;
 }
 
 /* google map elements */

@@ -350,3 +350,69 @@ $('#btn-hide-all-children').on('click', function(){
     // Collapse
     table.rows('.parent').nodes().to$().find('td:first-child').trigger('click');
 });
+
+// set event listener for animal type
+document.getElementById("typerelay").addEventListener("change", function () {
+
+    // ditch previously submitted breed and coat
+    $('#breedrelay').find('.submitted').hide();
+    $('#coatrelay').find('.submitted').hide();
+
+    setdropdowns();
+});
+function setdropdowns () 
+{
+    var type = $("#typerelay").val();
+    if (type == "Cat")
+    {
+        // set breed for cat
+        $('#breedrelay').find('.dog').hide();
+        $('#breedrelay').find('.cat').show();
+        $('#breedrelay').prop("disabled",false);
+
+        // set coat for cat
+        $('#coatrelay').find('.dog').hide();
+        $('#coatrelay').find('.cat').show();
+        $('#coatrelay').prop("disabled",false);
+
+        // clear exsiting selections
+        $('#breedrelay option').attr("selected",false);
+        $('#coatrelay option').attr("selected",false);
+
+        $('.selectpicker').selectpicker('refresh');
+    }
+    else if (type =="Dog")
+    {
+        // set breed for dog
+        $('#breedrelay').find('.cat').hide();
+        $('#breedrelay').find('.dog').show();
+        $('#breedrelay').prop("disabled",false);
+
+        // set coat for dog
+        $('#coatrelay').find('.cat').hide();
+        $('#coatrelay').find('.dog').show();
+        $('#coatrelay').prop("disabled",false);
+
+        // clear exsiting selections
+        $('#breedrelay option').attr("selected",false);
+        $('#coatrelay option').attr("selected",false);
+
+        // ditch previously submitted breed and coat
+        $('#breedrelay').find('.submitted').hide();
+        $('#coatrelay').find('.submitted').hide();
+
+        $('.selectpicker').selectpicker('refresh');
+    }
+    else
+    {
+        // disable breed and coat
+        $('#breedrelay').prop("disabled",true);
+        $('#coatrelay').prop("disabled",true);
+
+        // clear exsiting selections
+        $('#breedrelay option').attr("selected",false);
+        $('#coatrelay option').attr("selected",false);
+
+        $('.selectpicker').selectpicker('refresh');
+    }
+}

@@ -221,8 +221,8 @@ namespace ACCmobile.Controllers
                     Sex = item.Sex,
                     Age = item.Age,
                     LicenseNumber = item.LicenseNumber,
-                    RabiesVacNo = item.RabiesVacNo,
-                    RabiesVacExp = item.RabiesVacExp,
+                    RabiesVacNo = item.RabbiesVacNo,
+                    RabiesVacExp = item.RabbiesVacExp,
                     Veterinarian = item.Veterinarian,
                     LicenseYear = item.LicenseYear,
                     Comments = item.Comments,
@@ -494,7 +494,7 @@ namespace ACCmobile.Controllers
             }
             var json =
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabiesVacNo' : '{5}', 'RabiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}', 'Address' : '{14}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}', 'Address' : '{14}' }}",
                     model.Type, // 0
                     model.Breed, // 1
                     model.Coat, //2
@@ -746,7 +746,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("IF-MATCH", "*");
             var json =
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabiesVacNo' : '{5}', 'RabiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'Name' : '{10}', 'Comments' : '{11}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'Name' : '{10}', 'Comments' : '{11}' }}",
                     model.TypeRelay, // 0
                     model.BreedRelay, // 1
                     model.CoatRelay, //2

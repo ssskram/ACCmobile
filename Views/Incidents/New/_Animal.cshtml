@@ -17,58 +17,54 @@
         </div>
 
         <div class="form-group" style="margin-bottom: 5px;">
-            <select asp-for="BreedRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Breed" data-selected-text-format="count > 3" data-dropup-auto="false" id="breedrelay">
-                <optgroup label="Cats">
-                    <option>Domestic Short Hair</option>
-                    <option>Domestic Long Hair</option>
-                    <option>Feral</option>
-                    <option>Tabby</option>
-                    <option>Siamese</option>
-                </optgroup>
-                <optgroup label="Dogs">
-                    <option>Mix</option>
-                    <option>Pit Bull</option>
-                    <option>Terrier</option>
-                    <option>German Shepherd</option>
-                    <option>Rottweiler</option>
-                    <option>Bulldog</option>
-                    <option>Beagle</option>
-                    <option>Poodle</option>
-                    <option>Yorkie</option>
-                    <option>Boxer</option>
-                    <option>Great Dane</option>
-                    <option>Doberman</option>
-                    <option>Australian Shepherd</option>
-                    <option>Shih Tzu</option>
-                    <option>Pomeranian</option>
-                    <option>Spaniel</option>
-                </optgroup>
-                <optgroup>
-                    <option>Other</option>
-                </optgroup>
+            <select asp-for="BreedRelay" data-style="btn-info" multiple class="selectpicker form-control breedrelay" title="Breed" data-selected-text-format="count > 3" data-dropup-auto="false" id="breedrelay" disabled>
+                <!-- mix -->
+                <option>Mix</option>
+                <!-- cats -->
+                <option class="cat">Domestic Long Hair</option>
+                <option class="cat">Domestic Short Hair</option>
+                <option class="cat">Feral</option>
+                <option class="cat">Siamese</option>
+                <option class="cat">Tabby</option>
+                <!-- dogs -->
+                <option class="dog">Australian Shepherd</option>
+                <option class="dog">Beagle</option>
+                <option class="dog">Boxer</option>
+                <option class="dog">Bulldog</option>
+                <option class="dog">Doberman</option>
+                <option class="dog">German Shepherd</option>
+                <option class="dog">Great Dane</option>
+                <option class="dog">Labrador</option>
+                <option class="dog">Pit Bull</option>
+                <option class="dog">Pomeranian</option>
+                <option class="dog">Poodle</option>
+                <option class="dog">Rottweiler</option>
+                <option class="dog">Shih Tzu</option>
+                <option class="dog">Spaniel</option>
+                <option class="dog">Terrier</option>
+                <option class="dog">Yorkie</option>
+                <!-- other -->
+                <option>Other</option>
             </select>
         </div>
 
         <div class="form-group" style="margin-bottom: 5px;">
-            <select asp-for="CoatRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Coat" data-selected-text-format="count > 3" data-dropup-auto="false" id="coatrelay">
-                <optgroup label="Cats">
-                    <option>Tabby</option>
-                    <option>Calico</option>
-                </optgroup>
-                <optgroup label="Dogs">
-                    <option>Brindle</option>
-                </optgroup>
-                <optgroup label="Universal">
-                    <option>Black</option>
-                    <option>White</option>
-                    <option>Gray</option>
-                    <option>Brown</option>
-                    <option>Tan</option>
-                    <option>Blue</option>
-                    <option>Orange</option>
-                    <option>Yellow</option>
-                    <option>Golden</option>
-                </optgroup>
+            <select asp-for="CoatRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Coat" data-selected-text-format="count > 3" data-dropup-auto="false" id="coatrelay" disabled>
+                <!-- cats -->
+                <option class="cat">Calico</option>
+                <option class="cat">Tabby</option>
+                <!-- dogs -->
+                <option class="dog">Brindle</option>
+                <!-- dogs -->
+                <option>Black</option>
+                <option>Blue</option>
+                <option>Brown</option>
+                <option>Golden</option>
+                <option>Gray</option>
+                <option>Orange</option>
+                <option>Tan</option>
+                <option>White</option>
+                <option>Yellow</option>
             </select>
         </div>
 

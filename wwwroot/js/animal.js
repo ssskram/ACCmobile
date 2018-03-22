@@ -33,8 +33,9 @@ function setName () {
     }
 }
 
-// show "add animal" buttons when type is selected
+// when type is selected
 function revealbuttons () {
+    // first, show reveal buttons
     var animalname = $(".animal-name").val();
     var Addbuttontext = `+ Save ${animalname} and add another animal`;
     var Submitbuttontext = `+ Save ${animalname} and return home`;
@@ -42,6 +43,61 @@ function revealbuttons () {
     $('#complete span').text(Submitbuttontext);
     $("#AddAnimal").show();
     $("#complete").show();
+    
+    // then, filter dropdowns accordingly
+    setdropdowns();
+}
+function setdropdowns () 
+{
+    var type = $("#typerelay").val();
+    if (type == "Cat")
+    {
+        // set breed for cat
+        $('#breedrelay').find('.dog').hide();
+        $('#breedrelay').find('.cat').show();
+        $('#breedrelay').prop("disabled",false);
+
+        // set coat for cat
+        $('#coatrelay').find('.dog').hide();
+        $('#coatrelay').find('.cat').show();
+        $('#coatrelay').prop("disabled",false);
+
+        // clear exsiting selections
+        $('#breedrelay option').attr("selected",false);
+        $('#coatrelay option').attr("selected",false);
+
+        $('.selectpicker').selectpicker('refresh');
+    }
+    else if (type =="Dog")
+    {
+        // set breed for dog
+        $('#breedrelay').find('.cat').hide();
+        $('#breedrelay').find('.dog').show();
+        $('#breedrelay').prop("disabled",false);
+
+        // set coat for dog
+        $('#coatrelay').find('.cat').hide();
+        $('#coatrelay').find('.dog').show();
+        $('#coatrelay').prop("disabled",false);
+
+        // clear exsiting selections
+        $('#breedrelay option').attr("selected",false);
+        $('#coatrelay option').attr("selected",false);
+
+        $('.selectpicker').selectpicker('refresh');
+    }
+    else
+    {
+        // disable breed and coat
+        $('#breedrelay').prop("disabled",true);
+        $('#coatrelay').prop("disabled",true);
+
+        // clear exsiting selections
+        $('#breedrelay option').attr("selected",false);
+        $('#coatrelay option').attr("selected",false);
+
+        $('.selectpicker').selectpicker('refresh');
+    }
 }
 
 // post animal
