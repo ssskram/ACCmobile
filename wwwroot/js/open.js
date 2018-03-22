@@ -42,15 +42,20 @@ $("#datesearch2").change(function(){
     $( "td" ).css("background-color", "");
 });
 
-// clear search fields
+// clear search fields on desktop view
 var $dates = $('#datesearch').datepicker();
-var $dates2 = $('#datesearch2').datepicker();
 $('#clear').on('click', function () {
   $dates.datepicker('setDate', null);
-  $dates2.datepicker('setDate', null);
-  table.columns( 1 ).search("").draw();
   $('#search').val('');
   $('#search').keyup();
+});
+
+// clear search fields on mobile view
+var $dates2 = $('#datesearch2').datepicker();
+$('#clear2').on('click', function () {
+  $dates2.datepicker('setDate', null);
+  $('#search2').val('');
+  $('#search2').keyup();
 });
 
 // create map with visualization layer
