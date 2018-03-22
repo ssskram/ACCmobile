@@ -124,6 +124,7 @@ $( "#incidentbutton" ).on( "click", function() {
         $('select[id=reasonrelay] option:first').prop("selected", true).change().selectpicker("refresh");
     }
     $( "#editIncident" ).dialog( "open" );
+    $( "#editIncident" ).dialog( "moveToTop" );
     document.getElementById("incidentcomments").focus();
 });
 
