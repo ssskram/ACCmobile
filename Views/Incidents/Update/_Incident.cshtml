@@ -48,8 +48,8 @@
             <select asp-for="CallOrigin" data-style="btn-info" class="selectpicker form-control" data-dropup-auto="false" title="">
                 <option>@Model.CallOrigin</option>
                 <option data-divider="true"></option>
-                <option>911</option>
                 <option>311</option>
+                <option>911</option>
                 <option>Office</option>
                 <option>Police</option>
                 <option>Other</option>
@@ -64,16 +64,18 @@
             <select asp-for="ReasonForVisit" data-style="btn-info" multiple class="selectpicker form-control" title="" data-selected-text-format="count > 2" data-size="7" onchange="enableButton()" id="reasonrelay">
                 <option>@Model.ReasonForVisit</option>
                 <option data-divider="true"></option>
-                <option>Barking</option>
-                <option>FWS</option>
+                <option>Abandoned animal</option>
                 <option>Animal waste in yard</option>
                 <option>Animal waste off property</option>
-                <option>Feeding wildlife</option>
-                <option>Count cats</option>
+                <option>Barking</option>
+                <option>Bite/Quarantine</option>
                 <option>Count animals</option>
+                <option>Count cats</option>
                 <option>Feeding stray cats</option>
+                <option>Feeding wildlife</option>
+                <option>FWS</option>
                 <option>Running at large</option>
-                <option>Abandoned animal</option>
+                <option>Trap Delivery/Pick up</option>
                 <option>Other</option>
             </select>
         </div>
