@@ -292,6 +292,9 @@ button.bs-placeholder[role='button']>span {
     width: 100%;
     max-width: 650px;
 }
+.pac-container {
+    z-index: 1501 !important
+}
 .pac-container:after{
     content:none !important;
 }
@@ -421,6 +424,6 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     word-wrap: break-word;
 }
 .ui-dialog {
-    z-index: 20000 !important;
+    z-index: 1500!important;
     position:absolute !important;
 }
