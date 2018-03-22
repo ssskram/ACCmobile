@@ -110,7 +110,19 @@ $( "#incidentbutton" ).on( "click", function() {
     });
     $('#reasonrelay').selectpicker("deselectAll", true).selectpicker("refresh");
     $('#coderelay').selectpicker("deselectAll", true).selectpicker("refresh");
-    $('select option:nth-child(1)').prop("selected", true).change();
+    $('#officersrelay').selectpicker("deselectAll", true).selectpicker("refresh");
+    if ($('select[id=officersrelay] option:first').val() != "")
+    {
+        $('select[id=officersrelay] option:first').prop("selected", true).change();
+    }
+    if ($('select[id=coderelay] option:first').val() != "")
+    {
+        $('select[id=coderelay] option:first').prop("selected", true).change();
+    }
+    if ($('select[id=reasonrelay] option:first').val() != "")
+    {
+        $('select[id=reasonrelay] option:first').prop("selected", true).change();
+    }
     $( "#editIncident" ).dialog( "open" );
     document.getElementById("incidentcomments").focus();
 });
@@ -179,16 +191,32 @@ var dialog = function() {
     $('#coatrelay').selectpicker("deselectAll", true).selectpicker("refresh");
     $('#sexrelay').selectpicker("deselectAll", true).selectpicker("refresh");
     $('#vetrelay').selectpicker("deselectAll", true).selectpicker("refresh");
-    $('select[id=breedrelay] option:first').prop("selected", true).change();
-    $('select[id=typerelay] option:first').prop("selected", true).change();
-    $('select[id=coatrelay] option:first').prop("selected", true).change();
-    $('select[id=sexrelay] option:first').prop("selected", true).change();
-    $('select[id=vetrelay] option:first').prop("selected", true).change();
+    if ($('select[id=breedrelay] option:first').val() != "")
+    {
+        $('select[id=breedrelay] option:first').prop("selected", true).change();
+    }
+    if ($('select[id=typerelay] option:first').val() != "")
+    {
+        $('select[id=typerelay] option:first').prop("selected", "").change();
+    }
+    if ($('select[id=coatrelay] option:first').val() != "")
+    {
+        $('select[id=coatrelay] option:first').prop("selected", true).change();
+    }
+    if ($('select[id=sexrelay] option:first').val() != "")
+    {
+        $('select[id=sexrelay] option:first').prop("selected", true).change();
+    }
+    if ($('select[id=vetrelay] option:first').val() != "")
+    {
+        $('select[id=vetrelay] option:first').prop("selected", true).change();
+    }
     $( "#editAnimal" ).dialog( "open" );
 };
 Array.from(animalbuttons).forEach(function(element) {
     element.addEventListener('click', getdata);
     element.addEventListener('click', dialog);
+    element.addEventListener('click', setdropdowns);
   });
 
 // load delete animal confirmation
@@ -274,7 +302,7 @@ function putAnimal()
     }
     else
     {
-        $('#puttype').val($('#typerelay').val().toString());
+        $('#puttype').val($('#typerelay').val());
     }
     if ($('#breedrelay').val() != null)
     {
@@ -283,7 +311,7 @@ function putAnimal()
     }
     else
     {
-        $('#putbreed').val($('#breedrelay').val().toString());
+        $('#putbreed').val($('#breedrelay').val());
     }
     if ($('#coatrelay').val() != null)
     {
@@ -292,7 +320,7 @@ function putAnimal()
     }
     else
     {
-        $('#putcoat').val($('#coatrelay').val().toString());
+        $('#putcoat').val($('#coatrelay').val());
     }
     if ($('#sexrelay').val() != null)
     {
@@ -301,7 +329,7 @@ function putAnimal()
     }
     else
     {
-        $('#putsex').val($('#sexrelay').val().toString());
+        $('#putsex').val($('#sexrelay').val());
     }
     var data = $('#editanimal').serialize();
     var cleandata = data.replace(/\'/g, '');
@@ -358,9 +386,17 @@ document.getElementById("typerelay").addEventListener("change", function () {
     $('#breedrelay').find('.submitted').hide();
     $('#coatrelay').find('.submitted').hide();
 
+    cleardropdowns();
     setdropdowns();
 });
-function setdropdowns () 
+function cleardropdowns () 
+{
+    // clear exsiting selections
+    $('#breedrelay option').attr("selected",false);
+    $('#coatrelay option').attr("selected",false);
+    $('.selectpicker').selectpicker('refresh');
+}
+function setdropdowns ()
 {
     var type = $("#typerelay").val();
     if (type == "Cat")
@@ -373,11 +409,6 @@ function setdropdowns ()
         // set coat for cat
         $('#coatrelay').find('.dog').hide();
         $('#coatrelay').find('.cat').show();
-        $('#coatrelay').prop("disabled",false);
-
-        // clear exsiting selections
-        $('#breedrelay option').attr("selected",false);
-        $('#coatrelay option').attr("selected",false);
 
         $('.selectpicker').selectpicker('refresh');
     }
@@ -391,15 +422,6 @@ function setdropdowns ()
         // set coat for dog
         $('#coatrelay').find('.cat').hide();
         $('#coatrelay').find('.dog').show();
-        $('#coatrelay').prop("disabled",false);
-
-        // clear exsiting selections
-        $('#breedrelay option').attr("selected",false);
-        $('#coatrelay option').attr("selected",false);
-
-        // ditch previously submitted breed and coat
-        $('#breedrelay').find('.submitted').hide();
-        $('#coatrelay').find('.submitted').hide();
 
         $('.selectpicker').selectpicker('refresh');
     }
@@ -408,10 +430,6 @@ function setdropdowns ()
         // disable breed and coat
         $('#breedrelay').prop("disabled",true);
         $('#coatrelay').prop("disabled",true);
-
-        // clear exsiting selections
-        $('#breedrelay option').attr("selected",false);
-        $('#coatrelay option').attr("selected",false);
 
         $('.selectpicker').selectpicker('refresh');
     }
