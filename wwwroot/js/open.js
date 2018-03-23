@@ -27,24 +27,21 @@ new $.fn.dataTable.Responsive( table, {} );
 // search fields
 $("#search").keyup(function(){
     table.search( this.value ).draw();
-    $( "td" ).css("background-color", "");
 });
 $("#search2").keyup(function(){
     table.search( this.value ).draw();
-    $( "td" ).css("background-color", "");
 });
 $("#datesearch").change(function(){
     table.search( this.value ).draw();
-    $( "td" ).css("background-color", "");
 });
 $("#datesearch2").change(function(){
     table.search( this.value ).draw();
-    $( "td" ).css("background-color", "");
 });
 
 // clear search fields on desktop view
 var $dates = $('#datesearch').datepicker();
 $('#clear').on('click', function () {
+  table.columns( 1 ).search("").draw();
   $dates.datepicker('setDate', null);
   $('#search').val('');
   $('#search').keyup();
@@ -53,6 +50,7 @@ $('#clear').on('click', function () {
 // clear search fields on mobile view
 var $dates2 = $('#datesearch2').datepicker();
 $('#clear2').on('click', function () {
+  table.columns( 1 ).search("").draw();
   $dates2.datepicker('setDate', null);
   $('#search2').val('');
   $('#search2').keyup();
@@ -106,10 +104,11 @@ function initMap() {
       table.columns( 1 ).search( itemid ).draw();
       address = $ ( "td" ).eq(3).find( "#addressrelay" ).text();
       date = $ ( "td" ).eq(2).find( "#date" ).text();
+      reason = $ ( "td" ).eq(4).find( "#reason" ).text();
       href = $( "td" ).first().find( 'a' ).attr('href');
       href_formatted = '<a href="'+ href +'" target="_blank">Open report</a>'
       infowindowContent.children['place-address'].textContent = address;
-      infowindowContent.children['status'].innerHTML = "  Open incident";
+      infowindowContent.children['status'].innerHTML = reason;
       infowindowContent.children['date'].textContent = date;
       infowindowContent.children['link'].innerHTML = href_formatted;
       infowindow.open(map, marker);

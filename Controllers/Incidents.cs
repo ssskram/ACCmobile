@@ -76,6 +76,7 @@ namespace ACCmobile.Controllers
                     Link = Link,
                     Date = easternTime.ToString(dateformat),
                     Address = item.Address,
+                    ReasonForVisit = item.ReasonforVisit,
                     id = item.Id,
                     Coords = item.AddressID
                 };
@@ -131,6 +132,7 @@ namespace ACCmobile.Controllers
                     Date = easternTime.ToString(dateformat),
                     Address = item.Address,
                     id = item.Id,
+                    ReasonForVisit = item.ReasonforVisit,
                     Coords = item.AddressID
                 };
                 Advises.Add(adv);
@@ -244,6 +246,7 @@ namespace ACCmobile.Controllers
         // get all advises from pdf library
         public async Task<string> GetAdvises()
         {
+            // make recursive
             await refreshtoken();
             var token = refreshtoken().Result;
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items?$top=5000";
