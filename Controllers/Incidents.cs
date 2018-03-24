@@ -23,44 +23,22 @@ namespace ACCmobile.Controllers
     {
         HttpClient client = new HttpClient();
 
+        // list to populate with "paper" and electronic incidents
+        List<AllIncidents> Advises = new List<AllIncidents>();
+        string HeatMapData = "";
         // get all incidents
         public async Task<IActionResult> All()
-        {
-            // instantiate empty string to populate with heat map coords
-            string HeatMapData = "";
-
-            // list to populate with "paper" and electronic incidents
-            List<AllIncidents> Advises = new List<AllIncidents>();
-
+        {   
             // get and set advises
-            await GetAdvises();
-            var papercontent = GetAdvises().Result;
-            dynamic PaperAdvises = JObject.Parse(papercontent)["value"];
-            foreach (var item in PaperAdvises)
-            {
-                DateTime dt = item.Date;
-                AllIncidents adv = new AllIncidents()
-                {
-                    Link = item.link,
-                    Date = item.Date,
-                    Address = item.address,
-                    id = item.Id,
-                    Coords = item.Geo
-                };
-                Advises.Add(adv);
-                // write coords to heatmap data if incident occured within last year
-                if (dt.Year == DateTime.Now.Year - 2)
-                {
-                    string coord = adv.Coords.ToString();
-                    var clean = Regex.Replace(coord, "[()]", "");
-                    var bracketed = "[" + clean + "],";
-                    HeatMapData += bracketed;
-                }
-            }
-
+            string url = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items?$top=3000";
+            await refreshtoken();
+            string token = refreshtoken().Result;
+            // Task getadvises = GetAdvises(url, token);
+            await GetAdvises(url, token);
+            
             // get and set incidents
-            await GetIncidents();
-            var electroniccontent = GetIncidents().Result;
+            await GetIncidents(token);
+            var electroniccontent = GetIncidents(token).Result;
             dynamic ElectronicIncidents = JObject.Parse(electroniccontent)["value"];
             foreach (var item in ElectronicIncidents)
             {
@@ -82,7 +60,7 @@ namespace ACCmobile.Controllers
                 };
                 Advises.Add(adv);
                 // write coords to heatmap data if incident occured within last year
-                if (easternTime.Year == DateTime.Now.Year - 2)
+                if (easternTime.Year > DateTime.Now.Year - 2)
                 {
                     string coord = adv.Coords.ToString();
                     var clean = Regex.Replace(coord, "[()]", "");
@@ -244,25 +222,50 @@ namespace ACCmobile.Controllers
         // api calls
 
         // get all advises from pdf library
-        public async Task<string> GetAdvises()
+        public async Task GetAdvises(string url, string token)
         {
-            // make recursive
-            await refreshtoken();
-            var token = refreshtoken().Result;
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items?$top=5000";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", token);
-            string listitems = await client.GetStringAsync(sharepointUrl);
-            return listitems;
+            string listitems = await client.GetStringAsync(url);
+            dynamic Next = JObject.Parse(listitems)["odata.nextLink"];
+            dynamic PaperAdvises = JObject.Parse(listitems)["value"];
+            foreach (var item in PaperAdvises)
+            {
+                DateTime dt = item.Date;
+                AllIncidents adv = new AllIncidents()
+                {
+                    Link = item.link,
+                    Date = item.Date,
+                    Address = item.address,
+                    id = item.Id,
+                    Coords = item.Geo
+                };
+                Advises.Add(adv);
+                // write coords to heatmap data if incident occured within last year
+                if (dt.Year > DateTime.Now.Year - 2)
+                {
+                    string coord = adv.Coords.ToString();
+                    var clean = Regex.Replace(coord, "[()]", "");
+                    var bracketed = "[" + clean + "],";
+                    HeatMapData += bracketed;
+                }
+            }
+            if (Next != null)
+            {
+                url = Next;
+                await GetAdvises(url, token);
+            }
+            else 
+            {
+                return;
+            }
         }
 
         // get all incidents
-        public async Task<string> GetIncidents()
+        public async Task<string> GetIncidents(string token)
         {
-            await refreshtoken();
-            var token = refreshtoken().Result;
             var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
