@@ -100,7 +100,7 @@ function initMap() {
     dissipating: true,
     gradient: gradient,
     radius: 8,
-    opacity: .25,
+    opacity: .3,
     map: map
   });
 
