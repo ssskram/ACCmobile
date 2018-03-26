@@ -69,10 +69,16 @@ namespace ACCmobile
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            services.AddAuthentication().AddMicrosoftAccount(microsoftOptions =>
+            services.AddAuthentication()
+                .AddMicrosoftAccount(microsoftOptions =>
                 {
                     microsoftOptions.ClientId = Configuration["MSClientId"];
                     microsoftOptions.ClientSecret = Configuration["MSClientSecret"];
+                })
+                .Services.ConfigureApplicationCookie(options =>
+                {
+                    options.SlidingExpiration = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
                 });
 
             // add application services
