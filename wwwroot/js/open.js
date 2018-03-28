@@ -112,7 +112,6 @@ function initMap() {
       infowindowContent.children['date'].textContent = date;
       infowindowContent.children['link'].innerHTML = href_formatted;
       infowindow.open(map, marker);
-
     });
   });
 

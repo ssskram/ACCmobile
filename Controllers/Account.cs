@@ -42,7 +42,6 @@ namespace ACCmobile.Controllers
             return View();
         }
 
-        [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
@@ -59,8 +58,6 @@ namespace ACCmobile.Controllers
         // and make sure returned credentials contain @pittsburghpa.gov
         // if yes to both conditions, create account for user in in-memory db
         // if no to either condition, redirect to 401
-        [HttpPost]
-        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
         {
@@ -93,7 +90,7 @@ namespace ACCmobile.Controllers
             }
         }
 
-        [HttpPost]
+        [AllowAnonymous]
         public async Task GetUserGroup()
         {
             var MSurl = "https://accounts.accesscontrol.windows.net/f5f47917-c904-4368-9120-d327cf175591/tokens/OAuth/2";
