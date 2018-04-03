@@ -43,7 +43,6 @@ namespace ACCmobile.Controllers
         }
 
         [AllowAnonymous]
-        [ValidateAntiForgeryToken]
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
             // request a redirect to the 3rd party login provider
@@ -151,7 +150,6 @@ namespace ACCmobile.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
