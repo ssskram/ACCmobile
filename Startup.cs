@@ -77,8 +77,9 @@ namespace ACCmobile
                 })
                 .Services.ConfigureApplicationCookie(options =>
                 {
+                    options.Cookie.HttpOnly = true;
+                    options.ExpireTimeSpan = TimeSpan.FromHours(12);
                     options.SlidingExpiration = true;
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(120);
                 });
 
             // add application services
