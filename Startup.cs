@@ -77,6 +77,7 @@ namespace ACCmobile
                 })
                 .Services.ConfigureApplicationCookie(options =>
                 {
+                    options.Cookie.Name = "auth";    
                     options.Cookie.HttpOnly = true;
                     options.ExpireTimeSpan = TimeSpan.FromHours(12);
                     options.SlidingExpiration = true;

@@ -78,7 +78,7 @@ namespace ACCmobile.Controllers
                     add = await _userManager.AddLoginAsync(user, info);
                     if (add.Succeeded)
                     {
-                        await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
+                        await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true, bypassTwoFactor: true);
                     }
                 }
                 return RedirectToAction(nameof(Home.Index), "Home");
