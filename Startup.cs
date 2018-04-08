@@ -79,7 +79,7 @@ namespace ACCmobile
                 {
                     options.Cookie.Name = "auth";    
                     options.Cookie.HttpOnly = true;
-                    options.ExpireTimeSpan = TimeSpan.FromHours(12);
+                    options.ExpireTimeSpan = TimeSpan.FromHours(10);
                     options.SlidingExpiration = true;
                 });
 
@@ -95,7 +95,11 @@ namespace ACCmobile
             services.AddMvc()
                 .AddSessionStateTempDataProvider();
 
-            services.AddSession();
+            services.AddSession(options => { 
+                options.Cookie.Name = "session";
+                options.Cookie.HttpOnly = true;
+                options.IdleTimeout = TimeSpan.FromHours(10); 
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
