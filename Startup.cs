@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -69,6 +70,11 @@ namespace ACCmobile
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.Configure<SecurityStampValidatorOptions>(options =>
+            {
+                options.ValidationInterval = TimeSpan.FromDays(10);
+            });
+
             services.AddAuthentication()
                 .AddMicrosoftAccount(microsoftOptions =>
                 {
@@ -79,6 +85,7 @@ namespace ACCmobile
                 {
                     options.Cookie.Name = "auth";    
                     options.Cookie.HttpOnly = true;
+                    options.Cookie.Expiration = TimeSpan.FromHours(10);
                     options.ExpireTimeSpan = TimeSpan.FromHours(10);
                     options.SlidingExpiration = true;
                 });
