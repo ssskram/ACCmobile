@@ -29,11 +29,10 @@ namespace ACCmobile.Controllers
         // get all incidents
         public async Task<IActionResult> All()
         {   
-            // get and set advises
+            // // get and set advises
             string url = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('GeocodedAdvises')/items?$top=3000";
             await refreshtoken();
             string token = refreshtoken().Result;
-            // Task getadvises = GetAdvises(url, token);
             await GetAdvises(url, token);
             
             // get and set incidents
@@ -266,7 +265,7 @@ namespace ACCmobile.Controllers
         // get all incidents
         public async Task<string> GetIncidents(string token)
         {
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items?$top=5000";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Authorization =
@@ -280,7 +279,7 @@ namespace ACCmobile.Controllers
         {
             await refreshtoken();
             var token = refreshtoken().Result;
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items?$filter=Open eq 'Yes'";
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items?$top=5000&$filter=Open eq 'Yes'";
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Accept", "application/json");
             client.DefaultRequestHeaders.Authorization =
