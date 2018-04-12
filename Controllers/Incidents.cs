@@ -25,7 +25,7 @@ namespace ACCmobile.Controllers
 
         // list to populate with "paper" and electronic incidents
         List<AllIncidents> Advises = new List<AllIncidents>();
-        string HeatMapData = "";
+        
         // get all incidents
         public async Task<IActionResult> All()
         {   
@@ -58,26 +58,7 @@ namespace ACCmobile.Controllers
                     Coords = item.AddressID
                 };
                 Advises.Add(adv);
-                // write coords to heatmap data if incident occured within last year
-                if (easternTime.Year > DateTime.Now.Year - 2)
-                {
-                    string coord = adv.Coords.ToString();
-                    var clean = Regex.Replace(coord, "[()]", "");
-                    var bracketed = "[" + clean + "],";
-                    HeatMapData += bracketed;
-                }
             }
-            
-            // clean and set heatmap data
-            HeatMapData = HeatMapData.TrimEnd(',');
-            var done = "[" + HeatMapData + "]";
-            ViewBag.heatmap = done;
-            var googleapikey = Environment.GetEnvironmentVariable("googleapikey");
-            ViewData["apistring"] =
-                String.Format
-                ("https://maps.googleapis.com/maps/api/js?key={0}&libraries=places,visualization&callback=initMap",
-                    googleapikey); // 0
-
             return View("~/Views/Incidents/Get/All.cshtml", Advises);
         }
 
@@ -242,14 +223,6 @@ namespace ACCmobile.Controllers
                     Coords = item.Geo
                 };
                 Advises.Add(adv);
-                // write coords to heatmap data if incident occured within last year
-                if (dt.Year > DateTime.Now.Year - 2)
-                {
-                    string coord = adv.Coords.ToString();
-                    var clean = Regex.Replace(coord, "[()]", "");
-                    var bracketed = "[" + clean + "],";
-                    HeatMapData += bracketed;
-                }
             }
             if (Next != null)
             {
