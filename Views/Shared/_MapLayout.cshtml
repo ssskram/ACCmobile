@@ -4,6 +4,8 @@
     <div class="loader"></div>
 </div>  
 <head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - acc mobile</title>
@@ -33,6 +35,8 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li><a href="/Incidents/Open" class="top-nav-button overlaytrigger">Open incidents</a></li>
+                    <li><a href="/Incidents/All" class="top-nav-button overlaytrigger">All incidents</a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

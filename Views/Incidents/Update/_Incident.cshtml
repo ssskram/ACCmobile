@@ -12,7 +12,7 @@
     </div>
     <div class="col-md-2" style="margin-bottom: 10px;">
         <div style="margin-left: 5px;">Keep open?</div>
-        <select asp-for="Open" data-style="btn-info" class="selectpicker form-control" title="">
+        <select asp-for="Open" data-style="btn-info" class="selectpicker btn-form-control" title="">
             <option>@Model.Open</option>
             <option data-divider="true"></option>
             <option>Yes</option>
@@ -45,7 +45,7 @@
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Call origin</div>
-            <select asp-for="CallOrigin" data-style="btn-info" class="selectpicker form-control" data-dropup-auto="false" title="">
+            <select asp-for="CallOrigin" data-style="btn-info" class="selectpicker btn-form-control" data-dropup-auto="false" title="">
                 <option>@Model.CallOrigin</option>
                 <option data-divider="true"></option>
                 <option>311</option>
@@ -61,7 +61,7 @@
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px">Reason(s) for visit</div>
-            <select asp-for="ReasonForVisit" data-style="btn-info" multiple class="selectpicker form-control" title="" data-selected-text-format="count > 2" data-size="7" onchange="enableButton()" id="reasonrelay">
+            <select asp-for="ReasonForVisit" data-style="btn-info" multiple class="selectpicker btn-form-control" title="" data-selected-text-format="count > 2" data-size="7" onchange="enableButton()" id="reasonrelay">
                 <option>@Model.ReasonForVisit</option>
                 <option data-divider="true"></option>
                 <option>Abandoned animal</option>
@@ -89,7 +89,7 @@
     <div class="form-group" style="margin-bottom: 10px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">ADV. PGH code(s)</div>
-            <select asp-for="PGHCode" data-style="btn-info" multiple class="selectpicker form-control" data-selected-text-format="count > 3" id="coderelay" data-size="7" Title="">
+            <select asp-for="PGHCode" data-style="btn-info" multiple class="selectpicker btn-form-control" data-selected-text-format="count > 3" id="coderelay" data-size="7" Title="">
                 <option>@Model.PGHCode</option>
                 <option data-divider="true"></option>
                 <option >633.02a</option>
@@ -119,7 +119,7 @@
     <div class="form-group" style="margin-bottom: 10px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Officers involved</div>
-            <select data-style="btn-info" multiple class="selectpicker form-control" data-selected-text-format="count > 3" id="officersrelay" data-size="7" Title="">
+            <select data-style="btn-info" multiple class="selectpicker btn-form-control" data-selected-text-format="count > 3" id="officersrelay" data-size="7" Title="">
                 <option>@Model.Officers</option>
                 <option data-divider="true"></option>
                 <option>BG</option>

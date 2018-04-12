@@ -1,26 +1,26 @@
 @model NewDescription
     
 <div class="form-group">
-    <div class="col-md-12">
+    <div class="col-md-12 form-element">
         <input asp-for="OwnersLastName" class="form-control"></input>
     </div>
 </div>
 
 <div class="form-group">
-    <div class="col-md-12">
+    <div class="col-md-12 form-element">
         <input asp-for="OwnersFirstName" class="form-control"></input>
     </div>
 </div>
 
 <div class="form-group" style="margin-bottom: 10px;">
-    <div class="col-md-12">
+    <div class="col-md-12 form-element">
         <input asp-for="OwnersTelephoneNumber" class="form-control"></input>
     </div>
 </div>
 
 <div class="form-group" style="margin-bottom: 5px;">
-    <div class="col-md-12">
-        <select asp-for="CallOrigin" data-style="btn-info" class="selectpicker form-control" title="Call Origin" data-dropup-auto="false">
+    <div class="col-md-12 form-element">
+        <select asp-for="CallOrigin" data-style="btn-info" class="selectpicker btn-form-control" title="Call Origin" data-dropup-auto="false">
             <option>311</option>
             <option>911</option>
             <option>Office</option>
@@ -31,8 +31,8 @@
 </div>
 
 <div class="form-group" style="margin-bottom: 5px;">
-    <div class="col-md-12">
-        <select asp-for="ReasonForVisitRelay" data-style="btn-info" multiple class="selectpicker form-control" onchange="enableButton()" title="Reason(s) for visit" data-selected-text-format="count > 4" data-dropup-auto="false" id="reasonrelay" required="true">
+    <div class="col-md-12 form-element">
+        <select asp-for="ReasonForVisitRelay" data-style="btn-info" multiple class="selectpicker btn-form-control" onchange="enableButton()" title="Reason(s) for visit" data-selected-text-format="count > 4" data-dropup-auto="false" id="reasonrelay" required="true">
             <option>Abandoned animal</option>
             <option>Animal waste in yard</option>
             <option>Animal waste off property</option>
@@ -56,8 +56,8 @@
 </div>
 
 <div class="form-group" style="margin-bottom: 10px;">
-    <div class="col-md-12">
-        <select asp-for="PGHCodeRelay" data-style="btn-info" multiple class="selectpicker form-control" title="ADV. PGH Code(s)" data-selected-text-format="count > 4" data-dropup-auto="false" id="coderelay">
+    <div class="col-md-12 form-element">
+        <select asp-for="PGHCodeRelay" data-style="btn-info" multiple class="selectpicker btn-form-control" title="ADV. PGH Code(s)" data-selected-text-format="count > 4" data-dropup-auto="false" id="coderelay">
             <option>633.02a</option>
             <option>633.03</option>
             <option>633.05</option>
@@ -76,15 +76,15 @@
 </div>
 
 <div class="form-group">
-    <div class="col-md-12">
+    <div class="col-md-12 form-element">
         <input asp-for="CitationNumber" class="form-control"></input>
         <span asp-validation-for="CitationNumber" class="text-danger" />
     </div>
 </div>
 
 <div class="form-group" style="margin-bottom: 10px;">
-    <div class="col-md-12">
-        <select asp-for="OfficersRelay" data-style="btn-info" multiple class="selectpicker form-control" title="Officers involved" data-selected-text-format="count > 4" data-dropup-auto="false" id="officersrelay">
+    <div class="col-md-12 form-element">
+        <select asp-for="OfficersRelay" data-style="btn-info" multiple class="selectpicker btn-form-control" title="Officers involved" data-selected-text-format="count > 4" data-dropup-auto="false" id="officersrelay">
             <option>BG</option>
             <option>CC</option>
             <option>DD</option>
@@ -106,7 +106,7 @@
 </div>
 
 <div class="form-group">
-    <div class="col-md-12">
+    <div class="col-md-12 form-element">
         <textarea rows="3" asp-for="Comments" class="form-control" onkeyup="textAreaAdjust(this)"></textarea>
         <span asp-validation-for="Comments" class="text-danger" />
     </div>
@@ -114,10 +114,9 @@
 
 
 <div class="form-group" style="margin-bottom: 10px;">
-    <div class="col-md-10"></div>
-    <div class="col-md-2">
+    <div class="col-md-12 form-element">
         <div style="margin-left: 5px; margin-top: 5px;" ><strong>Status:</strong></div>
-        <select asp-for="Open" data-style="btn-info" class="selectpicker form-control" data-dropup-auto="false">
+        <select asp-for="Open" data-style="btn-info" class="selectpicker btn-form-control" data-dropup-auto="false">
             <option selected value="Yes">Open</option>
             <option value="No">Closed</option>
         </select>

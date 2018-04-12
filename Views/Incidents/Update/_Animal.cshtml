@@ -11,7 +11,7 @@
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Type</div>
-            <select asp-for="Type" data-style="btn-info" class="selectpicker form-control animal-type" title="" data-dropup-auto="false" id="typerelay">
+            <select asp-for="Type" data-style="btn-info" class="selectpicker btn-form-control animal-type" title="" data-dropup-auto="false" id="typerelay">
                 <option></option>
                 <option data-divider="true"></option>
                 <option>Dog</option>
@@ -24,7 +24,7 @@
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Breed</div>
-            <select asp-for="Breed" data-style="btn-info" multiple class="selectpicker form-control" title="" data-size="7" data-selected-text-format="count > 3" data-dropup-auto="false" id="breedrelay">
+            <select asp-for="Breed" data-style="btn-info" multiple class="selectpicker btn-form-control" title="" data-size="7" data-selected-text-format="count > 3" data-dropup-auto="false" id="breedrelay">
                 <option class="submitted"></option>
                 <option data-divider="true"></option>
                 <!-- mix -->
@@ -65,7 +65,7 @@
     <div class="form-group" style="margin-bottom: 5px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Coat</div>
-            <select asp-for="Coat" data-style="btn-info" multiple class="selectpicker form-control" title="" data-size="7" data-selected-text-format="count > 3" id="coatrelay">
+            <select asp-for="Coat" data-style="btn-info" multiple class="selectpicker btn-form-control" title="" data-size="7" data-selected-text-format="count > 3" id="coatrelay">
                 <option class="submitted"></option>
                 <option data-divider="true"></option>
                 <!-- cats -->
@@ -90,7 +90,7 @@
     <div class="form-group" style="margin-bottom: 10px;">
         <div class="col-md-12">
             <div style="margin-left: 5px; padding-top: 5px;">Sex</div>
-            <select asp-for="Sex" data-style="btn-info" class="selectpicker form-control" title="" id="sexrelay">
+            <select asp-for="Sex" data-style="btn-info" class="selectpicker btn-form-control" title="" id="sexrelay">
                 <option></option>
                 <option data-divider="true"></option>
                 <option>Male</option>
@@ -140,7 +140,7 @@
 <div class="form-group" style="margin-bottom: 10px;">
     <div class="col-md-12">
         <div style="margin-left: 5px; padding-top: 5px;">Veterinarian</div>
-        <select asp-for="Veterinarian" data-style="btn-info" class="selectpicker form-control" title="" data-size="7"  data-dropup-auto="false" id="vetrelay">
+        <select asp-for="Veterinarian" data-style="btn-info" class="selectpicker btn-form-control" title="" data-size="7"  data-dropup-auto="false" id="vetrelay">
             <option></option>
             <option data-divider="true"></option>
             <option>Animal Friends, 562 Camp Horne Rd</option>
@@ -179,7 +179,7 @@
     <input asp-for="SexRelay" id="putsex" hidden></input>
     <input asp-for="animalitemID" id="animalitemid" hidden></input>
 
-    <div class="text-center">
+    <div class="text-center col-md-12">
         <input style="max-width: 250px; margin-top: 20px;" onclick="putAnimal()" value="Save" id="submit" class="btn btn-default overlaytrigger"/>
     </div>
 </form>
