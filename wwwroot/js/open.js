@@ -56,6 +56,9 @@ $('#clear2').on('click', function () {
   $('#search2').keyup();
 });
 
+function trigger() {
+  document.getElementById('overlayloader').style.display = 'flex';
+}
 // create map with visualization layer
 // heatmap points passed from controller
 // get value from search field
@@ -102,7 +105,7 @@ function initMap() {
       date = $ ( "td" ).eq(2).find( "#date" ).text();
       reason = $ ( "td" ).eq(4).find( "#reason" ).text();
       href = $( "td" ).first().find( 'a' ).attr('href');
-      href_formatted = '<a href="'+ href +'" target="_blank">Open report</a>'
+      href_formatted = '<a href="'+ href +'" onclick="trigger()">Open report</a>';
       infowindowContent.children['place-address'].textContent = address;
       infowindowContent.children['status'].innerHTML = reason;
       infowindowContent.children['date'].textContent = date;

@@ -122,7 +122,7 @@ namespace ACCmobile.Controllers
             var incidentcontent = GetIncident(id).Result;
             dynamic incidentitem = JObject.Parse(incidentcontent)["value"][0];
             DateTime utc_date = incidentitem.Created;
-            DateTime easternTime = utc_date.AddHours(-5);
+            DateTime easternTime = utc_date.AddHours(-4);
             var dateformat = "MM/dd/yyyy HH:mm";
             GetIncident adv = new GetIncident()
             {
