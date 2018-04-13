@@ -6,16 +6,21 @@
 <link rel="stylesheet" href="~/css/datepicker.css" />
 
 <form id="form" style="margin-top: 0px !important;">
-    <div id="row">
-        <div class="col-md-6 all-searchcontainer">
-            <h3 style="margin-left: 15px;">All incidents</h3>
-            <input id="search" placeholder="Enter an address" class="form-control form-element" type="text">
-            <input id="datesearch" placeholder="Select a date" class="form-control datepicker form-element" style="width: 50%;" readonly type="text">
-            <input id="clear" value="Clear" type="button" class="btn btn-default form-element" style="width: 25%;" >
+    <div id="row" class="row">
+        <div class="col-md-4 hidden-sm hidden-xs" style-"padding-top: 20px;">
+            <img src="~/android-chrome-256x256.png" class="img-responsive center-block"/> 
+        </div>
+        <div class="col-md-8">
+            <h3 style="margin-left: 15px;">Search all incidents</h3>
+            <div class="text-center">
+                <input id="search" placeholder="Enter an address" class="form-control form-element" type="text">
+                <input id="datesearch" placeholder="Select a date" class="form-control datepicker form-element" readonly type="text">
+                <input id="clear" value="Clear" type="button" class="btn btn-default form-element" style="width: 80%;">
+            </div>
         </div>
     </div>
 </form>
-    <div class="row" style="margin: 15px 0px;">
+    <div class="row">
         <table id="dt" class="table table-striped dataTable" cellspacing="0">
             <thead>
             </tr>
@@ -24,7 +29,7 @@
                     <th style="width:10% !important;">No.</th>
                     <th style="width:20% !important;">Date</th>
                     <th class="all" style="width:30% !important;">Address</th>
-                    <th class="all" style="width:30% !important;">Reason(s) for Visit</th>
+                    <th style="width:30% !important;">Reason(s) for Visit</th>
                 </tr>
             </thead>
             <tbody>
