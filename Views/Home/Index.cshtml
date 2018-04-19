@@ -1,12 +1,13 @@
 ﻿@{
     ViewData["Title"] = "Home";
-    Layout = "~/Views/Shared/_MapLayout.cshtml";
+    Layout = "~/Views/Shared/_NoMarginLayout.cshtml";
 }
-<link rel="stylesheet" href="~/css/home.css">
+<link rel="stylesheet" href="~/css/no_margins.css">
+
 <div class="row hidden-xs">
         <div class="pull-left left">
             <div class="col">
-                <p><a href="/NewIncident/Address" class="btn btn-big btn-big-left overlaytrigger"><i style="font-size:2.2em;" class="glyphicon glyphicon-plus"></i><br>New<br>Incident</a></p>
+                <p><a href="/NewIncident/Address" class="btn btn-big btn-big-left overlaytrigger"><i style="font-size:2.2em; margin-left: 10px;" class="glyphicon glyphicon-plus"></i><br>New<br>Incident</a></p>
             </div>
         </div>
         <div class="col-md-6 home">
@@ -23,7 +24,7 @@
             </div>
         </div>
 </div>
-<div class="hidden-sm hidden-md hidden-lg">
+<div class="hidden-sm hidden-md hidden-lg hidden-xl">
         <div class="row">
             <div>
                 <br>
@@ -33,7 +34,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <p><a href="/NewIncident/Address" class="btn btn-big btn-big-full overlaytrigger"><i style="font-size:2em; vertical-align: middle; margin-right: 20px;" class="glyphicon glyphicon-plus"></i>New incident</a></p>
+                <p><a href="/NewIncident/Address" class="btn btn-big btn-big-full overlaytrigger"><i style="font-size:2em; vertical-align: middle; margin-right: 20px; margin-top: -10px;" class="glyphicon glyphicon-plus"></i>New incident</a></p>
                 <br>
             </div>
         </div>
@@ -50,4 +51,3 @@
         </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script type="text/javascript" src="~/js/home.js"></script>

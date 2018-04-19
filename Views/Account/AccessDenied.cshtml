@@ -5,15 +5,30 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    Layout = null;
     ViewData["Title"] = "401";
 }
-<div class="row login">
-    <div class="col-md-12">
-        <img src="~/images/acclogo.png" class="img-responsive center-block" style="min-width:150px"/> 
+
+<!DOCTYPE html>
+<html>
+<div id="overlayloader" class="overlayloader">
+    <div class="loader"></div>
+</div>  
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+</head>
+<body>
+
+    <div class="row login">
+        <div class="col-md-12">
+            <img src="~/images/acclogo.png" class="img-responsive center-block" style="min-width:200px"/> 
+        </div>
+        <div class="col-md-12 btn-login">
+            <h1 style="letter-spacing: 1px; padding: 3px; margin-top: 2em; !important">Sorry,<br/> you don't have access.</h1>
+        </div>
     </div>
-    <div class="col-md-12 text-center">
-        <h1 style="letter-spacing: 1px; padding: 3px;">Sorry,</h1>
-        <h1 style="font-weight: bold; letter-spacing: 1px; padding: 3px;">You don't have access.</h1>
-    </div>
-</div>
+
+</body>
+</html>

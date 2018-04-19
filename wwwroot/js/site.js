@@ -11,4 +11,4 @@ var overlay = function() {
 };
 Array.from(classname).forEach(function(element) {
     element.addEventListener('click', overlay);
-  });
+});

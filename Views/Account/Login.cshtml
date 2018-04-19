@@ -5,26 +5,43 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 @{
-    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+    Layout = null;
     ViewData["Title"] = "Log in";
 }
-<div class="row login">
-    <div class="col-md-12">
-        <img src="~/images/acclogo.png" class="img-responsive center-block" style="min-width:200px !important; max-height: 450px !important;"/> 
+
+<!DOCTYPE html>
+<html>
+<div id="overlayloader" class="overlayloader">
+    <div class="loader"></div>
+</div>  
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Raleway|Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/auth.css" asp-append-version="true" />
+</head>
+<body>
+
+    <div class="row login">
+        <div class="col-md-12">
+            <img src="~/images/acclogo.png" class="img-responsive center-block" style="min-width:200px !important; max-height: 450px !important;"/> 
+        </div>
+        <div class="col-md-12">
+        @{
+            var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            <form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                <div> 
+                    <p>
+                        @foreach (var provider in loginProviders)
+                        {
+                            <button style="letter-spacing: 1px; font-weight: bold; margin-top: 2em !important;" type="submit" class="btn btn-default btn-login overlaytrigger" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">Log in</button>
+                        }
+                    </p>
+                </div>
+            </form>
+        }
+        </div>
     </div>
-    <div class="col-md-12 text-center">
-     @{
-        var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-        <form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-            <div> 
-                <p>
-                    @foreach (var provider in loginProviders)
-                    {
-                        <button style="margin-top: 15px; letter-spacing: 1px; font-weight: bold;" type="submit" class="btn btn-default overlaytrigger" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">Log in</button>
-                    }
-                </p>
-            </div>
-        </form>
-    }
-    </div>
-</div>
+
+<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>

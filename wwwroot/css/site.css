@@ -1,10 +1,10 @@
-﻿html, {
+﻿/* core classes */
+html, body {
     height: 100% !important;
 }
 body {
     background-color: rgba(255, 250, 238, .5);
     font-family: 'Raleway', sans-serif;
-    height: 100% !important;
     padding-top: 50px;
 }
 footer {
@@ -14,24 +14,60 @@ h1, h2, h3, h4, h5 {
     color: #383838;
     font-family: 'Raleway', sans-serif;
 }
-/* centers buttons in div */
-.vcenter {
-    display: inline-block;
-    vertical-align: middle;
-    float: none;
+hr {
+    border: .5px solid #fffaee !important;
 }
-
-/* Wrapping element */
-/* Set some basic padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
 }
 
+/* loader to save screen on network activity */
+.overlayloader {
+    align-items: center;
+    justify-content: center;
+    display: none;
+    background-color: rgba(0,0,0,0.7);
+    position: fixed;
+    z-index: 2000;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+.loader {
+    border: 16px solid #fffaee;
+    border-top: 16px solid rgba(202, 205, 206,.35);
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+    animation: spin 4s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+
+/* scroll bar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
 /* navbar style */
 .navbar-inverse { 
     background-color: rgb(44, 62, 80) !important; 
-    border-color: rgba(202, 205, 206, .5) !important;
+    border: 0px !important;
 }
 .navbar-brand {
     color: #fffaee !important;
@@ -50,10 +86,10 @@ h1, h2, h3, h4, h5 {
     color: #fffaee;
 }
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-    border-color: rgba(202, 205, 206, .5) !important;
+    border: 0px !important;
 }
 .navbar-inverse .navbar-toggle {
-    border-color: rgba(202, 205, 206, .5) !important;
+    border-color: transparent !important;
 }
 .navbar-inverse .navbar-toggle:hover,
 .navbar-inverse .navbar-toggle:focus {
@@ -62,7 +98,6 @@ h1, h2, h3, h4, h5 {
 .navbar-inverse .navbar-toggle .icon-bar {
     background-color: #fffaee !important;
 }
-
 .btn-link {
     margin-left: 5px;
     outline: none;
@@ -72,6 +107,7 @@ h1, h2, h3, h4, h5 {
     background-color: transparent !important;
     outline: none;
 }
+
 /* form styles */
 /* text box */
 .form-control {
@@ -189,7 +225,7 @@ button.bs-placeholder[role='button']>span {
     margin: 15px 7px;
     width: 200px;
 }
-  .btn-clear {
+.btn-clear {
     padding: 10px 15px;
     font-size: 14px  !important;
     font-weight: normal  !important;
@@ -198,8 +234,8 @@ button.bs-placeholder[role='button']>span {
     border: 1px solid #ccc  !important;
     border-radius: 4px  !important;
     width: 100%;
-  }
-  .btn-address {
+}
+.btn-address {
     /* font */
     color: #383838;
     font-size: 18px;
@@ -220,12 +256,12 @@ button.bs-placeholder[role='button']>span {
     padding: 5px 5px;
     margin: 15px 7px;
     width: 200px;
-  }
+}
 .btn-big-left {
     /* font */
     color: rgb(26, 36, 47);
     font-size: 28px;
-    font-family: helvetica;
+    font-family: 'Raleway', sans-serif;
     text-shadow: #fffaee 0 0 10px;
     line-height: 1.6em;
     /* remove blue underline */
@@ -247,7 +283,7 @@ button.bs-placeholder[role='button']>span {
     /* font */
     color: rgb(26, 36, 47);
     font-size: 28px;
-    font-family: helvetica;
+    font-family: 'Raleway', sans-serif;
     text-shadow: #fffaee 0 0 10px;
     line-height: 1.6em;
     /* remove blue underline */
@@ -302,10 +338,6 @@ button.bs-placeholder[role='button']>span {
 }
 
 /* google map elements */
-.addresscontainer {
-    width: 100%;
-    max-width: 650px;
-}
 .pac-container {
     z-index: 1501 !important
 }
@@ -321,7 +353,6 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 .gmnoprint a, .gmnoprint span, .gm-style-cc {
     display:none;
 }
-
 #infowindow-content .title {
     font-weight: bold;
 }
@@ -373,40 +404,27 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     border-top: 0px !important;
 }
 
-/* center login page */
-.login {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+/* jquery ui dialog box */
+.ui-widget-header {
+    background: rgb(44, 62, 80) !important; 
+    color: #fffaee;
 }
-
-/* loader to save screen on network activity */
-.overlayloader {
-    align-items: center;
-    justify-content: center;
-    display: none;
-    background-color: rgba(0,0,0,0.7);
-    position: fixed;
-    z-index: 2000;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    overflow: hidden;
+.ui-widget-content { 
+    background-color: rgba(255, 254, 254, 1);
+    color: #383838;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
-.loader {
-    border: 16px solid #fffaee;
-    border-top: 16px solid rgba(202, 205, 206,.35);
-    border-radius: 50%;
-    width: 150px;
-    height: 150px;
-    animation: spin 4s linear infinite;
+.ui-dialog-title { 
+    font-style: italic;
 }
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.wordwrap { 
+    word-break: break-all; 
+    word-wrap: break-word;
+}
+.ui-dialog {
+    z-index: 1500!important;
+    position:absolute !important;
 }
 
 /* all incidents search container */
@@ -444,41 +462,39 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
     padding: 15px 15px 5px 15px;
 }
 
+/* home page elements */
+/* center icon on home page */
+.home {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+/* left button on home page */
+.left {
+    position: sticky;
+    top: 25%;
+    padding: 0;
+    margin: 0;
+}
+/* right button on home page */
+.right {
+    position: sticky;
+    top: 17%;
+    padding: 0;
+    margin: 0;
+}
 
-
-/* jquery ui dialog box */
-.ui-widget-header {
-    background: rgb(44, 62, 80) !important; 
-    color: #fffaee;
+/* address page */
+#AddressForm, .row {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-bottom: 0px !important;
 }
-.ui-widget-content { 
-    background-color: rgba(255, 254, 254, 1);
-    color: #383838;
-    font-size: 14px;
-    margin-bottom: 10px;
-}
-.ui-dialog-title { 
-    font-style: italic;
-}
-.wordwrap { 
-    word-break: break-all; 
-    word-wrap: break-word;
-}
-.ui-dialog {
-    z-index: 1500!important;
-    position:absolute !important;
-}
-
-/* scroll bar */
-::-webkit-scrollbar {
-    width: 10px;
-  }
-::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-}
-::-webkit-scrollbar-thumb {
-    background: #888; 
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #555; 
+.addresscontainer {
+    width: 100%;
+    max-width: 650px;
 }
