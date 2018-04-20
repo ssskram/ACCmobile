@@ -85,6 +85,9 @@ hr {
     background: rgb(26, 36, 47) !important;
     color: #fffaee;
 }
+.navbar-inverse .navbar-nav > li > a:focus {
+    outline:0;
+}
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
     border: 0px !important;
     margin-left: 5px !important;

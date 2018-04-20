@@ -9,13 +9,6 @@ body {
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
 }
-.btn-login {
-    position: relative;
-    left: 47%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    text-align: center;
-}
 /* button styles */
 .btn-default:active, .btn-default:focus, .btn-default:hover {
     background-color: rgb(26, 36, 47) !important;
