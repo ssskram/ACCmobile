@@ -27,6 +27,8 @@ namespace ACCmobile
         string _redirecturi = null;
         string _spresourceid = null;
         string _googleapikey = null;
+        public IConfiguration Configuration { get; }
+
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -43,14 +45,6 @@ namespace ACCmobile
             Configuration = builder.Build();
         }
 
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             _MSClientID = Configuration["MSClientId"];
@@ -63,6 +57,7 @@ namespace ACCmobile
             _spresourceid = Configuration["spresourceid"];
             _googleapikey = Configuration["googleapikey"];
 
+            // add application services
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseInMemoryDatabase(Guid.NewGuid().ToString()));
 
@@ -90,7 +85,6 @@ namespace ACCmobile
                     options.SlidingExpiration = true;
                 });
 
-            // add application services
             Environment.SetEnvironmentVariable("sendgrid", Configuration["sendgrid"]);
             Environment.SetEnvironmentVariable("refreshtoken", Configuration["refreshtoken"]);
             Environment.SetEnvironmentVariable("SPClientSecret", Configuration["SPClientSecret"]);
@@ -109,7 +103,7 @@ namespace ACCmobile
             });
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //HTTP request pipeline
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
