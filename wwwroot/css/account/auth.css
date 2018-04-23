@@ -35,7 +35,8 @@ body {
     /* other */
     background-color:transparent;
     padding: 10px 15px;
-    margin: 15px 7px;
+    margin: 15px 0px;
+    margin-right: 13px;
     width: 50%;
 }
 /* loader to save screen on network activity */
