@@ -68,7 +68,7 @@ function setdropdowns ()
 
         $('.selectpicker').selectpicker('refresh');
     }
-    else if (type =="Dog")
+    else if (type == "Dog")
     {
         // set breed for dog
         $('#breedrelay').find('.cat').hide();
