@@ -145,7 +145,8 @@ namespace ACCmobile.Controllers
                 Officers = incidentitem.Officers,
                 itemID = incidentitem.Id,
                 Open = incidentitem.Open,
-                Note = incidentitem.Note
+                Note = incidentitem.Note,
+                Zip = incidentitem.Zip
             };
             if (incidentitem.Open == "Yes")
             {
@@ -377,7 +378,8 @@ namespace ACCmobile.Controllers
             {
                 IncidentID = (Guid.NewGuid().ToString()),
                 Address = model.Address,
-                Coords = model.Coords
+                Coords = model.Coords,
+                Zip = model.Zip
             };
             return View("~/Views/Incidents/New/Description.cshtml", incidentmodel);
         }
@@ -553,7 +555,7 @@ namespace ACCmobile.Controllers
             }
             var json =
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}', 'Note' : '{15}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}', 'Note' : '{15}', 'Zip' : '{16}' }}",
                     OwnersFirstName, // 0
                     OwnersLastName, // 1
                     OwnersTelephone, // 2
@@ -569,7 +571,8 @@ namespace ACCmobile.Controllers
                     SubmittedBy, // 12
                     model.Officers, // 13
                     model.Open, // 14
-                    Note); // 15
+                    Note, // 15
+                    model.Zip); // 16
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post
@@ -685,7 +688,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("IF-MATCH", "*");
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}', 'Officers' : '{8}', 'ModifiedBy' : '{9}', 'Open' : '{10}', 'AddressID' : '{11}', 'Address' : '{12}', 'Note' : '{13}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}', 'Officers' : '{8}', 'ModifiedBy' : '{9}', 'Open' : '{10}', 'AddressID' : '{11}', 'Address' : '{12}', 'Note' : '{13}', 'Zip' : '{14}' }}",
                     model.OwnersFirstName, // 0
                     model.OwnersLastName, // 1
                     model.OwnersTelephoneNumber, // 2
@@ -699,7 +702,8 @@ namespace ACCmobile.Controllers
                     model.Open, // 10
                     model.Coords,  // 11 
                     model.AddressRelay, // 12
-                    model.Note); // 13
+                    model.Note, // 13
+                    model.Zip); // 14
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post

@@ -9,6 +9,7 @@
         </div>
         <input asp-for="AddressRelay" id="addresscheck" hidden/>
         <input asp-for="Coords" id="coords" hidden/>
+        <input asp-for="Zip" id="ziprel" hidden/>
     </div>
     <div class="col-md-2" style="margin-bottom: 10px;">
         <div style="margin-left: 5px;">Keep open?</div>
@@ -162,7 +163,6 @@
     <input asp-for="ReasonForVisitRelay" id="reason" hidden></input>
     <input asp-for="PGHCodeRelay" id="code" hidden></input>
     <input asp-for="OfficersRelay" id="officers" hidden></input>
-
 
 <div class="col-md-12 text-center">
     <input style="max-width: 250px; margin: 20px;"  onclick="putIncident()" value="Save" id="submitincident" title="Address must be valid, and reason for visit cannot be blank" class="btn btn-default overlaytrigger"/>

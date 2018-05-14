@@ -67,6 +67,8 @@ function initMap() {
         var place = autocomplete.getPlace();
         // write lat/long to addressid field
         $('#coords').val(place.geometry.location);
+        // write zip to zip field
+        $('#ziprel').val(place.address_components[7].short_name);
         $('#addresscheck').val( $('#autocomplete').val() );
     });
     autocomplete.addListener('place_changed', enableButton);

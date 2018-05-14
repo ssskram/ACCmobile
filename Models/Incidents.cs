@@ -11,6 +11,7 @@ namespace ACCmobile.Models
 
         // begin hidden fields
         public string Coords { get; set; }
+        public string Zip { get; set; }
         public string Address { get; set; }
     }
 
@@ -53,6 +54,7 @@ namespace ACCmobile.Models
         public string Address { get; set; }
         public string Coords { get; set; }
         public string Officers { get; set; }
+        public string Zip { get; set; }
     }
 
     public class NewAnimal
@@ -136,6 +138,7 @@ namespace ACCmobile.Models
         public string Address { get; set; }
         public string AddressRelay { get; set; }
         public string Coords { get; set; }
+        public string Zip { get; set; }
         public string Date { get; set; }
         public string SubmittedBy { get; set; }
         public string itemID { get; set; }
