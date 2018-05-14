@@ -54,6 +54,7 @@ namespace ACCmobile.Controllers
                     Date = easternTime.ToString(dateformat),
                     Address = item.Address,
                     ReasonForVisit = item.ReasonforVisit,
+                    Note = item.Note,
                     id = item.Id,
                     Coords = item.AddressID
                 };
@@ -91,6 +92,7 @@ namespace ACCmobile.Controllers
                     Address = item.Address,
                     id = item.Id,
                     ReasonForVisit = item.ReasonforVisit,
+                    Note = item.Note,
                     Coords = item.AddressID
                 };
                 Advises.Add(adv);
@@ -142,7 +144,8 @@ namespace ACCmobile.Controllers
                 ModifiedBy = incidentitem.ModifiedBy,
                 Officers = incidentitem.Officers,
                 itemID = incidentitem.Id,
-                Open = incidentitem.Open
+                Open = incidentitem.Open,
+                Note = incidentitem.Note
             };
             if (incidentitem.Open == "Yes")
             {
@@ -543,9 +546,14 @@ namespace ACCmobile.Controllers
             {
                 Comments = Comments.Replace("'", "");
             }
+            var Note = model.Note;
+            if (Note != null && Note.Contains("'"))
+            {
+                Note = Note.Replace("'", "");
+            }
             var json =
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}', 'Note' : '{15}' }}",
                     OwnersFirstName, // 0
                     OwnersLastName, // 1
                     OwnersTelephone, // 2
@@ -560,7 +568,8 @@ namespace ACCmobile.Controllers
                     model.Address, // 11
                     SubmittedBy, // 12
                     model.Officers, // 13
-                    model.Open); // 14
+                    model.Open, // 14
+                    Note); // 15
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post
@@ -676,7 +685,7 @@ namespace ACCmobile.Controllers
             client.DefaultRequestHeaders.Add("IF-MATCH", "*");
             var json = 
                 String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}', 'Officers' : '{8}', 'ModifiedBy' : '{9}', 'Open' : '{10}', 'AddressID' : '{11}', 'Address' : '{12}' }}",
+                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'CallOrigin' : '{7}', 'Officers' : '{8}', 'ModifiedBy' : '{9}', 'Open' : '{10}', 'AddressID' : '{11}', 'Address' : '{12}', 'Note' : '{13}' }}",
                     model.OwnersFirstName, // 0
                     model.OwnersLastName, // 1
                     model.OwnersTelephoneNumber, // 2
@@ -689,7 +698,8 @@ namespace ACCmobile.Controllers
                     ModifiedBy, // 9
                     model.Open, // 10
                     model.Coords,  // 11 
-                    model.AddressRelay); // 12
+                    model.AddressRelay, // 12
+                    model.Note); // 13
 
             client.DefaultRequestHeaders.Add("ContentLength", json.Length.ToString());
             try // post

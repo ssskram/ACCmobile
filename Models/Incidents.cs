@@ -41,6 +41,8 @@ namespace ACCmobile.Models
         public string Comments { get; set; }
         [Display(Prompt = "Call Origin")]
         public string CallOrigin { get; set; }
+        [Display(Prompt = "Note")]
+        public string Note { get; set; }
         public string OfficersRelay { get; set; }
         public string Open { get; set; }
         
@@ -112,6 +114,7 @@ namespace ACCmobile.Models
         public string Address { get; set; }
         public string Coords { get; set; }
         public string ReasonForVisit { get; set; }
+        public string Note { get; set; }
         public string googledir { get; set; }
     }
 
@@ -127,6 +130,7 @@ namespace ACCmobile.Models
         public string ReasonForVisitRelay { get; set; }
         [DataType(DataType.MultilineText)]
         public string Comments { get; set; }
+        public string Note { get; set; }
         public string CallOrigin { get; set; }
         public string IncidentID { get; set; }
         public string Address { get; set; }
