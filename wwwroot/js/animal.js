@@ -7,10 +7,6 @@ $( document ).ready(function() {
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
     $('.selectpicker').selectpicker('mobile');
     }
-    // datepicker
-    $('.datepicker').datepicker({
-        format: "mm/dd/yyyy"
-    });  
 });
 
 // when entered, copy animal name to section header
@@ -174,9 +170,6 @@ function addAnimal()
                     $('.selectpicker').selectpicker('refresh');
                     // once bootstrap-select is ready, bring the rest
                     $("#form").show();
-                    $('.datepicker').datepicker({
-                        format: "mm/dd/yyyy"
-                    });  
                 },
                 error: function(result) {
                     alert("Failed to load new animal form.  Please refresh page.");

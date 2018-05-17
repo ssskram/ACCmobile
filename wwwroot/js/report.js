@@ -4,11 +4,6 @@ $(function() {
     $('#addresscheck').val( $('#autocomplete').val() );
 });
 
-// datepicker
-$('.datepicker').datepicker({
-    format: "mm/dd/yyyy"
-});  
-
 // datatable 
 $.fn.dataTable.moment( 'MM/DD/YYYY HH:mm');
 var table = $("#dt").DataTable({
