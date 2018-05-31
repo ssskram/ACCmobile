@@ -502,4 +502,5 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
 .addresscontainer {
     width: 100%;
     max-width: 650px;
+    background-color: white;
 }

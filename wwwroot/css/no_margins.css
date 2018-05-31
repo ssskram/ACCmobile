@@ -31,7 +31,7 @@ html, body, .container, .row, #column, #AddresForm {
     padding: 10px !important;
 }
 .addresscontainer {
-    background:rgba(255, 254, 250, .85);
+    background:white;
     padding: 5px 5px 10px 0px;
     margin: 20px 10px 50px 10px;
     border-radius: 5px;
