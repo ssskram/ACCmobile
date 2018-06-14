@@ -10,4 +10,4 @@
 /home/ssskram/applications/ACCmobile/obj/Debug/netcoreapp2.0/ACCmobile.AssemblyInfo.cs
 /home/ssskram/applications/ACCmobile/obj/Debug/netcoreapp2.0/ACCmobile.dll
 /home/ssskram/applications/ACCmobile/obj/Debug/netcoreapp2.0/ACCmobile.pdb
-/home/ssskram/applications/ACCmobile/obj/Debug/netcoreapp2.0/ACCmobile.csprojResolveAssemblyReference.cache
+/home/ssskram/Applications/ACCmobile/obj/Debug/netcoreapp2.0/ACCmobile.csprojAssemblyReference.cache

@@ -1,0 +1,13 @@
+/home/ssskram/Applications/ACCmobile/bin/Debug/netcoreapp2.1/app.db
+/home/ssskram/Applications/ACCmobile/bin/Debug/netcoreapp2.1/ACCmobile.deps.json
+/home/ssskram/Applications/ACCmobile/bin/Debug/netcoreapp2.1/ACCmobile.runtimeconfig.json
+/home/ssskram/Applications/ACCmobile/bin/Debug/netcoreapp2.1/ACCmobile.runtimeconfig.dev.json
+/home/ssskram/Applications/ACCmobile/bin/Debug/netcoreapp2.1/ACCmobile.dll
+/home/ssskram/Applications/ACCmobile/bin/Debug/netcoreapp2.1/ACCmobile.pdb
+/home/ssskram/Applications/ACCmobile/obj/Debug/netcoreapp2.1/ACCmobile.csprojAssemblyReference.cache
+/home/ssskram/Applications/ACCmobile/obj/Debug/netcoreapp2.1/ACCmobile.csproj.CoreCompileInputs.cache
+/home/ssskram/Applications/ACCmobile/obj/Debug/netcoreapp2.1/UserSecretsAssemblyInfo.cs
+/home/ssskram/Applications/ACCmobile/obj/Debug/netcoreapp2.1/ACCmobile.AssemblyInfoInputs.cache
+/home/ssskram/Applications/ACCmobile/obj/Debug/netcoreapp2.1/ACCmobile.AssemblyInfo.cs
+/home/ssskram/Applications/ACCmobile/obj/Debug/netcoreapp2.1/ACCmobile.dll
+/home/ssskram/Applications/ACCmobile/obj/Debug/netcoreapp2.1/ACCmobile.pdb
