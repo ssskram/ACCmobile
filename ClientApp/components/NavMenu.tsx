@@ -34,7 +34,7 @@ export class NavMenu extends React.Component<any, any>  {
                         <span className='icon-bar'></span>
                         <span className='icon-bar'></span>
                     </button>
-                    <Link className='navbar-brand' to={'/'} data-toggle="collapse" data-target=".in">acc<strong>mobile</strong></Link>
+                    <Link className='navbar-brand' to={'/'} data-toggle="collapse" data-target=".in">acc <strong>mobile</strong></Link>
                 </div>
                 <div className='clearfix'></div>
                 <div className='navbar-collapse collapse'>
