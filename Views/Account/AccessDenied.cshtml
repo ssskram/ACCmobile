@@ -1,0 +1,29 @@
+@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/account/auth.css" asp-append-version="true" />
+        <title>acc mobile</title>
+    </head>
+    <body>
+        <div class="row login">
+            <div class="col-md-12">
+                <img src="~/images/ip.png" class="img-responsive center-block" style="opacity: 0.8; max-height: 350px !important;"/> 
+            </div>
+            <div class="col-md-12 text-center">
+                <h1 style="letter-spacing: 1px; padding: 3px; margin-top: 1em; !important;">Sorry,<br/><strong>you don't have access.</strong></h1>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,46 @@
+﻿@using System.Collections.Generic
+@using System.Linq
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Authentication
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="~/dist/vendor.css" asp-append-version="true" />
+        <link rel="stylesheet" href="~/css/account/auth.css" asp-append-version="true" />
+        <title>acc mobile</title>
+    </head>
+    <body>
+        <div id="overlayloader" class="overlayloader">
+            <div class="loader"></div>
+        </div>  
+        <div class="row login">
+            <div class="col-md-12">
+                <img src="~/images/ip.png" class="img-responsive center-block" style="opacity: 0.8; max-height: 350px !important; margin-bottom: 25px;"/> 
+            </div>
+            <div class="col-md-12 text-center">
+            @{
+                var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                <form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                    <div> 
+                        <p>
+                            @foreach (var provider in loginProviders)
+                            {
+                                <button id="login" style="margin-right: 10px;" type="submit" class="btn btn-default overlaytrigger" name="provider" value="@provider.Name" title="Log in using your City email">Log in</button>
+                            }
+                        </p>
+                    </div>
+                </form>
+            }
+            </div>
+        </div>
+    </body>
+    <script src="~/js/account/auth.js" asp-append-version="true"></script>
+</html>
+
