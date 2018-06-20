@@ -51,5 +51,5 @@ export const reducer: Reducer<UserState> = (state: UserState, incomingAction: Ac
             const exhaustiveCheck: never = action;
     }
 
-    return state || { user: "...loading" }
+    return state || { user: "...loading your account" }
 };
