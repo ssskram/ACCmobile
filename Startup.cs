@@ -22,6 +22,11 @@ namespace accmobile
         string _MSClientID = null;
         string _MSClientSecret = null;
         string _sendgrid = null;
+        string _refreshtoken = null;
+        string _SPClientSecret = null;
+        string _SPClientID = null;
+        string _redirecturi = null;
+        string _spresourceid = null;
         private readonly IHostingEnvironment _currentEnvironment;
         public IConfiguration HostingConfig { get; private set; }
         public IConfiguration Configuration { get; }
@@ -49,6 +54,11 @@ namespace accmobile
             _MSClientID = Configuration["MSClientId"];
             _MSClientSecret = Configuration["MSClientSecret"];
             _sendgrid = Configuration["sendgrid"];
+            _refreshtoken = Configuration["refreshtoken"];
+            _SPClientSecret = Configuration["SPClientSecret"];
+            _SPClientID = Configuration["SPClientID"];
+            _redirecturi = Configuration["redirecturi"];
+            _spresourceid = Configuration["spresourceid"];  
 
             // add application services
             services.AddDbContext<ApplicationDbContext>(options =>
@@ -91,6 +101,11 @@ namespace accmobile
             }
 
             Environment.SetEnvironmentVariable("sendgrid", Configuration["sendgrid"]);
+            Environment.SetEnvironmentVariable("refreshtoken", Configuration["refreshtoken"]);
+            Environment.SetEnvironmentVariable("SPClientSecret", Configuration["SPClientSecret"]);
+            Environment.SetEnvironmentVariable("SPClientID", Configuration["SPClientID"]);
+            Environment.SetEnvironmentVariable("redirecturi", Configuration["redirecturi"]);
+            Environment.SetEnvironmentVariable("spresourceid", Configuration["spresourceid"]);
 
             services.AddMvc()
                 .AddSessionStateTempDataProvider();

@@ -3,7 +3,7 @@ import { Action, Reducer } from 'redux';
 import { AppThunkAction } from './';
 
 export interface DropdownState {
-    animalTypes: AnimalTypes[]
+    animalBreeds: AnimalBreeds[]
     animalCoats: AnimalCoats[]
     veterinarians: Veterinarians[]
     reasonsForVisit: ReasonsForVisit[]
@@ -11,14 +11,16 @@ export interface DropdownState {
     officerInitials: OfficerInitials[]
     citationNumbers: CitationNumbers[]
 }
-export interface AnimalTypes {
+export interface AnimalBreeds {
     type: any;
+    breed: any;
 }
 export interface AnimalCoats {
+    type: any;
     coat: any;
 }
 export interface Veterinarians {
-    vets: any;
+    vet: any;
 }
 export interface ReasonsForVisit {
     reason: any;
@@ -27,7 +29,7 @@ export interface CallOrigins {
     origin: any;
 }
 export interface OfficerInitials {
-    initials: any;
+    initial: any;
 }
 export interface CitationNumbers {
     number: any;
@@ -36,9 +38,9 @@ export interface CitationNumbers {
 interface DropdownRequestsAction {
     type: 'REQUEST_DROPDOWNS';
 }
-interface AnimalTypesReceiveAction {
-    type: 'RECEIVE_ANIMALTYPES';
-    animalTypes: AnimalTypes[]
+interface AnimalBreedsReceiveAction {
+    type: 'RECEIVE_ANIMALBREEDS';
+    animalBreeds: AnimalBreeds[]
 }
 interface AnimalCoatsReceiveAction {
     type: 'RECEIVE_ANIMALCOATS';
@@ -67,7 +69,7 @@ interface CitationNumbersReceiveAction {
 
 type KnownAction =
     DropdownRequestsAction |
-    AnimalTypesReceiveAction |
+    AnimalBreedsReceiveAction |
     AnimalCoatsReceiveAction |
     VeterinariansReceiveAction |
     ReasonsForVisitReceiveAction |
@@ -77,15 +79,15 @@ type KnownAction =
 
 export const actionCreators = {
     getDropdowns: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
-        let fetchAnimalTypes = fetch('/api/dropdowns/animalTypes', {
+        let fetchAnimalBreeds = fetch('/api/dropdowns/animalBreeds', {
             credentials: 'same-origin',
             headers: {
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
             }
         })
-            .then(response => response.json() as Promise<AnimalTypes[]>)
+            .then(response => response.json() as Promise<AnimalBreeds[]>)
             .then(data => {
-                dispatch({ type: 'RECEIVE_ANIMALTYPES', animalTypes: data });
+                dispatch({ type: 'RECEIVE_ANIMALBREEDS', animalBreeds: data });
             });
 
         let fetchAnimalCoats = fetch('/api/dropdowns/animalCoats', {
@@ -154,7 +156,7 @@ export const actionCreators = {
                 dispatch({ type: 'RECEIVE_CITATIONNUMBERS', numbers: data });
             });
 
-        addTask(fetchAnimalTypes);
+        addTask(fetchAnimalBreeds);
         addTask(fetchAnimalCoats);
         addTask(fetchVeterinarians);
         addTask(fetchReasonsForVisit);
@@ -166,7 +168,7 @@ export const actionCreators = {
 };
 
 const unloadedState: DropdownState = {
-    animalTypes: [],
+    animalBreeds: [],
     animalCoats: [],
     veterinarians: [],
     reasonsForVisit: [],
@@ -180,7 +182,7 @@ export const reducer: Reducer<DropdownState> = (state: DropdownState, incomingAc
     switch (action.type) {
         case 'REQUEST_DROPDOWNS':
             return {
-                animalTypes: state.animalTypes,
+                animalBreeds: state.animalBreeds,
                 animalCoats: state.animalCoats,
                 veterinarians: state.veterinarians,
                 reasonsForVisit: state.reasonsForVisit,
@@ -188,9 +190,9 @@ export const reducer: Reducer<DropdownState> = (state: DropdownState, incomingAc
                 officerInitials: state.officerInitials,
                 citationNumbers: state.citationNumbers
             };
-        case 'RECEIVE_ANIMALTYPES':
+        case 'RECEIVE_ANIMALBREEDS':
             return {
-                animalTypes: action.animalTypes,
+                animalBreeds: action.animalBreeds,
                 animalCoats: state.animalCoats,
                 veterinarians: state.veterinarians,
                 reasonsForVisit: state.reasonsForVisit,
@@ -200,7 +202,7 @@ export const reducer: Reducer<DropdownState> = (state: DropdownState, incomingAc
             };
         case 'RECEIVE_ANIMALCOATS':
             return {
-                animalTypes: state.animalTypes,
+                animalBreeds: state.animalBreeds,
                 animalCoats: action.animalCoats,
                 veterinarians: state.veterinarians,
                 reasonsForVisit: state.reasonsForVisit,
@@ -210,7 +212,7 @@ export const reducer: Reducer<DropdownState> = (state: DropdownState, incomingAc
             };
         case 'RECEIVE_VETERINARIANS':
             return {
-                animalTypes: state.animalTypes,
+                animalBreeds: state.animalBreeds,
                 animalCoats: state.animalCoats,
                 veterinarians: action.vets,
                 reasonsForVisit: state.reasonsForVisit,
@@ -220,7 +222,7 @@ export const reducer: Reducer<DropdownState> = (state: DropdownState, incomingAc
             };
         case 'RECEIVE_REASONSFORVISIT':
             return {
-                animalTypes: state.animalTypes,
+                animalBreeds: state.animalBreeds,
                 animalCoats: state.animalCoats,
                 veterinarians: state.veterinarians,
                 reasonsForVisit: action.reasons,
@@ -230,7 +232,7 @@ export const reducer: Reducer<DropdownState> = (state: DropdownState, incomingAc
             };
         case 'RECEIVE_CALLORIGINS':
             return {
-                animalTypes: state.animalTypes,
+                animalBreeds: state.animalBreeds,
                 animalCoats: state.animalCoats,
                 veterinarians: state.veterinarians,
                 reasonsForVisit: state.reasonsForVisit,
@@ -240,7 +242,7 @@ export const reducer: Reducer<DropdownState> = (state: DropdownState, incomingAc
             };
         case 'RECEIVE_OFFICERINITIALS':
             return {
-                animalTypes: state.animalTypes,
+                animalBreeds: state.animalBreeds,
                 animalCoats: state.animalCoats,
                 veterinarians: state.veterinarians,
                 reasonsForVisit: state.reasonsForVisit,
@@ -250,7 +252,7 @@ export const reducer: Reducer<DropdownState> = (state: DropdownState, incomingAc
             };
         case 'RECEIVE_CITATIONNUMBERS':
             return {
-                animalTypes: state.animalTypes,
+                animalBreeds: state.animalBreeds,
                 animalCoats: state.animalCoats,
                 veterinarians: state.veterinarians,
                 reasonsForVisit: state.reasonsForVisit,

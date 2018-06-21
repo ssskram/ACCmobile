@@ -3,6 +3,7 @@ import ReactTable from "react-table";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as Ping from '../../store/ping';
+import * as AllIncidents from '../../store/incidents'
 import Filters from './Filters'
 
 const columns = [{
@@ -29,15 +30,15 @@ export class Incidents extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
-            incidents: this.props.incidents,
+            electronicIncidents: this.props.incidents,
+            analogIncidents: this.props.incidents,
             filters: false,
             address: '',
             status: 'All',
             submittedBy: 'All',
             date: '',
             reasonForVisit: 'All',
-            note: ''
-
+            note: '',
         }
     }
 
@@ -84,15 +85,27 @@ export class Incidents extends React.Component<any, any> {
     }
 
     public render() {
-        const { incidents, filters } = this.state
+        const { incidents, filters, status, submittedBy } = this.state
+        const { user } = this.props
 
         return (
             <div>
                 <div className='row text-center'>
-                    {filters === true &&        
+                    {submittedBy === user &&
+                        <h2>My incidents</h2>
+                    }
+                    {status === 'All' &&
+                        <h2>All incidents</h2>
+                    }
+                    {status === 'Open' &&
+                        <h2>Open incidents</h2>
+                    }
+                </div>
+                <div className='row text-center'>
+                    {filters === true &&
                         <button className='btn btn-default' onClick={this.hideFilters.bind(this)}>Hide filters</button>
                     }
-                    {filters === false &&        
+                    {filters === false &&
                         <button className='btn btn-default' onClick={this.showFilters.bind(this)}>Show filters</button>
                     }
                 </div>
@@ -123,9 +136,11 @@ export class Incidents extends React.Component<any, any> {
 
 export default connect(
     (state: ApplicationState) => ({
-        ...state.ping
+        ...state.ping,
+        ...state.incidents
     }),
     ({
-        ...Ping.actionCreators
+        ...Ping.actionCreators,
+        ...AllIncidents.actionCreators
     })
 )(Incidents as any) as typeof Incidents;
