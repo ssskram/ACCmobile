@@ -3,6 +3,7 @@ import ReactTable from "react-table";
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as Ping from '../../store/ping';
+import Filters from './Filters'
 
 const columns = [{
     Header: '',
@@ -29,6 +30,14 @@ export class Incidents extends React.Component<any, any> {
         super(props);
         this.state = {
             incidents: this.props.incidents,
+            filters: false,
+            address: '',
+            status: 'All',
+            submittedBy: 'All',
+            date: '',
+            reasonForVisit: 'All',
+            note: ''
+
         }
     }
 
@@ -45,6 +54,17 @@ export class Incidents extends React.Component<any, any> {
         if (props.incidents !== this.state.incidents) {
             this.setState({ incidents: props.incidents });
         }
+    }
+
+    showFilters() {
+        this.setState({
+            filters: true
+        });
+    }
+    hideFilters() {
+        this.setState({
+            filters: false
+        });
     }
 
     filterAddress(event) {
@@ -64,26 +84,29 @@ export class Incidents extends React.Component<any, any> {
     }
 
     public render() {
-        const { incidents } = this.state
+        const { incidents, filters } = this.state
 
         return (
             <div>
+                <div className='row text-center'>
+                    {filters === true &&        
+                        <button className='btn btn-default' onClick={this.hideFilters.bind(this)}>Hide filters</button>
+                    }
+                    {filters === false &&        
+                        <button className='btn btn-default' onClick={this.showFilters.bind(this)}>Show filters</button>
+                    }
+                </div>
                 <div className="row">
-                    <div className="col-md-12">
-                        <div className="form-group">
-                            <div className="form-element">
-                                <h3 className="form-h">Search incidents</h3>
-                                <input name="filter" id="filter" className="selectpicker form-control" placeholder="Filter by address" onChange={this.filterAddress.bind(this)} />
-                            </div>
-                        </div>
-                    </div>
+                    {filters === true &&
+                        <Filters />
+                    }
                 </div>
                 <div className="col-md-12 table-container">
                     <ReactTable
                         data={incidents}
                         columns={columns}
                         loading={false}
-                        defaultPageSize={10}
+                        defaultPageSize={50}
                         noDataText='Nothing to see here'
                         defaultSorted={[
                             {
