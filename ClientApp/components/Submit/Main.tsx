@@ -2,6 +2,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as Ping from '../../store/ping';
+import Address from './Address'
+import Incident from './Incident'
+import Animals from './Animal'
 
 export class Submit extends React.Component<any, any> {
     constructor() {
@@ -15,16 +18,18 @@ export class Submit extends React.Component<any, any> {
 
         // ping server
         this.props.ping()
+
+        // load dropdown data
     }
 
     public render() {
         return (
             <div>
-                {/* Address component */}
+                <Address />
 
-                {/* Incident component */}
+                <Incident />
 
-                {/* Animal component */}
+                <Animals />
             </div>
         );
     }

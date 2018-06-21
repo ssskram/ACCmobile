@@ -10,7 +10,7 @@ export default class Incident extends React.Component<any, any> {
     public render() {
         return (
             <div>
-                {/*  Incident form */}
+                {/*  Incident update form */}
             </div>
         );
     }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default class Incident extends React.Component<any, any> {
+export default class Animal extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
@@ -10,7 +10,7 @@ export default class Incident extends React.Component<any, any> {
     public render() {
         return (
             <div>
-                {/*  Incident form */}
+                {/*  Animal update form */}
             </div>
         );
     }

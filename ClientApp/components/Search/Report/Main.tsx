@@ -2,6 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../../store';
 import * as Ping from '../../../store/ping';
+import Incident from './Incident'
+import Animals from './Animals'
 
 export class Report extends React.Component<any, any> {
     constructor() {
@@ -15,14 +17,17 @@ export class Report extends React.Component<any, any> {
 
         // ping server
         this.props.ping()
+
+        // pull specific incident from store
+        // get animals corresponding to incident
     }
 
     public render() {
         return (
             <div>
-                {/* Incident component */}
+                <Incident />
 
-                {/* Animals component */}
+                <Animals />
             </div>
         );
     }

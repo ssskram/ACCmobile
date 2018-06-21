@@ -15,6 +15,14 @@ export class Home extends React.Component<any, any> {
 
         // load analog incidents
         // load electronic incidents
+        // load animals
+        // load animal types
+        // load animal coats
+        // load veterinarians
+        // load reasons for visit
+        // load call origins
+        // load officer initials
+        // load citation numbers
     }
 
     componentWillUnmount() {
