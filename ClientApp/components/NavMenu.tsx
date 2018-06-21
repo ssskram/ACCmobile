@@ -39,15 +39,26 @@ export class NavMenu extends React.Component<any, any>  {
                 <div className='clearfix'></div>
                 <div className='navbar-collapse collapse'>
                     <ul className='nav navbar-nav'>
-                        <li className="sidenav-header">Services</li>
+                        <li className="sidenav-header"><span className='glyphicon glyphicon-search'></span>Search</li>
                         <li>
-                            <NavLink to={'/Survey'} activeClassName='active' data-toggle="collapse" data-target=".in">
-                                <span className='glyphicon glyphicon-list'></span> Survey
+                            <NavLink to={'/Incidents'} activeClassName='active' data-toggle="collapse" data-target=".in">
+                                All incidents
                             </NavLink>
                         </li>
                         <li>
-                            <NavLink to={'/Map'} activeClassName='active' data-toggle="collapse" data-target=".in">
-                                <span className='glyphicon glyphicon-map-marker'></span> Map
+                            <NavLink to={'/Incidents'} activeClassName='active' data-toggle="collapse" data-target=".in">
+                                Open incidents
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to={'/Incidents'} activeClassName='active' data-toggle="collapse" data-target=".in">
+                                My incidents
+                            </NavLink>
+                        </li>
+                        <li className="sidenav-header"><span className='glyphicon glyphicon-plus'></span>Submit</li>
+                        <li>
+                            <NavLink to={'/Submit'} activeClassName='active' data-toggle="collapse" data-target=".in">
+                                New incident
                             </NavLink>
                         </li>
                         <div className='accountcontainer'>
@@ -66,8 +77,8 @@ export class NavMenu extends React.Component<any, any>  {
 }
 
 export default connect(
-    (state: ApplicationState) => 
-    state.user,
+    (state: ApplicationState) =>
+        state.user,
     User.actionCreators
 )(NavMenu as any) as typeof NavMenu;
 

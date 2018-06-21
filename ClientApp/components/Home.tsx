@@ -12,6 +12,9 @@ export class Home extends React.Component<any, any> {
 
         // ping server
         this.props.ping()
+
+        // load analog incidents
+        // load electronic incidents
     }
 
     componentWillUnmount() {
