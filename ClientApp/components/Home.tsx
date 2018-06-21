@@ -13,16 +13,9 @@ export class Home extends React.Component<any, any> {
         // ping server
         this.props.ping()
 
-        // load analog incidents
-        // load electronic incidents
+        // load incidents
         // load animals
-        // load animal types
-        // load animal coats
-        // load veterinarians
-        // load reasons for visit
-        // load call origins
-        // load officer initials
-        // load citation numbers
+        // load dropdowns
     }
 
     componentWillUnmount() {

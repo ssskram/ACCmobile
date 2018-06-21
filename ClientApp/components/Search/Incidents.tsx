@@ -28,8 +28,7 @@ export class Incidents extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
-            electronicIncidents: this.props.electronicIncidents,
-            analogIncidents: this.props.analogIncidents
+            incidents: this.props.incidents,
         }
     }
 
@@ -39,38 +38,33 @@ export class Incidents extends React.Component<any, any> {
         // ping server
         this.props.ping()
 
-        // get electronic
-        // get analog
+        // reload incidents
     }
 
     componentWillReceiveProps(props) {
-        if (props.electronicIncidents !== this.state.electronicIncidents) {
-            this.setState({ electronicIncidents: props.electronicIncidents });
-        }
-        if (props.analogIncidents !== this.state.analogIncidents) {
-            this.setState({ analogIncidents: props.analogIncidents });
+        if (props.incidents !== this.state.incidents) {
+            this.setState({ incidents: props.incidents });
         }
     }
 
-    filter(event) {
+    filterAddress(event) {
         if (event.target.value == '') {
             this.setState({
-                requests: this.props.requests
+                incidents: this.props.incidents
             });
         }
         else {
-            var result = this.props.requests.filter(function (obj) {
-                return obj.building.toLowerCase().includes(event.target.value.toLowerCase()) ||
-                    obj.status.toLowerCase().includes(event.target.value.toLowerCase());
+            var result = this.props.incidents.filter(function (obj) {
+                return obj.address.toLowerCase().includes(event.target.value.toLowerCase())
             });
             this.setState({
-                requests: result
+                incidents: result
             });
         }
     }
 
     public render() {
-        const { requests } = this.state
+        const { incidents } = this.state
 
         return (
             <div>
@@ -79,21 +73,21 @@ export class Incidents extends React.Component<any, any> {
                         <div className="form-group">
                             <div className="form-element">
                                 <h3 className="form-h">Search incidents</h3>
-                                <input name="filter" id="filter" className="selectpicker form-control" placeholder="Filter by address" onChange={this.filter.bind(this)} />
+                                <input name="filter" id="filter" className="selectpicker form-control" placeholder="Filter by address" onChange={this.filterAddress.bind(this)} />
                             </div>
                         </div>
                     </div>
                 </div>
                 <div className="col-md-12 table-container">
                     <ReactTable
-                        data={requests}
+                        data={incidents}
                         columns={columns}
                         loading={false}
                         defaultPageSize={10}
                         noDataText='Nothing to see here'
                         defaultSorted={[
                             {
-                                id: 'submitted',
+                                id: 'date',
                                 desc: true
                             }
                         ]}
