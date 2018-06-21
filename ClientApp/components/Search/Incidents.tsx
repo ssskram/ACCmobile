@@ -1,20 +1,25 @@
 import * as React from 'react';
 import ReactTable from "react-table";
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as Ping from '../../store/ping';
 import * as AllIncidents from '../../store/incidents'
 import Filters from './Filters'
+import Moment from 'react-moment';
+import Map from '../Map/Map'
 
 const columns = [{
     Header: '',
-    accessor: 'link'
+    accessor: 'link',
+    Cell: props => <Link to={'/Report'} id={props.value}>Report</Link>
 }, {
     Header: 'No.',
-    accessor: 'number'
+    accessor: 'itemId'
 }, {
     Header: 'Date',
     accessor: 'date',
+    Cell: props => <Moment format="MM/DD/YYYY HH:mm" date={props.value}/>
 }, {
     Header: 'Address',
     accessor: 'address'
@@ -30,9 +35,9 @@ export class Incidents extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
-            electronicIncidents: this.props.incidents,
-            analogIncidents: this.props.incidents,
+            incidents: this.props.incidents,
             filters: false,
+            map: false,
             address: '',
             status: 'All',
             submittedBy: 'All',
@@ -48,7 +53,8 @@ export class Incidents extends React.Component<any, any> {
         // ping server
         this.props.ping()
 
-        // reload incidents
+        // load store
+        this.props.getIncidents()
     }
 
     componentWillReceiveProps(props) {
@@ -65,6 +71,16 @@ export class Incidents extends React.Component<any, any> {
     hideFilters() {
         this.setState({
             filters: false
+        });
+    }
+    showMap() {
+        this.setState({
+            map: true
+        });
+    }
+    hideMap() {
+        this.setState({
+            map: false
         });
     }
 
@@ -85,7 +101,7 @@ export class Incidents extends React.Component<any, any> {
     }
 
     public render() {
-        const { incidents, filters, status, submittedBy } = this.state
+        const { incidents, filters, status, submittedBy, map } = this.state
         const { user } = this.props
 
         return (
@@ -109,9 +125,22 @@ export class Incidents extends React.Component<any, any> {
                         <button className='btn btn-default' onClick={this.showFilters.bind(this)}>Show filters</button>
                     }
                 </div>
+                <div className='row text-center'>
+                    {map === true &&
+                        <button className='btn btn-default' onClick={this.showMap.bind(this)}>Hide map</button>
+                    }
+                    {map === false &&
+                        <button className='btn btn-default' onClick={this.hideMap.bind(this)}>Show Map</button>
+                    }
+                </div>
                 <div className="row">
                     {filters === true &&
                         <Filters />
+                    }
+                </div>
+                <div className="row">
+                    {map === true &&
+                        <Map />
                     }
                 </div>
                 <div className="col-md-12 table-container">

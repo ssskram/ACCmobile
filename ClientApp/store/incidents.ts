@@ -3,39 +3,46 @@ import { Action, Reducer } from 'redux';
 import { AppThunkAction } from './';
 
 export interface IncidentsState {
-    electronicIncidents: Incidents[]
-    analogIncidents: Incidents[]
+    incidents: Incidents[]
 }
 export interface Incidents {
-    oid: any;
-    building: any;
-    location: any;
-    description: any;
-    submitted: any;
-    status: any;
-    issue: any;
+    uuid: any
+    link: any;
+    date: any;
+    address: any;
+    itemId: any;
+    coords: any;
+    reasonForVisit: any;
+    note: any;
+    ownersLastName: any;
+    ownersFirstName: any;
+    ownersTelephoneNumber: any;
+    pghCode: any;
+    citationNumber: any;
+    comments: any;
+    callOrigin: any;
+    submittedBy: any;
+    modifiedBy: any;
+    officerInitials: any;
+    open: any;
+    zip: any;
 }
 
 interface IncidentsRequestsAction {
     type: 'REQUEST_INCIDENTS';
 }
-interface ElectronicIncidentsReceiveAction {
-    type: 'RECEIVE_ELECTRONICINCIDENTS';
-    electronicIncidents: Incidents[];
-}
-interface AnalogIncidentsReceiveAction {
-    type: 'RECEIVE_ANALOGINCIDENTS';
-    analogIncidents: Incidents[];
+interface IncidentsReceiveAction {
+    type: 'RECEIVE_INCIDENTS';
+    incidents: Incidents[];
 }
 
 type KnownAction =
     IncidentsRequestsAction |
-    ElectronicIncidentsReceiveAction |
-    AnalogIncidentsReceiveAction
+    IncidentsReceiveAction
 
 export const actionCreators = {
     getIncidents: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
-        let fetchElectronicIncidents = fetch('/api/incidents/electronic', {
+        let fetchIncidents = fetch('/api/incidents/all', {
             credentials: 'same-origin',
             headers: {
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
@@ -43,29 +50,16 @@ export const actionCreators = {
         })
             .then(response => response.json() as Promise<Incidents[]>)
             .then(data => {
-                dispatch({ type: 'RECEIVE_ELECTRONICINCIDENTS', electronicIncidents: data });
+                dispatch({ type: 'RECEIVE_INCIDENTS', incidents: data });
             });
 
-        let fetchAnalogIncidents = fetch('/api/incidents/analog', {
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
-            }
-        })
-            .then(response => response.json() as Promise<Incidents[]>)
-            .then(data => {
-                dispatch({ type: 'RECEIVE_ANALOGINCIDENTS', analogIncidents: data });
-            });
-
-        addTask(fetchElectronicIncidents);
-        addTask(fetchAnalogIncidents);
+        addTask(fetchIncidents);
         dispatch({ type: 'REQUEST_INCIDENTS' });
     },
 };
 
 const unloadedState: IncidentsState = {
-    electronicIncidents: [],
-    analogIncidents: []
+    incidents: []
 };
 
 export const reducer: Reducer<IncidentsState> = (state: IncidentsState, incomingAction: Action) => {
@@ -73,18 +67,11 @@ export const reducer: Reducer<IncidentsState> = (state: IncidentsState, incoming
     switch (action.type) {
         case 'REQUEST_INCIDENTS':
             return {
-                electronicIncidents: state.electronicIncidents,
-                analogIncidents: state.analogIncidents
+                incidents: state.incidents,
             };
-        case 'RECEIVE_ELECTRONICINCIDENTS':
+        case 'RECEIVE_INCIDENTS':
             return {
-                electronicIncidents: action.electronicIncidents,
-                analogIncidents: state.analogIncidents
-            };
-        case 'RECEIVE_ANALOGINCIDENTS':
-            return {
-                electronicIncidents: state.electronicIncidents,
-                analogIncidents: action.analogIncidents
+                incidents: action.incidents,
             };
         default:
             const exhaustiveCheck: never = action;

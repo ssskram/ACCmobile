@@ -8,14 +8,6 @@ export class selectMap extends React.Component<any, any> {
         }
     }
 
-    componentWillMount() {
-        document.body.style.backgroundColor = "rgb(44, 62, 80)";
-    }
-
-    componentWillUnmount() {
-        document.body.style.backgroundColor = null;
-    }
-
     render() {
         return (
             <div id="map">

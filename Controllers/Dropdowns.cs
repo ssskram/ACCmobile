@@ -18,6 +18,7 @@ using System.Text.RegularExpressions;
 namespace accmobile.Controllers
 {
     [Authorize]
+    [Route("api/[controller]")]
     public class dropdowns : Controller
     {
         HttpClient client = new HttpClient();
@@ -144,6 +145,7 @@ namespace accmobile.Controllers
             return(AllOrigins);
         }
 
+        [HttpGet("[action]")]
         public async Task<object> officerInitials()
         {
             await refreshtoken();
@@ -167,6 +169,7 @@ namespace accmobile.Controllers
             return(AllInitials);
         }
 
+        [HttpGet("[action]")]
         public async Task<object> citationNumbers()
         {
             await refreshtoken();
