@@ -1,4 +1,5 @@
 import * as React from 'react';
+import Map from '../Map/MapContainer'
 
 export default class Address extends React.Component<any, any> {
     constructor() {
@@ -10,7 +11,7 @@ export default class Address extends React.Component<any, any> {
     public render() {
         return (
             <div>
-                {/* Autocomplete + map*/}
+                <Map />
             </div>
         );
     }

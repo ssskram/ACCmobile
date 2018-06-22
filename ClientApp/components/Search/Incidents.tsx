@@ -8,15 +8,11 @@ import * as AllIncidents from '../../store/incidents'
 import Filters from './Filters'
 import Moment from 'react-moment';
 import Map from '../Map/Map'
-import { compile } from 'path-to-regexp';
-
-const route = '/Report/id=:link';
-const toPath = compile(route)
 
 const columns = [{
     Header: '',
     accessor: 'link',
-    Cell: props => <Link to={{ pathname: toPath({ link: props.value }) }}>Report</Link>
+    Cell: props => <Link target='_blank' to={props.value}>Report</Link>
 }, {
     Header: 'No.',
     accessor: 'itemId'

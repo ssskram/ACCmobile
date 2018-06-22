@@ -1,16 +1,22 @@
 import * as React from 'react';
 import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import Autocomplete from '../FormElements/autocomplete'
 
 export class selectMap extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
+            address: ''
         }
     }
 
+    handleChildChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+    
     render() {
         return (
-            <div id="map">
+            <div>
                 <Map
                     className="map"
                     google={this.props.google}
@@ -20,6 +26,12 @@ export class selectMap extends React.Component<any, any> {
                     }}
                     zoom={13}>
                 </Map>
+                <Autocomplete
+                    value={this.state.address}
+                    name="address"
+                    placeholder="Enter an address"
+                    callback={this.handleChildChange.bind(this)}
+                />
             </div>
         );
     }

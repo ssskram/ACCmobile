@@ -13,7 +13,7 @@ export class MapContainer extends React.Component<any, any> {
 
     public render() {
         return (
-            <div>
+            <div className='map-container'>
                 <Map />
             </div>
         )

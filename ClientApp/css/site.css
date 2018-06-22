@@ -61,6 +61,10 @@ hr {
     .navbar-logout-btn {
         padding: 7px 5px 5px 5px !important;
     }
+    .main-form {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -359,12 +363,11 @@ textarea {
     /* other */
     box-shadow: inset 0 0px 0px rgba(0, 0, 0, .0);
     outline: none;
-    background-color:transparent;
+    background-color: transparent;
     padding: 10px 15px;
     margin: 15px 7px;
-    width: 70%;
+    width: 60%;
 }
-
 
 .btn-submit:focus, .btn-submit:hover {
     background-color: rgb(44, 62, 80) !important;
@@ -577,12 +580,37 @@ textarea {
 /* Google map
 /* ------------------------- */
 
-#map {
-    height: 300px;
+.map {
+    height: 250px !important;
+    width: 98% !important;
+}
+
+.map-container {
+    overflow: hidden;
+    height: 250px !important;
+}
+
+a[href^="http://maps.google.com/maps"] {
+    display: none !important
+}
+
+a[href^="https://maps.google.com/maps"] {
+    display: none !important
+}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display: none;
+}
+
+.gm-style .gm-style-iw, .gm-style .gm-style-iw a, .gm-style .gm-style-iw span, .gm-style .gm-style-iw label, .gm-style .gm-style-iw div {
+    overflow-y: hidden !important;
+    overflow-x: hidden !important;
+    line-height: 1.4;
 }
 
 /* Site specific
 /* ------------------------- */
+
 .home-icon {
     color: #383838;
     opacity: .8;

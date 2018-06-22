@@ -10,7 +10,11 @@ export default class Animal extends React.Component<any, any> {
     public render() {
         return (
             <div>
-                {/*  Animal form */}
+                <div className="panel">
+                    <div className="panel-body text-center">
+                        Animal form here
+                    </div>
+                </div>
             </div>
         );
     }

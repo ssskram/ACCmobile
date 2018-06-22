@@ -83,11 +83,15 @@ namespace accmobile.Controllers
             dynamic PaperAdvises = JObject.Parse(listitems)["value"];
             foreach (var item in PaperAdvises)
             {
+                string Link =
+                    String.Format
+                    ("Report/id={0}",
+                        item.AdvisoryID); // 0
                 DateTime utc_date = item.Created;
                 allIncidents adv = new allIncidents()
                 {
                     uuid = item.AdvisoryID,
-                    link = item.AdvisoryID,
+                    link = Link,
                     date = utc_date,
                     address = item.Address,
                     itemId = item.Id,
