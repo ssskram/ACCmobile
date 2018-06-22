@@ -10,6 +10,7 @@ export class Report extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
+            state: []
         }
     }
 
@@ -19,6 +20,13 @@ export class Report extends React.Component<any, any> {
         // ping server
         this.props.ping()
 
+        const cachedState = localStorage.getItem('acc_state');
+
+        if (cachedState) {
+          this.setState({ state: JSON.parse(cachedState) });
+          return;
+        }
+        
         // pull specific incident from store
         // get animals corresponding to incident
     }

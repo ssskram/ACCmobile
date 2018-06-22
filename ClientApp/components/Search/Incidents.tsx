@@ -8,7 +8,7 @@ import * as AllIncidents from '../../store/incidents'
 import Filters from './Filters'
 import Moment from 'react-moment';
 import Map from '../Map/Map'
-import {compile} from 'path-to-regexp';
+import { compile } from 'path-to-regexp';
 
 const route = '/Report/id=:link';
 const toPath = compile(route)
@@ -23,7 +23,7 @@ const columns = [{
 }, {
     Header: 'Date',
     accessor: 'date',
-    Cell: props => <Moment format="MM/DD/YYYY HH:mm" date={props.value}/>
+    Cell: props => <Moment format="MM/DD/YYYY HH:mm" date={props.value} />
 }, {
     Header: 'Address',
     accessor: 'address'
@@ -59,12 +59,19 @@ export class Incidents extends React.Component<any, any> {
 
         // load store
         this.props.getIncidents()
+
+        // set store to local state
+        this.onSetResult(this.props, 'acc_state')
     }
 
     componentWillReceiveProps(props) {
         if (props.incidents !== this.state.incidents) {
             this.setState({ incidents: props.incidents });
         }
+    }
+
+    onSetResult = (props, key) => {
+        localStorage.setItem(key, JSON.stringify(props));
     }
 
     showFilters() {
