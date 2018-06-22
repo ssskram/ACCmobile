@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Map, Marker, GoogleApiWrapper } from 'google-maps-react';
+import { Map, GoogleApiWrapper } from 'google-maps-react';
 import Autocomplete from '../FormElements/autocomplete'
 
 export class selectMap extends React.Component<any, any> {
@@ -13,7 +13,7 @@ export class selectMap extends React.Component<any, any> {
     handleChildChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
-    
+
     render() {
         return (
             <div>
@@ -26,12 +26,6 @@ export class selectMap extends React.Component<any, any> {
                     }}
                     zoom={13}>
                 </Map>
-                <Autocomplete
-                    value={this.state.address}
-                    name="address"
-                    placeholder="Enter an address"
-                    callback={this.handleChildChange.bind(this)}
-                />
             </div>
         );
     }

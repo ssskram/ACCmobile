@@ -14,7 +14,6 @@ export const routes = <Layout>
     <Route path='/Map' component={ MapContainer } />
     <Route path='/Submit' component={ Submit } />
     <Route path='/Report' component={ Report } />
-    <Route path="/Report/id=:link" component={ Report }/>
     <Route path='/Incidents' component={ Incidents } />
     <Route path='/Survey' component={ Survey } />
     <Route path='/Account/Login' component={ Login } />

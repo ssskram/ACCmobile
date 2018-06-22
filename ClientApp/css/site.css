@@ -61,10 +61,6 @@ hr {
     .navbar-logout-btn {
         padding: 7px 5px 5px 5px !important;
     }
-    .main-form {
-        padding-left: 10px;
-        padding-right: 10px;
-    }
 }
 
 @media (min-width: 768px) {
@@ -586,8 +582,8 @@ textarea {
 }
 
 .map-container {
-    overflow: hidden;
     height: 250px !important;
+    padding-right: 10px;
 }
 
 a[href^="http://maps.google.com/maps"] {
@@ -606,6 +602,11 @@ a[href^="https://maps.google.com/maps"] {
     overflow-y: hidden !important;
     overflow-x: hidden !important;
     line-height: 1.4;
+}
+@media (max-width: 767px) {
+    .map {
+        width: 100% !important;
+    }
 }
 
 /* Site specific

@@ -39,26 +39,16 @@ export class NavMenu extends React.Component<any, any>  {
                 <div className='clearfix'></div>
                 <div className='navbar-collapse collapse'>
                     <ul className='nav navbar-nav'>
-                        <li className="sidenav-header"><span className='glyphicon glyphicon-search'></span>Search</li>
                         <li>
-                            <NavLink to={'/Incidents'} activeClassName='active' data-toggle="collapse" data-target=".in">
-                                All incidents
+                            <NavLink to={ '/Incidents' } activeClassName='active' data-toggle="collapse" data-target=".in">
+                                <span className='glyphicon glyphicon-search'></span>
+                                Search
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink to={'/Incidents'} activeClassName='active' data-toggle="collapse" data-target=".in">
-                                Open incidents
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to={'/Incidents'} activeClassName='active' data-toggle="collapse" data-target=".in">
-                                My incidents
-                            </NavLink>
-                        </li>
-                        <li className="sidenav-header"><span className='glyphicon glyphicon-plus'></span>Submit</li>
                         <li>
                             <NavLink to={'/Submit'} activeClassName='active' data-toggle="collapse" data-target=".in">
-                                New incident
+                                <span className='glyphicon glyphicon-plus'></span>
+                                Submit
                             </NavLink>
                         </li>
                         <div className='accountcontainer'>

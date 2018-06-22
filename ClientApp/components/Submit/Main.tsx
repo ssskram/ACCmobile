@@ -2,9 +2,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as Ping from '../../store/ping';
-import Address from './Address'
 import Incident from './Incident'
 import Animals from './Animal'
+import Autocomplete from '../FormElements/autocomplete'
+import Map from '../Map/MapContainer'
 
 const btnStyle = {
     width: '70%'
@@ -14,6 +15,7 @@ export class Submit extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
+            address: '',
             counter: 0,
             animals: [],
             submit: false
@@ -27,6 +29,10 @@ export class Submit extends React.Component<any, any> {
         this.props.ping()
 
         // load dropdown data
+    }
+
+    handleChildChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
     }
 
     addAnimal() {
@@ -55,12 +61,20 @@ export class Submit extends React.Component<any, any> {
             <div className='main-form'>
                 <h2 className='text-center'>New Incident</h2>
                 <hr />
+                <h3>1. Enter an address</h3>
                 <div className='row'>
-                    <h3>1. Enter an address</h3>
-                    <Address />
+                    <Autocomplete
+                        value={this.state.address}
+                        name="address"
+                        placeholder="Enter an address"
+                        callback={this.handleChildChange.bind(this)}
+                    />
                 </div>
                 <div className='row'>
-                    <h3>2. Describe the incident</h3>
+                    <Map />
+                </div>
+                <h3>2. Describe the incident</h3>
+                <div className='row'>
                     <Incident />
                 </div>
                 <h3>3. Add animals</h3>

@@ -6,8 +6,7 @@ import { ApplicationState } from '../../store';
 import * as Ping from '../../store/ping';
 import * as AllIncidents from '../../store/incidents'
 import Filters from './Filters'
-import Moment from 'react-moment';
-import Map from '../Map/Map'
+import Moment from 'react-moment'
 
 const columns = [{
     Header: '',
@@ -36,13 +35,12 @@ export class Incidents extends React.Component<any, any> {
         super(props);
         this.state = {
             incidents: this.props.incidents,
+            filterType: 'All',
             filters: false,
-            map: false,
             address: '',
-            status: 'All',
-            submittedBy: 'All',
+            status: '',
             date: '',
-            reasonForVisit: 'All',
+            reasonForVisit: '',
             note: '',
         }
     }
@@ -55,19 +53,12 @@ export class Incidents extends React.Component<any, any> {
 
         // load store
         this.props.getIncidents()
-
-        // set store to local state
-        this.onSetResult(this.props, 'acc_state')
     }
 
     componentWillReceiveProps(props) {
         if (props.incidents !== this.state.incidents) {
             this.setState({ incidents: props.incidents });
         }
-    }
-
-    onSetResult = (props, key) => {
-        localStorage.setItem(key, JSON.stringify(props));
     }
 
     showFilters() {
@@ -78,16 +69,6 @@ export class Incidents extends React.Component<any, any> {
     hideFilters() {
         this.setState({
             filters: false
-        });
-    }
-    showMap() {
-        this.setState({
-            map: true
-        });
-    }
-    hideMap() {
-        this.setState({
-            map: false
         });
     }
 
@@ -108,19 +89,18 @@ export class Incidents extends React.Component<any, any> {
     }
 
     public render() {
-        const { incidents, filters, status, submittedBy, map } = this.state
-        const { user } = this.props
+        const { filterType, incidents, filters } = this.state
 
         return (
             <div>
                 <div className='row text-center'>
-                    {submittedBy === user &&
-                        <h2>My incidents</h2>
-                    }
-                    {status === 'All' &&
+                    {filterType === 'All' &&
                         <h2>All incidents</h2>
                     }
-                    {status === 'Open' &&
+                    {filterType === 'Mine' &&
+                        <h2>My incidents</h2>
+                    }
+                    {filterType === 'Open' &&
                         <h2>Open incidents</h2>
                     }
                 </div>
@@ -132,22 +112,9 @@ export class Incidents extends React.Component<any, any> {
                         <button className='btn btn-default' onClick={this.showFilters.bind(this)}>Show filters</button>
                     }
                 </div>
-                <div className='row text-center'>
-                    {map === true &&
-                        <button className='btn btn-default' onClick={this.showMap.bind(this)}>Hide map</button>
-                    }
-                    {map === false &&
-                        <button className='btn btn-default' onClick={this.hideMap.bind(this)}>Show Map</button>
-                    }
-                </div>
                 <div className="row">
                     {filters === true &&
                         <Filters />
-                    }
-                </div>
-                <div className="row">
-                    {map === true &&
-                        <Map />
                     }
                 </div>
                 <div className="col-md-12 table-container">
@@ -155,7 +122,7 @@ export class Incidents extends React.Component<any, any> {
                         data={incidents}
                         columns={columns}
                         loading={false}
-                        defaultPageSize={50}
+                        defaultPageSize={25}
                         noDataText='Nothing to see here'
                         defaultSorted={[
                             {
