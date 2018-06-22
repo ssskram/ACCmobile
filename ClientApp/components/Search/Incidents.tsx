@@ -12,7 +12,7 @@ import Map from '../Map/Map'
 const columns = [{
     Header: '',
     accessor: 'link',
-    Cell: props => <Link to={'/Report'} id={props.value}>Report</Link>
+    Cell: props => <Link to={{ pathname: '/Report', state: { link: props.value} }}>Report</Link>
 }, {
     Header: 'No.',
     accessor: 'itemId'

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../../store';
 import * as Ping from '../../../store/ping';
@@ -23,10 +24,18 @@ export class Report extends React.Component<any, any> {
     }
 
     public render() {
+        const {link} = this.props.location.state
+        var redirect = link.startsWith("http")
+
+        if (redirect) {
+            window.open(link,'_blank');
+            return <Redirect to={'/Incidents'} />
+        }
+
         return (
             <div>
+                <h2>{link}</h2>
                 <Incident />
-
                 <Animals />
             </div>
         );

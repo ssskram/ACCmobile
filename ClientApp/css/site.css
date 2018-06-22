@@ -585,6 +585,7 @@ textarea {
 /* ------------------------- */
 .home-icon {
     color: #383838;
+    opacity: .8;
     font-size: 2em;
     vertical-align: middle;
 }
