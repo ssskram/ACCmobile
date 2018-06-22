@@ -24,13 +24,13 @@ export class Report extends React.Component<any, any> {
     }
 
     public render() {
-        const {link} = this.props.location.state
-        var redirect = link.startsWith("http")
+        const { link } = this.props.match.params
+        // var redirect = link.startsWith("http")
 
-        if (redirect) {
-            window.open(link,'_blank');
-            return <Redirect to={'/Incidents'} />
-        }
+        // if (redirect) {
+        //     window.open(link,'_blank');
+        //     return <Redirect to={'/Incidents'} />
+        // }
 
         return (
             <div>
