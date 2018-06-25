@@ -687,5 +687,5 @@ a[href^="https://maps.google.com/maps"] {
     margin-bottom: 10px;
     right: 0;
     left: 0;
-    background: linear-gradient( 90deg, rgba(92, 184, 92, .0), rgba(92, 184, 92, .0), rgba(92, 184, 92, .1), rgba(92, 184, 92, .02), rgba(92, 184, 92, .02), rgba(92, 184, 92, .1), rgba(92, 184, 92, .0), rgba(92, 184, 92, .0));
+    background: linear-gradient( 90deg, rgba(92, 184, 92, .0), rgba(92, 184, 92, .0), rgba(92, 184, 92, .15), rgba(92, 184, 92, .02), rgba(92, 184, 92, .02), rgba(92, 184, 92, .15), rgba(92, 184, 92, .0), rgba(92, 184, 92, .0));
 }

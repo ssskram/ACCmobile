@@ -86,7 +86,7 @@ export class Submit extends React.Component<any, any> {
         } = this.state
 
         return (
-            <div className='main-form'>
+            <div>
                 <h2 className='text-center'>New Incident</h2>
                 <hr />
                 <h3 className='text-center form-header'>Address</h3>

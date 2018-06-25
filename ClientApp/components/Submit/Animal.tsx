@@ -64,6 +64,7 @@ export class Animal extends React.Component<any, any> {
     }
 
     componentWillReceiveProps() {
+        // set dropdowns
         allVet = []
         allCoat = []
         allBreed = []
