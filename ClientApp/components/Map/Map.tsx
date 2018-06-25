@@ -28,7 +28,7 @@ export class selectMap extends React.Component<any, any> {
                     google={this.props.google}
                     initialCenter={this.props.coords}
                     styles={mapStyles}
-                    zoom={17.5}>
+                    zoom={16}>
                     <Marker
                         position={this.props.coords}
                         icon={{

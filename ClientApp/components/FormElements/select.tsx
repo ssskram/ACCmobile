@@ -3,7 +3,7 @@ import Select from 'react-select';
 
 export default class input extends React.Component<any, any> {
     constructor() {
-        super();
+        super()
         this.state = {
             autoFocus: false
         }
@@ -21,8 +21,6 @@ export default class input extends React.Component<any, any> {
                         value={this.props.value}
                         onChange={this.props.onChange.bind(this)}
                         options={this.props.options}
-
-
                         closeOnSelect={!this.props.multi}
                         simpleValue={this.props.multi}
                         removeSelected={this.props.multi}

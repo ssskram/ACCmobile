@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as Ping from '../../store/ping';
+import * as Dropdowns from '../../store/dropdowns';
 import Incident from './Incident'
 import Animals from './Animal'
 import Autocomplete from '../FormElements/autocomplete'
@@ -29,8 +30,6 @@ export class Submit extends React.Component<any, any> {
 
         // ping server
         this.props.ping()
-
-        // load dropdown data
     }
 
     clearCoords() {
@@ -143,9 +142,11 @@ export class Submit extends React.Component<any, any> {
 
 export default connect(
     (state: ApplicationState) => ({
-        ...state.ping
+        ...state.ping,
+        ...state.dropdowns
     }),
     ({
-        ...Ping.actionCreators
+        ...Ping.actionCreators,
+        ...Dropdowns.actionCreators
     })
 )(Submit as any) as typeof Submit;

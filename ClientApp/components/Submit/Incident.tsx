@@ -2,11 +2,25 @@ import * as React from 'react';
 import Input from '../FormElements/input'
 import Select from '../FormElements/select'
 import Textarea from '../FormElements/textarea'
+import { connect } from 'react-redux'
+import { ApplicationState } from '../../store'
+import * as Dropdowns from '../../store/dropdowns'
 
-export default class Incident extends React.Component<any, any> {
-    constructor() {
-        super();
+const loadingOptions = [{ 
+    "value": '...loading...', 
+    "label": '...loading...' 
+}]
+
+export class Incident extends React.Component<any, any> {
+    constructor(props) {
+        super(props);
         this.state = {
+            // dropdowns
+            originOptions: loadingOptions,
+            reasonOptions: loadingOptions,
+            codeOptions: loadingOptions,
+            initialsOptions: loadingOptions,
+            
             ownersLastName: '',
             ownersFirstName: '',
             ownersTelephoneNumber: '',
@@ -21,6 +35,39 @@ export default class Incident extends React.Component<any, any> {
         }
     }
 
+    componentDidMount() {
+        this.props.getDropdowns()
+    }
+
+    componentWillReceiveProps() {
+        var futureOrigin: any[] = []
+        var futureReason: any[] = []
+        var futureCode: any[] = []
+        var futureInitials: any[] = []
+        this.props.callOrigins.forEach(function (element) {
+            var json = { "value": element.origin, "label": element.origin, "name": 'callOrigin' };
+            futureOrigin.push(json)
+        })
+        this.props.reasonsForVisit.forEach(function (element) {
+            var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
+            futureReason.push(json)
+        })
+        this.props.citationNumbers.forEach(function (element) {
+            var json = { "value": element.citation, "label": element.citation, "name": 'citationNumber' };
+            futureCode.push(json)
+        })
+        this.props.officerInitials.forEach(function (element) {
+            var json = { "value": element.initial, "label": element.initial, "name": 'officerInitials' };
+            futureInitials.push(json)
+        })
+        this.setState({
+            originOptions: futureOrigin,
+            reasonOptions: futureReason,
+            codeOptions: futureCode,
+            initialsOptions: futureInitials
+        })
+    }
+
     handleChildChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -29,9 +76,32 @@ export default class Incident extends React.Component<any, any> {
         this.setState({ [event.name]: event.value });
     }
 
+    handleOriginMulti(value) {
+        this.setState({ callOrigin: value })
+    };
+
+    handleReasonMulti(value) {
+        this.setState({ reasonForVisit: value })
+    };
+
+    handleCodeMulti(value) {
+        this.setState({ pghCode: value })
+    };
+
+    handleInitialMulti(value) {
+        this.setState({ officerInitials: value })
+    };
+
+
     public render() {
         // state
         const {
+            // select options
+            originOptions,
+            reasonOptions,
+            codeOptions,
+            initialsOptions,
+
             ownersLastName,
             ownersFirstName,
             ownersTelephoneNumber,
@@ -80,8 +150,9 @@ export default class Incident extends React.Component<any, any> {
                         name="callOrigin"
                         header='Call Origin'
                         placeholder='Select origin...'
-                        onChange={this.handleChildSelect.bind(this)}
+                        onChange={this.handleOriginMulti.bind(this)}
                         multi={false}
+                        options={originOptions}
                     />
                 </div>
                 <div className='col-md-12'>
@@ -90,8 +161,9 @@ export default class Incident extends React.Component<any, any> {
                         name="reasonForVisit"
                         header='Reason(s) for visit'
                         placeholder='Select reason(s)...'
-                        onChange={this.handleChildSelect.bind(this)}
+                        onChange={this.handleReasonMulti.bind(this)}
                         multi={true}
+                        options={reasonOptions}
                     />
                 </div>
                 <div className='col-md-6'>
@@ -100,8 +172,9 @@ export default class Incident extends React.Component<any, any> {
                         name="pghCode"
                         header='Code(s)'
                         placeholder='Select code(s)...'
-                        onChange={this.handleChildSelect.bind(this)}
+                        onChange={this.handleCodeMulti.bind(this)}
                         multi={true}
+                        options={codeOptions}
                     />
                 </div>
                 <div className='col-md-6'>
@@ -128,8 +201,9 @@ export default class Incident extends React.Component<any, any> {
                         name="officerInitials"
                         header='Officers involved'
                         placeholder='Select initials...'
-                        onChange={this.handleChildSelect.bind(this)}
+                        onChange={this.handleInitialMulti.bind(this)}
                         multi={true}
+                        options={initialsOptions}
                     />
                 </div>
                 <div className='col-md-6'>
@@ -145,3 +219,12 @@ export default class Incident extends React.Component<any, any> {
         );
     }
 }
+
+export default connect(
+    (state: ApplicationState) => ({
+        ...state.dropdowns
+    }),
+    ({
+        ...Dropdowns.actionCreators
+    })
+)(Incident as any) as typeof Incident;
