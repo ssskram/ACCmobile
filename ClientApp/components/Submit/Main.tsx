@@ -59,7 +59,7 @@ export class Submit extends React.Component<any, any> {
             counter: count,
             animals: [...this.state.animals, animalIndex],
             submit: true
-        });
+        })
     }
     showSubmit() {
         this.setState({
@@ -110,18 +110,27 @@ export class Submit extends React.Component<any, any> {
                     <div className='row'>
                         <div className='text-center'>
                             <h4>Do you have any animals to add?</h4>
-                            <button className='btn btn-default' onClick={this.addAnimal.bind(this)}>Yes</button>
-                            <button className='btn btn-default' onClick={this.showSubmit.bind(this)}>No</button>
+                            <div className='row'>
+                                <button className='btn btn-default' onClick={this.addAnimal.bind(this)}>Yes</button>
+                            </div>
+                            <div className='row'>
+                                <button className='btn btn-default' onClick={this.showSubmit.bind(this)}>No</button>
+                            </div>
                         </div>
                     </div>
                 }
-                {animals.map((animal) => <Animals key={animal} />)}
+                {animals.map((animal) => <Animals number={animal} key={animal}/>)}
                 {submit === true &&
                     <div className='row'>
                         <hr />
                         <div className='text-center'>
-                            <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
-                            <button style={btnStyle} className="btn btn-success">Submit</button>
+                            <div className='row'>
+                                <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
+                            </div>
+                            <div className='row'>
+                                <button style={btnStyle} className="btn btn-success">Submit</button>
+                            </div>
+
                         </div>
                     </div>
                 }

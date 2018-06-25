@@ -48,6 +48,7 @@ export default class Animal extends React.Component<any, any> {
 
         return (
             <div>
+                <h3 className='form-h'>{this.props.number}. {this.state.animalType}</h3>
                 <div className="panel">
                     <div className="panel-body">
                         <div className='col-md-4'>

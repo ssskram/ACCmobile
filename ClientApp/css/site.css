@@ -362,7 +362,7 @@ textarea {
     background-color: transparent;
     padding: 10px 15px;
     margin: 15px 7px;
-    width: 60%;
+    width: 50%;
 }
 
 .btn-submit:focus, .btn-submit:hover {
@@ -603,10 +603,33 @@ a[href^="https://maps.google.com/maps"] {
     overflow-x: hidden !important;
     line-height: 1.4;
 }
+
 @media (max-width: 767px) {
     .map {
         width: 100% !important;
     }
+}
+
+/* Autocomplete
+/* ------------------------- */
+
+.autocomplete-dropdown-container {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 2px 2px;
+}
+
+.suggestion-item {
+    padding: 8px;
+    text-align: left;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.suggestion-item--active {
+    background-color: #fafafa;
+    padding: 8px;
+    text-align: left;
+    cursor: pointer;
 }
 
 /* Site specific
