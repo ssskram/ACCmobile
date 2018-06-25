@@ -8,14 +8,16 @@ import Autocomplete from '../FormElements/autocomplete'
 import Map from '../Map/MapContainer'
 
 const btnStyle = {
-    width: '70%'
+    width: '50%'
 }
 
 export class Submit extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
+            map: false,
             address: '',
+            coords: {},
             counter: 0,
             animals: [],
             submit: false
@@ -29,6 +31,21 @@ export class Submit extends React.Component<any, any> {
         this.props.ping()
 
         // load dropdown data
+    }
+
+    clearCoords() {
+        this.setState({
+            map: false,
+            coords: {}
+        })
+    }
+
+    handleAutcomplete(props) {
+        this.setState({
+            coords: props.coords,
+            address: props.address,
+            map: true
+        })
     }
 
     handleChildChange(event) {
@@ -52,6 +69,9 @@ export class Submit extends React.Component<any, any> {
 
     public render() {
         const {
+            map,
+            address,
+            coords,
             counter,
             animals,
             submit
@@ -61,23 +81,26 @@ export class Submit extends React.Component<any, any> {
             <div className='main-form'>
                 <h2 className='text-center'>New Incident</h2>
                 <hr />
-                <h3>1. Enter an address</h3>
+                <h3 className='text-center'>Address</h3>
                 <div className='row'>
                     <Autocomplete
-                        value={this.state.address}
-                        name="address"
-                        placeholder="Enter an address"
-                        callback={this.handleChildChange.bind(this)}
+                        value={address}
+                        callback={this.handleAutcomplete.bind(this)}
+                        clearCoords={this.clearCoords.bind(this)}
                     />
                 </div>
-                <div className='row'>
-                    <Map />
-                </div>
-                <h3>2. Describe the incident</h3>
+                {map === true &&
+                    <div className='row'>
+                        <Map coords={coords} />
+                    </div>
+                }
+                <hr />
+                <h3 className='text-center'>Incident</h3>
                 <div className='row'>
                     <Incident />
                 </div>
-                <h3>3. Add animals</h3>
+                <hr />
+                <h3 className='text-center'>Animals</h3>
                 {counter === 0 && submit === true &&
                     <div className='row text-center'>
                         <h3><i>No animals on this incident</i></h3>
