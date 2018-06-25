@@ -60,10 +60,19 @@ export class Submit extends React.Component<any, any> {
             submit: true
         })
     }
+
     showSubmit() {
         this.setState({
             submit: true
         });
+    }
+
+    deleteAnimal(index) {
+        console.log(index)
+        var newArray = [...this.state.animals];
+        var remove = newArray.indexOf(index)
+        newArray.splice(remove, 1);
+        this.setState({ animals: newArray });
     }
 
     public render() {
@@ -80,7 +89,7 @@ export class Submit extends React.Component<any, any> {
             <div className='main-form'>
                 <h2 className='text-center'>New Incident</h2>
                 <hr />
-                <h3 className='text-center'>Address</h3>
+                <h3 className='text-center form-header'>Address</h3>
                 <div className='row'>
                     <Autocomplete
                         value={address}
@@ -94,12 +103,17 @@ export class Submit extends React.Component<any, any> {
                     </div>
                 }
                 <hr />
-                <h3 className='text-center'>Incident</h3>
+                <h3 className='text-center form-header'>Incident</h3>
                 <div className='row'>
                     <Incident />
                 </div>
                 <hr />
-                <h3 className='text-center'>Animals</h3>
+                <h3 className='text-center form-header'>Animals</h3>
+                {counter > 0 && Object.keys(animals).length == 0 &&
+                    <div className='row text-center'>
+                        <h3><i>No animals on this incident</i></h3>
+                    </div>
+                }
                 {counter === 0 && submit === true &&
                     <div className='row text-center'>
                         <h3><i>No animals on this incident</i></h3>
@@ -118,7 +132,7 @@ export class Submit extends React.Component<any, any> {
                         </div>
                     </div>
                 }
-                {animals.map((animal) => <Animals number={animal} key={animal}/>)}
+                {animals.map((animal) => <Animals number={animal} key={animal} delete={this.deleteAnimal.bind(this)} />)}
                 {submit === true &&
                     <div className='row'>
                         <hr />

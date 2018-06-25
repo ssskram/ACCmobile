@@ -11,6 +11,13 @@ const animalTypes = [
     { value: 'Cat', label: 'Cat', name: 'animalType' },
     { value: 'Other', label: 'Other', name: 'animalType' }
 ]
+
+const animalSexes = [
+    { value: 'Male', label: 'Male', name: 'animalSex' },
+    { value: 'Female', label: 'Female', name: 'animalSex' },
+    { value: 'Other', label: 'Other', name: 'animalSex' }
+]
+
 const loadingOptions = [{
     "value": '...loading...',
     "label": '...loading...'
@@ -20,6 +27,9 @@ const conditionalOptions = [{
     "label": '...select type...'
 }]
 
+const panelMargin = {
+    paddingTop: '0px'
+}
 // to populate with dropdown values
 var allBreed: any[] = []
 var allCoat: any[] = []
@@ -86,11 +96,19 @@ export class Animal extends React.Component<any, any> {
         }
     }
 
+    handleCoatMulti(value) {
+        this.setState({ animalCoat: value })
+    };
+
+    handleBreedMulti(value) {
+        this.setState({ animalBreed: value })
+    };
+
     setConditionalDropodowns(event) {
         if (event.value === 'Dog') {
             var breeds = allBreed.filter(function (obj) {
                 return obj.type === 'Dog' || obj.type === 'Universal';
-            }); 
+            });
             var coats = allCoat.filter(function (obj) {
                 return obj.type === 'Dog' || obj.type === 'Universal';
             });
@@ -102,7 +120,7 @@ export class Animal extends React.Component<any, any> {
         if (event.value === 'Cat') {
             var breeds = allBreed.filter(function (obj) {
                 return obj.type === 'Cat' || obj.type === 'Universal';
-            }); 
+            });
             var coats = allCoat.filter(function (obj) {
                 return obj.type === 'Cat' || obj.type === 'Universal';
             });
@@ -117,6 +135,10 @@ export class Animal extends React.Component<any, any> {
                 coatOptions: []
             })
         }
+    }
+
+    delete() {
+        this.props.delete(this.props.number)
     }
 
     public render() {
@@ -142,9 +164,12 @@ export class Animal extends React.Component<any, any> {
 
         return (
             <div>
-                <h3 className='form-h'>{this.props.number}. {this.state.animalType}</h3>
+                <h3 className='form-h'>{this.props.number}. {this.state.animalType && this.state.animalType} {this.state.animalName && this.state.animalType && ' named ' + this.state.animalName}</h3>
                 <div className="panel">
-                    <div className="panel-body">
+                    <div style={panelMargin} className="panel-body">
+                        <div className='row'>
+                            <button className="btn-x" title='Delete animal' onClick={this.delete.bind(this)}>x</button>
+                        </div>
                         <div className='row'>
                             <div className='col-md-3'>
                                 <Select
@@ -176,12 +201,14 @@ export class Animal extends React.Component<any, any> {
                                 />
                             </div>
                             <div className='col-md-3'>
-                                <Input
+                                <Select
                                     value={animalSex}
                                     name="animalSex"
-                                    header="Sex"
-                                    placeholder="Animal's sex"
-                                    callback={this.handleChildChange.bind(this)}
+                                    header='Sex'
+                                    placeholder='Animal sex'
+                                    onChange={this.handleChildSelect.bind(this)}
+                                    multi={false}
+                                    options={animalSexes}
                                 />
                             </div>
                         </div>
@@ -192,7 +219,7 @@ export class Animal extends React.Component<any, any> {
                                     name="animalBreed"
                                     header='Breed'
                                     placeholder='Select breed...'
-                                    onChange={this.handleChildSelect.bind(this)}
+                                    onChange={this.handleBreedMulti.bind(this)}
                                     multi={true}
                                     options={breedOptions}
                                 />
@@ -203,7 +230,7 @@ export class Animal extends React.Component<any, any> {
                                     name="animalCoat"
                                     header='Coat'
                                     placeholder='Select coat...'
-                                    onChange={this.handleChildSelect.bind(this)}
+                                    onChange={this.handleCoatMulti.bind(this)}
                                     multi={true}
                                     options={coatOptions}
                                 />
