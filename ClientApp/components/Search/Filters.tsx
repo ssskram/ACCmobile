@@ -6,9 +6,9 @@ import { ApplicationState } from '../../store';
 import * as Dropdowns from '../../store/dropdowns'
 
 const statuses = [
-    { value: 'All', label: 'All', name: 'status' },
-    { value: 'Open', label: 'Open', name: 'status' },
-    { value: 'Closed', label: 'Closed', name: 'status' }
+    { value: '', label: 'All', name: 'status' },
+    { value: 'Yes', label: 'Open', name: 'status' },
+    { value: 'No', label: 'Closed', name: 'status' }
 ]
 
 const loadingOptions = [{
@@ -37,7 +37,7 @@ export class Filters extends React.Component<any, any> {
 
     setSubmittedByDropdown() {
         var futureSubmittedBy = [
-            { value: 'All', label: 'All', name: 'submittedBy' }
+            { value: '', label: 'All', name: 'submittedBy' }
         ]
         var electronicIncidents = this.props.incidents.filter(function (obj) {
             return obj.submittedBy != null
@@ -60,7 +60,7 @@ export class Filters extends React.Component<any, any> {
 
     componentWillReceiveProps() {
         var futureReason = [
-            { value: 'All', label: 'All', name: 'reasonForVisit' }
+            { value: '', label: 'All', name: 'reasonForVisit' }
         ]
         this.props.reasonsForVisit.forEach(function (element) {
             var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
