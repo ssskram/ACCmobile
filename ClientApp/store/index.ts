@@ -4,6 +4,7 @@ import * as User from './user';
 import * as Animals from './animals'
 import * as Incidents from './incidents'
 import * as Dropdowns from './dropdowns'
+import { combineReducers } from 'redux';
 
 export interface ApplicationState {
     animals: Animals.AnimalsState;

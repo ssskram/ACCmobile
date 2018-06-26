@@ -45,6 +45,7 @@
     "react-select": "^1.2.1",
     "react-table": "^6.8.6",
     "redux": "3.7.1",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "2.2.0",
     "style-loader": "0.18.2",
     "typescript": "2.4.1",

@@ -7,13 +7,20 @@ export interface AnimalsState {
 }
 
 export interface Animals {
-    oid: any;
-    building: any;
-    location: any;
-    description: any;
-    submitted: any;
-    status: any;
-    issue: any;
+    itemID: any
+    incidentID: any
+    animalName: any
+    animalType: any
+    animalBreed: any
+    animalCoat: any
+    animalSex: any
+    animalAge: any
+    LicenseNo: any
+    LicenseYear: any
+    RabbiesVacNo: any
+    RabbiesVacExp: any
+    Vet: any
+    Comments: any
 }
 
 interface AnimalsRequestsAction {
@@ -25,7 +32,9 @@ interface AnimalsReceiveAction {
     animals: Animals[];
 }
 
-type KnownAction = AnimalsRequestsAction | AnimalsReceiveAction;
+type KnownAction =
+    AnimalsRequestsAction |
+    AnimalsReceiveAction;
 
 export const actionCreators = {
     getAnimals: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
@@ -45,7 +54,9 @@ export const actionCreators = {
     },
 };
 
-const unloadedState: AnimalsState = { animals: [] };
+const unloadedState: AnimalsState = { 
+    animals: [] 
+};
 
 export const reducer: Reducer<AnimalsState> = (state: AnimalsState, incomingAction: Action) => {
     const action = incomingAction as KnownAction;
