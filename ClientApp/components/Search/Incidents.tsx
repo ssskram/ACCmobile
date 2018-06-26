@@ -7,6 +7,7 @@ import * as Ping from '../../store/ping';
 import * as AllIncidents from '../../store/incidents'
 import Filters from './Filters'
 import Moment from 'react-moment'
+import Modal from 'react-responsive-modal';
 
 const columns = [{
     Header: '',
@@ -34,6 +35,7 @@ export class Incidents extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
+            modalIsOpen: false,
             incidents: this.props.incidents,
             filterType: 'All',
             filters: false,
@@ -48,6 +50,13 @@ export class Incidents extends React.Component<any, any> {
     componentDidMount() {
         window.scrollTo(0, 0)
 
+        // throw spinner
+        if (Object.keys(this.state.incidents).length == 0) {
+            this.setState({
+                modalIsOpen: true
+            })
+        }
+
         // ping server
         this.props.ping()
 
@@ -57,7 +66,10 @@ export class Incidents extends React.Component<any, any> {
 
     componentWillReceiveProps(props) {
         if (props.incidents !== this.state.incidents) {
-            this.setState({ incidents: props.incidents });
+            this.setState({
+                incidents: props.incidents,
+                modalIsOpen: false
+            });
         }
     }
 
@@ -69,6 +81,12 @@ export class Incidents extends React.Component<any, any> {
     hideFilters() {
         this.setState({
             filters: false
+        });
+    }
+
+    closeModal() {
+        this.setState({
+            modalIsOpen: false
         });
     }
 
@@ -89,7 +107,7 @@ export class Incidents extends React.Component<any, any> {
     }
 
     public render() {
-        const { filterType, incidents, filters } = this.state
+        const { modalIsOpen, filterType, incidents, filters } = this.state
 
         return (
             <div>
@@ -112,11 +130,9 @@ export class Incidents extends React.Component<any, any> {
                         <button className='btn btn-default' onClick={this.showFilters.bind(this)}>Show filters</button>
                     }
                 </div>
-                <div className="row">
-                    {filters === true &&
-                        <Filters />
-                    }
-                </div>
+                {filters === true &&
+                    <Filters incidents={incidents}/>
+                }
                 <div className="col-md-12 table-container">
                     <ReactTable
                         data={incidents}
@@ -132,6 +148,23 @@ export class Incidents extends React.Component<any, any> {
                         ]}
                     />
                 </div>
+                <Modal
+                    open={modalIsOpen}
+                    onClose={this.closeModal.bind(this)}
+                    classNames={{
+                        transitionExit: 'transition-exit-active',
+                        transitionExitActive: 'transition-exit-active',
+                        overlay: 'spinner-overlay',
+                        modal: 'spinner-modal'
+                    }}
+                    animationDuration={1000}
+                    closeOnEsc={false}
+                    closeOnOverlayClick={false}
+                    showCloseIcon={false}
+                    center>
+                    <div className="loader">Loading...</div>
+                    ...finding all incidents...
+                </Modal>
             </div>
         );
     }

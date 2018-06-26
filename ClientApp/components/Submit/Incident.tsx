@@ -72,10 +72,6 @@ export class Incident extends React.Component<any, any> {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    handleChildSelect(event) {
-        this.setState({ [event.name]: event.value });
-    }
-
     handleOriginMulti(value) {
         this.setState({ callOrigin: value })
     };
