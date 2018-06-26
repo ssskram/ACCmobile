@@ -72,11 +72,20 @@ export class Filters extends React.Component<any, any> {
     }
 
     handleChildChange(event) {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({ [event.target.name]: event.target.value }, function (this) {
+            this.filter()
+        });
     }
 
     handleChildSelect(event) {
-        this.setState({ [event.name]: event.value });
+        this.setState({ [event.name]: event.value }, function (this) {
+            this.filter()
+        });
+    }
+
+    filter() {
+        let self = this.state
+        this.props.filter(self)
     }
 
     public render() {
@@ -90,6 +99,7 @@ export class Filters extends React.Component<any, any> {
             reasonForVisit,
             note
         } = this.state
+        
         return (
             <div className="form-group">
                 <div className='row'>

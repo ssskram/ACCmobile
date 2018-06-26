@@ -35,6 +35,7 @@ export class Incidents extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
+            onFilter: false,
             modalIsOpen: false,
             incidents: this.props.incidents,
             filterType: 'All',
@@ -65,7 +66,7 @@ export class Incidents extends React.Component<any, any> {
     }
 
     componentWillReceiveProps(props) {
-        if (props.incidents !== this.state.incidents) {
+        if (this.state.onFilter === false) {
             this.setState({
                 incidents: props.incidents,
                 modalIsOpen: false
@@ -75,12 +76,16 @@ export class Incidents extends React.Component<any, any> {
 
     showFilters() {
         this.setState({
+            onFilter: true,
             filters: true
         });
     }
+
     hideFilters() {
         this.setState({
-            filters: false
+            onFilter: false,
+            filters: false,
+            incidents: this.props.incidents
         });
     }
 
@@ -90,20 +95,15 @@ export class Incidents extends React.Component<any, any> {
         });
     }
 
-    filterAddress(event) {
-        if (event.target.value == '') {
-            this.setState({
-                incidents: this.props.incidents
-            });
-        }
-        else {
-            var result = this.props.incidents.filter(function (obj) {
-                return obj.address.toLowerCase().includes(event.target.value.toLowerCase())
-            });
-            this.setState({
-                incidents: result
-            });
-        }
+    filter(state) {
+        var result  = this.props.incidents.filter(function (item) {
+            return (
+                item.address.toLowerCase().includes(state.address.toLowerCase())
+            );
+        });
+        this.setState({
+            incidents: result
+        })
     }
 
     public render() {
@@ -124,21 +124,21 @@ export class Incidents extends React.Component<any, any> {
                 </div>
                 <div className='row text-center'>
                     {filters === true &&
-                        <button className='btn btn-default' onClick={this.hideFilters.bind(this)}>Hide filters</button>
+                        <button className='btn btn-default' onClick={this.hideFilters.bind(this)}>Clear filters</button>
                     }
                     {filters === false &&
                         <button className='btn btn-default' onClick={this.showFilters.bind(this)}>Show filters</button>
                     }
                 </div>
                 {filters === true &&
-                    <Filters incidents={incidents}/>
+                    <Filters incidents={incidents} filter={this.filter.bind(this)} />
                 }
                 <div className="col-md-12 table-container">
                     <ReactTable
                         data={incidents}
                         columns={columns}
                         loading={false}
-                        defaultPageSize={25}
+                        defaultPageSize={10}
                         noDataText='Nothing to see here'
                         defaultSorted={[
                             {
@@ -162,8 +162,8 @@ export class Incidents extends React.Component<any, any> {
                     closeOnOverlayClick={false}
                     showCloseIcon={false}
                     center>
-                    <div className="loader">Loading...</div>
-                    ...finding all incidents...
+                    <div className="loader"></div>
+                    ...loading all incidents...
                 </Modal>
             </div>
         );
