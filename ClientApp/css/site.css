@@ -774,3 +774,13 @@ a[href^="https://maps.google.com/maps"] {
     right: 0;
     left: 0;
 }
+
+.reportcomments {
+    padding: 5px 15px 15px 15px; 
+    width: 98%;
+    margin: 0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-top: .7px solid rgb(186, 134, 6);
+    border-bottom: .7px solid rgb(186, 134, 6);
+}

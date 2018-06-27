@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+const lineBreaks = {
+    whiteSpace: 'pre-wrap'
+}
+
 export default class Incident extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -80,8 +84,10 @@ export default class Incident extends React.Component<any, any> {
                         </tr>
                     </tbody>
                 </table>
-                <h3>Comments:</h3>
-                <div>{comments}</div>
+                <div className='reportcomments'>
+                    <h3>Comments:</h3>
+                    <div style={lineBreaks}>{comments}</div>
+                </div>
             </div>
         );
     }
