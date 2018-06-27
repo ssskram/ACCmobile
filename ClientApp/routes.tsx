@@ -13,7 +13,7 @@ export const routes = <Layout>
     <Route exact path='/' component={ Home } />
     <Route path='/Map' component={ MapContainer } />
     <Route path='/Submit' component={ Submit } />
-    <Route path='/Report' component={ Report } />
+    <Route path="/Report/id=:id" component={ Report }/>
     <Route path='/Incidents' component={ Incidents } />
     <Route path='/Survey' component={ Survey } />
     <Route path='/Account/Login' component={ Login } />

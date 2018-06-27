@@ -1,50 +1,93 @@
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
+import Modal from 'react-responsive-modal';
+import Moment from 'react-moment'
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../../store';
 import * as Ping from '../../../store/ping';
+import * as Incidents from '../../../store/incidents';
+import * as Animals from '../../../store/animals';
+import * as Dropdowns from '../../../store/dropdowns';
 import Incident from './Incident'
-import Animals from './Animals'
+import AnimalsTable from './Animals'
 
 export class Report extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
-            state: []
+            modalIsOpen: false,
+            incient: {},
+            animals: []
         }
     }
 
     componentDidMount() {
+        console.log(this.props.match.params.id)
         window.scrollTo(0, 0)
+        const param = { id: this.props.match.params.id }
+        fetch('/api/animals/report?id=' + encodeURIComponent(param.id), {
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    animals: data
+                });
+            });
+        fetch('/api/incidents/report?id=' + encodeURIComponent(param.id), {
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    incidents: data
+                });
+            });
 
-        // ping server
-        this.props.ping()
+        // load store
+        this.props.getIncidents()
+        this.props.getAnimals()
+        this.props.getDropdowns()
+    }
 
-        const cachedState = localStorage.getItem('acc_state');
-
-        if (cachedState) {
-          this.setState({ state: JSON.parse(cachedState) });
-          return;
-        }
-        
-        // pull specific incident from store
-        // get animals corresponding to incident
+    closeModal() {
+        this.setState({
+            modalIsOpen: false
+        });
     }
 
     public render() {
-        const { link } = this.props.match.params
-        // var redirect = link.startsWith("http")
-
-        // if (redirect) {
-        //     window.open(link,'_blank');
-        //     return <Redirect to={'/Incidents'} />
-        // }
+        const {
+            modalIsOpen } = this.state
 
         return (
             <div>
-                <h2>{link}</h2>
+                <h2 className='text-center'>Incident report</h2>
+                <hr />
                 <Incident />
-                <Animals />
+                <AnimalsTable />
+                <Modal
+                    open={modalIsOpen}
+                    onClose={this.closeModal.bind(this)}
+                    classNames={{
+                        transitionExit: 'transition-exit-active',
+                        transitionExitActive: 'transition-exit-active',
+                        overlay: 'spinner-overlay',
+                        modal: 'spinner-modal'
+                    }}
+                    animationDuration={1000}
+                    closeOnEsc={false}
+                    closeOnOverlayClick={false}
+                    showCloseIcon={false}
+                    center>
+                    <div className="loader"></div>
+                    ...loading incident report...
+                </Modal>
             </div>
         );
     }
@@ -52,9 +95,16 @@ export class Report extends React.Component<any, any> {
 
 export default connect(
     (state: ApplicationState) => ({
-        ...state.ping
+        ...state.ping,
+        ...state.incidents,
+        ...state.animals,
+        ...state.dropdowns
     }),
     ({
-        ...Ping.actionCreators
+        ...Ping.actionCreators,
+        ...Incidents.actionCreators,
+        ...Animals.actionCreators,
+        ...Incidents.actionCreators,
+        ...Dropdowns.actionCreators
     })
 )(Report as any) as typeof Report;

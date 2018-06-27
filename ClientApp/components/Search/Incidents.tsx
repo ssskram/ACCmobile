@@ -171,7 +171,11 @@ export class Incidents extends React.Component<any, any> {
     }
 
     public render() {
-        const { modalIsOpen, filterType, incidents, filters } = this.state
+        const { 
+            modalIsOpen, 
+            filterType,
+            incidents, 
+            filters } = this.state
 
         return (
             <div>

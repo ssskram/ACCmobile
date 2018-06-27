@@ -40,6 +40,40 @@ namespace accmobile.Controllers
             return (AllIncidents);
         }
 
+        [HttpGet("[action]")]
+        public async Task<object> report(string id)
+        {
+            await refreshtoken();
+            var token = refreshtoken().Result;
+            await getIncident(token, id);
+            var response = getIncident(token, id).Result;
+            dynamic incident = JObject.Parse(response)["value"][0];
+            DateTime utc_date = incident.Created;
+            allIncidents adv = new allIncidents()
+            {
+                uuid = incident.AdvisoryID,
+                date = utc_date,
+                address = incident.Address,
+                itemId = incident.Id,
+                coords = incident.AddressID,
+                reasonForVisit = incident.ReasonforVisit,
+                note = incident.Note,
+                ownersLastName = incident.OwnersLastName,
+                ownersFirstName = incident.OwnersFirstName,
+                ownersTelephoneNumber = incident.OwnersTelephone,
+                pghCode = incident.ADVPGHCode,
+                citationNumber = incident.CitationNumber,
+                comments = incident.Comments,
+                callOrigin = incident.CallOrigin,
+                submittedBy = incident.SubmittedBy,
+                modifiedBy = incident.ModifiedBy,
+                officerInitials = incident.Officers,
+                open = incident.Open,
+                zip = incident.Zip
+            };
+            return (adv);
+        }
+
         public async Task getAnalogIncidents(string token, string url)
         {
             client.DefaultRequestHeaders.Clear();
@@ -122,6 +156,20 @@ namespace accmobile.Controllers
             {
                 return;
             }
+        }
+
+        public async Task<string> getIncident(string token, string id)
+        {
+            client.DefaultRequestHeaders.Clear();
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", token);
+            var sharepointUrl =
+            String.Format
+            ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items?$filter=AdvisoryID eq '{0}'",
+                id); // 0
+            string listitems = await client.GetStringAsync(sharepointUrl);
+            return listitems;
         }
         private async Task<string> refreshtoken()
         {
