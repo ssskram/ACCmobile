@@ -58,7 +58,10 @@ function initMap() {
     $('#coords').val(place.geometry.location);
 
     // write zip to zip field
-    $('#zip').val(place.address_components[7].short_name);
+    try {
+      $('#zip').val(place.address_components[7].short_name);
+    }
+    catch {}
 
     // if the place has a geometry, then present it on a map.
     if (place.geometry.viewport) {
