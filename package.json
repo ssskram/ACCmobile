@@ -43,6 +43,8 @@
     "react-router-dom": "4.1.1",
     "react-router-redux": "5.0.0-alpha.6",
     "react-select": "^1.2.1",
+    "react-sticky": "^6.0.3",
+    "react-sticky-footer": "0.1.0-rc3",
     "react-table": "^6.8.6",
     "redux": "3.7.1",
     "redux-persist": "^5.10.0",

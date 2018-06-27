@@ -1,6 +1,5 @@
 import * as React from 'react';
 import Modal from 'react-responsive-modal';
-import Moment from 'react-moment'
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../../store';
 import * as Ping from '../../../store/ping';
@@ -9,12 +8,25 @@ import * as Animals from '../../../store/animals';
 import * as Dropdowns from '../../../store/dropdowns';
 import Incident from './Incident'
 import AnimalsTable from './Animals'
+import Map from '../../Map/MapContainer'
 
+const lineBreaks = {
+    whiteSpace: 'pre-wrap'
+}
+
+const imgStyle = {
+    width: '93%',
+    height: '200px',
+}
+
+const padding = {
+    padding: '10px'
+}
 export class Report extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
-            modalIsOpen: false,
+            modalIsOpen: true,
             incident: {},
             animals: []
         }
@@ -44,7 +56,8 @@ export class Report extends React.Component<any, any> {
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    incident: data
+                    incident: data,
+                    modalIsOpen: false
                 });
             });
 
@@ -66,12 +79,45 @@ export class Report extends React.Component<any, any> {
             animals,
             modalIsOpen } = this.state
 
+        if (incident.coords) {
+            // var coordsObj = JSON.parse(incident.coords);
+            // console.log(coordsObj)
+            var coords = incident.coords.replace('(', '').replace(')', '');;
+            var url = 'https://maps.googleapis.com/maps/api/streetview?size=400x200&location=' + coords + '&fov=60&heading=235&pitch=10&key=AIzaSyCPaIodXvOSQXvlUMj0iy8WbxzmC-epiO4'
+        }
+        else {
+            var url = '../images/image-placeholder.png'
+        }
+
         return (
             <div>
                 <h2 className='text-center'>Incident report</h2>
                 <hr />
-                <Incident incident={incident}/>
-                <AnimalsTable animals={animals}/>
+                <h3 className='text-center'><strong>{incident.address}</strong></h3>
+                <h4 className='text-center'>Incident ID: {incident.itemId}</h4>
+                <br />
+                <div className='row'>
+                    <div className='col-lg-6 col-md-12'>
+                        <Incident incident={incident} />
+                    </div>
+                    <div className='col-md-6 hidden-md hidden-sm hidden-xs'>
+                        <div className='row' style={padding}>
+                            <img style={imgStyle} src={url} />
+                        </div>
+                        <div className='row' style={padding}>
+                            <Map coords={incident.coords} />
+                        </div>
+                    </div>
+                </div>
+                <div className='reportcomments'>
+                    <h3>Comments:</h3>
+                    <div style={lineBreaks}>{incident.comments}</div>
+                </div>
+                <div className='row'>
+                    <div className='col-md-12'>
+                        <AnimalsTable animals={animals} />
+                    </div>
+                </div>
                 <Modal
                     open={modalIsOpen}
                     onClose={this.closeModal.bind(this)}

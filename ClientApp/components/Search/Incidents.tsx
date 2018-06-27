@@ -1,5 +1,4 @@
 import * as React from 'react';
-import ReactTable from "react-table";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
@@ -8,28 +7,23 @@ import * as AllIncidents from '../../store/incidents'
 import Filters from './Filters'
 import Moment from 'react-moment'
 import Modal from 'react-responsive-modal';
+import Paging from './Paging'
 
-const columns = [{
-    Header: '',
-    accessor: 'link',
-    Cell: props => <Link target='_blank' to={props.value}>Report</Link>
-}, {
-    Header: 'No.',
-    accessor: 'itemId'
-}, {
-    Header: 'Date',
-    accessor: 'date',
-    Cell: props => <Moment format="MM/DD/YYYY HH:mm" date={props.value} />
-}, {
-    Header: 'Address',
-    accessor: 'address'
-}, {
-    Header: 'Reason(s) for Visit',
-    accessor: 'reasonForVisit',
-}, {
-    Header: 'Note',
-    accessor: 'note'
-}]
+// props for pagination:
+// https://stackoverflow.com/questions/40232847/how-to-implement-pagination-in-reactjs
+
+const openIncident = {
+    color: 'red'
+}
+
+const reportLink = {
+    fontSize: '16px'
+}
+
+const imgStyle = {
+    width: '150px',
+    height: '150px',
+}
 
 export class Incidents extends React.Component<any, any> {
     constructor(props) {
@@ -37,7 +31,12 @@ export class Incidents extends React.Component<any, any> {
         this.state = {
             onFilter: false,
             modalIsOpen: false,
-            incidents: this.props.incidents,
+            incidents: this.props.incidents.sort(function (a, b) {
+                return +new Date(b.date) - +new Date(a.date);
+            }),
+            currentPage: 1,
+            incidentsPerPage: 10,
+            itemCount: this.props.incidents.length,
             filterType: 'All',
             filters: false,
             address: '',
@@ -46,6 +45,23 @@ export class Incidents extends React.Component<any, any> {
             reasonForVisit: '',
             note: '',
         }
+    }
+
+    handleNextClick() {
+        window.scrollTo(0, 0)
+        let current = this.state.currentPage
+        this.setState({
+            currentPage: current + 1
+        });
+    }
+
+
+    handlePreviousClick() {
+        window.scrollTo(0, 0)
+        let current = this.state.currentPage
+        this.setState({
+            currentPage: current - 1
+        });
     }
 
     componentDidMount() {
@@ -68,7 +84,14 @@ export class Incidents extends React.Component<any, any> {
     componentWillReceiveProps(props) {
         if (this.state.onFilter === false) {
             this.setState({
-                incidents: props.incidents,
+                incidents: props.incidents.sort(function (a, b) {
+                    return +new Date(b.date) - +new Date(a.date);
+                }),
+                itemCount: props.incidents.length,
+            });
+        }
+        if (props.incidents.length > 0) {
+            this.setState({
                 modalIsOpen: false
             });
         }
@@ -81,11 +104,15 @@ export class Incidents extends React.Component<any, any> {
         });
     }
 
-    hideFilters() {
+    clearFilters() {
         this.setState({
             onFilter: false,
             filters: false,
-            incidents: this.props.incidents
+            incidents: this.props.incidents.sort(function (a, b) {
+                return +new Date(b.date) - +new Date(a.date);
+            }),
+            itemCount: this.props.incidents.length,
+            filterType: 'All'
         });
     }
 
@@ -119,7 +146,7 @@ export class Incidents extends React.Component<any, any> {
                 if (!item.address.toLowerCase().includes(address)) {
                     return false
                 }
-            }            
+            }
             if (date) {
                 if (!item.date.toLowerCase().includes(date)) {
                     return false
@@ -167,33 +194,129 @@ export class Incidents extends React.Component<any, any> {
             }
             return true
         })
-        this.setState({ incidents: filtered })
+        if (state.status == '') {
+            var ft = 'All'
+        }
+        else if (state.status == 'No') {
+            var ft = 'Closed'
+        }
+        else {
+            var ft = 'Open'
+        }
+        this.setState({
+            currentPage: 1,
+            incidents: filtered.sort(function (a, b) {
+                return +new Date(b.date) - +new Date(a.date);
+            }),
+            itemCount: filtered.length,
+            filterType: ft
+        })
     }
 
     public render() {
-        const { 
-            modalIsOpen, 
+        const {
+            currentPage,
+            incidentsPerPage,
+            itemCount,
+            modalIsOpen,
             filterType,
-            incidents, 
+            incidents,
             filters } = this.state
 
+        // Logic for paging
+        const indexOfLastIncident = currentPage * incidentsPerPage;
+        const indexOfFirstIncident = indexOfLastIncident - incidentsPerPage;
+        const currentIncidents = incidents.slice(indexOfFirstIncident, indexOfLastIncident);
+
+        const renderTodos = currentIncidents.map((incident, index) => {
+            if (incident.coords) {
+                var coords = incident.coords.replace('(', '').replace(')', '');;
+                var url = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + coords + '&fov=60&heading=235&pitch=10&key=AIzaSyCPaIodXvOSQXvlUMj0iy8WbxzmC-epiO4'
+            }
+            else {
+                var url = '../images/image-placeholder.png'
+            }
+            return <div className="container-fluid" key={index}>
+                <div className="row">
+                    <div className="facility">
+                        <div className="panel">
+                            <div className="panel-body text-center">
+                                <div className='col-sm-12 hidden-md hidden-lg hidden-xl text-center'>
+                                    {incident.open === 'Yes' &&
+                                        <h4 style={openIncident}>Open incident</h4>
+                                    }
+                                    {incident.open === 'No' &&
+                                        <h4>Closed incident</h4>
+                                    }
+                                    {incident.open == null &&
+                                        <h4>Scanned document</h4>
+                                    }
+                                </div>
+                                <div className='col-md-3 hidden-sm hidden-xs'>
+                                    <img style={imgStyle} src={url} />
+                                </div>
+                                <div className="col-md-6 incident-card-container">
+                                    <div style={reportLink}><strong>{incident.address}</strong></div>
+                                    <div><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></div>
+                                    <div>{incident.reasonForVisit}</div>
+                                    <div>Incident ID: {incident.itemId} </div>
+                                    <div className='hidden-md hidden-lg hidden-xl'>
+                                        {incident.note != null &&
+                                            <div><b>Note:</b> {incident.note}</div>
+                                        }
+                                        <Link style={reportLink} target='_blank' to={incident.link}>View report</Link>
+                                    </div>
+                                </div>
+                                <div className='col-md-3 hidden-sm hidden-xs text-center'>
+                                    {incident.open === 'Yes' &&
+                                        <h4 style={openIncident}>Open incident</h4>
+                                    }
+                                    {incident.open === 'No' &&
+                                        <h4>Closed incident</h4>
+                                    }
+                                    {incident.open == null &&
+                                        <h4>Scanned document</h4>
+                                    }
+                                    {incident.note != null &&
+                                        <div>
+                                            <h5><strong>Note:</strong></h5>
+                                            <div>{incident.note}</div>
+                                        </div>
+                                    }
+                                    <h5>
+                                        <Link style={reportLink} target='_blank' to={incident.link}>View report</Link>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>;
+        });
+
+        // Logic for displaying page numbers
+        const pageNumbers: any[] = []
+        for (let i = 1; i <= Math.ceil(incidents.length / incidentsPerPage); i++) {
+            pageNumbers.push(i);
+        }
+
         return (
-            <div>
+            <div className='incident-container'>
                 <div className='row text-center'>
-                    {filterType === 'All' &&
-                        <h2>All incidents</h2>
-                    }
-                    {filterType === 'Mine' &&
-                        <h2>My incidents</h2>
+                    {filterType == 'All' &&
+                        <h2>All incidents: {itemCount} items</h2>
                     }
                     {filterType === 'Open' &&
-                        <h2>Open incidents</h2>
+                        <h2>Open incidents: {itemCount} items</h2>
+                    }
+                    {filterType === 'Closed' &&
+                        <h2>Closed incidents: {itemCount} items</h2>
                     }
                 </div>
-                <hr/>
+                <hr />
                 <div className='row text-center'>
                     {filters === true &&
-                        <button className='btn btn-default' onClick={this.hideFilters.bind(this)}>Clear filters</button>
+                        <button className='btn btn-default' onClick={this.clearFilters.bind(this)}>Clear filters</button>
                     }
                     {filters === false &&
                         <button className='btn btn-default' onClick={this.showFilters.bind(this)}>Show filters</button>
@@ -203,19 +326,7 @@ export class Incidents extends React.Component<any, any> {
                     <Filters incidents={incidents} filter={this.filter.bind(this)} />
                 }
                 <div className="col-md-12 table-container">
-                    <ReactTable
-                        data={incidents}
-                        columns={columns}
-                        loading={false}
-                        defaultPageSize={10}
-                        noDataText='Nothing to see here'
-                        defaultSorted={[
-                            {
-                                id: 'date',
-                                desc: true
-                            }
-                        ]}
-                    />
+                    {renderTodos}
                 </div>
                 <Modal
                     open={modalIsOpen}
@@ -234,6 +345,7 @@ export class Incidents extends React.Component<any, any> {
                     <div className="loader"></div>
                     ...loading all incidents...
                 </Modal>
+                <Paging countIncidents={incidents} currentPage={currentPage} totalPages={pageNumbers} modalIsOpen={modalIsOpen} next={this.handleNextClick.bind(this)} prev={this.handlePreviousClick.bind(this)} />
             </div>
         );
     }

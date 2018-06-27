@@ -1,7 +1,11 @@
 import * as React from 'react';
+import Moment from 'react-moment'
 
-const lineBreaks = {
-    whiteSpace: 'pre-wrap'
+const bigFont = {
+    fontSize: '18px'
+}
+const borderNone = {
+    border: 'none'
 }
 
 export default class Incident extends React.Component<any, any> {
@@ -13,10 +17,8 @@ export default class Incident extends React.Component<any, any> {
 
     public render() {
         const {
-            address,
             callOrigin,
             citationNumber,
-            comments,
             date,
             modifiedBy,
             note,
@@ -31,12 +33,15 @@ export default class Incident extends React.Component<any, any> {
         } = this.props.incident
         return (
             <div>
-                <h2 className='text-center'>{address}</h2>
                 <table className="table" id="incidenttable">
                     <tbody>
+                        <tr style={bigFont}>
+                            <th style={borderNone} scope="row">Reason(s) For visit</th>
+                            <td style={borderNone}>{reasonForVisit}</td>
+                        </tr>
                         <tr>
                             <th scope="row">Date</th>
-                            <td>{date}</td>
+                            <td><Moment format="MM/DD/YYYY HH:mm" date={date} /></td>
                         </tr>
                         <tr>
                             <th scope="row">Zip code</th>
@@ -53,10 +58,6 @@ export default class Incident extends React.Component<any, any> {
                         <tr>
                             <th scope="row">Call origin</th>
                             <td>{callOrigin}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Reason(s) For visit</th>
-                            <td>{reasonForVisit}</td>
                         </tr>
                         <tr>
                             <th scope="row">PGH code(s)</th>
@@ -84,10 +85,6 @@ export default class Incident extends React.Component<any, any> {
                         </tr>
                     </tbody>
                 </table>
-                <div className='reportcomments'>
-                    <h3>Comments:</h3>
-                    <div style={lineBreaks}>{comments}</div>
-                </div>
             </div>
         );
     }
