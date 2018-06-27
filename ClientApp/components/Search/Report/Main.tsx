@@ -15,8 +15,9 @@ const lineBreaks = {
 }
 
 const imgStyle = {
-    width: '93%',
     height: '200px',
+    width: '75%',
+    margin: '0 auto'
 }
 
 const padding = {
@@ -28,7 +29,8 @@ export class Report extends React.Component<any, any> {
         this.state = {
             modalIsOpen: true,
             incident: {},
-            animals: []
+            animals: [],
+            latlng: {}
         }
     }
 
@@ -45,6 +47,7 @@ export class Report extends React.Component<any, any> {
             .then(data => {
                 this.setState({
                     animals: data
+
                 });
             });
         fetch('/api/incidents/report?id=' + encodeURIComponent(param.id), {
@@ -55,9 +58,22 @@ export class Report extends React.Component<any, any> {
         })
             .then(response => response.json())
             .then(data => {
+                var lat = data.coords.substring(
+                    data.coords.lastIndexOf("(") + 1,
+                    data.coords.lastIndexOf(",")
+                )
+                var lng = data.coords.substring(
+                    data.coords.lastIndexOf(" ") + 1,
+                    data.coords.lastIndexOf(")")
+                )
+                var latitude = parseFloat(lat)
+                var longitude = parseFloat(lng)
+                var lat_lng = { lat: latitude, lng: longitude }
+
                 this.setState({
                     incident: data,
-                    modalIsOpen: false
+                    modalIsOpen: false,
+                    latlng: lat_lng
                 });
             });
 
@@ -75,13 +91,12 @@ export class Report extends React.Component<any, any> {
 
     public render() {
         const {
+            latlng,
             incident,
             animals,
             modalIsOpen } = this.state
 
         if (incident.coords) {
-            // var coordsObj = JSON.parse(incident.coords);
-            // console.log(coordsObj)
             var coords = incident.coords.replace('(', '').replace(')', '');;
             var url = 'https://maps.googleapis.com/maps/api/streetview?size=400x200&location=' + coords + '&fov=60&heading=235&pitch=10&key=AIzaSyCPaIodXvOSQXvlUMj0iy8WbxzmC-epiO4'
         }
@@ -101,11 +116,11 @@ export class Report extends React.Component<any, any> {
                         <Incident incident={incident} />
                     </div>
                     <div className='col-md-6 hidden-md hidden-sm hidden-xs'>
-                        <div className='row' style={padding}>
+                        <div className='row text-center' style={padding}>
                             <img style={imgStyle} src={url} />
                         </div>
                         <div className='row' style={padding}>
-                            <Map coords={incident.coords} />
+                            <Map coords={latlng} />
                         </div>
                     </div>
                 </div>

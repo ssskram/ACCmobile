@@ -13,6 +13,12 @@ const mapStyles = [
     }
 ]
 
+const style = {
+    height: '200px',
+    width: '90%',
+    margin: '0 auto'
+  }
+
 export class selectMap extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -24,9 +30,11 @@ export class selectMap extends React.Component<any, any> {
         return (
             <div>
                 <Map
+                    style={style}
                     className="map"
                     google={this.props.google}
                     initialCenter={this.props.coords}
+                    center={this.props.coords}
                     styles={mapStyles}
                     zoom={16}>
                     <Marker

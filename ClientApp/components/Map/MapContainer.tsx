@@ -6,7 +6,10 @@ import Map from './Map'
 
 export class MapContainer extends React.Component<any, any> {
     constructor(props) {
-        super(props);
+        super(props)
+        this.state = {
+            coords: this.props.coords
+        }
     }
 
     componentDidMount() {
@@ -14,8 +17,14 @@ export class MapContainer extends React.Component<any, any> {
         this.props.ping()
     }
 
+    componentWillReceiveProps(props) {
+        this.setState({
+            coords: props.coords
+        })
+    }
+
     public render() {
-        const { coords } = this.props
+        const { coords } = this.state
         return (
             <div className='map-container'>
                 <Map coords={coords} />

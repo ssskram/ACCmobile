@@ -112,7 +112,8 @@ export class Incidents extends React.Component<any, any> {
                 return +new Date(b.date) - +new Date(a.date);
             }),
             itemCount: this.props.incidents.length,
-            filterType: 'All'
+            filterType: 'All',
+            currentPage: 1
         });
     }
 

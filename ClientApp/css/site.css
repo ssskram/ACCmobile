@@ -682,10 +682,8 @@ textarea {
 
 /* Google map
 /* ------------------------- */
-
 .map {
     height: 200px !important;
-    width: 90% !important;
 }
 
 .map-container {
@@ -713,6 +711,7 @@ a[href^="https://maps.google.com/maps"] {
 @media (max-width: 767px) {
     .map {
         width: 100% !important;
+        margin: 0 auto;
     }
 }
 
