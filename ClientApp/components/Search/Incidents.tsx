@@ -190,6 +190,7 @@ export class Incidents extends React.Component<any, any> {
                         <h2>Open incidents</h2>
                     }
                 </div>
+                <hr/>
                 <div className='row text-center'>
                     {filters === true &&
                         <button className='btn btn-default' onClick={this.hideFilters.bind(this)}>Clear filters</button>

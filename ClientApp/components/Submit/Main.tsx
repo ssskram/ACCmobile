@@ -8,8 +8,8 @@ import Animals from './Animal'
 import Autocomplete from '../FormElements/autocomplete'
 import Map from '../Map/MapContainer'
 
-const btnStyle = {
-    width: '50%'
+const sectionPadding = {
+    padding: '20px'
 }
 
 export class Submit extends React.Component<any, any> {
@@ -88,51 +88,71 @@ export class Submit extends React.Component<any, any> {
         return (
             <div>
                 <h2 className='text-center'>New Incident</h2>
-                <hr />
-                <h3 className='text-center form-header'>Address</h3>
                 <div className='row'>
-                    <Autocomplete
-                        value={address}
-                        callback={this.handleAutcomplete.bind(this)}
-                        clearCoords={this.clearCoords.bind(this)}
-                    />
-                </div>
-                {map === true &&
-                    <div className='row'>
-                        <Map coords={coords} />
+                    <div className='col-sm-3 col-md-2'>
+                        <h3 className='text-center form-header'>Address</h3>
                     </div>
-                }
-                <hr />
-                <h3 className='text-center form-header'>Incident</h3>
+                    <div className='col-sm-9 col-md-10'>
+                        <hr />
+                    </div>
+                </div>
+                <div className='row' style={sectionPadding}>
+                    <div className='row'>
+                        <Autocomplete
+                            value={address}
+                            callback={this.handleAutcomplete.bind(this)}
+                            clearCoords={this.clearCoords.bind(this)}
+                        />
+                    </div>
+                    {map === true &&
+                        <div className='row'>
+                            <Map coords={coords} />
+                        </div>
+                    }
+                </div>
                 <div className='row'>
+                    <div className='col-sm-3 col-md-2'>
+                        <h3 className='text-center form-header'>Incident</h3>
+                    </div>
+                    <div className='col-sm-9 col-md-10'>
+                        <hr />
+                    </div>
+                </div>
+                <div className='row' style={sectionPadding}>
                     <Incident />
                 </div>
-                <hr />
-                <h3 className='text-center form-header'>Animals</h3>
-                {counter > 0 && Object.keys(animals).length == 0 &&
-                    <div className='row text-center'>
-                        <h3><i>No animals on this incident</i></h3>
+                <div className='row'>
+                    <div className='col-sm-3 col-md-2'>
+                        <h3 className='text-center form-header'>Animals</h3>
                     </div>
-                }
-                {counter === 0 && submit === true &&
-                    <div className='row text-center'>
-                        <h3><i>No animals on this incident</i></h3>
+                    <div className='col-sm-9 col-md-10'>
+                        <hr />
                     </div>
-                }
-                {submit === false &&
-                    <div className='row'>
-                        <div className='text-center'>
-                            <h4>Do you have any animals to add?</h4>
-                            <div className='row'>
-                                <button className='btn btn-default' onClick={this.addAnimal.bind(this)}>Yes</button>
-                            </div>
-                            <div className='row'>
-                                <button className='btn btn-default' onClick={this.showSubmit.bind(this)}>No</button>
+                </div>
+                <div className='row' style={sectionPadding}>
+                    {counter > 0 && Object.keys(animals).length == 0 &&
+                        <div className='row text-center'>
+                            <h3><i>No animals on this incident</i></h3>
+                        </div>
+                    }
+                    {counter === 0 && submit === true &&
+                        <div className='row text-center'>
+                            <h3><i>No animals on this incident</i></h3>
+                        </div>
+                    }
+                    {submit === false &&
+                        <div className='row'>
+                            <div className='text-center'>
+                                <h4>Do you have any animals to add?</h4>
+                                <div className='row'>
+                                    <button className='btn btn-default' onClick={this.addAnimal.bind(this)}>Yes</button>
+                                    <button className='btn btn-default' onClick={this.showSubmit.bind(this)}>No</button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                }
-                {animals.map((animal) => <Animals number={animal} key={animal} delete={this.deleteAnimal.bind(this)} />)}
+                    }
+                    {animals.map((animal) => <Animals number={animal} key={animal} delete={this.deleteAnimal.bind(this)} />)}
+                </div>
                 {submit === true &&
                     <div className='row'>
                         <hr />
@@ -141,7 +161,7 @@ export class Submit extends React.Component<any, any> {
                                 <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
                             </div>
                             <div className='row'>
-                                <button style={btnStyle} className="btn btn-success">Submit</button>
+                                <button className="btn btn-success">Submit</button>
                             </div>
 
                         </div>

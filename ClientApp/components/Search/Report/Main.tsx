@@ -15,13 +15,12 @@ export class Report extends React.Component<any, any> {
         super();
         this.state = {
             modalIsOpen: false,
-            incient: {},
+            incident: {},
             animals: []
         }
     }
 
     componentDidMount() {
-        console.log(this.props.match.params.id)
         window.scrollTo(0, 0)
         const param = { id: this.props.match.params.id }
         fetch('/api/animals/report?id=' + encodeURIComponent(param.id), {
@@ -45,7 +44,7 @@ export class Report extends React.Component<any, any> {
             .then(response => response.json())
             .then(data => {
                 this.setState({
-                    incidents: data
+                    incident: data
                 });
             });
 
@@ -63,14 +62,16 @@ export class Report extends React.Component<any, any> {
 
     public render() {
         const {
+            incident,
+            animals,
             modalIsOpen } = this.state
 
         return (
             <div>
                 <h2 className='text-center'>Incident report</h2>
                 <hr />
-                <Incident />
-                <AnimalsTable />
+                <Incident incident={incident}/>
+                <AnimalsTable animals={animals}/>
                 <Modal
                     open={modalIsOpen}
                     onClose={this.closeModal.bind(this)}
