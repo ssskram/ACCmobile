@@ -1,5 +1,5 @@
 import * as React from 'react';
-import PlacesAutocomplete, { geocodeByAddress, geocodeByPlaceId, getLatLng } from 'react-places-autocomplete'
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 
 export default class autocomplete extends React.Component<any, any> {
     constructor(props) {
@@ -18,8 +18,8 @@ export default class autocomplete extends React.Component<any, any> {
     handleSelect = (address) => {
         geocodeByAddress(address)
             .then(results => getLatLng(results[0]))
-            .then(latLng => 
-                this.setState({ 
+            .then(latLng =>
+                this.setState({
                     address: address,
                     coords: latLng
                 }, function (this) {

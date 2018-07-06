@@ -60,8 +60,8 @@ export default class Paging extends React.Component<any, any> {
                         }
                     </div>
                 }
-                <br/>
-                <br/>
+                <br />
+                <br />
             </div>
         );
     }
