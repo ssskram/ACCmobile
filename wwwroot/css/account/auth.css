@@ -17,7 +17,9 @@ body {
 
 /* button styles */
 
-.btn-default:active, .btn-default:focus, .btn-default:hover {
+.btn-default:active,
+.btn-default:focus,
+.btn-default:hover {
     background-color: #000000 !important;
     border: 2px #000000;
     border-style: solid;
@@ -27,7 +29,7 @@ body {
 
 .btn-default {
     /* font */
-    color: #000000;
+    color: #383838;
     font-size: 20px;
     font-family: 'Raleway', sans-serif;
     letter-spacing: 2px !important;
@@ -35,7 +37,7 @@ body {
     /* remove blue underline */
     text-decoration: none;
     /* border */
-    border: 2px #000000;
+    border: 2px #383838;
     border-style: solid;
     border-radius: 10px;
     /* transitions */
