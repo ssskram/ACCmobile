@@ -1,4 +1,3 @@
-using System;
 
 namespace accmobile.Models
 {
@@ -6,7 +5,7 @@ namespace accmobile.Models
     {
         public string breed { get; set; }
         public string type { get; set; }
-    }   
+    }
     public class coats
     {
         public string coat { get; set; }
@@ -15,7 +14,7 @@ namespace accmobile.Models
     public class vets
     {
         public string vet { get; set; }
-    } 
+    }
     public class reasons
     {
         public string reason { get; set; }
@@ -23,13 +22,13 @@ namespace accmobile.Models
     public class origins
     {
         public string origin { get; set; }
-    }      
+    }
     public class initials
     {
         public string initial { get; set; }
-    }  
+    }
     public class citations
     {
         public string citation { get; set; }
-    }                      
+    }
 }

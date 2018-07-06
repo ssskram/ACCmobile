@@ -9,9 +9,6 @@ import Moment from 'react-moment'
 import Modal from 'react-responsive-modal';
 import Paging from './Paging'
 
-// props for pagination:
-// https://stackoverflow.com/questions/40232847/how-to-implement-pagination-in-reactjs
-
 const openIncident = {
     color: 'red'
 }
