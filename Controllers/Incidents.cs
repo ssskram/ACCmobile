@@ -1,7 +1,5 @@
 using System;
-using System.Web;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
-using System.Text.RegularExpressions;
 
 namespace accmobile.Controllers
 {

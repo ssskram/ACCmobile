@@ -1,7 +1,5 @@
 using System;
-using System.Web;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -10,11 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Net.Http;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Newtonsoft.Json.Linq;
-using System.Text.RegularExpressions;
-
 namespace accmobile.Controllers
 {
     [Authorize]
@@ -45,7 +39,7 @@ namespace accmobile.Controllers
                 };
                 AllBreeds.Add(brd);
             }
-            return(AllBreeds);
+            return (AllBreeds);
         }
 
         [HttpGet("[action]")]
@@ -70,7 +64,7 @@ namespace accmobile.Controllers
                 };
                 AllCoats.Add(ct);
             }
-            return(AllCoats);
+            return (AllCoats);
         }
 
         [HttpGet("[action]")]
@@ -94,7 +88,7 @@ namespace accmobile.Controllers
                 };
                 AllVets.Add(vt);
             }
-            return(AllVets);
+            return (AllVets);
         }
 
         [HttpGet("[action]")]
@@ -118,7 +112,7 @@ namespace accmobile.Controllers
                 };
                 AllReasons.Add(rs);
             }
-            return(AllReasons);
+            return (AllReasons);
         }
 
         [HttpGet("[action]")]
@@ -142,7 +136,7 @@ namespace accmobile.Controllers
                 };
                 AllOrigins.Add(or);
             }
-            return(AllOrigins);
+            return (AllOrigins);
         }
 
         [HttpGet("[action]")]
@@ -166,7 +160,7 @@ namespace accmobile.Controllers
                 };
                 AllInitials.Add(ins);
             }
-            return(AllInitials);
+            return (AllInitials);
         }
 
         [HttpGet("[action]")]
@@ -190,7 +184,7 @@ namespace accmobile.Controllers
                 };
                 AllCitations.Add(cit);
             }
-            return(AllCitations);
+            return (AllCitations);
         }
 
         private async Task<string> refreshtoken()

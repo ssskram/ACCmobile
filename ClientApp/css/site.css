@@ -54,7 +54,6 @@ hr {
         overflow-x: hidden;
     }
     .home-image {
-        opacity: 0.8;
         max-height: 350px !important;
         margin-top: 20px;
     }
@@ -103,8 +102,7 @@ hr {
         padding: 7px 5px 5px 5px !important;
     }
     .home-image {
-        opacity: 0.8;
-        max-height: 350px !important;
+        max-height: 250px !important;
         margin-top: 45px;
     }
 }

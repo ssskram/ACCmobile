@@ -40,7 +40,7 @@ export class NavMenu extends React.Component<any, any>  {
                 <div className='navbar-collapse collapse'>
                     <ul className='nav navbar-nav'>
                         <li>
-                            <NavLink to={ '/Incidents' } activeClassName='active' data-toggle="collapse" data-target=".in">
+                            <NavLink to={'/Incidents'} activeClassName='active' data-toggle="collapse" data-target=".in">
                                 <span className='glyphicon glyphicon-search'></span>
                                 Search
                             </NavLink>
@@ -54,9 +54,9 @@ export class NavMenu extends React.Component<any, any>  {
                         <div className='accountcontainer'>
                             <li className="account">{user}</li>
                             <li className='logout'>
-                                <NavLink to={'/Account/Login'} activeClassName='active' id="logout" className='btn btn-link navbar-logout-btn navbar-link'>
+                                <a href='/Account/Login' id="logout" className='btn btn-link navbar-logout-btn navbar-link'>
                                     <span className='glyphicon glyphicon-user'></span>Logout
-                                </NavLink>
+                                </a>
                             </li>
                         </div>
                     </ul>

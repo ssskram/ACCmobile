@@ -1,17 +1,12 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Web;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using accmobile.Models;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using accmobile.Models;
 
 namespace accmobile.Controllers
 {
