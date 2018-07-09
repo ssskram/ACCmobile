@@ -4,6 +4,7 @@ import Select from '../FormElements/select'
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as Dropdowns from '../../store/dropdowns'
+import classNames from 'classnames'
 
 const statuses = [
     { value: '', label: 'All', name: 'status' },
@@ -15,6 +16,8 @@ const loadingOptions = [{
     "value": '...loading...',
     "label": '...loading...'
 }]
+
+
 export class Filters extends React.Component<any, any> {
     constructor() {
         super();
@@ -100,10 +103,46 @@ export class Filters extends React.Component<any, any> {
             note
         } = this.state
         
+        var addressActive = classNames({
+            'col-md-4': true,
+            'filter-container': true,
+            'highlight-filter': address
+        });
+
+        var statusActive = classNames({
+            'col-md-4': true,
+            'filter-container': true,
+            'highlight-filter': status
+        });
+
+        var submittedByActive = classNames({
+            'col-md-4': true,
+            'filter-container': true,
+            'highlight-filter': submittedBy
+        });
+
+        var dateActive = classNames({
+            'col-md-4': true,
+            'filter-container': true,
+            'highlight-filter': date
+        });
+
+        var reasonForVisitActive = classNames({
+            'col-md-4': true,
+            'filter-container': true,
+            'highlight-filter': reasonForVisit
+        });
+
+        var noteActive = classNames({
+            'col-md-4': true,
+            'filter-container': true,
+            'highlight-filter': note
+        });
+          
         return (
             <div className="form-group">
                 <div className='row'>
-                    <div className='col-md-4'>
+                    <div className={addressActive}>
                         <Input
                             value={address}
                             name="address"
@@ -112,7 +151,7 @@ export class Filters extends React.Component<any, any> {
                             callback={this.handleChildChange.bind(this)}
                         />
                     </div>
-                    <div className='col-md-4'>
+                    <div className={statusActive}>
                         <Select
                             value={status}
                             name="status"
@@ -123,7 +162,7 @@ export class Filters extends React.Component<any, any> {
                             options={statuses}
                         />
                     </div>
-                    <div className='col-md-4'>
+                    <div className={submittedByActive}>
                         <Select
                             value={submittedBy}
                             name="submittedBy"
@@ -136,7 +175,7 @@ export class Filters extends React.Component<any, any> {
                     </div>
                 </div>
                 <div className='row'>
-                    <div className='col-md-4'>
+                    <div className={dateActive}>
                         <Input
                             value={date}
                             name="date"
@@ -145,7 +184,7 @@ export class Filters extends React.Component<any, any> {
                             callback={this.handleChildChange.bind(this)}
                         />
                     </div>
-                    <div className='col-md-4'>
+                    <div className={reasonForVisitActive}>
                         <Select
                             value={reasonForVisit}
                             name="reasonForVisit"
@@ -156,7 +195,7 @@ export class Filters extends React.Component<any, any> {
                             options={reasonOptions}
                         />
                     </div>
-                    <div className='col-md-4'>
+                    <div className={noteActive}>
                         <Input
                             value={note}
                             name="note"

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import ReactTable from "react-table";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
@@ -22,19 +23,44 @@ const imgStyle = {
     height: '150px',
 }
 
+const marginTop = {
+    marginTop: '10px'
+}
+const columns = [{
+    Header: '',
+    accessor: 'link',
+    Cell: props => <Link style={reportLink} target='_blank' to={props.value}>View report</Link>
+}, {
+    Header: 'No.',
+    accessor: 'itemId'
+}, {
+    Header: 'Date',
+    accessor: 'date',
+    Cell: props => <Moment format="MM/DD/YYYY HH:mm" date={props.value} />
+}, {
+    Header: 'Address',
+    accessor: 'address'
+}, {
+    Header: 'Reason(s) for Visit',
+    accessor: 'reasonForVisit',
+}, {
+    Header: 'Note',
+    accessor: 'note'
+}]
+
 export class Incidents extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
             onFilter: false,
             modalIsOpen: false,
+            format: 'cards',
             incidents: this.props.incidents.sort(function (a, b) {
                 return +new Date(b.date) - +new Date(a.date);
             }),
             currentPage: 1,
             incidentsPerPage: 10,
             itemCount: this.props.incidents.length,
-            filterType: 'All',
             filters: false,
             address: '',
             status: '',
@@ -109,7 +135,6 @@ export class Incidents extends React.Component<any, any> {
                 return +new Date(b.date) - +new Date(a.date);
             }),
             itemCount: this.props.incidents.length,
-            filterType: 'All',
             currentPage: 1
         });
     }
@@ -192,23 +217,29 @@ export class Incidents extends React.Component<any, any> {
             }
             return true
         })
-        if (state.status == '') {
-            var ft = 'All'
-        }
-        else if (state.status == 'No') {
-            var ft = 'Closed'
-        }
-        else {
-            var ft = 'Open'
-        }
         this.setState({
             currentPage: 1,
             incidents: filtered.sort(function (a, b) {
                 return +new Date(b.date) - +new Date(a.date);
             }),
             itemCount: filtered.length,
-            filterType: ft
         })
+    }
+
+    toggleViewFormat() {
+        window.scrollTo(0, 0)
+        if (this.state.format == 'cards') {
+            this.setState({
+                currentPage: 1,
+                format: 'table'
+            })
+        }
+        if (this.state.format == 'table') {
+            this.setState({
+                format: 'cards',
+                currentPage: 1
+            })
+        }
     }
 
     public render() {
@@ -217,16 +248,15 @@ export class Incidents extends React.Component<any, any> {
             incidentsPerPage,
             itemCount,
             modalIsOpen,
-            filterType,
             incidents,
-            filters } = this.state
+            filters,
+            format } = this.state
 
         // Logic for paging
         const indexOfLastIncident = currentPage * incidentsPerPage;
         const indexOfFirstIncident = indexOfLastIncident - incidentsPerPage;
         const currentIncidents = incidents.slice(indexOfFirstIncident, indexOfLastIncident);
-
-        const renderTodos = currentIncidents.map((incident, index) => {
+        const renderIncidents = currentIncidents.map((incident, index) => {
             if (incident.coords) {
                 var coords = incident.coords.replace('(', '').replace(')', '');;
                 var url = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + coords + '&fov=60&heading=235&pitch=10&key=AIzaSyCPaIodXvOSQXvlUMj0iy8WbxzmC-epiO4'
@@ -236,7 +266,7 @@ export class Incidents extends React.Component<any, any> {
             }
             return <div className="container-fluid" key={index}>
                 <div className="row">
-                    <div className="facility">
+                    <div className="incident">
                         <div className="panel">
                             <div className="panel-body text-center">
                                 <div className='col-sm-12 hidden-md hidden-lg hidden-xl text-center'>
@@ -301,30 +331,65 @@ export class Incidents extends React.Component<any, any> {
         return (
             <div className='incident-container'>
                 <div className='row text-center'>
-                    {filterType == 'All' &&
-                        <h2>All incidents: {itemCount} items</h2>
-                    }
-                    {filterType === 'Open' &&
-                        <h2>Open incidents: {itemCount} items</h2>
-                    }
-                    {filterType === 'Closed' &&
-                        <h2>Closed incidents: {itemCount} items</h2>
-                    }
-                </div>
-                <hr />
-                <div className='row text-center'>
-                    {filters === true &&
-                        <button className='btn btn-default' onClick={this.clearFilters.bind(this)}>Clear filters</button>
-                    }
-                    {filters === false &&
-                        <button className='btn btn-default' onClick={this.showFilters.bind(this)}>Show filters</button>
-                    }
+                    <div className='col-md-4'>
+                        <h2>{itemCount} Incidents</h2>
+                    </div>
+                    <div className='col-md-4' style={marginTop}>
+                        {filters === true &&
+                            <button className='btn btn-secondary' onClick={this.clearFilters.bind(this)}>Clear filters</button>
+                        }
+                        {filters === false &&
+                            <button className='btn btn-secondary' onClick={this.showFilters.bind(this)}>Show filters</button>
+                        }
+                    </div>
+                    <div className='col-md-4' style={marginTop}>
+                        {format == 'cards' &&
+                            <button className='btn btn-secondary' onClick={this.toggleViewFormat.bind(this)}>Toggle table view</button>
+                        }
+                        {format == 'table' &&
+                            <button className='btn btn-secondary' onClick={this.toggleViewFormat.bind(this)}>Toggle card view</button>
+                        }
+                    </div>
                 </div>
                 {filters === true &&
                     <Filters incidents={incidents} filter={this.filter.bind(this)} />
                 }
                 <div className="col-md-12 table-container">
-                    {renderTodos}
+                    {format == 'cards' &&
+                        <div>
+                            {renderIncidents}
+                            <Paging
+                                countIncidents={incidents}
+                                currentPage={currentPage}
+                                totalPages={pageNumbers}
+                                modalIsOpen={modalIsOpen}
+                                next={this.handleNextClick.bind(this)}
+                                prev={this.handlePreviousClick.bind(this)} />
+                        </div>
+                    }
+                    {format == 'table' &&
+                        <div>
+                            <ReactTable
+                                data={incidents}
+                                columns={columns}
+                                loading={false}
+                                defaultPageSize={50}
+                                noDataText='Nothing to see here'
+                                defaultSorted={[
+                                    {
+                                        id: 'date',
+                                        desc: true
+                                    }
+                                ]}
+                            />
+                        </div>
+                    }
+                    {itemCount == 0 && modalIsOpen == false &&
+                        <div className='text-center'>
+                            <br />
+                            <h2>Sorry, I can't find anything<br />matching those parameters</h2>
+                        </div>
+                    }
                 </div>
                 <Modal
                     open={modalIsOpen}
@@ -343,7 +408,6 @@ export class Incidents extends React.Component<any, any> {
                     <div className="loader"></div>
                     ...loading all incidents...
                 </Modal>
-                <Paging countIncidents={incidents} currentPage={currentPage} totalPages={pageNumbers} modalIsOpen={modalIsOpen} next={this.handleNextClick.bind(this)} prev={this.handlePreviousClick.bind(this)} />
             </div>
         );
     }
