@@ -12,24 +12,26 @@ export default class Animals extends React.Component<any, any> {
         super();
         this.state = {
             modalIsOpen: false,
-            deleteAnimal: true,
+            deleteAnimal: false,
+            addAnimal: false,
             animalToUpdate: {}
         }
-    }
-
-    editAnimal(animal) {
-        this.setState({
-            deleteAnimal: false,
-            modalIsOpen: true,
-            animalToUpdate: animal
-        })
     }
 
     closeModal() {
         this.setState({
             modalIsOpen: false,
+            deleteAnimal: false,
+            addAnimal: false,
             animalToUpdate: {}
         });
+    }
+
+    editAnimal(animal) {
+        this.setState({
+            modalIsOpen: true,
+            animalToUpdate: animal
+        })
     }
 
     deleteAnimal(animal) {
@@ -40,10 +42,18 @@ export default class Animals extends React.Component<any, any> {
         });
     }
 
+    addAnimal() {
+        this.setState({
+            addAnimal: true,
+            modalIsOpen: true
+        });
+    }
+
     public render() {
         const {
             modalIsOpen,
             deleteAnimal,
+            addAnimal,
             animalToUpdate
         } = this.state
 
@@ -182,6 +192,9 @@ export default class Animals extends React.Component<any, any> {
                         </div>
                     </div>
                 )}
+                <div className='col-md-12 text-center'>
+                    <button className='btn btn-default' onClick={this.addAnimal.bind(this)}>Add an animal</button>
+                </div>
                 <Modal
                     open={modalIsOpen}
                     onClose={this.closeModal.bind(this)}
@@ -190,13 +203,27 @@ export default class Animals extends React.Component<any, any> {
                         modal: 'custom-modal'
                     }}
                     center>
-                    {deleteAnimal == false &&
-                        <UpdateAnimal animal={animalToUpdate} put={true} />
+                    {deleteAnimal == false && addAnimal == false &&
+
+                        <div>
+                            <UpdateAnimal animal={animalToUpdate} put={true} />
+                            <div className='col-md-12 text-center'>
+                                <button className='btn btn-success'>Save</button>
+                            </div>
+                        </div>
+                    }
+                    {deleteAnimal == false && addAnimal == true &&
+
+                        <div>
+                            <UpdateAnimal animal={animalToUpdate} put={true} />
+                            <div className='col-md-12 text-center'>
+                                <button className='btn btn-success'>Save</button>
+                            </div>
+                        </div>
                     }
                     {deleteAnimal == true &&
                         <DeleteAnimal animal={animalToUpdate} />
                     }
-
                 </Modal>
             </div>
         );
