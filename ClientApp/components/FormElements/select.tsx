@@ -9,7 +9,17 @@ export default class input extends React.Component<any, any> {
         }
     }
     public render() {
-        
+
+        let conditionalClass = {
+            backgroundColor: ''
+        }  
+
+        if (this.props.value) {
+            conditionalClass = {
+                backgroundColor: 'rgba(135,	206, 250, 0.15)'
+            }
+        }
+
         return (
             <div className="form-group">
                 <div className="col-md-12 form-element">
@@ -26,6 +36,7 @@ export default class input extends React.Component<any, any> {
                         removeSelected={this.props.multi}
                         multi={this.props.multi}
                         clearable={this.props.multi}
+                        style={conditionalClass}
                     />
                 </div>
             </div>

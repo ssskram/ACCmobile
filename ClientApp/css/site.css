@@ -30,7 +30,7 @@ hr {
 /* ------------------------- */
 
 ::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -215,6 +215,10 @@ hr {
 
 /* Forms
 /* ------------------------- */
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
 
 .form-h {
     margin-left: 15px;
@@ -524,6 +528,7 @@ textarea {
     white-space: pre-wrap !important;
     overflow: visible !important;
     text-overflow: inherit !important;
+    text-align: center !important;
 }
 
 .rt-thead {
@@ -795,8 +800,6 @@ a[href^="https://maps.google.com/maps"] {
     line-height: 2em;
 }
 
-.filter-container {}
-
 .highlight-filter {
-    background-color: rgba(92, 184, 92, .2);
+    background-color: rgba(135,	206, 250, 0.15);
 }

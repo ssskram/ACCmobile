@@ -68,7 +68,6 @@ export class Submit extends React.Component<any, any> {
     }
 
     deleteAnimal(index) {
-        console.log(index)
         var newArray = [...this.state.animals];
         var remove = newArray.indexOf(index)
         newArray.splice(remove, 1);

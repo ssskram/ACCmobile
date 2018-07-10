@@ -26,6 +26,7 @@ const imgStyle = {
 const marginTop = {
     marginTop: '10px'
 }
+
 const columns = [{
     Header: '',
     accessor: 'link',
@@ -41,8 +42,8 @@ const columns = [{
     Header: 'Address',
     accessor: 'address'
 }, {
-    Header: 'Reason(s) for Visit',
-    accessor: 'reasonForVisit',
+    Header: 'Open',
+    accessor: 'open'
 }, {
     Header: 'Note',
     accessor: 'note'
@@ -285,6 +286,15 @@ export class Incidents extends React.Component<any, any> {
                                 </div>
                                 <div className="col-md-6 incident-card-container">
                                     <div style={reportLink}><strong>{incident.address}</strong></div>
+                                    {incident.open === 'Yes' &&
+                                        <h4 style={openIncident}>Open incident</h4>
+                                    }
+                                    {incident.open === 'No' &&
+                                        <h4>Closed incident</h4>
+                                    }
+                                    {incident.open == null &&
+                                        <h4>Scanned document</h4>
+                                    }
                                     <div><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></div>
                                     <div>{incident.reasonForVisit}</div>
                                     <div>Incident ID: {incident.itemId} </div>
@@ -296,15 +306,6 @@ export class Incidents extends React.Component<any, any> {
                                     </div>
                                 </div>
                                 <div className='col-md-3 hidden-sm hidden-xs text-center'>
-                                    {incident.open === 'Yes' &&
-                                        <h4 style={openIncident}>Open incident</h4>
-                                    }
-                                    {incident.open === 'No' &&
-                                        <h4>Closed incident</h4>
-                                    }
-                                    {incident.open == null &&
-                                        <h4>Scanned document</h4>
-                                    }
                                     {incident.note != null &&
                                         <div>
                                             <h5><strong>Note:</strong></h5>
