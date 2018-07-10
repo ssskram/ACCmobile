@@ -9,6 +9,7 @@ import * as Dropdowns from '../../../store/dropdowns';
 import Incident from './Incident'
 import AnimalsTable from './Animals'
 import Map from '../../Map/MapContainer'
+import UpdateIncident from '../../Submit/Incident'
 
 const lineBreaks = {
     whiteSpace: 'pre-wrap'
@@ -27,7 +28,8 @@ export class Report extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
-            modalIsOpen: true,
+            modalIsOpen: false,
+            spinnerIsOpen: true,
             incident: {},
             animals: [],
             latlng: {}
@@ -47,7 +49,6 @@ export class Report extends React.Component<any, any> {
             .then(data => {
                 this.setState({
                     animals: data
-
                 });
             });
         fetch('/api/incidents/report?id=' + encodeURIComponent(param.id), {
@@ -73,6 +74,7 @@ export class Report extends React.Component<any, any> {
                 this.setState({
                     incident: data,
                     modalIsOpen: false,
+                    spinnerIsOpen: false,
                     latlng: lat_lng
                 });
             });
@@ -85,7 +87,14 @@ export class Report extends React.Component<any, any> {
 
     closeModal() {
         this.setState({
-            modalIsOpen: false
+            modalIsOpen: false,
+            spinnerIsOpen: false
+        });
+    }
+
+    updateIncident() {
+        this.setState({
+            modalIsOpen: true
         });
     }
 
@@ -94,7 +103,8 @@ export class Report extends React.Component<any, any> {
             latlng,
             incident,
             animals,
-            modalIsOpen } = this.state
+            modalIsOpen,
+            spinnerIsOpen } = this.state
 
         if (incident.coords) {
             var coords = incident.coords.replace('(', '').replace(')', '');;
@@ -111,7 +121,7 @@ export class Report extends React.Component<any, any> {
                 <br />
                 <div className='row'>
                     <div className='col-md-12'>
-                        <button className='btn btn-link'>Edit incident</button>
+                        <button className='btn btn-link' onClick={this.updateIncident.bind(this)}>Edit incident</button>
                     </div>
                     <div className='col-lg-6 col-md-12'>
                         <Incident incident={incident} />
@@ -134,8 +144,9 @@ export class Report extends React.Component<any, any> {
                         <AnimalsTable animals={animals} />
                     </div>
                 </div>
+                {/* loading spinner */}
                 <Modal
-                    open={modalIsOpen}
+                    open={spinnerIsOpen}
                     onClose={this.closeModal.bind(this)}
                     classNames={{
                         transitionExit: 'transition-exit-active',
@@ -150,6 +161,22 @@ export class Report extends React.Component<any, any> {
                     center>
                     <div className="loader"></div>
                     ...loading incident report...
+                </Modal>
+                {/* update incident modal */}
+                <Modal
+                    open={modalIsOpen}
+                    onClose={this.closeModal.bind(this)}
+                    classNames={{
+                        overlay: 'custom-overlay',
+                        modal: 'custom-modal'
+                    }}
+                    center>
+                    <div>
+                        <UpdateIncident incident={incident} />
+                        <div className='col-md-12 text-center'>
+                            <button className='btn btn-success'>Save</button>
+                        </div>
+                    </div>
                 </Modal>
             </div>
         );
