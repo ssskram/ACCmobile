@@ -2,6 +2,7 @@ import * as React from 'react';
 import Input from '../FormElements/input'
 import Textarea from '../FormElements/textarea'
 import Select from '../FormElements/select'
+import Datepicker from '../FormElements/datepicker'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
@@ -84,6 +85,12 @@ export class Animal extends React.Component<any, any> {
         this.setState({
             vetOptions: allVet
         })
+    }
+
+    handleChildDate(date) {
+        this.setState({ RabbiesVacExp: date }, function (this) {
+            this.filter()
+        });
     }
 
     handleChildChange(event) {
@@ -266,12 +273,12 @@ export class Animal extends React.Component<any, any> {
                                 />
                             </div>
                             <div className='col-md-3'>
-                                <Input
+                                <Datepicker
                                     value={RabbiesVacExp}
                                     name="RabbiesVacExp"
                                     header="Rab. Exp."
                                     placeholder="Vaccine Exp."
-                                    callback={this.handleChildChange.bind(this)}
+                                    callback={this.handleChildDate.bind(this)}
                                 />
                             </div>
                         </div>

@@ -1,8 +1,10 @@
 import * as React from 'react';
 import Input from '../FormElements/input'
 import Select from '../FormElements/select'
+import Datepicker from '../FormElements/datepicker'
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
+import Moment from 'react-moment'
 import * as Dropdowns from '../../store/dropdowns'
 
 const statuses = [
@@ -74,6 +76,13 @@ export class Filters extends React.Component<any, any> {
         })
     }
 
+
+    handleChildDate(date) {
+        this.setState({ date: date }, function (this) {
+            this.filter()
+        });
+    }
+
     handleChildChange(event) {
         this.setState({ [event.target.name]: event.target.value }, function (this) {
             this.filter()
@@ -102,7 +111,7 @@ export class Filters extends React.Component<any, any> {
             reasonForVisit,
             note
         } = this.state
-        
+
 
         return (
             <div className="form-group">
@@ -141,12 +150,12 @@ export class Filters extends React.Component<any, any> {
                 </div>
                 <div className='row'>
                     <div className='col-md-4'>
-                        <Input
+                        <Datepicker
                             value={date}
                             name="date"
                             header="Date"
                             placeholder="Enter date"
-                            callback={this.handleChildChange.bind(this)}
+                            callback={this.handleChildDate.bind(this)}
                         />
                     </div>
                     <div className='col-md-4'>

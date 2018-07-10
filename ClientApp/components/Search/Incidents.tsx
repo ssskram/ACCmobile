@@ -9,6 +9,7 @@ import Filters from './Filters'
 import Moment from 'react-moment'
 import Modal from 'react-responsive-modal';
 import Paging from './Paging'
+import Format from 'date-format'
 
 const openIncident = {
     color: 'red'
@@ -151,7 +152,8 @@ export class Incidents extends React.Component<any, any> {
             var address = state.address.toLowerCase()
         }
         if (state.date) {
-            var date = state.date.toLowerCase()
+            var date = new Date(state.date)
+            var formattedDate = Format('yyyy-MM-dd', date)
         }
         if (state.submittedBy) {
             var submittedBy = state.submittedBy.toLowerCase()
@@ -171,8 +173,8 @@ export class Incidents extends React.Component<any, any> {
                     return false
                 }
             }
-            if (date) {
-                if (!item.date.toLowerCase().includes(date)) {
+            if (formattedDate) {
+                if (!item.date.includes(formattedDate)) {
                     return false
                 }
             }
