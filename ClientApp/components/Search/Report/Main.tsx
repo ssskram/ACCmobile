@@ -106,12 +106,13 @@ export class Report extends React.Component<any, any> {
 
         return (
             <div>
-                <h2 className='text-center'>Incident report</h2>
-                <hr />
                 <h3 className='text-center'><strong>{incident.address}</strong></h3>
                 <h4 className='text-center'>Incident ID: {incident.itemId}</h4>
                 <br />
                 <div className='row'>
+                    <div className='col-md-12'>
+                        <button className='btn btn-link'>Edit incident</button>
+                    </div>
                     <div className='col-lg-6 col-md-12'>
                         <Incident incident={incident} />
                     </div>

@@ -12,6 +12,10 @@ const sectionPadding = {
     padding: '20px'
 }
 
+const panelMargin = {
+    paddingTop: '0px'
+}
+
 export class Submit extends React.Component<any, any> {
     constructor() {
         super();
@@ -150,7 +154,15 @@ export class Submit extends React.Component<any, any> {
                             </div>
                         </div>
                     }
-                    {animals.map((animal) => <Animals number={animal} key={animal} delete={this.deleteAnimal.bind(this)} />)}
+                    {animals.map((animal) => <div>
+                        <h3 className='form-h'>{animal.number}. {animal.animalType && animal.animalType} {animal.animalName && animal.animalType && ' named ' + animal.animalName}</h3>
+                        <div className="panel">
+                            <div style={panelMargin} className="panel-body">
+                                <Animals number={animal} key={animal} delete={this.deleteAnimal.bind(this)} />
+                            </div>
+                        </div>
+                    </div>
+                    )}
                 </div>
                 {submit === true &&
                     <div className='row'>

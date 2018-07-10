@@ -1,52 +1,68 @@
 import * as React from 'react';
+import UpdateAnimal from '../../Submit/Animal'
+import Modal from 'react-responsive-modal';
+import DeleteAnimal from './deleteAnimal'
 
-const imgStyle = {
-    width: '120px',
-    height: '120px',
-    opacity: .8
+const deleteButton = {
+    color: 'red'
 }
 
 export default class Animals extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
+            modalIsOpen: false,
+            deleteAnimal: true,
+            animalToUpdate: {}
         }
     }
 
+    editAnimal(animal) {
+        this.setState({
+            deleteAnimal: false,
+            modalIsOpen: true,
+            animalToUpdate: animal
+        })
+    }
+
+    closeModal() {
+        this.setState({
+            modalIsOpen: false,
+            animalToUpdate: {}
+        });
+    }
+
+    deleteAnimal(animal) {
+        this.setState({
+            deleteAnimal: true,
+            modalIsOpen: true,
+            animalToUpdate: animal
+        });
+    }
+
     public render() {
+        const {
+            modalIsOpen,
+            deleteAnimal,
+            animalToUpdate
+        } = this.state
+
         return (
             <div>
-                {this.props.animals == null &&
-                    <div>
+                {this.props.animals == '' &&
+                    <div className='text-center'>
                         <br />
-                        <h2>No animals on this incident</h2>
+                        <h3>No animals on this incident</h3>
                         <br />
                     </div>
                 }
                 {this.props.animals.map(animal =>
                     <div className="container-fluid" key={animal.itemID}>
-                        <div className="row">
+                        <div className='col-md-4'>
                             <div className="facility">
                                 <div className="panel">
                                     <div className="panel-body text-center">
-                                        <div className='col-md-2 hidden-sm hidden-xs'>
-                                            {animal.animalType == 'Dog' &&
-                                                <div>
-                                                    <img style={imgStyle} src='../images/dog.png' />
-                                                </div>
-                                            }
-                                            {animal.animalType == 'Cat' &&
-                                                <div>
-                                                    <img style={imgStyle} src='../images/cat.png' />
-                                                </div>
-                                            }
-                                            {animal.animalType == 'Other' &&
-                                                <div>
-                                                    <img style={imgStyle} src='../images/questionmark.png' />
-                                                </div>
-                                            }
-                                        </div>
-                                        <div className='col-md-10'>
+                                        <div className='col-md-12'>
                                             <div className='row text-center'>
                                                 {animal.animalName == null &&
                                                     <h3>{animal.animalType}</h3>
@@ -82,7 +98,7 @@ export default class Animals extends React.Component<any, any> {
                                                     </div>
                                                     <div className='col-md-6 col-sm-12 text-center'>
                                                         <h5>{animal.animalCoat}</h5>
-                                                    </div>rabbiesVacExp
+                                                    </div>
                                                 </div>
                                             }
                                             {animal.animalSex != null &&
@@ -156,12 +172,32 @@ export default class Animals extends React.Component<any, any> {
                                                 </div>
                                             }
                                         </div>
+                                        <div className='col-md-12 text-center'>
+                                            <button className='btn btn-link' onClick={() => this.editAnimal(animal)}>Edit</button>
+                                            <button style={deleteButton} className='btn btn-link' onClick={() => this.deleteAnimal(animal)}>Delete</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 )}
+                <Modal
+                    open={modalIsOpen}
+                    onClose={this.closeModal.bind(this)}
+                    classNames={{
+                        overlay: 'custom-overlay',
+                        modal: 'custom-modal'
+                    }}
+                    center>
+                    {deleteAnimal == false &&
+                        <UpdateAnimal animal={animalToUpdate} put={true} />
+                    }
+                    {deleteAnimal == true &&
+                        <DeleteAnimal animal={animalToUpdate} />
+                    }
+
+                </Modal>
             </div>
         );
     }

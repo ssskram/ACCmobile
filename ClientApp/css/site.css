@@ -30,7 +30,7 @@ hr {
 /* ------------------------- */
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: 7px;
 }
 
 ::-webkit-scrollbar-track {
@@ -299,6 +299,10 @@ textarea {
     z-index: 0 !important;
 }
 
+.btn-link {
+    font-size: 14px;
+}
+
 .btn i {
     padding: 0px !important;
     padding-bottom: 5px;
@@ -430,17 +434,6 @@ textarea {
     font-size: 18px;
     font-family: 'Raleway', sans-serif;
     letter-spacing: 2px !important;
-}
-
-.btn-link {
-    margin-top: 5px;
-}
-
-.btn-link:hover,
-.btn-link:focus,
-.btn-link:active {
-    border: .5px solid #fffaee;
-    background-color: transparent !important;
 }
 
 .btn.active.focus,
@@ -606,7 +599,6 @@ textarea {
     max-height: 100vh;
     overflow-x: hidden;
     overflow-y: scroll;
-    margin-top: 25px !important;
 }
 
 .styles_closeButton__20ID4 {
@@ -822,5 +814,5 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 .highlight-filter {
-    background-color: rgba(135, 206, 250, 0.15);
+    background-color: rgba(135, 206, 250, 0.1);
 }
