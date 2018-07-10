@@ -28,6 +28,14 @@ const marginTop = {
     marginTop: '10px'
 }
 
+const noteContainer = {
+    backgroundColor: 'rgba(92, 184, 92, .2)',
+    borderRadius: '10px',
+    width: '60%',
+    margin: '0 auto',
+    padding: '5px'
+}
+
 const columns = [{
     Header: '',
     accessor: 'link',
@@ -288,17 +296,8 @@ export class Incidents extends React.Component<any, any> {
                                 </div>
                                 <div className="col-md-6 incident-card-container">
                                     <div style={reportLink}><strong>{incident.address}</strong></div>
-                                    {incident.open === 'Yes' &&
-                                        <h4 style={openIncident}>Open incident</h4>
-                                    }
-                                    {incident.open === 'No' &&
-                                        <h4>Closed incident</h4>
-                                    }
-                                    {incident.open == null &&
-                                        <h4>Scanned document</h4>
-                                    }
-                                    <div><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></div>
-                                    <div>{incident.reasonForVisit}</div>
+                                    <h4><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></h4>
+                                    <h4><i>{incident.reasonForVisit}</i></h4>
                                     <div>Incident ID: {incident.itemId} </div>
                                     <div className='hidden-md hidden-lg hidden-xl'>
                                         {incident.note != null &&
@@ -308,8 +307,17 @@ export class Incidents extends React.Component<any, any> {
                                     </div>
                                 </div>
                                 <div className='col-md-3 hidden-sm hidden-xs text-center'>
+                                    {incident.open === 'Yes' &&
+                                        <h4 style={openIncident}>Open incident</h4>
+                                    }
+                                    {incident.open === 'No' &&
+                                        <h4>Closed incident</h4>
+                                    }
+                                    {incident.open == null &&
+                                        <h4>Scanned document</h4>
+                                    }
                                     {incident.note != null &&
-                                        <div>
+                                        <div style={noteContainer}>
                                             <h5><strong>Note:</strong></h5>
                                             <div>{incident.note}</div>
                                         </div>
@@ -345,7 +353,7 @@ export class Incidents extends React.Component<any, any> {
                             <button className='btn btn-secondary' onClick={this.showFilters.bind(this)}>Show filters</button>
                         }
                     </div>
-                    <div className='col-md-4' style={marginTop}>
+                    <div className='col-md-4 hidden-sm hidden-xs' style={marginTop}>
                         {format == 'cards' &&
                             <button className='btn btn-secondary' onClick={this.toggleViewFormat.bind(this)}>Toggle table view</button>
                         }
@@ -358,7 +366,7 @@ export class Incidents extends React.Component<any, any> {
                     <Filters incidents={incidents} filter={this.filter.bind(this)} />
                 }
                 <div className="col-md-12 table-container">
-                    {format == 'cards' &&
+                    {format == 'cards' && itemCount != 0 &&
                         <div>
                             {renderIncidents}
                             <Paging
@@ -370,14 +378,16 @@ export class Incidents extends React.Component<any, any> {
                                 prev={this.handlePreviousClick.bind(this)} />
                         </div>
                     }
-                    {format == 'table' &&
+                    {format == 'table' && itemCount != 0 &&
                         <div>
                             <ReactTable
                                 data={incidents}
                                 columns={columns}
                                 loading={false}
-                                defaultPageSize={50}
-                                noDataText='Nothing to see here'
+                                minRows={0}
+                                pageSize={100}
+                                showPageSizeOptions={false}
+                                noDataText=''
                                 defaultSorted={[
                                     {
                                         id: 'date',
