@@ -155,7 +155,7 @@ export class Submit extends React.Component<any, any> {
                         </div>
                     }
                     {animals.map((animal) => <div>
-                        <h3 className='form-h'>{animal.number}. {animal.animalType && animal.animalType} {animal.animalName && animal.animalType && ' named ' + animal.animalName}</h3>
+                        <h3 className='form-h'>{animal}.</h3>
                         <div className="panel">
                             <div style={panelMargin} className="panel-body">
                                 <Animals number={animal} key={animal} delete={this.deleteAnimal.bind(this)} />
