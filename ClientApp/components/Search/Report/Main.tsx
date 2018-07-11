@@ -172,7 +172,7 @@ export class Report extends React.Component<any, any> {
                     }}
                     center>
                     <div>
-                        <UpdateIncident incident={incident} />
+                        <UpdateIncident incident={incident} put={true} />
                         <div className='col-md-12 text-center'>
                             <button className='btn btn-success'>Save</button>
                         </div>

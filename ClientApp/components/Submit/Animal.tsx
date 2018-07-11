@@ -60,7 +60,6 @@ export class Animal extends React.Component<any, any> {
     componentDidMount() {
         this.props.getDropdowns()
         let animal = this.props.animal
-        console.log(animal)
         if (this.props.put == true) {
             this.setState({
                 animalName: animal.animalName,

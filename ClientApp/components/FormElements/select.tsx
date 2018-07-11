@@ -37,6 +37,7 @@ export default class input extends React.Component<any, any> {
                         multi={this.props.multi}
                         clearable={this.props.multi}
                         style={conditionalClass}
+                        delimeter=', '
                     />
                 </div>
             </div>

@@ -6,9 +6,9 @@ import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
 
-const loadingOptions = [{ 
-    "value": '...loading...', 
-    "label": '...loading...' 
+const loadingOptions = [{
+    "value": '...loading...',
+    "label": '...loading...'
 }]
 
 export class Incident extends React.Component<any, any> {
@@ -20,7 +20,7 @@ export class Incident extends React.Component<any, any> {
             reasonOptions: loadingOptions,
             codeOptions: loadingOptions,
             initialsOptions: loadingOptions,
-            
+
             ownersLastName: '',
             ownersFirstName: '',
             ownersTelephoneNumber: '',
@@ -37,6 +37,24 @@ export class Incident extends React.Component<any, any> {
 
     componentDidMount() {
         this.props.getDropdowns()
+        let incident = this.props.incident
+        if (this.props.put == true) {
+            this.setState({
+                ownersLastName: incident.ownersLastName,
+                ownersFirstName: incident.ownersFirstName,
+                ownersTelephoneNumber: incident.ownersTelephoneNumber,
+                callOrigin: incident.callOrigin,
+                reasonForVisit: incident.reasonForVisit,
+                pghCode: incident.pghCode,
+                citationNumber: incident.citationNumber,
+                officerInitials: incident.officerInitials,
+                comments: incident.comments,
+                note: incident.note,
+                open: incident.open
+            }, function (this) {
+                this.setDropdowns()
+            })
+        }
     }
 
     componentWillReceiveProps() {
