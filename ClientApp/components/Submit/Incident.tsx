@@ -39,6 +39,7 @@ export class Incident extends React.Component<any, any> {
         this.props.getDropdowns()
         let incident = this.props.incident
         if (this.props.put == true) {
+            console.log(incident)
             this.setState({
                 ownersLastName: incident.ownersLastName,
                 ownersFirstName: incident.ownersFirstName,
@@ -95,6 +96,7 @@ export class Incident extends React.Component<any, any> {
     };
 
     handleReasonMulti(value) {
+        console.log(value)
         this.setState({ reasonForVisit: value })
     };
 
