@@ -3,6 +3,7 @@ import UpdateAnimal from '../../Submit/Animal'
 import Modal from 'react-responsive-modal';
 import DeleteAnimal from './deleteAnimal'
 
+
 const deleteButton = {
     color: 'red'
 }

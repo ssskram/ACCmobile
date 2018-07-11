@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { ApplicationState } from '../../../store';
 import * as Ping from '../../../store/ping';
 import * as Incidents from '../../../store/incidents';
-import * as Animals from '../../../store/animals';
 import * as Dropdowns from '../../../store/dropdowns';
 import Incident from './Incident'
 import AnimalsTable from './Animals'
@@ -81,7 +80,6 @@ export class Report extends React.Component<any, any> {
 
         // load store
         this.props.getIncidents()
-        this.props.getAnimals()
         this.props.getDropdowns()
     }
 
@@ -187,13 +185,11 @@ export default connect(
     (state: ApplicationState) => ({
         ...state.ping,
         ...state.incidents,
-        ...state.animals,
         ...state.dropdowns
     }),
     ({
         ...Ping.actionCreators,
         ...Incidents.actionCreators,
-        ...Animals.actionCreators,
         ...Incidents.actionCreators,
         ...Dropdowns.actionCreators
     })

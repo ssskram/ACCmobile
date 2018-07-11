@@ -6,6 +6,7 @@ import Datepicker from '../FormElements/datepicker'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
+import * as moment from 'moment'
 
 const animalTypes = [
     { value: 'Dog', label: 'Dog', name: 'animalType' },
@@ -68,12 +69,12 @@ export class Animal extends React.Component<any, any> {
                 animalBreed: animal.animalBreed,
                 animalCoat: animal.animalCoat,
                 animalSex: animal.animalSex,
-                LicenseNo: animal.LicenseNo,
-                LicenseYear: animal.LicenseYear,
-                RabbiesVacNo: animal.RabbiesVacNo,
-                RabbiesVacExp: animal.RabbiesVacExpo,
-                Vet: animal.Vet,
-                Comments: animal.Comments
+                LicenseNo: animal.licenseNo,
+                LicenseYear: animal.licenseYear,
+                RabbiesVacNo: animal.rabbiesVacNo,
+                RabbiesVacExp: moment(animal.rabbiesVacExp),
+                Vet: animal.vet,
+                Comments: animal.comments
             }, function (this) {
                 this.setDropdowns()
             })
@@ -113,9 +114,7 @@ export class Animal extends React.Component<any, any> {
     }
 
     handleChildDate(date) {
-        this.setState({ RabbiesVacExp: date }, function (this) {
-            this.filter()
-        });
+        this.setState({ RabbiesVacExp: date });
     }
 
     handleChildChange(event) {
