@@ -18,5 +18,7 @@ namespace accmobile.Models
         public string RabbiesVacExp { get; set; }
         public string Vet { get; set; }
         public string Comments { get; set; }
+        public string Coords { get; set; }
+        public string Address { get; set; }
     }                    
 }

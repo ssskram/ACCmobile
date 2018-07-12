@@ -75,7 +75,7 @@ export class Report extends React.Component<any, any> {
                     modalIsOpen: false,
                     spinnerIsOpen: false,
                     latlng: lat_lng
-                });
+                })
             });
 
         // load store
@@ -139,7 +139,7 @@ export class Report extends React.Component<any, any> {
                 </div>
                 <div className='row'>
                     <div className='col-md-12'>
-                        <AnimalsTable animals={animals} />
+                        <AnimalsTable incidentID={incident.uuid} address={incident.address} coords={latlng} animals={animals} />
                     </div>
                 </div>
                 {/* loading spinner */}

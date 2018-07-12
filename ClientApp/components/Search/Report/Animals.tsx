@@ -202,24 +202,25 @@ export default class Animals extends React.Component<any, any> {
                         modal: 'custom-modal'
                     }}
                     center>
+                    {/* update animal */}
                     {deleteAnimal == false && addAnimal == false &&
-
-                        <div>
-                            <UpdateAnimal animal={animalToUpdate} put={true} />
-                            <div className='col-md-12 text-center'>
-                                <button className='btn btn-success'>Save</button>
-                            </div>
-                        </div>
+                        <UpdateAnimal
+                            incidentID={this.props.incidentID}
+                            address={this.props.address}
+                            coords={this.props.coords}
+                            animal={animalToUpdate}
+                            put={true} />
                     }
+                    {/* add animal */}
                     {deleteAnimal == false && addAnimal == true &&
-
-                        <div>
-                            <UpdateAnimal animal={animalToUpdate} put={true} />
-                            <div className='col-md-12 text-center'>
-                                <button className='btn btn-success'>Save</button>
-                            </div>
-                        </div>
+                        <UpdateAnimal
+                            incidentID={this.props.incidentID}
+                            address={this.props.address}
+                            coords={this.props.coords}
+                            animal={animalToUpdate}
+                            add={true} />
                     }
+                    {/* delete animal */}
                     {deleteAnimal == true &&
                         <DeleteAnimal animal={animalToUpdate} />
                     }

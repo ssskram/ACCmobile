@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -28,26 +29,151 @@ namespace accmobile.Controllers {
             dynamic parsedAnimals = JObject.Parse (response) ["value"];
             var dateformat = "MM/dd/yyyy";
             foreach (var item in parsedAnimals) {
-                DateTime date = item.RabbiesVacExp;
-                allAnimals amn = new allAnimals () {
-                    itemID = item.Id,
-                    incidentID = item.AdvisoryID,
-                    animalName = item.Name,
-                    animalType = item.Type,
-                    animalBreed = item.Breed,
-                    animalCoat = item.Coat,
-                    animalSex = item.Sex,
-                    animalAge = item.Age,
-                    LicenseNo = item.LicenseNumber,
-                    LicenseYear = item.LicenseYear,
-                    RabbiesVacNo = item.RabbiesVacNo,
-                    RabbiesVacExp = date.ToString (dateformat),
-                    Vet = item.Veterinarian,
-                    Comments = item.Comments
+                // if date on rabbies exp
+                if (item.RabbiesVacExp != null) {
+                    DateTime date = item.RabbiesVacExp;
+                    allAnimals amn = new allAnimals () {
+                        itemID = item.Id,
+                        incidentID = item.AdvisoryID,
+                        animalName = item.Name,
+                        animalType = item.Type,
+                        animalBreed = item.Breed,
+                        animalCoat = item.Coat,
+                        animalSex = item.Sex,
+                        animalAge = item.Age,
+                        LicenseNo = item.LicenseNumber,
+                        LicenseYear = item.LicenseYear,
+                        RabbiesVacNo = item.RabbiesVacNo,
+                        RabbiesVacExp = date.ToString (dateformat),
+                        Vet = item.Veterinarian,
+                        Comments = item.Comments
+                    };
+                    SomeAnimals.Add (amn);
+
                 };
-                SomeAnimals.Add (amn);
+                // if no date, don't try to datetime it
+                if (item.RabbiesVacExp == null) {
+                    allAnimals amn = new allAnimals () {
+                        itemID = item.Id,
+                        incidentID = item.AdvisoryID,
+                        animalName = item.Name,
+                        animalType = item.Type,
+                        animalBreed = item.Breed,
+                        animalCoat = item.Coat,
+                        animalSex = item.Sex,
+                        animalAge = item.Age,
+                        LicenseNo = item.LicenseNumber,
+                        LicenseYear = item.LicenseYear,
+                        RabbiesVacNo = item.RabbiesVacNo,
+                        Vet = item.Veterinarian,
+                        Comments = item.Comments
+                    };
+                    SomeAnimals.Add (amn);
+
+                };
             }
             return (SomeAnimals);
+        }
+
+        // POST
+
+        [HttpPost ("[action]")]
+        public async Task post ([FromBody] allAnimals model) {
+            await refreshtoken ();
+            var token = refreshtoken ().Result;
+            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items";
+            client.DefaultRequestHeaders.Clear ();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue ("Bearer", token);
+            client.DefaultRequestHeaders.Add ("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add ("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add ("X-HTTP-Method", "POST");
+            var json =
+                String.Format ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}' , 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}', 'Address' : '{14}' }}",
+                    model.animalType, // 0
+                    model.animalBreed, // 1
+                    model.animalCoat, //2
+                    model.animalSex, // 3
+                    model.LicenseNo, // 4
+                    model.RabbiesVacNo, // 5
+                    model.RabbiesVacExp, // 6
+                    model.Vet, // 7
+                    model.LicenseYear, // 8
+                    model.animalAge, // 9
+                    model.Coords, // 10
+                    model.incidentID, // 11
+                    model.animalName, // 12
+                    model.Comments, // 13
+                    model.Address); // 14
+
+            // "1", // 0
+            // "1", // 1
+            // "1", //2
+            // "1", // 3
+            // "1", // 4
+            // "1", // 5
+            // "1", // 6
+            // "1", // 7
+            // "1", // 8
+            // "1", // 9
+            // "1", // 10
+            // "1", // 11
+            // "1", // 12
+            // "1", // 13
+            // "1"); // 14
+
+            client.DefaultRequestHeaders.Add ("ContentLength", json.Length.ToString ());
+            try // post
+            {
+                StringContent strContent = new StringContent (json);
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse ("application/json;odata=verbose");
+                HttpResponseMessage response = client.PostAsync (sharepointUrl, strContent).Result;
+                response.EnsureSuccessStatusCode ();
+                var content = await response.Content.ReadAsStringAsync ();
+            } catch (Exception ex) {
+                System.Diagnostics.Debug.WriteLine (ex.Message);
+            }
+        }
+
+        [HttpPost ("[action]")]
+        public async Task put ([FromBody] allAnimals model) {
+            await refreshtoken ();
+            var token = refreshtoken ().Result;
+            var postUrl =
+                string.Format ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items({0})",
+                    model.itemID); // 0
+            client.DefaultRequestHeaders.Clear ();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue ("Bearer", token);
+            client.DefaultRequestHeaders.Add ("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add ("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add ("X-HTTP-Method", "MERGE");
+            client.DefaultRequestHeaders.Add ("IF-MATCH", "*");
+            var json =
+                String.Format ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}', 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'Name' : '{10}', 'Comments' : '{11}' }}",
+                    model.animalType, // 0
+                    model.animalBreed, // 1
+                    model.animalCoat, //2
+                    model.animalSex, // 3
+                    model.LicenseNo, // 4
+                    model.RabbiesVacNo, // 5
+                    model.RabbiesVacExp, // 6
+                    model.Vet, // 7
+                    model.LicenseYear, // 8
+                    model.animalAge, // 9
+                    model.animalName, // 10
+                    model.Comments); // 11
+            client.DefaultRequestHeaders.Add ("ContentLength", json.Length.ToString ());
+            try // post
+            {
+                StringContent strContent = new StringContent (json);
+                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse ("application/json;odata=verbose");
+                HttpResponseMessage response = client.PostAsync (postUrl, strContent).Result;
+                response.EnsureSuccessStatusCode ();
+                var content = await response.Content.ReadAsStringAsync ();
+            } catch (Exception ex) {
+                System.Diagnostics.Debug.WriteLine (ex.Message);
+            }
         }
 
         public async Task<string> getAllAnimals (string token) {

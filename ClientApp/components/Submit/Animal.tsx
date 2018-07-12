@@ -54,7 +54,8 @@ export class Animal extends React.Component<any, any> {
             RabbiesVacNo: '',
             RabbiesVacExp: '',
             Vet: '',
-            Comments: ''
+            Comments: '',
+            itemID: '',
         }
     }
 
@@ -74,7 +75,8 @@ export class Animal extends React.Component<any, any> {
                 RabbiesVacNo: animal.rabbiesVacNo,
                 RabbiesVacExp: moment(animal.rabbiesVacExp),
                 Vet: animal.vet,
-                Comments: animal.comments
+                Comments: animal.comments,
+                itemID: animal.itemID
             }, function (this) {
                 this.setDropdowns()
             })
@@ -175,6 +177,78 @@ export class Animal extends React.Component<any, any> {
         this.props.delete(this.props.number)
     }
 
+    post(event) {
+        event.preventDefault()
+        let self = this.state
+        let data = JSON.stringify({
+            incidentID: this.props.incidentID,
+            animalName: self.animalName,
+            animalType: self.animalType,
+            animalBreed: self.animalBreed,
+            animalCoat: self.animalCoat,
+            animalSex: self.animalSex,
+            animalAge: self.animalAge,
+            LicenseNo: self.LicenseNo,
+            LicenseYear: self.LicenseYear,
+            RabbiesVacNo: self.RabbiesVacNo,
+            RabbiesVacExp: self.RabbiesVacExp,
+            Vet: self.Vet,
+            Comments: self.Comments,
+            // Coords: this.props.coords,
+            Address: this.props.address
+        })
+        let cleaned_data = data.replace(/'/g, '');
+        console.log(cleaned_data)
+        fetch('/api/animals/post', {
+            method: 'POST',
+            body: cleaned_data,
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function () {
+                location.reload
+            })
+    }
+
+    put(event) {
+        event.preventDefault()
+        let self = this.state
+        let data = JSON.stringify({
+            itemID: self.itemID,
+            incidentID: this.props.incidentID,
+            animalName: self.animalName,
+            animalType: self.animalType,
+            animalBreed: self.animalBreed,
+            animalCoat: self.animalCoat,
+            animalSex: self.animalSex,
+            animalAge: self.animalAge,
+            LicenseNo: self.LicenseNo,
+            LicenseYear: self.LicenseYear,
+            RabbiesVacNo: self.RabbiesVacNo,
+            RabbiesVacExp: self.RabbiesVacExp,
+            Vet: self.Vet,
+            Comments: self.Comments,
+            Coords: this.props.coords,
+            Address: this.props.address
+        })
+        let cleaned_data = data.replace(/'/g, '');
+        fetch('/api/animals/put', {
+            method: 'POST',
+            body: cleaned_data,
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function () {
+                location.reload
+            })
+    }
+
     public render() {
         const {
             //dropdowns
@@ -198,7 +272,7 @@ export class Animal extends React.Component<any, any> {
 
         return (
             <div>
-                {!this.props.put == true &&
+                {!this.props.put == true && !this.props.add == true &&
                     <div className='row'>
                         <button className="btn-x" title='Delete animal' onClick={this.delete.bind(this)}>x</button>
                     </div>
@@ -331,6 +405,16 @@ export class Animal extends React.Component<any, any> {
                         />
                     </div>
                 </div>
+                {this.props.add == true &&
+                    <div className='col-md-12 text-center'>
+                        <button onClick={this.post.bind(this)} className='btn btn-success'>Save</button>
+                    </div>
+                }
+                {this.props.put == true &&
+                    <div className='col-md-12 text-center'>
+                        <button onClick={this.put.bind(this)} className='btn btn-success'>Save</button>
+                    </div>
+                }
             </div>
         );
     }
