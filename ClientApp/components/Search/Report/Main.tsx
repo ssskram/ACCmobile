@@ -76,6 +76,8 @@ export class Report extends React.Component<any, any> {
                     modalIsOpen: false,
                     spinnerIsOpen: false,
                     latlng: lat_lng
+                }, function (this) {
+                    console.log(this.state)
                 })
             });
 

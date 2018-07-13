@@ -1,9 +1,7 @@
 using System;
 
-namespace accmobile.Models
-{
-    public class allAnimals
-    {
+namespace accmobile.Models {
+    public class allAnimals {
         public string itemID { get; set; }
         public string incidentID { get; set; }
         public string animalName { get; set; }
@@ -20,5 +18,5 @@ namespace accmobile.Models
         public string Comments { get; set; }
         public string Coords { get; set; }
         public string Address { get; set; }
-    }                    
+    }
 }

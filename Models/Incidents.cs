@@ -1,9 +1,7 @@
 using System;
 
-namespace accmobile.Models
-{
-    public class allIncidents
-    {
+namespace accmobile.Models {
+    public class allIncidents {
         public string uuid { get; set; }
         public string link { get; set; }
         public DateTime date { get; set; }
@@ -24,5 +22,5 @@ namespace accmobile.Models
         public string officerInitials { get; set; }
         public string open { get; set; }
         public string zip { get; set; }
-    }                    
+    }
 }
