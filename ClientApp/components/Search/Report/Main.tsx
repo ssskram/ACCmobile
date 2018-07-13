@@ -126,10 +126,15 @@ export class Report extends React.Component<any, any> {
     }
 
     enableUpdateAddressBtn(props) {
+        // transform coords
+        let newCoords = '(' + props.coords.lat + ', ' + props.coords.lng + ')'
         this.setState({
             addressButtonIsActive: true,
             latlng: props.coords,
-            incident: update(this.state.incident, { address: { $set: props.address } })
+            incident: update(this.state.incident, { 
+                address: { $set: props.address },
+                coords: { $set: newCoords } 
+            })
         })
     }
 
@@ -156,7 +161,6 @@ export class Report extends React.Component<any, any> {
             itemId: newIncident.itemId
         })
         let cleaned_data = data.replace(/'/g, '')
-        console.log(cleaned_data)
         fetch('/api/incidents/put', {
             method: 'POST',
             body: cleaned_data,
@@ -169,6 +173,10 @@ export class Report extends React.Component<any, any> {
             .then(function () {
                 location.reload()
             })
+    }
+
+    putNewAddress() {
+        this.putIncident(this.state.incident)
     }
 
     throwSpinner() {
@@ -285,7 +293,7 @@ export class Report extends React.Component<any, any> {
                             <div>
                                 <UpdateAddress enableButton={this.enableUpdateAddressBtn.bind(this)} disableButton={this.disableUpdateAddressBtn.bind(this)} incident={incident} />
                                 <div className='col-md-12 text-center'>
-                                    <button disabled={!EnableAddressBtn} onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
+                                    <button disabled={!EnableAddressBtn} onClick={this.putNewAddress.bind(this)} className='btn btn-success'>Save</button>
                                 </div>
                             </div>
                         </Modal>
