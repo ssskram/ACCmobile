@@ -110,7 +110,7 @@ namespace accmobile.Controllers {
             client.DefaultRequestHeaders.Add ("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add ("X-HTTP-Method", "POST");
             var json =
-                String.Format ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}' , 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AddressID' : '{10}', 'AdvisoryID' : '{11}', 'Name' : '{12}', 'Comments' : '{13}', 'Address' : '{14}' }}",
+                String.Format ("{{'__metadata': {{ 'type': 'SP.Data.AnimalsItem' }}, 'Type' : '{0}' , 'Breed' : '{1}', 'Coat' : '{2}', 'Sex' : '{3}', 'LicenseNumber' : '{4}', 'RabbiesVacNo' : '{5}', 'RabbiesVacExp' : '{6}', 'Veterinarian' : '{7}', 'LicenseYear' : '{8}', 'Age' : '{9}', 'AdvisoryID' : '{10}', 'Name' : '{11}', 'Comments' : '{12}' }}",
                     model.animalType, // 0
                     model.animalBreed, // 1
                     model.animalCoat, //2
@@ -121,11 +121,9 @@ namespace accmobile.Controllers {
                     model.Vet, // 7
                     model.LicenseYear, // 8
                     model.animalAge, // 9
-                    model.Coords, // 10
-                    model.incidentID, // 11
-                    model.animalName, // 12
-                    model.Comments, // 13
-                    model.Address); // 14
+                    model.incidentID, // 10
+                    model.animalName, // 11
+                    model.Comments); // 12
 
             client.DefaultRequestHeaders.Add ("ContentLength", json.Length.ToString ());
             try // post

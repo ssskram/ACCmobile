@@ -16,6 +16,10 @@ import update from 'immutability-helper';
 let lat_lng = {}
 let originalIncident = {}
 
+const red = {
+    color: 'red'
+}
+
 const lineBreaks = {
     whiteSpace: 'pre-wrap'
 }
@@ -173,6 +177,22 @@ export class Report extends React.Component<any, any> {
         });
     }
 
+    closeIncident() {
+        this.setState({
+            incident: update(this.state.incident, { open: { $set: 'No' } })
+        }, function(this) {
+            this.putIncident(this.state.incident)
+        })
+    }
+
+    openIncident() {
+        this.setState({
+            incident: update(this.state.incident, { open: { $set: 'Yes' } })
+        }, function(this) {
+            this.putIncident(this.state.incident)
+        })
+    }
+
     public render() {
         const {
             latlng,
@@ -199,12 +219,24 @@ export class Report extends React.Component<any, any> {
                 {!spinnerIsOpen == true &&
                     <div>
                         <h3 className='text-center'><strong>{incident.address}</strong></h3>
-                        <h4 className='text-center'>Incident ID: {incident.itemId}</h4>
+                        {incident.open == 'Yes' &&
+                            <h4 className='text-center' style={red}>Open incident</h4>
+                        }
+                        {incident.open == 'No' &&
+                            <h4 className='text-center'>Closed incident</h4>
+                        }
+                        <h5 className='text-center'>Incident ID: {incident.itemId}</h5>
                         <br />
                         <div className='row'>
                             <div className='col-md-12'>
                                 <button className='btn btn-link' onClick={this.updateAddress.bind(this)}>Change address</button>
                                 <button className='btn btn-link' onClick={this.updateIncident.bind(this)}>Edit incident</button>
+                                {incident.open == 'Yes' &&
+                                    <button className='btn btn-link' onClick={this.closeIncident.bind(this)}>Close incident</button>
+                                }
+                                {incident.open == 'No' &&
+                                    <button className='btn btn-link' onClick={this.openIncident.bind(this)}>Reopen incident</button>
+                                }
                             </div>
                             <div className='col-lg-6 col-md-12'>
                                 <Incident incident={incident} />

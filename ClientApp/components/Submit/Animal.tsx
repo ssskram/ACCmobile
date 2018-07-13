@@ -195,8 +195,6 @@ export class Animal extends React.Component<any, any> {
             RabbiesVacExp: self.RabbiesVacExp,
             Vet: self.Vet,
             Comments: self.Comments,
-            // Coords: this.props.coords,
-            Address: this.props.address
         })
         let cleaned_data = data.replace(/'/g, '');
         fetch('/api/animals/post', {
@@ -232,8 +230,6 @@ export class Animal extends React.Component<any, any> {
             RabbiesVacExp: self.RabbiesVacExp,
             Vet: self.Vet,
             Comments: self.Comments,
-            Coords: this.props.coords,
-            Address: this.props.address
         })
         let cleaned_data = data.replace(/'/g, '');
         fetch('/api/animals/put', {
