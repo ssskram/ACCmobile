@@ -29,7 +29,6 @@ export class Report extends React.Component<any, any> {
         this.state = {
             modalIsOpen: false,
             spinnerIsOpen: true,
-            deletingAnimal: false,
             incident: {},
             animals: [],
             latlng: {}
@@ -101,7 +100,6 @@ export class Report extends React.Component<any, any> {
 
     throwSpinner() {
         this.setState({
-            deletingAnimal: true,
             spinnerIsOpen: true
         });
     }
@@ -112,8 +110,7 @@ export class Report extends React.Component<any, any> {
             incident,
             animals,
             modalIsOpen,
-            spinnerIsOpen,
-            deletingAnimal } = this.state
+            spinnerIsOpen } = this.state
 
         if (incident.coords) {
             var coords = incident.coords.replace('(', '').replace(')', '');;
@@ -125,34 +122,38 @@ export class Report extends React.Component<any, any> {
 
         return (
             <div>
-                <h3 className='text-center'><strong>{incident.address}</strong></h3>
-                <h4 className='text-center'>Incident ID: {incident.itemId}</h4>
-                <br />
-                <div className='row'>
-                    <div className='col-md-12'>
-                        <button className='btn btn-link' onClick={this.updateIncident.bind(this)}>Edit incident</button>
-                    </div>
-                    <div className='col-lg-6 col-md-12'>
-                        <Incident incident={incident} />
-                    </div>
-                    <div className='col-md-6 hidden-md hidden-sm hidden-xs'>
-                        <div className='row text-center' style={padding}>
-                            <img style={imgStyle} src={url} />
+                {!spinnerIsOpen == true &&
+                    <div>
+                        <h3 className='text-center'><strong>{incident.address}</strong></h3>
+                        <h4 className='text-center'>Incident ID: {incident.itemId}</h4>
+                        <br />
+                        <div className='row'>
+                            <div className='col-md-12'>
+                                <button className='btn btn-link' onClick={this.updateIncident.bind(this)}>Edit incident</button>
+                            </div>
+                            <div className='col-lg-6 col-md-12'>
+                                <Incident incident={incident} />
+                            </div>
+                            <div className='col-md-6 hidden-md hidden-sm hidden-xs'>
+                                <div className='row text-center' style={padding}>
+                                    <img style={imgStyle} src={url} />
+                                </div>
+                                <div className='row' style={padding}>
+                                    <Map coords={latlng} />
+                                </div>
+                            </div>
                         </div>
-                        <div className='row' style={padding}>
-                            <Map coords={latlng} />
+                        <div className='reportcomments'>
+                            <h3>Comments:</h3>
+                            <div style={lineBreaks}>{incident.comments}</div>
+                        </div>
+                        <div className='row'>
+                            <div className='col-md-12'>
+                                <AnimalsTable throwSpinner={this.throwSpinner.bind(this)} incidentID={incident.uuid} address={incident.address} coords={latlng} animals={animals} />
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className='reportcomments'>
-                    <h3>Comments:</h3>
-                    <div style={lineBreaks}>{incident.comments}</div>
-                </div>
-                <div className='row'>
-                    <div className='col-md-12'>
-                        <AnimalsTable throwSpinner={this.throwSpinner.bind(this)} incidentID={incident.uuid} address={incident.address} coords={latlng} animals={animals} />
-                    </div>
-                </div>
+                }
                 {/* loading spinner */}
                 <Modal
                     open={spinnerIsOpen}
