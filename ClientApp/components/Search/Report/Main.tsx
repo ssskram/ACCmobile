@@ -9,6 +9,7 @@ import Incident from './Incident'
 import AnimalsTable from './Animals'
 import Map from '../../Map/MapContainer'
 import UpdateIncident from '../../Submit/Incident'
+import UpdateAddress from './updateAddress'
 
 const lineBreaks = {
     whiteSpace: 'pre-wrap'
@@ -27,7 +28,8 @@ export class Report extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
-            modalIsOpen: false,
+            addressModalIsOpen: false,
+            incidentModalIsOpen: false,
             spinnerIsOpen: true,
             incident: {},
             animals: [],
@@ -72,7 +74,8 @@ export class Report extends React.Component<any, any> {
 
                 this.setState({
                     incident: data,
-                    modalIsOpen: false,
+                    addressModalIsOpen: false,
+                    incidentModalIsOpen: false,
                     spinnerIsOpen: false,
                     latlng: lat_lng
                 }, function (this) {
@@ -87,14 +90,21 @@ export class Report extends React.Component<any, any> {
 
     closeModal() {
         this.setState({
-            modalIsOpen: false,
+            addressModalIsOpen: false,
+            incidentModalIsOpen: false,
             spinnerIsOpen: false
         });
     }
 
     updateIncident() {
         this.setState({
-            modalIsOpen: true
+            incidentModalIsOpen: true
+        });
+    }
+
+    updateAddress() {
+        this.setState({
+            addressModalIsOpen: true
         });
     }
 
@@ -109,7 +119,8 @@ export class Report extends React.Component<any, any> {
             latlng,
             incident,
             animals,
-            modalIsOpen,
+            addressModalIsOpen,
+            incidentModalIsOpen,
             spinnerIsOpen } = this.state
 
         if (incident.coords) {
@@ -129,6 +140,7 @@ export class Report extends React.Component<any, any> {
                         <br />
                         <div className='row'>
                             <div className='col-md-12'>
+                                <button className='btn btn-link' onClick={this.updateAddress.bind(this)}>Change address</button>
                                 <button className='btn btn-link' onClick={this.updateIncident.bind(this)}>Edit incident</button>
                             </div>
                             <div className='col-lg-6 col-md-12'>
@@ -172,7 +184,7 @@ export class Report extends React.Component<any, any> {
                 </Modal>
                 {/* update incident modal */}
                 <Modal
-                    open={modalIsOpen}
+                    open={incidentModalIsOpen}
                     onClose={this.closeModal.bind(this)}
                     classNames={{
                         overlay: 'custom-overlay',
@@ -181,6 +193,22 @@ export class Report extends React.Component<any, any> {
                     center>
                     <div>
                         <UpdateIncident incident={incident} put={true} />
+                        <div className='col-md-12 text-center'>
+                            <button onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
+                        </div>
+                    </div>
+                </Modal>
+                {/* update address modal */}
+                <Modal
+                    open={addressModalIsOpen}
+                    onClose={this.closeModal.bind(this)}
+                    classNames={{
+                        overlay: 'custom-overlay',
+                        modal: 'custom-modal'
+                    }}
+                    center>
+                    <div>
+                        <UpdateAddress incident={incident} />
                         <div className='col-md-12 text-center'>
                             <button onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
                         </div>
