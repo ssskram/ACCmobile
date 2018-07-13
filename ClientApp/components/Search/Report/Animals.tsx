@@ -193,6 +193,11 @@ export default class Animals extends React.Component<any, any> {
                 )}
                 <div className='col-md-12 text-center'>
                     <button className='btn btn-default' onClick={this.addAnimal.bind(this)}>Add an animal</button>
+                    <br />
+                    <br />
+                    <br />
+                    <br />
+                    <br />
                 </div>
                 <Modal
                     open={modalIsOpen}
@@ -205,6 +210,7 @@ export default class Animals extends React.Component<any, any> {
                     {/* update animal */}
                     {deleteAnimal == false && addAnimal == false &&
                         <UpdateAnimal
+                            throwSpinner={this.props.throwSpinner.bind(this)}
                             incidentID={this.props.incidentID}
                             address={this.props.address}
                             coords={this.props.coords}
@@ -214,6 +220,7 @@ export default class Animals extends React.Component<any, any> {
                     {/* add animal */}
                     {deleteAnimal == false && addAnimal == true &&
                         <UpdateAnimal
+                            throwSpinner={this.props.throwSpinner.bind(this)}
                             incidentID={this.props.incidentID}
                             address={this.props.address}
                             coords={this.props.coords}
@@ -222,7 +229,7 @@ export default class Animals extends React.Component<any, any> {
                     }
                     {/* delete animal */}
                     {deleteAnimal == true &&
-                        <DeleteAnimal animal={animalToUpdate} />
+                        <DeleteAnimal throwSpinner={this.props.throwSpinner.bind(this)} animal={animalToUpdate} />
                     }
                 </Modal>
             </div>

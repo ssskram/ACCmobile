@@ -127,8 +127,7 @@ export class Incident extends React.Component<any, any> {
             citationNumber,
             officerInitials,
             comments,
-            note,
-            open
+            note
         } = this.state
 
         return (

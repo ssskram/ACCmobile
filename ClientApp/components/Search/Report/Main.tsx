@@ -29,6 +29,7 @@ export class Report extends React.Component<any, any> {
         this.state = {
             modalIsOpen: false,
             spinnerIsOpen: true,
+            deletingAnimal: false,
             incident: {},
             animals: [],
             latlng: {}
@@ -96,13 +97,21 @@ export class Report extends React.Component<any, any> {
         });
     }
 
+    throwSpinner() {
+        this.setState({
+            deletingAnimal: true,
+            spinnerIsOpen: true
+        });
+    }
+
     public render() {
         const {
             latlng,
             incident,
             animals,
             modalIsOpen,
-            spinnerIsOpen } = this.state
+            spinnerIsOpen,
+            deletingAnimal } = this.state
 
         if (incident.coords) {
             var coords = incident.coords.replace('(', '').replace(')', '');;
@@ -139,7 +148,7 @@ export class Report extends React.Component<any, any> {
                 </div>
                 <div className='row'>
                     <div className='col-md-12'>
-                        <AnimalsTable incidentID={incident.uuid} address={incident.address} coords={latlng} animals={animals} />
+                        <AnimalsTable throwSpinner={this.throwSpinner.bind(this)} incidentID={incident.uuid} address={incident.address} coords={latlng} animals={animals} />
                     </div>
                 </div>
                 {/* loading spinner */}
@@ -147,8 +156,6 @@ export class Report extends React.Component<any, any> {
                     open={spinnerIsOpen}
                     onClose={this.closeModal.bind(this)}
                     classNames={{
-                        transitionExit: 'transition-exit-active',
-                        transitionExitActive: 'transition-exit-active',
                         overlay: 'spinner-overlay',
                         modal: 'spinner-modal'
                     }}
@@ -172,7 +179,7 @@ export class Report extends React.Component<any, any> {
                     <div>
                         <UpdateIncident incident={incident} put={true} />
                         <div className='col-md-12 text-center'>
-                            <button className='btn btn-success'>Save</button>
+                            <button onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
                         </div>
                     </div>
                 </Modal>

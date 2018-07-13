@@ -179,6 +179,7 @@ export class Animal extends React.Component<any, any> {
 
     post(event) {
         event.preventDefault()
+        this.props.throwSpinner()
         let self = this.state
         let data = JSON.stringify({
             incidentID: this.props.incidentID,
@@ -215,6 +216,7 @@ export class Animal extends React.Component<any, any> {
 
     put(event) {
         event.preventDefault()
+        this.props.throwSpinner()
         let self = this.state
         let data = JSON.stringify({
             itemID: self.itemID,

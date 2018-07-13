@@ -5,7 +5,8 @@ export default class selectMap extends React.Component<any, any> {
         super(props);
     }
 
-    deleteAnimal() {
+    deleteAnimal () {
+        this.props.throwSpinner()
         fetch('/api/animals/deleteAnimal', {
             method: 'POST',
             body: this.props.animal.itemID,
@@ -24,6 +25,7 @@ export default class selectMap extends React.Component<any, any> {
         const {
             animalType
         } = this.props.animal
+
         return (
             <div>
                 <div className='row'>
