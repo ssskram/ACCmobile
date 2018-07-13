@@ -116,7 +116,7 @@ export class Filters extends React.Component<any, any> {
         return (
             <div className="form-group">
                 <div className='row'>
-                    <div className='col-md-4'>
+                    <div className='col-md-6'>
                         <Input
                             value={address}
                             name="address"
@@ -125,7 +125,7 @@ export class Filters extends React.Component<any, any> {
                             callback={this.handleChildChange.bind(this)}
                         />
                     </div>
-                    <div className='col-md-4'>
+                    <div className='col-md-6'>
                         <Select
                             value={status}
                             name="status"
@@ -136,49 +136,55 @@ export class Filters extends React.Component<any, any> {
                             options={statuses}
                         />
                     </div>
-                    <div className='col-md-4'>
-                        <Select
-                            value={submittedBy}
-                            name="submittedBy"
-                            header='Submitted by'
-                            placeholder='Select officer'
-                            onChange={this.handleChildSelect.bind(this)}
-                            multi={false}
-                            options={submittedByOptions}
-                        />
-                    </div>
                 </div>
-                <div className='row'>
-                    <div className='col-md-4'>
-                        <Datepicker
-                            value={date}
-                            name="date"
-                            header="Date"
-                            placeholder="Enter date"
-                            callback={this.handleChildDate.bind(this)}
-                        />
+                {this.props.showFilters == true &&
+                    <div>
+                        <div className='row'>
+                            <div className='col-md-6'>
+                                <Datepicker
+                                    value={date}
+                                    name="date"
+                                    header="Date"
+                                    placeholder="Enter date"
+                                    callback={this.handleChildDate.bind(this)}
+                                />
+                            </div>
+                            <div className='col-md-6'>
+                                <Select
+                                    value={reasonForVisit}
+                                    name="reasonForVisit"
+                                    header='Reason for visit'
+                                    placeholder='Select reason'
+                                    onChange={this.handleChildSelect.bind(this)}
+                                    multi={false}
+                                    options={reasonOptions}
+                                />
+                            </div>
+                        </div>
+                        <div className='row'>
+                            <div className='col-md-6'>
+                                <Select
+                                    value={submittedBy}
+                                    name="submittedBy"
+                                    header='Submitted by'
+                                    placeholder='Select officer'
+                                    onChange={this.handleChildSelect.bind(this)}
+                                    multi={false}
+                                    options={submittedByOptions}
+                                />
+                            </div>
+                            <div className='col-md-6'>
+                                <Input
+                                    value={note}
+                                    name="note"
+                                    header="Note"
+                                    placeholder="Search notes"
+                                    callback={this.handleChildChange.bind(this)}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className='col-md-4'>
-                        <Select
-                            value={reasonForVisit}
-                            name="reasonForVisit"
-                            header='Reason for visit'
-                            placeholder='Select reason'
-                            onChange={this.handleChildSelect.bind(this)}
-                            multi={false}
-                            options={reasonOptions}
-                        />
-                    </div>
-                    <div className='col-md-4'>
-                        <Input
-                            value={note}
-                            name="note"
-                            header="Note"
-                            placeholder="Search notes"
-                            callback={this.handleChildChange.bind(this)}
-                        />
-                    </div>
-                </div>
+                }
             </div>
         );
     }

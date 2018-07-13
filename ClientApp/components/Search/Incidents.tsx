@@ -347,10 +347,10 @@ export class Incidents extends React.Component<any, any> {
                     </div>
                     <div className='col-md-4' style={marginTop}>
                         {filters === true &&
-                            <button className='btn btn-secondary' onClick={this.clearFilters.bind(this)}>Clear filters</button>
+                            <button className='btn btn-secondary' onClick={this.clearFilters.bind(this)}>Clear all filters</button>
                         }
                         {filters === false &&
-                            <button className='btn btn-secondary' onClick={this.showFilters.bind(this)}>Show filters</button>
+                            <button className='btn btn-secondary' onClick={this.showFilters.bind(this)}>Show more filters</button>
                         }
                     </div>
                     <div className='col-md-4 hidden-sm hidden-xs' style={marginTop}>
@@ -362,9 +362,7 @@ export class Incidents extends React.Component<any, any> {
                         }
                     </div>
                 </div>
-                {filters === true &&
-                    <Filters incidents={incidents} filter={this.filter.bind(this)} />
-                }
+                <Filters showFilters={filters} incidents={incidents} filter={this.filter.bind(this)} />
                 <div className="col-md-12 table-container">
                     {format == 'cards' && itemCount != 0 &&
                         <div>
