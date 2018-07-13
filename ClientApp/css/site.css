@@ -814,5 +814,5 @@ a[href^="https://maps.google.com/maps"] {
 }
 
 .highlight-filter {
-    background-color: rgba(135, 206, 250, 0.1);
+    background-color: rgba(135, 206, 250, 0.05);
 }

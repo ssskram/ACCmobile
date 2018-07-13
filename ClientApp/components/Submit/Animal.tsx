@@ -209,7 +209,7 @@ export class Animal extends React.Component<any, any> {
             }
         })
             .then(function () {
-                location.reload
+                location.reload()
             })
     }
 
@@ -245,7 +245,7 @@ export class Animal extends React.Component<any, any> {
             }
         })
             .then(function () {
-                location.reload
+                location.reload()
             })
     }
 

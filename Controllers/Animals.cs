@@ -54,19 +54,19 @@ namespace accmobile.Controllers {
                 // if no date, don't try to datetime it
                 if (item.RabbiesVacExp == null) {
                     allAnimals amn = new allAnimals () {
-                        itemID = item.Id,
-                        incidentID = item.AdvisoryID,
-                        animalName = item.Name,
-                        animalType = item.Type,
-                        animalBreed = item.Breed,
-                        animalCoat = item.Coat,
-                        animalSex = item.Sex,
-                        animalAge = item.Age,
-                        LicenseNo = item.LicenseNumber,
-                        LicenseYear = item.LicenseYear,
-                        RabbiesVacNo = item.RabbiesVacNo,
-                        Vet = item.Veterinarian,
-                        Comments = item.Comments
+                    itemID = item.Id,
+                    incidentID = item.AdvisoryID,
+                    animalName = item.Name,
+                    animalType = item.Type,
+                    animalBreed = item.Breed,
+                    animalCoat = item.Coat,
+                    animalSex = item.Sex,
+                    animalAge = item.Age,
+                    LicenseNo = item.LicenseNumber,
+                    LicenseYear = item.LicenseYear,
+                    RabbiesVacNo = item.RabbiesVacNo,
+                    Vet = item.Veterinarian,
+                    Comments = item.Comments
                     };
                     SomeAnimals.Add (amn);
 
@@ -75,6 +75,27 @@ namespace accmobile.Controllers {
             return (SomeAnimals);
         }
 
+        [HttpPost ("[action]")]
+        public async Task deleteAnimal ([FromBody] string id) {
+            await refreshtoken ();
+            var token = refreshtoken ().Result;
+            var deleteUrl =
+                string.Format ("https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Animals')/items({0})",
+                    id); // 0
+            client.DefaultRequestHeaders.Clear ();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue ("Bearer", token);
+            client.DefaultRequestHeaders.Add ("Accept", "application/json;odata=verbose");
+            client.DefaultRequestHeaders.Add ("X-RequestDigest", "form digest value");
+            client.DefaultRequestHeaders.Add ("IF-MATCH", "*");
+            try {
+                HttpResponseMessage response = client.DeleteAsync (deleteUrl).Result;
+                response.EnsureSuccessStatusCode ();
+                await response.Content.ReadAsStringAsync ();
+            } catch (Exception ex) {
+                System.Diagnostics.Debug.WriteLine (ex.Message);
+            }
+        }
         // POST
 
         [HttpPost ("[action]")]
@@ -105,22 +126,6 @@ namespace accmobile.Controllers {
                     model.animalName, // 12
                     model.Comments, // 13
                     model.Address); // 14
-
-            // "1", // 0
-            // "1", // 1
-            // "1", //2
-            // "1", // 3
-            // "1", // 4
-            // "1", // 5
-            // "1", // 6
-            // "1", // 7
-            // "1", // 8
-            // "1", // 9
-            // "1", // 10
-            // "1", // 11
-            // "1", // 12
-            // "1", // 13
-            // "1"); // 14
 
             client.DefaultRequestHeaders.Add ("ContentLength", json.Length.ToString ());
             try // post
