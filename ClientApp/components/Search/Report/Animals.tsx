@@ -78,7 +78,7 @@ export default class Animals extends React.Component<any, any> {
                                                 <h3>{animal.animalType}</h3>
                                             }
                                             {animal.animalName != null &&
-                                                <h3>{animal.animalType} name {animal.animalName}</h3>
+                                                <h3>{animal.animalType} named {animal.animalName}</h3>
                                             }
                                         </div>
                                         {animal.animalAge != null &&

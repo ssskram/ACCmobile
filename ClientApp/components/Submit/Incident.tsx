@@ -33,7 +33,8 @@ export class Incident extends React.Component<any, any> {
             note: '',
             open: '',
             address: '',
-            coords: ''
+            coords: '',
+            itemId: ''
         }
     }
 
@@ -41,6 +42,7 @@ export class Incident extends React.Component<any, any> {
         this.props.getDropdowns()
         let incident = this.props.incident
         if (this.props.put == true) {
+            console.log(incident)
             this.setState({
                 ownersLastName: incident.ownersLastName,
                 ownersFirstName: incident.ownersFirstName,
@@ -54,7 +56,8 @@ export class Incident extends React.Component<any, any> {
                 note: incident.note,
                 open: incident.open,
                 address: incident.address,
-                coords: incident.coords
+                coords: incident.coords,
+                itemId: incident.itemId
             })
         }
     }
@@ -92,9 +95,9 @@ export class Incident extends React.Component<any, any> {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    handleOriginMulti(value) {
-        this.setState({ callOrigin: value })
-    };
+    handleChildSelect(event) {
+        this.setState({ [event.name]: event.value });
+    }
 
     handleReasonMulti(value) {
         this.setState({ reasonForVisit: value })
@@ -168,7 +171,7 @@ export class Incident extends React.Component<any, any> {
                         name="callOrigin"
                         header='Call Origin'
                         placeholder='Select origin...'
-                        onChange={this.handleOriginMulti.bind(this)}
+                        onChange={this.handleChildSelect.bind(this)}
                         multi={false}
                         options={originOptions}
                     />

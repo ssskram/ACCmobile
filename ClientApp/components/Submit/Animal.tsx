@@ -199,7 +199,6 @@ export class Animal extends React.Component<any, any> {
             Address: this.props.address
         })
         let cleaned_data = data.replace(/'/g, '');
-        console.log(cleaned_data)
         fetch('/api/animals/post', {
             method: 'POST',
             body: cleaned_data,

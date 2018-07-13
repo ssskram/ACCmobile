@@ -14,7 +14,7 @@ import update from 'immutability-helper';
 
 // keep original latlng & incident objects in case user bails from updates
 let lat_lng = {}
-let originalIncident= {}
+let originalIncident = {}
 
 const lineBreaks = {
     whiteSpace: 'pre-wrap'
@@ -85,8 +85,6 @@ export class Report extends React.Component<any, any> {
                     incidentModalIsOpen: false,
                     spinnerIsOpen: false,
                     latlng: lat_lng
-                }, function (this) {
-                    console.log(this.state)
                 })
             });
 
@@ -127,12 +125,46 @@ export class Report extends React.Component<any, any> {
         this.setState({
             addressButtonIsActive: true,
             latlng: props.coords,
-            incident: update(this.state.incident, {address: {$set: props.address}})
+            incident: update(this.state.incident, { address: { $set: props.address } })
         })
     }
 
     putIncident(newIncident) {
         console.log(newIncident)
+        this.setState({
+            spinnerIsOpen: true
+        })
+        let data = JSON.stringify({
+            coords: newIncident.coords,
+            address: newIncident.address,
+            ownersFirstName: newIncident.ownersFirstName,
+            ownersLastName: newIncident.ownersLastName,
+            ownersTelephoneNumber: newIncident.ownersTelephoneNumber,
+            reasonForVisit: newIncident.reasonForVisit,
+            pghCode: newIncident.pghCode,
+            citationNumber: newIncident.citationNumber,
+            comments: newIncident.comments,
+            callOrigin: newIncident.callOrigin,
+            officerInitials: newIncident.officerInitials,
+            open: newIncident.open,
+            note: newIncident.note,
+            zip: newIncident.zip,
+            itemId: newIncident.itemId
+        })
+        let cleaned_data = data.replace(/'/g, '')
+        console.log(cleaned_data)
+        fetch('/api/incidents/put', {
+            method: 'POST',
+            body: cleaned_data,
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function () {
+                location.reload()
+            })
     }
 
     throwSpinner() {
@@ -195,6 +227,36 @@ export class Report extends React.Component<any, any> {
                                 <AnimalsTable throwSpinner={this.throwSpinner.bind(this)} incidentID={incident.uuid} address={incident.address} coords={latlng} animals={animals} />
                             </div>
                         </div>
+                        {/* update incident modal */}
+                        <Modal
+                            open={incidentModalIsOpen}
+                            onClose={this.closeModal.bind(this)}
+                            classNames={{
+                                overlay: 'custom-overlay',
+                                modal: 'custom-modal'
+                            }}
+                            center>
+                            <div>
+                                <h3 className='text-center'>Update incident</h3>
+                                <UpdateIncident putIt={this.putIncident.bind(this)} incident={incident} put={true} />
+                            </div>
+                        </Modal>
+                        {/* update address modal */}
+                        <Modal
+                            open={addressModalIsOpen}
+                            onClose={this.closeModal.bind(this)}
+                            classNames={{
+                                overlay: 'custom-overlay',
+                                modal: 'custom-modal'
+                            }}
+                            center>
+                            <div>
+                                <UpdateAddress enableButton={this.enableUpdateAddressBtn.bind(this)} disableButton={this.disableUpdateAddressBtn.bind(this)} incident={incident} />
+                                <div className='col-md-12 text-center'>
+                                    <button disabled={!EnableAddressBtn} onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
+                                </div>
+                            </div>
+                        </Modal>
                     </div>
                 }
                 {/* loading spinner */}
@@ -212,36 +274,6 @@ export class Report extends React.Component<any, any> {
                     center>
                     <div className="loader"></div>
                     ...loading incident report...
-                </Modal>
-                {/* update incident modal */}
-                <Modal
-                    open={incidentModalIsOpen}
-                    onClose={this.closeModal.bind(this)}
-                    classNames={{
-                        overlay: 'custom-overlay',
-                        modal: 'custom-modal'
-                    }}
-                    center>
-                    <div>
-                        <h3 className='text-center'>Update incident</h3>
-                        <UpdateIncident putIt={this.putIncident.bind(this)} incident={incident} put={true} />
-                    </div>
-                </Modal>
-                {/* update address modal */}
-                <Modal
-                    open={addressModalIsOpen}
-                    onClose={this.closeModal.bind(this)}
-                    classNames={{
-                        overlay: 'custom-overlay',
-                        modal: 'custom-modal'
-                    }}
-                    center>
-                    <div>
-                        <UpdateAddress enableButton={this.enableUpdateAddressBtn.bind(this)} disableButton={this.disableUpdateAddressBtn.bind(this)} incident={incident} />
-                        <div className='col-md-12 text-center'>
-                            <button disabled={!EnableAddressBtn} onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
-                        </div>
-                    </div>
                 </Modal>
             </div>
         );
