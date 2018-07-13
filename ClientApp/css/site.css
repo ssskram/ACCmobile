@@ -597,8 +597,10 @@ textarea {
     margin: 5px !important;
     background: #fffcf5;
     max-height: 100vh;
+    min-width: 30vw;
     overflow-x: hidden;
     overflow-y: scroll;
+    margin-top: 50px !important;
 }
 
 .styles_closeButton__20ID4 {
@@ -606,6 +608,13 @@ textarea {
     top: 0 !important;
     right: 0 !important;
 }
+
+@media (max-width: 767px) {
+    .custom-modal {
+        min-width: 85vw;
+    }
+}
+
 
 /* Spinner
 /* ------------------------- */

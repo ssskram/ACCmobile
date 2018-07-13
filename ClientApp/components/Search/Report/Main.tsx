@@ -29,6 +29,7 @@ export class Report extends React.Component<any, any> {
         super();
         this.state = {
             addressModalIsOpen: false,
+            addressButtonIsActive: true,
             incidentModalIsOpen: false,
             spinnerIsOpen: true,
             incident: {},
@@ -108,6 +109,18 @@ export class Report extends React.Component<any, any> {
         });
     }
 
+    disableUpdateAddressBtn() {
+        this.setState({
+            addressButtonIsActive: false
+        })
+    }
+
+    enableUpdateAddressBtn() {
+        this.setState({
+            addressButtonIsActive: true
+        })
+    }
+
     throwSpinner() {
         this.setState({
             spinnerIsOpen: true
@@ -120,8 +133,12 @@ export class Report extends React.Component<any, any> {
             incident,
             animals,
             addressModalIsOpen,
+            addressButtonIsActive,
             incidentModalIsOpen,
             spinnerIsOpen } = this.state
+
+        const EnableAddressBtn =
+            addressButtonIsActive == true
 
         if (incident.coords) {
             var coords = incident.coords.replace('(', '').replace(')', '');;
@@ -192,6 +209,7 @@ export class Report extends React.Component<any, any> {
                     }}
                     center>
                     <div>
+                        <h3 className='text-center'>Update incident</h3>
                         <UpdateIncident incident={incident} put={true} />
                         <div className='col-md-12 text-center'>
                             <button onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
@@ -208,9 +226,9 @@ export class Report extends React.Component<any, any> {
                     }}
                     center>
                     <div>
-                        <UpdateAddress incident={incident} />
+                        <UpdateAddress enableButton={this.enableUpdateAddressBtn.bind(this)} disableButton={this.disableUpdateAddressBtn.bind(this)} incident={incident} />
                         <div className='col-md-12 text-center'>
-                            <button onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
+                            <button disabled={!EnableAddressBtn} onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
                         </div>
                     </div>
                 </Modal>

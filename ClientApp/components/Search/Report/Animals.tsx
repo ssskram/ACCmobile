@@ -209,23 +209,29 @@ export default class Animals extends React.Component<any, any> {
                     center>
                     {/* update animal */}
                     {deleteAnimal == false && addAnimal == false &&
-                        <UpdateAnimal
-                            throwSpinner={this.props.throwSpinner.bind(this)}
-                            incidentID={this.props.incidentID}
-                            address={this.props.address}
-                            coords={this.props.coords}
-                            animal={animalToUpdate}
-                            put={true} />
+                        <div>
+                            <h3 className='text-center'>Edit animal</h3>
+                            <UpdateAnimal
+                                throwSpinner={this.props.throwSpinner.bind(this)}
+                                incidentID={this.props.incidentID}
+                                address={this.props.address}
+                                coords={this.props.coords}
+                                animal={animalToUpdate}
+                                put={true} />
+                        </div>
                     }
                     {/* add animal */}
                     {deleteAnimal == false && addAnimal == true &&
-                        <UpdateAnimal
-                            throwSpinner={this.props.throwSpinner.bind(this)}
-                            incidentID={this.props.incidentID}
-                            address={this.props.address}
-                            coords={this.props.coords}
-                            animal={animalToUpdate}
-                            add={true} />
+                        <div>
+                            <h3 className='text-center'>Add animal</h3>
+                            <UpdateAnimal
+                                throwSpinner={this.props.throwSpinner.bind(this)}
+                                incidentID={this.props.incidentID}
+                                address={this.props.address}
+                                coords={this.props.coords}
+                                animal={animalToUpdate}
+                                add={true} />
+                        </div>
                     }
                     {/* delete animal */}
                     {deleteAnimal == true &&

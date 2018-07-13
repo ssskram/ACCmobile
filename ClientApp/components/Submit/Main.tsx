@@ -115,7 +115,7 @@ export class Submit extends React.Component<any, any> {
                 </div>
                 <div className='row'>
                     <div className='col-sm-3 col-md-2'>
-                        <h3 className='text-center form-header'>Incident</h3>
+                        <h3 className='text-center form-header'>Description</h3>
                     </div>
                     <div className='col-sm-9 col-md-10'>
                         <hr />
