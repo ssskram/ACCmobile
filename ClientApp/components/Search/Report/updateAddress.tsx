@@ -19,10 +19,11 @@ export default class updateAddress extends React.Component<any, any> {
     }
 
     handleAutcomplete(props) {
-        this.props.enableButton()
         this.setState({
             coords: props.coords,
             address: props.address,
+        }, function (this) {
+            this.props.enableButton(this.state)
         })
     }
 

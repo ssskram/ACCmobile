@@ -10,6 +10,11 @@ import AnimalsTable from './Animals'
 import Map from '../../Map/MapContainer'
 import UpdateIncident from '../../Submit/Incident'
 import UpdateAddress from './updateAddress'
+import update from 'immutability-helper';
+
+// keep original latlng & incident objects in case user bails from updates
+let lat_lng = {}
+let originalIncident= {}
 
 const lineBreaks = {
     whiteSpace: 'pre-wrap'
@@ -61,6 +66,7 @@ export class Report extends React.Component<any, any> {
         })
             .then(response => response.json())
             .then(data => {
+                // process coordinations
                 var lat = data.coords.substring(
                     data.coords.lastIndexOf("(") + 1,
                     data.coords.lastIndexOf(",")
@@ -71,8 +77,8 @@ export class Report extends React.Component<any, any> {
                 )
                 var latitude = parseFloat(lat)
                 var longitude = parseFloat(lng)
-                var lat_lng = { lat: latitude, lng: longitude }
-
+                lat_lng = { lat: latitude, lng: longitude }
+                originalIncident = data
                 this.setState({
                     incident: data,
                     addressModalIsOpen: false,
@@ -93,7 +99,9 @@ export class Report extends React.Component<any, any> {
         this.setState({
             addressModalIsOpen: false,
             incidentModalIsOpen: false,
-            spinnerIsOpen: false
+            spinnerIsOpen: false,
+            latlng: lat_lng,
+            incident: originalIncident
         });
     }
 
@@ -115,10 +123,16 @@ export class Report extends React.Component<any, any> {
         })
     }
 
-    enableUpdateAddressBtn() {
+    enableUpdateAddressBtn(props) {
         this.setState({
-            addressButtonIsActive: true
+            addressButtonIsActive: true,
+            latlng: props.coords,
+            incident: update(this.state.incident, {address: {$set: props.address}})
         })
+    }
+
+    putIncident(newIncident) {
+        console.log(newIncident)
     }
 
     throwSpinner() {
@@ -210,10 +224,7 @@ export class Report extends React.Component<any, any> {
                     center>
                     <div>
                         <h3 className='text-center'>Update incident</h3>
-                        <UpdateIncident incident={incident} put={true} />
-                        <div className='col-md-12 text-center'>
-                            <button onClick={this.throwSpinner.bind(this)} className='btn btn-success'>Save</button>
-                        </div>
+                        <UpdateIncident putIt={this.putIncident.bind(this)} incident={incident} put={true} />
                     </div>
                 </Modal>
                 {/* update address modal */}

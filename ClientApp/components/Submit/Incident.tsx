@@ -31,7 +31,9 @@ export class Incident extends React.Component<any, any> {
             officerInitials: '',
             comments: '',
             note: '',
-            open: ''
+            open: '',
+            address: '',
+            coords: ''
         }
     }
 
@@ -39,7 +41,6 @@ export class Incident extends React.Component<any, any> {
         this.props.getDropdowns()
         let incident = this.props.incident
         if (this.props.put == true) {
-            console.log(incident)
             this.setState({
                 ownersLastName: incident.ownersLastName,
                 ownersFirstName: incident.ownersFirstName,
@@ -51,9 +52,9 @@ export class Incident extends React.Component<any, any> {
                 officerInitials: incident.officerInitials,
                 comments: incident.comments,
                 note: incident.note,
-                open: incident.open
-            }, function (this) {
-                this.setDropdowns()
+                open: incident.open,
+                address: incident.address,
+                coords: incident.coords
             })
         }
     }
@@ -96,7 +97,6 @@ export class Incident extends React.Component<any, any> {
     };
 
     handleReasonMulti(value) {
-        console.log(value)
         this.setState({ reasonForVisit: value })
     };
 
@@ -108,6 +108,9 @@ export class Incident extends React.Component<any, any> {
         this.setState({ officerInitials: value })
     };
 
+    put() {
+        this.props.putIt(this.state)
+    }
 
     public render() {
         // state
@@ -230,6 +233,11 @@ export class Incident extends React.Component<any, any> {
                         callback={this.handleChildChange.bind(this)}
                     />
                 </div>
+                {this.props.put == true &&
+                    <div className='col-md-12 text-center'>
+                        <button onClick={this.put.bind(this)} className='btn btn-success'>Save</button>
+                    </div>
+                }
             </div>
         );
     }
