@@ -16,7 +16,7 @@ export default class input extends React.Component<any, any> {
 
         if (this.props.value) {
             conditionalClass = {
-                backgroundColor: 'rgba(135,	206, 250, 0.05)'
+                backgroundColor: '#f3fafe'
             }
         }
 
