@@ -85,13 +85,13 @@ export class Animal extends React.Component<any, any> {
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props != nextProps) {
+        if (this.props.submit != nextProps.submit) {
             // trigger post
             if (nextProps.submit == true) {
                 this.postNewAnimal()
             }
-            this.setDropdowns()
         }
+        this.setDropdowns()
     }
 
     setDropdowns() {

@@ -11,6 +11,11 @@ const loadingOptions = [{
     "label": '...loading...'
 }]
 
+const openOptions = [
+    { value: 'Yes', label: 'Yes', name: 'open' },
+    { value: 'No', label: 'No', name: 'open' },
+]
+
 export class Incident extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -140,7 +145,7 @@ export class Incident extends React.Component<any, any> {
             open: this.state.open,
             note: this.state.note,
             zip: this.state.zip,
-            incidentID: this.props.incidentUUID
+            uuid: this.props.incidentUUID
         })
         let cleaned_data = data.replace(/'/g, '')
         console.log(cleaned_data)
@@ -176,7 +181,8 @@ export class Incident extends React.Component<any, any> {
             citationNumber,
             officerInitials,
             comments,
-            note
+            note,
+            open
         } = this.state
 
         return (
@@ -279,6 +285,19 @@ export class Incident extends React.Component<any, any> {
                         callback={this.handleChildChange.bind(this)}
                     />
                 </div>
+                {this.props.put != true &&
+                    <div className='col-md-12'>
+                        <Select
+                            value={open}
+                            name="open"
+                            header='Keep open?'
+                            placeholder='Yes or no...'
+                            onChange={this.handleChildSelect.bind(this)}
+                            multi={false}
+                            options={openOptions}
+                        />
+                    </div>
+                }
                 {this.props.put == true &&
                     <div className='col-md-12 text-center'>
                         <button onClick={this.put.bind(this)} className='btn btn-success'>Save</button>

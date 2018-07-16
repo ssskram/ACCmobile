@@ -114,19 +114,21 @@ export class Incidents extends React.Component<any, any> {
         this.props.getIncidents()
     }
 
-    componentWillReceiveProps(props) {
-        if (this.state.onFilter === false) {
-            this.setState({
-                incidents: props.incidents.sort(function (a, b) {
-                    return +new Date(b.date) - +new Date(a.date);
-                }),
-                itemCount: props.incidents.length,
-            });
-        }
-        if (props.incidents.length > 0) {
-            this.setState({
-                modalIsOpen: false
-            });
+    componentWillReceiveProps(nextProps) {
+        if (this.props != nextProps) {
+            if (this.state.onFilter === false) {
+                this.setState({
+                    incidents: nextProps.incidents.sort(function (a, b) {
+                        return +new Date(b.date) - +new Date(a.date);
+                    }),
+                    itemCount: nextProps.incidents.length,
+                });
+            }
+            if (nextProps.incidents.length > 0) {
+                this.setState({
+                    modalIsOpen: false
+                });
+            }
         }
     }
 

@@ -19,7 +19,7 @@ export const actionCreators = {
 export const reducer: Reducer<MessageState> = (state: MessageState, action: KnownAction) => {
     switch (action.type) {
         case 'FORM_SUCCESS':
-            return { messages: "Success! We'll be seeing you soon." };
+            return { messages: "Incident created successfully" };
         case 'SURVEY_SUBMITTED':
             return { messages: "Thanks again!" };
         case 'CLEAR':

@@ -11,8 +11,6 @@ import Messages from './Messages';
 export class Home extends React.Component<any, any> {
 
     componentDidMount() {
-        window.scrollTo(0, 0)
-
         // ping server
         this.props.ping()
 
@@ -50,6 +48,9 @@ export class Home extends React.Component<any, any> {
                     </Link>
                 </div>
             </div>
+            <br/>
+            <br/>
+            <br/>
         </div>;
     }
 }

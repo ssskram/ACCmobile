@@ -1,10 +1,13 @@
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as Ping from '../../store/ping';
 import * as Dropdowns from '../../store/dropdowns';
 import Incident from './Incident'
+import * as MessagesStore from '../../store/messages';
 import Animals from './Animal'
+import Modal from 'react-responsive-modal';
 import Autocomplete from '../FormElements/autocomplete'
 import Map from '../Map/MapContainer'
 import { v1 as uuid } from 'uuid'
@@ -29,8 +32,10 @@ export class Submit extends React.Component<any, any> {
             animals: [],
             submitReady: false,
             submit: false,
+            spinnerIsOpen: false,
             formValid: false,
-            countPostedItems: 0
+            countPostedItems: 0,
+            redirect: false
         }
         this.postComplete = this.postComplete.bind(this);
     }
@@ -87,12 +92,26 @@ export class Submit extends React.Component<any, any> {
 
     fireSubmit() {
         this.setState({
-            submit: true
+            submit: true,
+            spinnerIsOpen: true
         })
     }
 
     postComplete() {
-        alert('post complete')
+        this.setState({
+            countPostedItems: this.state.countPostedItems + 1
+        }, function(this) {
+            this.redirect()
+        })
+    }
+    redirect() {
+        let requiredPosts = Object.keys(this.state.animals).length + 1 // for incident obj
+        if (this.state.countPostedItems == requiredPosts) {
+            this.props.success()
+            this.setState({
+                redirect: true
+            })
+        }
     }
 
     deleteAnimal(index) {
@@ -100,6 +119,11 @@ export class Submit extends React.Component<any, any> {
         var remove = newArray.indexOf(index)
         newArray.splice(remove, 1);
         this.setState({ animals: newArray });
+    }
+
+    closeModal() {
+        // spinner closes on page reload
+        // a close function is just required by the library
     }
 
     public render() {
@@ -111,8 +135,14 @@ export class Submit extends React.Component<any, any> {
             counter,
             animals,
             submitReady,
-            submit
+            submit,
+            spinnerIsOpen,
+            redirect
         } = this.state
+
+        if (redirect) {
+            return <Redirect to='/' />;
+        }
 
         return (
             <div>
@@ -216,6 +246,22 @@ export class Submit extends React.Component<any, any> {
                 }
                 <br />
                 <br />
+                {/* loading spinner */}
+                <Modal
+                    open={spinnerIsOpen}
+                    onClose={this.closeModal.bind(this)}
+                    classNames={{
+                        overlay: 'spinner-overlay',
+                        modal: 'spinner-modal'
+                    }}
+                    animationDuration={1000}
+                    closeOnEsc={false}
+                    closeOnOverlayClick={false}
+                    showCloseIcon={false}
+                    center>
+                    <div className="loader"></div>
+                    ...submitting incident...
+                </Modal>
             </div>
         );
     }
@@ -224,10 +270,12 @@ export class Submit extends React.Component<any, any> {
 export default connect(
     (state: ApplicationState) => ({
         ...state.ping,
-        ...state.dropdowns
+        ...state.dropdowns,
+        ...state.messages
     }),
     ({
         ...Ping.actionCreators,
+        ...MessagesStore.actionCreators,
         ...Dropdowns.actionCreators
     })
 )(Submit as any) as typeof Submit;
