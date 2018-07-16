@@ -5,7 +5,7 @@
   "dependencies": {
     "@types/google-maps-react": "file:./Types/google-maps-react",
     "@types/history": "4.6.0",
-    "@types/react": "15.0.35",
+    "@types/react": "^15.0.35",
     "@types/react-dom": "15.5.1",
     "@types/react-hot-loader": "3.0.3",
     "@types/react-redux": "^4.4.45",
@@ -39,6 +39,7 @@
     "react-dom": "15.6.1",
     "react-hot-loader": "3.0.0-beta.7",
     "react-moment": "^0.7.7",
+    "react-native-uuid": "^1.4.9",
     "react-places-autocomplete": "^7.1.2",
     "react-redux": "5.0.5",
     "react-responsive-modal": "^3.0.3",
@@ -52,6 +53,7 @@
     "style-loader": "0.18.2",
     "typescript": "2.4.1",
     "url-loader": "0.5.9",
+    "uuid": "^3.3.2",
     "webpack": "2.5.1",
     "webpack-hot-middleware": "2.18.2",
     "webpack-merge": "4.1.0"

@@ -36,13 +36,13 @@ export class Incident extends React.Component<any, any> {
             coords: '',
             itemId: ''
         }
+        this.postNewIncident = this.postNewIncident.bind(this);
     }
 
     componentDidMount() {
         this.props.getDropdowns()
         let incident = this.props.incident
         if (this.props.put == true) {
-            console.log(incident)
             this.setState({
                 ownersLastName: incident.ownersLastName,
                 ownersFirstName: incident.ownersFirstName,
@@ -62,33 +62,41 @@ export class Incident extends React.Component<any, any> {
         }
     }
 
-    componentWillReceiveProps() {
-        var futureOrigin: any[] = []
-        var futureReason: any[] = []
-        var futureCode: any[] = []
-        var futureInitials: any[] = []
-        this.props.callOrigins.forEach(function (element) {
-            var json = { "value": element.origin, "label": element.origin, "name": 'callOrigin' };
-            futureOrigin.push(json)
-        })
-        this.props.reasonsForVisit.forEach(function (element) {
-            var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
-            futureReason.push(json)
-        })
-        this.props.citationNumbers.forEach(function (element) {
-            var json = { "value": element.citation, "label": element.citation, "name": 'citationNumber' };
-            futureCode.push(json)
-        })
-        this.props.officerInitials.forEach(function (element) {
-            var json = { "value": element.initial, "label": element.initial, "name": 'officerInitials' };
-            futureInitials.push(json)
-        })
-        this.setState({
-            originOptions: futureOrigin,
-            reasonOptions: futureReason,
-            codeOptions: futureCode,
-            initialsOptions: futureInitials
-        })
+    componentWillReceiveProps(nextProps) {
+        if (this.props != nextProps) {
+            // trigger post
+            if (nextProps.submit == true) {
+                this.postNewIncident()
+            }
+
+            // set dropdowns
+            var futureOrigin: any[] = []
+            var futureReason: any[] = []
+            var futureCode: any[] = []
+            var futureInitials: any[] = []
+            nextProps.callOrigins.forEach(function (element) {
+                var json = { "value": element.origin, "label": element.origin, "name": 'callOrigin' };
+                futureOrigin.push(json)
+            })
+            nextProps.reasonsForVisit.forEach(function (element) {
+                var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
+                futureReason.push(json)
+            })
+            nextProps.citationNumbers.forEach(function (element) {
+                var json = { "value": element.citation, "label": element.citation, "name": 'citationNumber' };
+                futureCode.push(json)
+            })
+            nextProps.officerInitials.forEach(function (element) {
+                var json = { "value": element.initial, "label": element.initial, "name": 'officerInitials' };
+                futureInitials.push(json)
+            })
+            this.setState({
+                originOptions: futureOrigin,
+                reasonOptions: futureReason,
+                codeOptions: futureCode,
+                initialsOptions: futureInitials
+            })
+        }
     }
 
     handleChildChange(event) {
@@ -113,6 +121,41 @@ export class Incident extends React.Component<any, any> {
 
     put() {
         this.props.putIt(this.state)
+    }
+
+    postNewIncident() {
+        let self = this
+        let data = JSON.stringify({
+            coords: '(' + this.props.coords.lat + ', ' + this.props.coords.lng + ')',
+            address: this.props.address,
+            ownersFirstName: this.state.ownersFirstName,
+            ownersLastName: this.state.ownersLastName,
+            ownersTelephoneNumber: this.state.ownersTelephoneNumber,
+            reasonForVisit: this.state.reasonForVisit,
+            pghCode: this.state.pghCode,
+            citationNumber: this.state.citationNumber,
+            comments: this.state.comments,
+            callOrigin: this.state.callOrigin,
+            officerInitials: this.state.officerInitials,
+            open: this.state.open,
+            note: this.state.note,
+            zip: this.state.zip,
+            incidentID: this.props.incidentUUID
+        })
+        let cleaned_data = data.replace(/'/g, '')
+        console.log(cleaned_data)
+        fetch('/api/incidents/post', {
+            method: 'POST',
+            body: cleaned_data,
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function () {
+                self.props.postComplete()
+            });
     }
 
     public render() {

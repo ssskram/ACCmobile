@@ -57,6 +57,7 @@ export class Animal extends React.Component<any, any> {
             Comments: '',
             itemID: '',
         }
+        this.postNewAnimal = this.postNewAnimal.bind(this);
     }
 
     componentDidMount() {
@@ -83,8 +84,14 @@ export class Animal extends React.Component<any, any> {
         }
     }
 
-    componentWillReceiveProps() {
-        this.setDropdowns()
+    componentWillReceiveProps(nextProps) {
+        if (this.props != nextProps) {
+            // trigger post
+            if (nextProps.submit == true) {
+                this.postNewAnimal()
+            }
+            this.setDropdowns()
+        }
     }
 
     setDropdowns() {
@@ -177,7 +184,7 @@ export class Animal extends React.Component<any, any> {
         this.props.delete(this.props.number)
     }
 
-    post(event) {
+    addAnimal(event) {
         event.preventDefault()
         this.props.throwSpinner()
         let self = this.state
@@ -243,6 +250,39 @@ export class Animal extends React.Component<any, any> {
         })
             .then(function () {
                 location.reload()
+            })
+    }
+
+    postNewAnimal() {
+        let self = this
+        let data = JSON.stringify({
+            incidentID: this.props.incidentUUID,
+            animalName: this.state.animalName,
+            animalType: this.state.animalType,
+            animalBreed: this.state.animalBreed,
+            animalCoat: this.state.animalCoat,
+            animalSex: this.state.animalSex,
+            animalAge: this.state.animalAge,
+            LicenseNo: this.state.LicenseNo,
+            LicenseYear: this.state.LicenseYear,
+            RabbiesVacNo: this.state.RabbiesVacNo,
+            RabbiesVacExp: this.state.RabbiesVacExp,
+            Vet: this.state.Vet,
+            Comments: this.state.Comments,
+        })
+        let cleaned_data = data.replace(/'/g, '');
+        console.log(cleaned_data)
+        fetch('/api/animals/post', {
+            method: 'POST',
+            body: cleaned_data,
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(function () {
+                self.props.postComplete()
             })
     }
 
@@ -404,7 +444,7 @@ export class Animal extends React.Component<any, any> {
                 </div>
                 {this.props.add == true &&
                     <div className='col-md-12 text-center'>
-                        <button onClick={this.post.bind(this)} className='btn btn-success'>Save</button>
+                        <button onClick={this.addAnimal.bind(this)} className='btn btn-success'>Save</button>
                     </div>
                 }
                 {this.props.put == true &&

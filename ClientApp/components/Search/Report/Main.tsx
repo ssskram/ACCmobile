@@ -139,7 +139,6 @@ export class Report extends React.Component<any, any> {
     }
 
     putIncident(newIncident) {
-        console.log(newIncident)
         this.setState({
             spinnerIsOpen: true
         })

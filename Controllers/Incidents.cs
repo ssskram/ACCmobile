@@ -163,45 +163,45 @@ namespace accmobile.Controllers {
         public async Task post ([FromBody] allIncidents model) {
             await refreshtoken ();
             var token = refreshtoken ().Result;
-            string SubmittedBy = _userManager.GetUserName (HttpContext.User);
-            var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
-            client.DefaultRequestHeaders.Clear ();
-            client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue ("Bearer", token);
-            client.DefaultRequestHeaders.Add ("Accept", "application/json;odata=verbose");
-            client.DefaultRequestHeaders.Add ("X-RequestDigest", "form digest value");
-            client.DefaultRequestHeaders.Add ("X-HTTP-Method", "POST");
-            var json =
-                String.Format ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}', 'Note' : '{15}', 'Zip' : '{16}' }}",
-                    model.ownersFirstName, // 0
-                    model.ownersLastName, // 1
-                    model.ownersTelephoneNumber, // 2
-                    model.reasonForVisit, // 3
-                    model.pghCode, // 4
-                    model.citationNumber, // 5
-                    model.comments, // 6
-                    model.coords, // 7 
-                    model.uuid, // 8
-                    SubmittedBy, //9
-                    model.callOrigin, // 10
-                    model.address, // 11
-                    SubmittedBy, // 12
-                    model.officerInitials, // 13
-                    model.open, // 14
-                    model.note, // 15
-                    model.zip); // 16
+            // string SubmittedBy = _userManager.GetUserName (HttpContext.User);
+            // var sharepointUrl = "https://cityofpittsburgh.sharepoint.com/sites/PublicSafety/ACC/_api/web/lists/GetByTitle('Incidents')/items";
+            // client.DefaultRequestHeaders.Clear ();
+            // client.DefaultRequestHeaders.Authorization =
+            //     new AuthenticationHeaderValue ("Bearer", token);
+            // client.DefaultRequestHeaders.Add ("Accept", "application/json;odata=verbose");
+            // client.DefaultRequestHeaders.Add ("X-RequestDigest", "form digest value");
+            // client.DefaultRequestHeaders.Add ("X-HTTP-Method", "POST");
+            // var json =
+            //     String.Format ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}', 'Note' : '{15}', 'Zip' : '{16}' }}",
+            //         model.ownersFirstName, // 0
+            //         model.ownersLastName, // 1
+            //         model.ownersTelephoneNumber, // 2
+            //         model.reasonForVisit, // 3
+            //         model.pghCode, // 4
+            //         model.citationNumber, // 5
+            //         model.comments, // 6
+            //         model.coords, // 7 
+            //         model.uuid, // 8
+            //         SubmittedBy, //9
+            //         model.callOrigin, // 10
+            //         model.address, // 11
+            //         SubmittedBy, // 12
+            //         model.officerInitials, // 13
+            //         model.open, // 14
+            //         model.note, // 15
+            //         model.zip); // 16
 
-            client.DefaultRequestHeaders.Add ("ContentLength", json.Length.ToString ());
-            try // post
-            {
-                StringContent strContent = new StringContent (json);
-                strContent.Headers.ContentType = MediaTypeHeaderValue.Parse ("application/json;odata=verbose");
-                HttpResponseMessage response = client.PostAsync (sharepointUrl, strContent).Result;
-                response.EnsureSuccessStatusCode ();
-                var content = await response.Content.ReadAsStringAsync ();
-            } catch (Exception ex) {
-                System.Diagnostics.Debug.WriteLine (ex.Message);
-            }
+            // client.DefaultRequestHeaders.Add ("ContentLength", json.Length.ToString ());
+            // try // post
+            // {
+            //     StringContent strContent = new StringContent (json);
+            //     strContent.Headers.ContentType = MediaTypeHeaderValue.Parse ("application/json;odata=verbose");
+            //     HttpResponseMessage response = client.PostAsync (sharepointUrl, strContent).Result;
+            //     response.EnsureSuccessStatusCode ();
+            //     var content = await response.Content.ReadAsStringAsync ();
+            // } catch (Exception ex) {
+            //     System.Diagnostics.Debug.WriteLine (ex.Message);
+            // }
         }
 
         [HttpPost ("[action]")]

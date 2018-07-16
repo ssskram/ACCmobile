@@ -7,6 +7,7 @@ import Incident from './Incident'
 import Animals from './Animal'
 import Autocomplete from '../FormElements/autocomplete'
 import Map from '../Map/MapContainer'
+import { v1 as uuid } from 'uuid'
 
 const sectionPadding = {
     padding: '20px'
@@ -20,13 +21,26 @@ export class Submit extends React.Component<any, any> {
     constructor() {
         super();
         this.state = {
+            uuid: '',
             map: false,
             address: '',
             coords: {},
             counter: 0,
             animals: [],
-            submit: false
+            submitReady: false,
+            submit: false,
+            formValid: false,
+            countPostedItems: 0
         }
+        this.postComplete = this.postComplete.bind(this);
+    }
+
+    componentWillMount() {
+        // generate uuid for new incident/animals
+        const guid: string = uuid()
+        this.setState({
+            uuid: guid
+        })
     }
 
     componentDidMount() {
@@ -61,14 +75,24 @@ export class Submit extends React.Component<any, any> {
         this.setState({
             counter: count,
             animals: [...this.state.animals, animalIndex],
-            submit: true
+            submitReady: true
         })
     }
 
     showSubmit() {
         this.setState({
-            submit: true
+            submitReady: true
         });
+    }
+
+    fireSubmit() {
+        this.setState({
+            submit: true
+        })
+    }
+
+    postComplete() {
+        alert('post complete')
     }
 
     deleteAnimal(index) {
@@ -80,11 +104,13 @@ export class Submit extends React.Component<any, any> {
 
     public render() {
         const {
+            uuid,
             map,
             address,
             coords,
             counter,
             animals,
+            submitReady,
             submit
         } = this.state
 
@@ -122,7 +148,11 @@ export class Submit extends React.Component<any, any> {
                     </div>
                 </div>
                 <div className='row' style={sectionPadding}>
-                    <Incident />
+                    <Incident incidentUUID={uuid}
+                        address={address}
+                        coords={coords}
+                        submit={submit}
+                        postComplete={this.postComplete} />
                 </div>
                 <div className='row'>
                     <div className='col-sm-3 col-md-2'>
@@ -138,12 +168,12 @@ export class Submit extends React.Component<any, any> {
                             <h3><i>No animals on this incident</i></h3>
                         </div>
                     }
-                    {counter === 0 && submit === true &&
+                    {counter === 0 && submitReady === true &&
                         <div className='row text-center'>
                             <h3><i>No animals on this incident</i></h3>
                         </div>
                     }
-                    {submit === false &&
+                    {submitReady === false &&
                         <div className='row'>
                             <div className='text-center'>
                                 <h4>Do you have any animals to add?</h4>
@@ -158,13 +188,19 @@ export class Submit extends React.Component<any, any> {
                         <h3 className='form-h'>{animal}.</h3>
                         <div className="panel">
                             <div style={panelMargin} className="panel-body">
-                                <Animals number={animal} key={animal} delete={this.deleteAnimal.bind(this)} />
+                                <Animals
+                                    incidentUUID={uuid}
+                                    number={animal}
+                                    key={animal}
+                                    delete={this.deleteAnimal.bind(this)}
+                                    submit={submit}
+                                    postComplete={this.postComplete} />
                             </div>
                         </div>
                     </div>
                     )}
                 </div>
-                {submit === true &&
+                {submitReady === true &&
                     <div className='row'>
                         <hr />
                         <div className='text-center'>
@@ -172,7 +208,7 @@ export class Submit extends React.Component<any, any> {
                                 <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
                             </div>
                             <div className='row'>
-                                <button className="btn btn-success">Submit</button>
+                                <button onClick={this.fireSubmit.bind(this)} className="btn btn-success">Submit</button>
                             </div>
 
                         </div>
