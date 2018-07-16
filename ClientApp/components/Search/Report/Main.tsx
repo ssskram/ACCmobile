@@ -270,6 +270,7 @@ export class Report extends React.Component<any, any> {
                         <Modal
                             open={incidentModalIsOpen}
                             onClose={this.closeModal.bind(this)}
+                            closeOnEsc={false}
                             classNames={{
                                 overlay: 'custom-overlay',
                                 modal: 'custom-modal'
@@ -284,6 +285,7 @@ export class Report extends React.Component<any, any> {
                         <Modal
                             open={addressModalIsOpen}
                             onClose={this.closeModal.bind(this)}
+                            closeOnEsc={false}
                             classNames={{
                                 overlay: 'custom-overlay',
                                 modal: 'custom-modal'

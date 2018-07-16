@@ -383,7 +383,7 @@ export class Animal extends React.Component<any, any> {
                     <div className='col-md-3'>
                         <Input
                             value={LicenseNo}
-                            name="licenseNo"
+                            name="LicenseNo"
                             header="License #"
                             placeholder="License No."
                             callback={this.handleChildChange.bind(this)}

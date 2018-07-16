@@ -202,6 +202,7 @@ export default class Animals extends React.Component<any, any> {
                 <Modal
                     open={modalIsOpen}
                     onClose={this.closeModal.bind(this)}
+                    closeOnEsc={false}
                     classNames={{
                         overlay: 'custom-overlay',
                         modal: 'custom-modal'

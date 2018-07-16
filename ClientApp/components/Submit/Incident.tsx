@@ -282,6 +282,7 @@ export class Incident extends React.Component<any, any> {
                         name="note"
                         header="Note"
                         placeholder="Quick reference"
+                        maxLength={30}
                         callback={this.handleChildChange.bind(this)}
                     />
                 </div>
