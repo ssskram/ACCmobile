@@ -7,13 +7,13 @@ export default class datepicker extends React.Component<any, any> {
     constructor() {
         super()
         this.state = {
-            date: null
+            date: null,
         }
     }
 
     componentDidMount() {
         if (this.props.value) {
-            this.setState ({
+            this.setState({
                 date: moment(this.props.value)
             })
         }
@@ -23,6 +23,11 @@ export default class datepicker extends React.Component<any, any> {
         if (this.props.value != nextProps.value) {
             this.setState({
                 date: moment(nextProps.value)
+            })
+        }
+        if (nextProps.clearDate == true) { 
+            this.setState({
+                date: null
             })
         }
 

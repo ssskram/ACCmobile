@@ -4,8 +4,8 @@ import Select from '../FormElements/select'
 import Datepicker from '../FormElements/datepicker'
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
-import Moment from 'react-moment'
 import * as Dropdowns from '../../store/dropdowns'
+import * as moment from 'moment'
 
 const statuses = [
     { value: '', label: 'All', name: 'status' },
@@ -29,6 +29,7 @@ export class Filters extends React.Component<any, any> {
             status: '',
             submittedBy: '',
             date: '',
+            clearDate: false,
             reasonForVisit: '',
             note: ''
         }
@@ -37,6 +38,30 @@ export class Filters extends React.Component<any, any> {
     componentDidMount() {
         this.setSubmittedByDropdown()
         this.props.getDropdowns()
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.clearFilters == true) {
+            this.setState({
+                address: '',
+                status: '',
+                date: '',
+                clearDate: true,
+                submittedBy: '',
+                reasonForVisit: '',
+                note: ''
+            })
+        }
+        var futureReason = [
+            { value: '', label: 'All', name: 'reasonForVisit' }
+        ]
+        nextProps.reasonsForVisit.forEach(function (element) {
+            var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
+            futureReason.push(json)
+        })
+        this.setState({
+            reasonOptions: futureReason
+        })
     }
 
     setSubmittedByDropdown() {
@@ -63,34 +88,27 @@ export class Filters extends React.Component<any, any> {
         }, []);
     }
 
-    componentWillReceiveProps() {
-        var futureReason = [
-            { value: '', label: 'All', name: 'reasonForVisit' }
-        ]
-        this.props.reasonsForVisit.forEach(function (element) {
-            var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
-            futureReason.push(json)
-        })
-        this.setState({
-            reasonOptions: futureReason
-        })
-    }
-
-
     handleChildDate(date) {
-        this.setState({ date: date }, function (this) {
+        this.setState({
+            date: date,
+            clearDate: false
+        }, function (this) {
             this.filter()
         });
     }
 
     handleChildChange(event) {
-        this.setState({ [event.target.name]: event.target.value }, function (this) {
+        this.setState({
+            [event.target.name]: event.target.value
+        }, function (this) {
             this.filter()
         });
     }
 
     handleChildSelect(event) {
-        this.setState({ [event.name]: event.value }, function (this) {
+        this.setState({
+            [event.name]: event.value
+        }, function (this) {
             this.filter()
         });
     }
@@ -108,6 +126,7 @@ export class Filters extends React.Component<any, any> {
             status,
             submittedBy,
             date,
+            clearDate,
             reasonForVisit,
             note
         } = this.state
@@ -143,6 +162,7 @@ export class Filters extends React.Component<any, any> {
                             <div className='col-md-6'>
                                 <Datepicker
                                     value={date}
+                                    clearDate={clearDate}
                                     name="date"
                                     header="Date"
                                     placeholder="Enter date"

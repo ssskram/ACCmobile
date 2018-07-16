@@ -72,6 +72,7 @@ export class Incidents extends React.Component<any, any> {
             incidentsPerPage: 10,
             itemCount: this.props.incidents.length,
             filters: false,
+            clearFilters: false,
             address: '',
             status: '',
             date: '',
@@ -141,13 +142,20 @@ export class Incidents extends React.Component<any, any> {
 
     clearFilters() {
         this.setState({
-            onFilter: false,
-            filters: false,
             incidents: this.props.incidents.sort(function (a, b) {
                 return +new Date(b.date) - +new Date(a.date);
             }),
             itemCount: this.props.incidents.length,
-            currentPage: 1
+            currentPage: 1,
+            clearFilters: true
+        })
+        
+    }
+
+    hideFilters() {
+        this.setState({
+            onFilter: false,
+            filters: false
         });
     }
 
@@ -158,6 +166,10 @@ export class Incidents extends React.Component<any, any> {
     }
 
     filter(state) {
+        this.setState({
+            clearFilters: false
+        })
+
         if (state.address) {
             var address = state.address.toLowerCase()
         }
@@ -263,7 +275,8 @@ export class Incidents extends React.Component<any, any> {
             modalIsOpen,
             incidents,
             filters,
-            format } = this.state
+            format, 
+            clearFilters } = this.state
 
         // Logic for paging
         const indexOfLastIncident = currentPage * incidentsPerPage;
@@ -347,12 +360,15 @@ export class Incidents extends React.Component<any, any> {
                     <div className='col-md-4'>
                         <h2>{itemCount} Incidents</h2>
                     </div>
-                    <div className='col-md-4' style={marginTop}>
+                    <div className='col-md-2' style={marginTop}>
+                        <button className='btn btn-secondary' onClick={this.clearFilters.bind(this)}>Clear all filters</button>
+                    </div>
+                    <div className='col-md-2' style={marginTop}>
                         {filters === true &&
-                            <button className='btn btn-secondary' onClick={this.clearFilters.bind(this)}>Clear all filters</button>
+                            <button className='btn btn-secondary' onClick={this.hideFilters.bind(this)}>Hide filters</button>
                         }
                         {filters === false &&
-                            <button className='btn btn-secondary' onClick={this.showFilters.bind(this)}>Show more filters</button>
+                            <button className='btn btn-secondary' onClick={this.showFilters.bind(this)}>More filters</button>
                         }
                     </div>
                     <div className='col-md-4 hidden-sm hidden-xs' style={marginTop}>
@@ -364,7 +380,7 @@ export class Incidents extends React.Component<any, any> {
                         }
                     </div>
                 </div>
-                <Filters showFilters={filters} incidents={incidents} filter={this.filter.bind(this)} />
+                <Filters showFilters={filters} incidents={incidents} clearFilters={clearFilters} filter={this.filter.bind(this)} />
                 <div className="col-md-12 table-container">
                     {format == 'cards' && itemCount != 0 &&
                         <div>
