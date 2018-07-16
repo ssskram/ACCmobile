@@ -62,6 +62,7 @@ export class Animal extends React.Component<any, any> {
 
     componentDidMount() {
         this.props.getDropdowns()
+        this.setDropdowns()
         let animal = this.props.animal
         if (this.props.put == true) {
             this.setState({
@@ -85,13 +86,13 @@ export class Animal extends React.Component<any, any> {
     }
 
     componentWillReceiveProps(nextProps) {
+        this.setDropdowns()
         if (this.props.submit != nextProps.submit) {
             // trigger post
             if (nextProps.submit == true) {
                 this.postNewAnimal()
             }
         }
-        this.setDropdowns()
     }
 
     setDropdowns() {
@@ -117,9 +118,7 @@ export class Animal extends React.Component<any, any> {
         self.setState({
             vetOptions: allVet
         })
-        if (this.props.put == true) {
-            this.setConditionalDropodowns()
-        }
+        this.setConditionalDropodowns()
     }
 
     handleChildDate(date) {
