@@ -65,20 +65,24 @@ export class Animal extends React.Component<any, any> {
         this.setDropdowns()
         let animal = this.props.animal
         if (this.props.put == true) {
+            if (animal.rabbiesVacExp) {
+                this.setState ({
+                    RabbiesVacExp: moment(animal.rabbiesVacExp),
+                })
+            }
             this.setState({
-                animalName: animal.animalName,
-                animalAge: animal.animalAge,
-                animalType: animal.animalType,
-                animalBreed: animal.animalBreed,
-                animalCoat: animal.animalCoat,
-                animalSex: animal.animalSex,
-                LicenseNo: animal.licenseNo,
-                LicenseYear: animal.licenseYear,
-                RabbiesVacNo: animal.rabbiesVacNo,
-                RabbiesVacExp: moment(animal.rabbiesVacExp),
-                Vet: animal.vet,
-                Comments: animal.comments,
-                itemID: animal.itemID
+                animalName: animal.animalName || '',
+                animalAge: animal.animalAge || '',
+                animalType: animal.animalType || '',
+                animalBreed: animal.animalBreed || '',
+                animalCoat: animal.animalCoat || '',
+                animalSex: animal.animalSex || '',
+                LicenseNo: animal.licenseNo || '',
+                LicenseYear: animal.licenseYear || '',
+                RabbiesVacNo: animal.rabbiesVacNo || '',
+                Vet: animal.vet || '',
+                Comments: animal.comments || '',
+                itemID: animal.itemID || ''
             }, function (this) {
                 this.setDropdowns()
             })
@@ -270,7 +274,6 @@ export class Animal extends React.Component<any, any> {
             Comments: this.state.Comments,
         })
         let cleaned_data = data.replace(/'/g, '');
-        console.log(cleaned_data)
         fetch('/api/animals/post', {
             method: 'POST',
             body: cleaned_data,

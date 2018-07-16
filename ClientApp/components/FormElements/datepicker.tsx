@@ -1,8 +1,32 @@
 import * as React from 'react';
 import classNames from 'classnames'
 import DatePicker from 'react-datepicker';
+import * as moment from 'moment'
 
 export default class datepicker extends React.Component<any, any> {
+    constructor() {
+        super()
+        this.state = {
+            date: null
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.value) {
+            this.setState ({
+                date: moment(this.props.value)
+            })
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (this.props.value != nextProps.value) {
+            this.setState({
+                date: moment(nextProps.value)
+            })
+        }
+
+    }
 
     public render() {
 
@@ -16,7 +40,7 @@ export default class datepicker extends React.Component<any, any> {
                 <div className="col-md-12 form-element">
                     <h4 className="form-h4">{this.props.header}</h4>
                     <DatePicker
-                        selected={this.props.value}
+                        selected={this.state.date}
                         name={this.props.name}
                         id={this.props.name}
                         placeholderText={this.props.placeholder}

@@ -49,20 +49,20 @@ export class Incident extends React.Component<any, any> {
         let incident = this.props.incident
         if (this.props.put == true) {
             this.setState({
-                ownersLastName: incident.ownersLastName,
-                ownersFirstName: incident.ownersFirstName,
-                ownersTelephoneNumber: incident.ownersTelephoneNumber,
-                callOrigin: incident.callOrigin,
-                reasonForVisit: incident.reasonForVisit,
-                pghCode: incident.pghCode,
-                citationNumber: incident.citationNumber,
-                officerInitials: incident.officerInitials,
-                comments: incident.comments,
-                note: incident.note,
-                open: incident.open,
-                address: incident.address,
-                coords: incident.coords,
-                itemId: incident.itemId
+                ownersLastName: incident.ownersLastName || '',
+                ownersFirstName: incident.ownersFirstName || '',
+                ownersTelephoneNumber: incident.ownersTelephoneNumber || '',
+                callOrigin: incident.callOrigin || '',
+                reasonForVisit: incident.reasonForVisit || '',
+                pghCode: incident.pghCode || '',
+                citationNumber: incident.citationNumber || '',
+                officerInitials: incident.officerInitials || '',
+                comments: incident.comments || '',
+                note: incident.note || '',
+                open: incident.open || '',
+                address: incident.address || '',
+                coords: incident.coords || '',
+                itemId: incident.itemId || ''
             })
         }
     }
@@ -148,7 +148,6 @@ export class Incident extends React.Component<any, any> {
             uuid: this.props.incidentUUID
         })
         let cleaned_data = data.replace(/'/g, '')
-        console.log(cleaned_data)
         fetch('/api/incidents/post', {
             method: 'POST',
             body: cleaned_data,

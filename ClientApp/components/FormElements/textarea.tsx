@@ -11,9 +11,16 @@ export default class textarea extends React.Component<any, any> {
 
     setHeight(element) {
         let newHeight = element.target.scrollHeight
-        this.setState({
-            height: newHeight + 'px'
-        })
+        if (newHeight > 98) {
+            this.setState({
+                height: newHeight + 'px'
+            })
+        }
+        if (element.target.value == '') {
+            this.setState({
+                height: '100px'
+            })
+        }
     }
 
     public render() {

@@ -215,7 +215,7 @@ export class Submit extends React.Component<any, any> {
                         </div>
                     }
                     {animals.map((animal) => <div>
-                        <h3 className='form-h'>{animal}.</h3>
+                        <h3 className='form-h' key={animal}>{animal}.</h3>
                         <div className="panel">
                             <div style={panelMargin} className="panel-body">
                                 <Animals
