@@ -52,7 +52,6 @@ export default class datepicker extends React.Component<any, any> {
                         onChange={this.props.callback.bind(this)}
                         className={conditionalClass}
                         calendarClassName="datepicker-calendar"
-                        withPortal
                         showMonthDropdown
                         showYearDropdown
                     />
