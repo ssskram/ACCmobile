@@ -17,10 +17,17 @@ export default class autocomplete extends React.Component<any, any> {
 
     handleSelect = (address) => {
         geocodeByAddress(address)
-            .then(results => getLatLng(results[0]))
+            .then(results =>
+                this.setState({
+                    address: results[0].formatted_address
+                }),
+            )
+        geocodeByAddress(address)
+            .then(results =>
+                getLatLng(results[0]),
+            )
             .then(latLng =>
                 this.setState({
-                    address: address,
                     coords: latLng
                 }, function (this) {
                     this.props.callback(this.state)

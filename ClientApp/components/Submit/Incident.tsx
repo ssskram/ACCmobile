@@ -69,9 +69,11 @@ export class Incident extends React.Component<any, any> {
 
     componentWillReceiveProps(nextProps) {
         if (this.props != nextProps) {
-            // trigger post
-            if (nextProps.submit == true) {
-                this.postNewIncident()
+            if (this.props.submit != nextProps.submit) {
+                // trigger post
+                if (nextProps.submit == true) {
+                    this.postNewIncident()
+                }
             }
 
             // set dropdowns
