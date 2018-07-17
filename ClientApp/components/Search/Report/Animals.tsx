@@ -2,7 +2,7 @@ import * as React from 'react';
 import UpdateAnimal from '../../Submit/Animal'
 import Modal from 'react-responsive-modal';
 import DeleteAnimal from './deleteAnimal'
-
+import Moment from 'react-moment'
 
 const deleteButton = {
     color: 'red'
@@ -157,7 +157,7 @@ export default class Animals extends React.Component<any, any> {
                                                     <h5><strong>Rabbies vacination expiration:</strong></h5>
                                                 </div>
                                                 <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.rabbiesVacExp}</h5>
+                                                    <h5><Moment format="MM/DD/YYYY" date={animal.rabbiesVacExp} /></h5>
                                                 </div>
                                             </div>
                                         }
