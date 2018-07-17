@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
 import * as moment from 'moment'
+import Moment from 'react-moment'
 
 const animalTypes = [
     { value: 'Dog', label: 'Dog', name: 'animalType' },
@@ -57,7 +58,6 @@ export class Animal extends React.Component<any, any> {
             Comments: '',
             itemID: '',
         }
-        this.postNewAnimal = this.postNewAnimal.bind(this);
     }
 
     componentDidMount() {
@@ -66,7 +66,7 @@ export class Animal extends React.Component<any, any> {
         let animal = this.props.animal
         if (this.props.put == true) {
             if (animal.rabbiesVacExp) {
-                this.setState ({
+                this.setState({
                     RabbiesVacExp: moment(animal.rabbiesVacExp),
                 })
             }
@@ -89,14 +89,8 @@ export class Animal extends React.Component<any, any> {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps() {
         this.setDropdowns()
-        if (this.props.submit != nextProps.submit) {
-            // trigger post
-            if (nextProps.submit == true) {
-                this.postNewAnimal()
-            }
-        }
     }
 
     setDropdowns() {
@@ -126,7 +120,7 @@ export class Animal extends React.Component<any, any> {
     }
 
     handleChildDate(date) {
-        this.setState({ RabbiesVacExp: date });
+        this.setState({ RabbiesVacExp: moment(date).format('MM/DD/YYYY') });
     }
 
     handleChildChange(event) {
@@ -183,10 +177,12 @@ export class Animal extends React.Component<any, any> {
         }
     }
 
-    delete() {
-        this.props.delete(this.props.number)
+    // add animal to new incident form
+    newAnimal() {
+        this.props.addNewAnimal(this.state)
     }
 
+    // add animal to existing incident
     addAnimal(event) {
         event.preventDefault()
         this.props.throwSpinner()
@@ -256,38 +252,6 @@ export class Animal extends React.Component<any, any> {
             })
     }
 
-    postNewAnimal() {
-        let self = this
-        let data = JSON.stringify({
-            incidentID: this.props.incidentUUID,
-            animalName: this.state.animalName,
-            animalType: this.state.animalType,
-            animalBreed: this.state.animalBreed,
-            animalCoat: this.state.animalCoat,
-            animalSex: this.state.animalSex,
-            animalAge: this.state.animalAge,
-            LicenseNo: this.state.LicenseNo,
-            LicenseYear: this.state.LicenseYear,
-            RabbiesVacNo: this.state.RabbiesVacNo,
-            RabbiesVacExp: this.state.RabbiesVacExp,
-            Vet: this.state.Vet,
-            Comments: this.state.Comments,
-        })
-        let cleaned_data = data.replace(/'/g, '');
-        fetch('/api/animals/post', {
-            method: 'POST',
-            body: cleaned_data,
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-            .then(function () {
-                self.props.postComplete()
-            })
-    }
-
     public render() {
         const {
             //dropdowns
@@ -309,14 +273,13 @@ export class Animal extends React.Component<any, any> {
             Comments
         } = this.state
 
+        // validation
+        const isEnabled =
+            animalType != ''
+
         return (
             <div>
-                {!this.props.put == true && !this.props.add == true &&
-                    <div className='row'>
-                        <button className="btn-x" title='Delete animal' onClick={this.delete.bind(this)}>x</button>
-                    </div>
-                }
-                <div className='row'>
+                <div className='row' key={this.props.key}>
                     <div className='col-md-3'>
                         <Select
                             value={animalType}
@@ -446,12 +409,17 @@ export class Animal extends React.Component<any, any> {
                 </div>
                 {this.props.add == true &&
                     <div className='col-md-12 text-center'>
-                        <button onClick={this.addAnimal.bind(this)} className='btn btn-success'>Save</button>
+                        <button disabled={!isEnabled} onClick={this.addAnimal.bind(this)} className='btn btn-success'>Save</button>
                     </div>
                 }
                 {this.props.put == true &&
                     <div className='col-md-12 text-center'>
-                        <button onClick={this.put.bind(this)} className='btn btn-success'>Save</button>
+                        <button disabled={!isEnabled} onClick={this.put.bind(this)} className='btn btn-success'>Save</button>
+                    </div>
+                }
+                {this.props.new == true &&
+                    <div className='col-md-12 text-center'>
+                        <button disabled={!isEnabled} onClick={this.newAnimal.bind(this)} className='btn btn-success'>Save</button>
                     </div>
                 }
             </div>

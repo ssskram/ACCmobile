@@ -27,33 +27,8 @@ namespace accmobile.Controllers {
             var response = getSomeAnimals (token, id).Result;
             List<allAnimals> SomeAnimals = new List<allAnimals> ();
             dynamic parsedAnimals = JObject.Parse (response) ["value"];
-            var dateformat = "MM/dd/yyyy";
             foreach (var item in parsedAnimals) {
-                // if date on rabbies exp
-                if (item.RabbiesVacExp != null) {
-                    DateTime date = item.RabbiesVacExp;
-                    allAnimals amn = new allAnimals () {
-                        itemID = item.Id,
-                        incidentID = item.AdvisoryID,
-                        animalName = item.Name,
-                        animalType = item.Type,
-                        animalBreed = item.Breed,
-                        animalCoat = item.Coat,
-                        animalSex = item.Sex,
-                        animalAge = item.Age,
-                        LicenseNo = item.LicenseNumber,
-                        LicenseYear = item.LicenseYear,
-                        RabbiesVacNo = item.RabbiesVacNo,
-                        RabbiesVacExp = date.ToString (dateformat),
-                        Vet = item.Veterinarian,
-                        Comments = item.Comments
-                    };
-                    SomeAnimals.Add (amn);
-
-                };
-                // if no date, don't try to datetime it
-                if (item.RabbiesVacExp == null) {
-                    allAnimals amn = new allAnimals () {
+                allAnimals amn = new allAnimals () {
                     itemID = item.Id,
                     incidentID = item.AdvisoryID,
                     animalName = item.Name,
@@ -65,12 +40,11 @@ namespace accmobile.Controllers {
                     LicenseNo = item.LicenseNumber,
                     LicenseYear = item.LicenseYear,
                     RabbiesVacNo = item.RabbiesVacNo,
+                    RabbiesVacExp = item.RabbiesVacExp,
                     Vet = item.Veterinarian,
                     Comments = item.Comments
-                    };
-                    SomeAnimals.Add (amn);
-
                 };
+                SomeAnimals.Add (amn);
             }
             return (SomeAnimals);
         }

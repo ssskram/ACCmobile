@@ -106,6 +106,15 @@ export class Incident extends React.Component<any, any> {
         }
     }
 
+    componentWillUpdate(nextProps, nextState) {
+        if (this.state.reasonForVisit == '' && nextState.reasonForVisit != '') {
+            this.props.isValid()
+        }
+        if (this.state.reasonForVisit != '' && nextState.reasonForVisit == '') {
+            this.props.isNotValid()
+        }
+    }
+
     handleChildChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
@@ -185,6 +194,10 @@ export class Incident extends React.Component<any, any> {
             note,
             open
         } = this.state
+
+        // validation
+        const isEnabled =
+            reasonForVisit != ''
 
         return (
             <div className='col-md-12'>
@@ -302,7 +315,7 @@ export class Incident extends React.Component<any, any> {
                 }
                 {this.props.put == true &&
                     <div className='col-md-12 text-center'>
-                        <button onClick={this.put.bind(this)} className='btn btn-success'>Save</button>
+                        <button disabled={!isEnabled} onClick={this.put.bind(this)} className='btn btn-success'>Save</button>
                     </div>
                 }
             </div>

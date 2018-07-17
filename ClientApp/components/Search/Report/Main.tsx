@@ -58,9 +58,10 @@ export class Report extends React.Component<any, any> {
         })
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 this.setState({
                     animals: data
-                });
+                })
             });
         fetch('/api/incidents/report?id=' + encodeURIComponent(param.id), {
             credentials: 'same-origin',
@@ -131,9 +132,9 @@ export class Report extends React.Component<any, any> {
         this.setState({
             addressButtonIsActive: true,
             latlng: props.coords,
-            incident: update(this.state.incident, { 
+            incident: update(this.state.incident, {
                 address: { $set: props.address },
-                coords: { $set: newCoords } 
+                coords: { $set: newCoords }
             })
         })
     }
@@ -187,7 +188,7 @@ export class Report extends React.Component<any, any> {
     closeIncident() {
         this.setState({
             incident: update(this.state.incident, { open: { $set: 'No' } })
-        }, function(this) {
+        }, function (this) {
             this.putIncident(this.state.incident)
         })
     }
@@ -195,7 +196,7 @@ export class Report extends React.Component<any, any> {
     openIncident() {
         this.setState({
             incident: update(this.state.incident, { open: { $set: 'Yes' } })
-        }, function(this) {
+        }, function (this) {
             this.putIncident(this.state.incident)
         })
     }
@@ -263,7 +264,12 @@ export class Report extends React.Component<any, any> {
                         </div>
                         <div className='row'>
                             <div className='col-md-12'>
-                                <AnimalsTable throwSpinner={this.throwSpinner.bind(this)} incidentID={incident.uuid} address={incident.address} coords={latlng} animals={animals} />
+                                <AnimalsTable
+                                    throwSpinner={this.throwSpinner.bind(this)}
+                                    incidentID={incident.uuid}
+                                    address={incident.address}
+                                    coords={latlng} 
+                                    animals={animals} />
                             </div>
                         </div>
                         {/* update incident modal */}
