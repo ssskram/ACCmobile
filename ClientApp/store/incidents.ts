@@ -25,7 +25,6 @@ export interface Incidents {
     modifiedBy: any;
     officerInitials: any;
     open: any;
-    zip: any;
 }
 
 interface IncidentsRequestsAction {

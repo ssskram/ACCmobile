@@ -157,7 +157,6 @@ export class Report extends React.Component<any, any> {
             officerInitials: newIncident.officerInitials,
             open: newIncident.open,
             note: newIncident.note,
-            zip: newIncident.zip,
             itemId: newIncident.itemId
         })
         let cleaned_data = data.replace(/'/g, '')

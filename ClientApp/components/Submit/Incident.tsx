@@ -161,7 +161,6 @@ export class Incident extends React.Component<any, any> {
             officerInitials: this.state.officerInitials,
             open: this.state.open,
             note: this.state.note,
-            zip: this.state.zip,
             uuid: this.props.incidentUUID
         })
         let cleaned_data = data.replace(/'/g, '')

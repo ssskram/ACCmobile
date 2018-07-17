@@ -21,6 +21,5 @@ namespace accmobile.Models {
         public string modifiedBy { get; set; }
         public string officerInitials { get; set; }
         public string open { get; set; }
-        public string zip { get; set; }
     }
 }

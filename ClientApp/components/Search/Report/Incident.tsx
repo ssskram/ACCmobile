@@ -28,8 +28,7 @@ export default class Incident extends React.Component<any, any> {
             ownersTelephoneNumber,
             pghCode,
             reasonForVisit,
-            submittedBy,
-            zip
+            submittedBy
         } = this.props.incident
         return (
             <div>
@@ -42,10 +41,6 @@ export default class Incident extends React.Component<any, any> {
                         <tr>
                             <th scope="row">Date</th>
                             <td><Moment format="MM/DD/YYYY HH:mm" date={date} /></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Zip code</th>
-                            <td>{zip}</td>
                         </tr>
                         <tr>
                             <th scope="row">Owners name</th>
