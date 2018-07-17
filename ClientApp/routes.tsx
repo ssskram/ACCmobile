@@ -7,8 +7,10 @@ import Submit from './components/Submit/Main';
 import Incidents from './components/Search/Incidents';
 import MapContainer from './components/Map/MapContainer';
 import Home from './components/Home';
+import NotFound from './components/NotFound';
 
 export const routes = <Layout>
+    <Route exact path='/NotFound' component={ NotFound } />
     <Route exact path='/' component={ Home } />
     <Route path='/Map' component={ MapContainer } />
     <Route path='/Submit' component={ Submit } />

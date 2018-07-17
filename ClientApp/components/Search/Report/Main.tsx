@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Modal from 'react-responsive-modal';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../../store';
 import * as Ping from '../../../store/ping';
@@ -43,11 +44,21 @@ export class Report extends React.Component<any, any> {
             spinnerIsOpen: true,
             incident: {},
             animals: [],
-            latlng: {}
+            latlng: {},
+            incidentNotFound: false
         }
     }
 
     componentDidMount() {
+        let self = this
+        function handleErrors(response) {
+            if (!response.ok) {
+                self.setState({
+                    incidentNotFound: true
+                });
+            }
+            return response;
+        }
         window.scrollTo(0, 0)
         const param = { id: this.props.match.params.id }
         fetch('/api/animals/report?id=' + encodeURIComponent(param.id), {
@@ -58,7 +69,6 @@ export class Report extends React.Component<any, any> {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 this.setState({
                     animals: data
                 })
@@ -69,8 +79,10 @@ export class Report extends React.Component<any, any> {
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
             }
         })
+            .then(handleErrors)
             .then(response => response.json())
             .then(data => {
+                console.log(data)
                 // process coordinations
                 var lat = data.coords.substring(
                     data.coords.lastIndexOf("(") + 1,
@@ -208,7 +220,8 @@ export class Report extends React.Component<any, any> {
             addressModalIsOpen,
             addressButtonIsActive,
             incidentModalIsOpen,
-            spinnerIsOpen } = this.state
+            spinnerIsOpen,
+            incidentNotFound } = this.state
 
         const EnableAddressBtn =
             addressButtonIsActive == true
@@ -219,6 +232,10 @@ export class Report extends React.Component<any, any> {
         }
         else {
             var url = '../images/image-placeholder.png'
+        }
+
+        if (incidentNotFound == true) {
+            return <Redirect to='/NotFound' />;
         }
 
         return (
@@ -267,7 +284,7 @@ export class Report extends React.Component<any, any> {
                                     throwSpinner={this.throwSpinner.bind(this)}
                                     incidentID={incident.uuid}
                                     address={incident.address}
-                                    coords={latlng} 
+                                    coords={latlng}
                                     animals={animals} />
                             </div>
                         </div>

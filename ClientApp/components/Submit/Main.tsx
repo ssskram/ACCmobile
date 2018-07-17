@@ -417,22 +417,24 @@ export class Submit extends React.Component<any, any> {
                     )}
                 </div>
                 {submitReady === true &&
-                    <div className='row'>
-                        <hr />
-                        <div className='text-center'>
-                            <div className='row'>
-                                <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
-                            </div>
-                            {map === true &&
+                    <div className='col-md-12'>
+                        <div className='row'>
+                            <hr />
+                            <div className='text-center'>
                                 <div className='row'>
-                                    <button disabled={!buttonIsEnabled} onClick={this.fireSubmit.bind(this)} className="btn btn-success">Submit</button>
+                                    <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
                                 </div>
-                            }
+                                {map === true &&
+                                    <div className='row'>
+                                        <button disabled={!buttonIsEnabled} onClick={this.fireSubmit.bind(this)} className="btn btn-success">Submit</button>
+                                    </div>
+                                }
+                            </div>
                         </div>
+                        <br />
+                        <br />
                     </div>
                 }
-                <br />
-                <br />
                 {/* loading spinner */}
                 <Modal
                     open={spinnerIsOpen}
