@@ -110,7 +110,13 @@ export class Incident extends React.Component<any, any> {
         if (this.state.reasonForVisit == '' && nextState.reasonForVisit != '') {
             this.props.isValid()
         }
+        if (this.state.open == '' && nextState.open != '') {
+            this.props.isValid()
+        }
         if (this.state.reasonForVisit != '' && nextState.reasonForVisit == '') {
+            this.props.isNotValid()
+        }
+        if (this.state.open != '' && nextState.open == '') {
             this.props.isNotValid()
         }
     }

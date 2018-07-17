@@ -34,7 +34,8 @@ export class Submit extends React.Component<any, any> {
             redirect: false,
 
             // validation
-            buttonIsEnabled: false
+            buttonIsEnabled: false,
+            validationCount: 0
         }
         this.deleteAnimal = this.deleteAnimal.bind(this);
         this.postComplete = this.postComplete.bind(this);
@@ -187,13 +188,20 @@ export class Submit extends React.Component<any, any> {
 
     isValid() {
         this.setState({
-            buttonIsEnabled: true
+            validationCount: this.state.validationCount + 1
+        }, function (this) {
+            if (this.state.validationCount == 2) {
+                this.setState({
+                    buttonIsEnabled: true
+                })
+            }
         })
     }
 
     isNotValid() {
         this.setState({
             buttonIsEnabled: false,
+            validationCount: this.state.validationCount - 1
         })
     }
 
@@ -415,10 +423,11 @@ export class Submit extends React.Component<any, any> {
                             <div className='row'>
                                 <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
                             </div>
-                            <div className='row'>
-                                <button disabled={!buttonIsEnabled} onClick={this.fireSubmit.bind(this)} className="btn btn-success">Submit</button>
-                            </div>
-
+                            {map === true &&
+                                <div className='row'>
+                                    <button disabled={!buttonIsEnabled} onClick={this.fireSubmit.bind(this)} className="btn btn-success">Submit</button>
+                                </div>
+                            }
                         </div>
                     </div>
                 }
