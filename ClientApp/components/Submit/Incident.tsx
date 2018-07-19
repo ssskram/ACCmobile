@@ -65,6 +65,11 @@ export class Incident extends React.Component<any, any> {
                 itemId: incident.itemId || ''
             })
         }
+        if (this.props.put != true) {
+            this.setState({
+                open: 'Yes'
+            })
+        }
     }
 
     componentWillReceiveProps(nextProps) {

@@ -34,7 +34,8 @@ namespace accmobile.Controllers {
                 };
                 AllBreeds.Add (brd);
             }
-            return (AllBreeds);
+            var sorted = AllBreeds.OrderBy(x => x.breed).ToList();
+            return (sorted);
         }
 
         [HttpGet ("[action]")]
@@ -56,7 +57,8 @@ namespace accmobile.Controllers {
                 };
                 AllCoats.Add (ct);
             }
-            return (AllCoats);
+            var sorted = AllCoats.OrderBy(x => x.coat).ToList();
+            return (sorted);
         }
 
         [HttpGet ("[action]")]
@@ -77,7 +79,8 @@ namespace accmobile.Controllers {
                 };
                 AllVets.Add (vt);
             }
-            return (AllVets);
+            var sorted = AllVets.OrderBy(x => x.vet).ToList();
+            return (sorted);
         }
 
         [HttpGet ("[action]")]
@@ -98,7 +101,8 @@ namespace accmobile.Controllers {
                 };
                 AllReasons.Add (rs);
             }
-            return (AllReasons);
+            var sorted = AllReasons.OrderBy(x => x.reason).ToList();
+            return (sorted);
         }
 
         [HttpGet ("[action]")]
@@ -119,7 +123,8 @@ namespace accmobile.Controllers {
                 };
                 AllOrigins.Add (or);
             }
-            return (AllOrigins);
+            var sorted = AllOrigins.OrderBy(x => x.origin).ToList();
+            return (sorted);
         }
 
         [HttpGet ("[action]")]
@@ -140,7 +145,8 @@ namespace accmobile.Controllers {
                 };
                 AllInitials.Add (ins);
             }
-            return (AllInitials);
+            var sorted = AllInitials.OrderBy(x => x.initial).ToList();
+            return (sorted);
         }
 
         [HttpGet ("[action]")]
@@ -161,7 +167,8 @@ namespace accmobile.Controllers {
                 };
                 AllCitations.Add (cit);
             }
-            return (AllCitations);
+            var sorted = AllCitations.OrderBy(x => x.citation).ToList();
+            return (sorted);
         }
 
         private async Task<string> refreshtoken () {

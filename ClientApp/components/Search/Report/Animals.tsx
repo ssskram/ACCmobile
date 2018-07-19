@@ -144,7 +144,7 @@ export default class Animals extends React.Component<any, any> {
                                         {animal.rabbiesVacNo != null &&
                                             <div className='row text-center'>
                                                 <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Rabbies vacination number:</strong></h5>
+                                                    <h5><strong>Rabies vacination number:</strong></h5>
                                                 </div>
                                                 <div className='col-md-6 col-sm-12 text-center'>
                                                     <h5>{animal.rabbiesVacNo}</h5>
@@ -154,7 +154,7 @@ export default class Animals extends React.Component<any, any> {
                                         {animal.rabbiesVacExp != null &&
                                             <div className='row text-center'>
                                                 <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Rabbies vacination expiration:</strong></h5>
+                                                    <h5><strong>Rabies vacination expiration:</strong></h5>
                                                 </div>
                                                 <div className='col-md-6 col-sm-12 text-center'>
                                                     <h5><Moment format="MM/DD/YYYY" date={animal.rabbiesVacExp} /></h5>

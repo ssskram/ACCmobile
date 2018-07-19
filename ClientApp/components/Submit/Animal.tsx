@@ -120,7 +120,11 @@ export class Animal extends React.Component<any, any> {
     }
 
     handleChildDate(date) {
-        this.setState({ RabbiesVacExp: moment(date).format('MM/DD/YYYY') });
+        if (date) {
+            this.setState({ RabbiesVacExp: moment(date).format('MM/DD/YYYY') });
+        } else {
+            this.setState({ RabbiesVacExp: null });
+        }
     }
 
     handleChildChange(event) {
@@ -368,7 +372,7 @@ export class Animal extends React.Component<any, any> {
                         <Input
                             value={RabbiesVacNo}
                             name="RabbiesVacNo"
-                            header="Rabbies #"
+                            header="Rabies #"
                             placeholder="Vaccine No."
                             callback={this.handleChildChange.bind(this)}
                         />

@@ -25,7 +25,6 @@ export class Submit extends React.Component<any, any> {
             address: '',
             coords: {},
             animals: [],
-            submitReady: false,
             submit: false,
             spinnerIsOpen: false,
             modalIsOpen: false,
@@ -74,12 +73,6 @@ export class Submit extends React.Component<any, any> {
 
     handleChildChange(event) {
         this.setState({ [event.target.name]: event.target.value });
-    }
-
-    showSubmit() {
-        this.setState({
-            submitReady: true
-        });
     }
 
     fireSubmit() {
@@ -135,7 +128,6 @@ export class Submit extends React.Component<any, any> {
         }
         this.setState({
             modalIsOpen: false,
-            submitReady: true,
             animals: [...this.state.animals, newAnimal]
         })
     }
@@ -212,7 +204,6 @@ export class Submit extends React.Component<any, any> {
             address,
             coords,
             animals,
-            submitReady,
             submit,
             spinnerIsOpen,
             modalIsOpen,
@@ -276,22 +267,6 @@ export class Submit extends React.Component<any, any> {
                     </div>
                 </div>
                 <div className='row' style={sectionPadding}>
-                    {submitReady === true && Object.keys(animals).length == 0 &&
-                        <div className='row text-center'>
-                            <h3><i>No animals on this incident</i></h3>
-                        </div>
-                    }
-                    {submitReady === false &&
-                        <div className='row'>
-                            <div className='text-center'>
-                                <h4>Do you have any animals to add?</h4>
-                                <div className='row'>
-                                    <button className='btn btn-default' onClick={this.addAnimal.bind(this)}>Yes</button>
-                                    <button className='btn btn-default' onClick={this.showSubmit.bind(this)}>No</button>
-                                </div>
-                            </div>
-                        </div>
-                    }
                     {animals.map((animal, index) =>
                         <div className='col-md-4' key={index}>
                             <div className="facility">
@@ -415,26 +390,24 @@ export class Submit extends React.Component<any, any> {
                             </div>
                         </div>
                     )}
-                </div>
-                {submitReady === true &&
-                    <div className='col-md-12'>
-                        <div className='row'>
-                            <hr />
-                            <div className='text-center'>
-                                <div className='row'>
-                                    <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
-                                </div>
-                                {map === true &&
-                                    <div className='row'>
-                                        <button disabled={!buttonIsEnabled} onClick={this.fireSubmit.bind(this)} className="btn btn-success">Submit</button>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                        <br />
-                        <br />
+                    <div className='col-md-12 text-center'>
+                        <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
                     </div>
-                }
+                </div>
+                <div className='col-md-12'>
+                    <div className='row'>
+                        <hr />
+                        <div className='text-center'>
+                            {map === true &&
+                                <div className='row'>
+                                    <button disabled={!buttonIsEnabled} onClick={this.fireSubmit.bind(this)} className="btn btn-success">Submit</button>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                </div>
                 {/* loading spinner */}
                 <Modal
                     open={spinnerIsOpen}

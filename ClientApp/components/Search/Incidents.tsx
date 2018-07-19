@@ -41,9 +41,6 @@ const columns = [{
     accessor: 'link',
     Cell: props => <Link style={reportLink} target='_blank' to={props.value}>View report</Link>
 }, {
-    Header: 'No.',
-    accessor: 'itemId'
-}, {
     Header: 'Date',
     accessor: 'date',
     Cell: props => <Moment format="MM/DD/YYYY HH:mm" date={props.value} />
@@ -51,6 +48,9 @@ const columns = [{
     Header: 'Address',
     accessor: 'address'
 }, {
+    Header: 'Reason',
+    accessor: 'reasonForVisit'
+},{
     Header: 'Open',
     accessor: 'open'
 }, {
