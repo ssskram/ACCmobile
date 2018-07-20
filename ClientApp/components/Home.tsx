@@ -34,14 +34,14 @@ export class Home extends React.Component<any, any> {
             </div>
             <div className='row'>
                 <div className='col-md-6 text-center'>
-                    <Link to={'/Incidents'} type="button" className="btn btn-big">
+                    <Link to={'/Incidents'} className="btn btn-big">
                         <i className="glyphicon glyphicon-search home-icon"></i><br />
                         <div className="hidden-md">Search incidents</div>
                         <div className="hidden-xs hidden-sm hidden-lg">Search</div>
                     </Link>
                 </div>
                 <div className='col-md-6 text-center'>
-                    <Link to={'/Submit'} type="button" title="Email, OneDrive, etc." className="btn btn-big">
+                    <Link to={'/Submit'} title="Email, OneDrive, etc." className="btn btn-big">
                         <i className="glyphicon glyphicon-plus home-icon"></i><br />
                         <div className="hidden-md">New incident</div>
                         <div className="hidden-xs hidden-sm hidden-lg hidden-xl">New</div>

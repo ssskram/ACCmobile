@@ -1,6 +1,5 @@
 import * as React from 'react';
 import ReactTable from "react-table";
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ApplicationState } from '../../store';
 import * as Ping from '../../store/ping';
@@ -39,7 +38,7 @@ const noteContainer = {
 const columns = [{
     Header: '',
     accessor: 'link',
-    Cell: props => <Link style={reportLink} target='_blank' to={props.value}>View report</Link>
+    Cell: props => <a style={reportLink} target='_blank' href={props.value}>View report</a>
 }, {
     Header: 'Date',
     accessor: 'date',
@@ -318,7 +317,7 @@ export class Incidents extends React.Component<any, any> {
                                         {incident.note != null &&
                                             <div><b>Note:</b> {incident.note}</div>
                                         }
-                                        <Link style={reportLink} target='_blank' to={incident.link}>View report</Link>
+                                        <a style={reportLink} target='_blank' href={incident.link}>View report</a>
                                     </div>
                                 </div>
                                 <div className='col-md-3 hidden-sm hidden-xs text-center'>
@@ -338,7 +337,7 @@ export class Incidents extends React.Component<any, any> {
                                         </div>
                                     }
                                     <h5>
-                                        <Link style={reportLink} target='_blank' to={incident.link}>View report</Link>
+                                        <a style={reportLink} target='_blank' href={incident.link}>View report</a>
                                     </h5>
                                 </div>
                             </div>
