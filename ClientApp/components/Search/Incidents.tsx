@@ -360,10 +360,10 @@ export class Incidents extends React.Component<any, any> {
                     <div className='col-md-4'>
                         <h2>{itemCount} Incidents</h2>
                     </div>
-                    <div className='col-md-2' style={marginTop}>
+                    <div className='col-md-2 hidden-sm hidden-xs' style={marginTop}>
                         <button className='btn btn-secondary' onClick={this.clearFilters.bind(this)}>Clear all filters</button>
                     </div>
-                    <div className='col-md-2' style={marginTop}>
+                    <div className='col-md-2 hidden-sm hidden-xs' style={marginTop}>
                         {filters === true &&
                             <button className='btn btn-secondary' onClick={this.hideFilters.bind(this)}>Hide filters</button>
                         }
