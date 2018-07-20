@@ -9,7 +9,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "skipDefaultLibCheck": true,
-    "strict": false,
+    "strict": true,
     "lib": [
       "es6",
       "dom"
