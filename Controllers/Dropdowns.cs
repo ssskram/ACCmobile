@@ -34,7 +34,7 @@ namespace accmobile.Controllers {
                 };
                 AllBreeds.Add (brd);
             }
-            var sorted = AllBreeds.OrderBy(x => x.breed).ToList();
+            var sorted = AllBreeds.OrderBy (x => x.breed).ToList ();
             return (sorted);
         }
 
@@ -57,7 +57,7 @@ namespace accmobile.Controllers {
                 };
                 AllCoats.Add (ct);
             }
-            var sorted = AllCoats.OrderBy(x => x.coat).ToList();
+            var sorted = AllCoats.OrderBy (x => x.coat).ToList ();
             return (sorted);
         }
 
@@ -79,7 +79,7 @@ namespace accmobile.Controllers {
                 };
                 AllVets.Add (vt);
             }
-            var sorted = AllVets.OrderBy(x => x.vet).ToList();
+            var sorted = AllVets.OrderBy (x => x.vet).ToList ();
             return (sorted);
         }
 
@@ -101,7 +101,7 @@ namespace accmobile.Controllers {
                 };
                 AllReasons.Add (rs);
             }
-            var sorted = AllReasons.OrderBy(x => x.reason).ToList();
+            var sorted = AllReasons.OrderBy (x => x.reason).ToList ();
             return (sorted);
         }
 
@@ -123,7 +123,7 @@ namespace accmobile.Controllers {
                 };
                 AllOrigins.Add (or);
             }
-            var sorted = AllOrigins.OrderBy(x => x.origin).ToList();
+            var sorted = AllOrigins.OrderBy (x => x.origin).ToList ();
             return (sorted);
         }
 
@@ -145,7 +145,7 @@ namespace accmobile.Controllers {
                 };
                 AllInitials.Add (ins);
             }
-            var sorted = AllInitials.OrderBy(x => x.initial).ToList();
+            var sorted = AllInitials.OrderBy (x => x.initial).ToList ();
             return (sorted);
         }
 
@@ -167,7 +167,7 @@ namespace accmobile.Controllers {
                 };
                 AllCitations.Add (cit);
             }
-            var sorted = AllCitations.OrderBy(x => x.citation).ToList();
+            var sorted = AllCitations.OrderBy (x => x.citation).ToList ();
             return (sorted);
         }
 

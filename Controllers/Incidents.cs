@@ -170,8 +170,7 @@ namespace accmobile.Controllers {
             client.DefaultRequestHeaders.Add ("X-RequestDigest", "form digest value");
             client.DefaultRequestHeaders.Add ("X-HTTP-Method", "POST");
             var json =
-                String.Format
-                ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}', 'Note' : '{15}' }}",
+                String.Format ("{{'__metadata': {{ 'type': 'SP.Data.AdvisesItem' }}, 'OwnersFirstName' : '{0}', 'OwnersLastName' : '{1}', 'OwnersTelephone' : '{2}', 'ReasonforVisit' : '{3}', 'ADVPGHCode' : '{4}', 'CitationNumber' : '{5}', 'Comments' : '{6}', 'AddressID' : '{7}', 'AdvisoryID' : '{8}', 'SubmittedBy' : '{9}', 'CallOrigin' : '{10}', 'Address' : '{11}', 'ModifiedBy' : '{12}', 'Officers' : '{13}', 'Open' : '{14}', 'Note' : '{15}' }}",
                     model.ownersFirstName, // 0
                     model.ownersLastName, // 1
                     model.ownersTelephoneNumber, // 2
