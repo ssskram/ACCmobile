@@ -36,3 +36,37 @@ export interface incident {
     officerInitials: any;
     open: any;
 }
+
+// dropdowns
+export interface dropdowns {
+    animalBreeds: animalBreeds[]
+    animalCoats: animalCoats[]
+    veterinarians: veterinarians[]
+    reasonsForVisit: reasonsForVisit[]
+    callOrigins: callOrigins[]
+    officerInitials: officerInitials[]
+    citationNumbers: citationNumbers[]
+}
+export interface animalBreeds {
+    type: string
+    breed: string
+}
+export interface animalCoats {
+    type: string
+    coat: string
+}
+export interface veterinarians {
+    vet: string
+}
+export interface reasonsForVisit {
+    reason: string
+}
+export interface callOrigins {
+    origin: string
+}
+export interface officerInitials {
+    initial: string
+}
+export interface citationNumbers {
+    number: string
+}

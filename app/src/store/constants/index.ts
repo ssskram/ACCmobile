@@ -12,3 +12,6 @@ export const clear = 'clearMessage'
 export const getIncidents = 'getIncidents'
 export const newIncident = 'newIncident'
 export const updateIncident = 'updateIncident'
+
+// dropdowns
+export const getDropdowns = 'getDropdowns'
