@@ -4,6 +4,7 @@ import Select from '../formElements/select'
 import Textarea from '../formElements/textarea'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
+import * as user from '../../store/user'
 import * as Dropdowns from '../../store/dropdowns'
 
 const loadingOptions = [{
@@ -155,12 +156,12 @@ export class Incident extends React.Component<any, any> {
     postNewIncident() {
         let self = this
         let data = JSON.stringify({
-            coords: '(' + this.props.coords.lat + ', ' + this.props.coords.lng + ')',
-            address: this.props.address,
+            AddressID: '(' + this.props.coords.lat + ', ' + this.props.coords.lng + ')',
+            Address: this.props.address,
             OwnersFirstName: this.state.ownersFirstName,
             OwnersLastName: this.state.ownersLastName,
             OwnersTelephone: this.state.ownersTelephoneNumber,
-            ReasonforVisit: this.state.reasonForVisit,
+            ReasonforVisit: this.state.reasonForVisit.value,
             ADVPGHCode: this.state.pghCode,
             CitationNumber: this.state.citationNumber,
             Comments: this.state.comments,
@@ -168,19 +169,22 @@ export class Incident extends React.Component<any, any> {
             Officers: this.state.officerInitials,
             Open: this.state.open,
             Note: this.state.note,
-            AdvisoryID: this.props.incidentUUID
+            AdvisoryID: this.props.incidentUUID,
+            ModifiedBy: this.props.user.email,
+            SubmittedBy: this.props.user.email
         })
         let cleaned_data = data.replace(/'/g, '')
-        fetch('https://365proxy.azurewebsites.us/accmobile/addIncident', {
+        fetch('http://localhost:3000/accmobile/addIncident', {
             method: 'POST',
             headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
+                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API,
+                'Content-Type': 'application/json'
             }),
             body: cleaned_data,
         })
             .then(function () {
                 self.props.postComplete()
-            });
+            })
     }
 
     public render() {
@@ -335,9 +339,11 @@ export class Incident extends React.Component<any, any> {
 
 export default connect(
     (state: ApplicationState) => ({
-        ...state.dropdowns
+        ...state.dropdowns,
+        ...state.user
     }),
     ({
-        ...Dropdowns.actionCreators
+        ...Dropdowns.actionCreators,
+        ...user.actionCreators
     })
 )(Incident)

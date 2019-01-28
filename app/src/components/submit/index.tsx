@@ -82,6 +82,7 @@ export class Submit extends React.Component<any, any> {
             self.postNewAnimal(animal)
         })
     }
+    
     postComplete() {
         this.setState({
             countPostedItems: this.state.countPostedItems + 1
@@ -89,6 +90,7 @@ export class Submit extends React.Component<any, any> {
             this.redirect()
         })
     }
+
     redirect() {
         let requiredPosts = Object.keys(this.state.animals).length + 1 // for incident obj
         if (this.state.countPostedItems == requiredPosts) {
