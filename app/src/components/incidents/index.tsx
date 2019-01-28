@@ -9,6 +9,7 @@ import * as types from '../../store/types'
 import Spinner from '../utilities/spinner'
 import * as moment from 'moment'
 const placeholder = require('../../images/image-placeholder.png')
+const accIcon = require('../../images/acclogo.png')
 
 type props = {
     incidents: types.incident[]
@@ -337,7 +338,17 @@ export default class AllIncidents extends React.Component<props, any> {
         return (
             <div>
                 {this.props.incidents.length == 0 &&
-                    <Spinner notice='...loading incidents...' />
+                    <div>
+                        <Spinner notice='...loading incidents...' />
+                        <div>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <img src={accIcon as string} className="img-responsive center-block" />
+                        </div>
+                    </div>
                 }
                 {this.props.incidents.length > 0 &&
                     <div className='incident-container col-md-8 col-md-offset-2'>

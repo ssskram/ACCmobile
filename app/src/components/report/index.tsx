@@ -12,6 +12,7 @@ import UpdateIncident from '../submit/incident'
 import UpdateAddress from './updateAddress'
 import update from 'immutability-helper'
 const placeholder = require('../../images/image-placeholder.png')
+const accIcon = require('../../images/acclogo.png')
 
 // keep original latlng & incident objects in case user bails from updates
 let lat_lng = {}
@@ -320,22 +321,33 @@ export class Report extends React.Component<any, any> {
                         </Modal>
                     </div>
                 }
-                {/* loading spinner */}
-                <Modal
-                    open={spinnerIsOpen}
-                    onClose={this.closeModal.bind(this)}
-                    classNames={{
-                        overlay: 'spinner-overlay',
-                        modal: 'spinner-modal'
-                    }}
-                    animationDuration={1000}
-                    closeOnEsc={false}
-                    closeOnOverlayClick={false}
-                    showCloseIcon={false}
-                    center>
-                    <div className="loader"></div>
-                    ...loading incident report...
-                </Modal>
+                {spinnerIsOpen == true &&
+                    <div>
+                        <Modal
+                            open={spinnerIsOpen}
+                            onClose={this.closeModal.bind(this)}
+                            classNames={{
+                                overlay: 'spinner-overlay',
+                                modal: 'spinner-modal'
+                            }}
+                            animationDuration={1000}
+                            closeOnEsc={false}
+                            closeOnOverlayClick={false}
+                            showCloseIcon={false}
+                            center>
+                            <div className="loader"></div>
+                            ...loading incident report...
+                        </Modal>
+                        <div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <img src={accIcon as string} className="img-responsive center-block" />
+                        </div>
+                    </div>
+                }
             </div>
         );
     }
