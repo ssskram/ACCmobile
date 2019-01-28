@@ -157,28 +157,26 @@ export class Incident extends React.Component<any, any> {
         let data = JSON.stringify({
             coords: '(' + this.props.coords.lat + ', ' + this.props.coords.lng + ')',
             address: this.props.address,
-            ownersFirstName: this.state.ownersFirstName,
-            ownersLastName: this.state.ownersLastName,
-            ownersTelephoneNumber: this.state.ownersTelephoneNumber,
-            reasonForVisit: this.state.reasonForVisit,
-            pghCode: this.state.pghCode,
-            citationNumber: this.state.citationNumber,
-            comments: this.state.comments,
-            callOrigin: this.state.callOrigin,
-            officerInitials: this.state.officerInitials,
-            open: this.state.open,
-            note: this.state.note,
-            uuid: this.props.incidentUUID
+            OwnersFirstName: this.state.ownersFirstName,
+            OwnersLastName: this.state.ownersLastName,
+            OwnersTelephone: this.state.ownersTelephoneNumber,
+            ReasonforVisit: this.state.reasonForVisit,
+            ADVPGHCode: this.state.pghCode,
+            CitationNumber: this.state.citationNumber,
+            Comments: this.state.comments,
+            CallOrigin: this.state.callOrigin,
+            Officers: this.state.officerInitials,
+            Open: this.state.open,
+            Note: this.state.note,
+            AdvisoryID: this.props.incidentUUID
         })
         let cleaned_data = data.replace(/'/g, '')
-        fetch('/api/incidents/post', {
+        fetch('https://365proxy.azurewebsites.us/accmobile/addIncident', {
             method: 'POST',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
+            }),
             body: cleaned_data,
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
         })
             .then(function () {
                 self.props.postComplete()

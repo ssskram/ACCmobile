@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
 import Incident from './incident'
-import * as MessagesStore from '../../store/messages'
 import Animals from './animal'
 import Modal from 'react-responsive-modal'
 import Autocomplete from '../formElements/autocomplete'
@@ -93,7 +92,6 @@ export class Submit extends React.Component<any, any> {
     redirect() {
         let requiredPosts = Object.keys(this.state.animals).length + 1 // for incident obj
         if (this.state.countPostedItems == requiredPosts) {
-            this.props.success()
             this.setState({
                 redirect: true
             })
@@ -438,11 +436,9 @@ export class Submit extends React.Component<any, any> {
 
 export default connect(
     (state: ApplicationState) => ({
-        ...state.dropdowns,
-        ...state.messages
+        ...state.dropdowns
     }),
     ({
-        ...MessagesStore.actionCreators,
         ...Dropdowns.actionCreators
     })
 )(Submit)

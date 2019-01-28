@@ -4,14 +4,11 @@ export default class selectMap extends React.Component<any, any> {
 
     deleteAnimal () {
         this.props.throwSpinner()
-        fetch('/api/animals/deleteAnimal', {
+        fetch('https://365proxy.azurewebsites.us/accmobile/deleteAnimal?itemId=' + this.props.animal.itemId, {
             method: 'POST',
-            body: this.props.animal.itemID,
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
+            })
         })
             .then(function () {
                 location.reload()

@@ -19,12 +19,6 @@ export const actionCreators = {
             .then(data => {
                 dispatch({ type: constants.getIncidents, incidents: data })
             })
-    },
-    newIncident: (incident): AppThunkAction<any> => (dispatch) => {
-        dispatch({ type: constants.newIncident, incident: incident })
-    },
-    updateIncident: (incident): AppThunkAction<any> => (dispatch) => {
-        dispatch({ type: constants.updateIncident, incident: incident })
     }
 }
 
@@ -33,9 +27,6 @@ export const reducer: Reducer<types.incidents> = (state: types.incidents, incomi
     switch (action.type) {
         case constants.getIncidents:
             return { ...state, incidents: action.incidents }
-        case constants.newIncident:
-            return { ...state, incidents: state.incidents.concat(action.incident) }
-        // add update incident here
     }
 
     return state || unloadedState

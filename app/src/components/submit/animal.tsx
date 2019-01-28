@@ -192,29 +192,27 @@ export class Animal extends React.Component<any, any> {
         this.props.throwSpinner()
         let self = this.state
         let data = JSON.stringify({
-            incidentID: this.props.incidentID,
-            animalName: self.animalName,
-            animalType: self.animalType,
-            animalBreed: self.animalBreed,
-            animalCoat: self.animalCoat,
-            animalSex: self.animalSex,
-            animalAge: self.animalAge,
-            LicenseNo: self.LicenseNo,
+            AdvisoryID: this.props.incidentID,
+            Name: self.animalName,
+            Type: self.animalType,
+            Breed: self.animalBreed,
+            Coat: self.animalCoat,
+            Sex: self.animalSex,
+            Age: self.animalAge,
+            LicenseNumber: self.LicenseNo,
             LicenseYear: self.LicenseYear,
             RabbiesVacNo: self.RabbiesVacNo,
             RabbiesVacExp: self.RabbiesVacExp,
-            Vet: self.Vet,
+            Veterinarian: self.Vet,
             Comments: self.Comments,
         })
         let cleaned_data = data.replace(/'/g, '');
-        fetch('/api/animals/post', {
+        fetch('https://365proxy.azurewebsites.us/accmobile/addAnimal', {
             method: 'POST',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
+            }),
             body: cleaned_data,
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
         })
             .then(function () {
                 location.reload()
@@ -226,30 +224,28 @@ export class Animal extends React.Component<any, any> {
         this.props.throwSpinner()
         let self = this.state
         let data = JSON.stringify({
-            itemID: self.itemID,
-            incidentID: this.props.incidentID,
-            animalName: self.animalName,
-            animalType: self.animalType,
-            animalBreed: self.animalBreed,
-            animalCoat: self.animalCoat,
-            animalSex: self.animalSex,
-            animalAge: self.animalAge,
-            LicenseNo: self.LicenseNo,
+            itemId: self.itemID,
+            AdvisoryID: this.props.incidentID,
+            Name: self.animalName,
+            Type: self.animalType,
+            Breed: self.animalBreed,
+            Coat: self.animalCoat,
+            Sex: self.animalSex,
+            Age: self.animalAge,
+            LicenseNumber: self.LicenseNo,
             LicenseYear: self.LicenseYear,
             RabbiesVacNo: self.RabbiesVacNo,
             RabbiesVacExp: self.RabbiesVacExp,
-            Vet: self.Vet,
+            Veterinarian: self.Vet,
             Comments: self.Comments,
         })
         let cleaned_data = data.replace(/'/g, '');
-        fetch('/api/animals/put', {
+        fetch('https://365proxy.azurewebsites.us/accmobile/updateAnimal', {
             method: 'POST',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
+            }),
             body: cleaned_data,
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
         })
             .then(function () {
                 location.reload()

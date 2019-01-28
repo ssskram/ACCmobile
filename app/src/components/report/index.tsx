@@ -156,30 +156,28 @@ export class Report extends React.Component<any, any> {
             spinnerIsOpen: true
         })
         let data = JSON.stringify({
-            coords: newIncident.coords,
-            address: newIncident.address,
-            ownersFirstName: newIncident.ownersFirstName,
-            ownersLastName: newIncident.ownersLastName,
-            ownersTelephoneNumber: newIncident.ownersTelephoneNumber,
-            reasonForVisit: newIncident.reasonForVisit,
-            pghCode: newIncident.pghCode,
-            citationNumber: newIncident.citationNumber,
-            comments: newIncident.comments,
-            callOrigin: newIncident.callOrigin,
-            officerInitials: newIncident.officerInitials,
-            open: newIncident.open,
-            note: newIncident.note,
+            AddressID: newIncident.coords,
+            Address: newIncident.address,
+            OwnersFirstName: newIncident.ownersFirstName,
+            OwnersLastName: newIncident.ownersLastName,
+            OwnersTelephone: newIncident.ownersTelephoneNumber,
+            ReasonforVisit: newIncident.reasonForVisit,
+            ADVPGHCode: newIncident.pghCode,
+            CitationNumber: newIncident.citationNumber,
+            Comments: newIncident.comments,
+            CallOrigin: newIncident.callOrigin,
+            Officers: newIncident.officerInitials,
+            Open: newIncident.open,
+            Note: newIncident.note,
             itemId: newIncident.itemId
         })
         let cleaned_data = data.replace(/'/g, '')
-        fetch('/api/incidents/put', {
+        fetch('https://365proxy.azurewebsites.us/accmobile/updateIncident', {
             method: 'POST',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
+            }),
             body: cleaned_data,
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
         })
             .then(function () {
                 location.reload()
