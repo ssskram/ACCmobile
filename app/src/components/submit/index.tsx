@@ -132,7 +132,6 @@ export class Submit extends React.Component<any, any> {
     }
 
     postNewAnimal(animal) {
-        console.log(animal)
         let self = this
         let data = JSON.stringify({
             incidentID: animal.incidentUUID,
@@ -390,7 +389,7 @@ export class Submit extends React.Component<any, any> {
                         </div>
                     )}
                     <div className='col-md-12 text-center'>
-                        <button className="btn btn-default" onClick={this.addAnimal.bind(this)}>Add an animal</button>
+                        <button className="btn btn-primary" onClick={this.addAnimal.bind(this)}>Add an animal</button>
                     </div>
                 </div>
                 <div className='col-md-12'>

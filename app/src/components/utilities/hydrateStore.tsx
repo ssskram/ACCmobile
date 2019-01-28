@@ -25,10 +25,6 @@ class Hydrate extends React.Component<props, {}> {
         this.props.getDropdowns()
     }
 
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
-    }
-
     public render() {
         return null
     }

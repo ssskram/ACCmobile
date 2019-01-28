@@ -11,6 +11,7 @@ import Map from '../map/mapContainer'
 import UpdateIncident from '../submit/incident'
 import UpdateAddress from './updateAddress'
 import update from 'immutability-helper'
+const placeholder = require('../../images/image-placeholder.png')
 
 // keep original latlng & incident objects in case user bails from updates
 let lat_lng = {}
@@ -60,11 +61,11 @@ export class Report extends React.Component<any, any> {
         }
         window.scrollTo(0, 0)
         const param = { id: this.props.match.params.id }
-        fetch('/api/animals/report?id=' + encodeURIComponent(param.id), {
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
-            }
+        fetch('https://365proxy.azurewebsites.us/accmobile/selectAnimals?AdvisoryID=' + param.id, {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
+            })
         })
             .then(response => response.json())
             .then(data => {
@@ -72,29 +73,29 @@ export class Report extends React.Component<any, any> {
                     animals: data
                 })
             });
-        fetch('/api/incidents/report?id=' + encodeURIComponent(param.id), {
-            credentials: 'same-origin',
-            headers: {
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8'
-            }
+        fetch('https://365proxy.azurewebsites.us/accmobile/selectIncident?AdvisoryID=' + param.id, {
+            method: 'get',
+            headers: new Headers({
+                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
+            })
         })
             .then(handleErrors)
             .then(response => response.json())
             .then(data => {
-                var lat = data.coords.substring(
-                    data.coords.lastIndexOf("(") + 1,
-                    data.coords.lastIndexOf(",")
+                var lat = data[0].coords.substring(
+                    data[0].coords.lastIndexOf("(") + 1,
+                    data[0].coords.lastIndexOf(",")
                 )
-                var lng = data.coords.substring(
-                    data.coords.lastIndexOf(" ") + 1,
-                    data.coords.lastIndexOf(")")
+                var lng = data[0].coords.substring(
+                    data[0].coords.lastIndexOf(" ") + 1,
+                    data[0].coords.lastIndexOf(")")
                 )
                 var latitude = parseFloat(lat)
                 var longitude = parseFloat(lng)
                 lat_lng = { lat: latitude, lng: longitude }
-                originalIncident = data
+                originalIncident = data[0]
                 this.setState({
-                    incident: data,
+                    incident: data[0],
                     addressModalIsOpen: false,
                     incidentModalIsOpen: false,
                     spinnerIsOpen: false,
@@ -228,17 +229,17 @@ export class Report extends React.Component<any, any> {
             var url = 'https://maps.googleapis.com/maps/api/streetview?size=400x200&location=' + coords + '&fov=60&heading=235&pitch=10&key=AIzaSyCPaIodXvOSQXvlUMj0iy8WbxzmC-epiO4'
         }
         else {
-            var url = '../images/image-placeholder.png'
+            var url = placeholder as string
         }
 
         if (incidentNotFound == true) {
-            return <Redirect to='/NotFound' />;
+            return <Redirect push to='/NotFound' />
         }
 
         return (
             <div>
                 {!spinnerIsOpen == true &&
-                    <div>
+                    <div className='col-md-8 col-md-offset-2'>
                         <h3 className='text-center'><strong>{incident.address}</strong></h3>
                         {incident.open == 'Yes' &&
                             <h4 className='text-center' style={red}>Open incident</h4>
@@ -346,7 +347,6 @@ export default connect(
         ...state.dropdowns
     }),
     ({
-        ...Incidents.actionCreators,
         ...Incidents.actionCreators,
         ...Dropdowns.actionCreators
     })

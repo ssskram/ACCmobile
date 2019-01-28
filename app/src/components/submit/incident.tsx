@@ -86,19 +86,19 @@ export class Incident extends React.Component<any, any> {
             var futureReason: any[] = []
             var futureCode: any[] = []
             var futureInitials: any[] = []
-            nextProps.callOrigins.forEach(function (element) {
+            nextProps.dropdowns.callOrigins.forEach(function (element) {
                 var json = { "value": element.origin, "label": element.origin, "name": 'callOrigin' };
                 futureOrigin.push(json)
             })
-            nextProps.reasonsForVisit.forEach(function (element) {
+            nextProps.dropdowns.reasonsForVisit.forEach(function (element) {
                 var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
                 futureReason.push(json)
             })
-            nextProps.citationNumbers.forEach(function (element) {
+            nextProps.dropdowns.citationNumbers.forEach(function (element) {
                 var json = { "value": element.citation, "label": element.citation, "name": 'citationNumber' };
                 futureCode.push(json)
             })
-            nextProps.officerInitials.forEach(function (element) {
+            nextProps.dropdowns.officerInitials.forEach(function (element) {
                 var json = { "value": element.initial, "label": element.initial, "name": 'officerInitials' };
                 futureInitials.push(json)
             })
