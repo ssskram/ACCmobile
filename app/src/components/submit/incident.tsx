@@ -212,7 +212,7 @@ export class Incident extends React.Component<any, any> {
             reasonForVisit != ''
 
         return (
-            <div className='col-md-12'>
+            <div>
                 <div className='col-md-6'>
                     <Input
                         value={ownersFirstName}

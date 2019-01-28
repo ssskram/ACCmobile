@@ -35,6 +35,7 @@ const imgStyle = {
 const padding = {
     padding: '10px'
 }
+
 export class Report extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -251,15 +252,16 @@ export class Report extends React.Component<any, any> {
                         <h5 className='text-center'>Incident ID: {incident.itemId}</h5>
                         <br />
                         <div className='row'>
-                            <div className='col-md-12'>
-                                <button className='btn btn-link' onClick={this.updateAddress.bind(this)}>Change address</button>
-                                <button className='btn btn-link' onClick={this.updateIncident.bind(this)}>Edit incident</button>
+                            <div className='col-md-12 text-center'>
+                                <button className='btn btn-secondary' onClick={this.updateAddress.bind(this)}>Change address</button>
+                                <button className='btn btn-secondary' onClick={this.updateIncident.bind(this)}>Edit incident</button>
                                 {incident.open == 'Yes' &&
-                                    <button className='btn btn-link' onClick={this.closeIncident.bind(this)}>Close incident</button>
+                                    <button className='btn btn-secondary' onClick={this.closeIncident.bind(this)}>Close incident</button>
                                 }
                                 {incident.open == 'No' &&
-                                    <button className='btn btn-link' onClick={this.openIncident.bind(this)}>Reopen incident</button>
+                                    <button className='btn btn-secondary' onClick={this.openIncident.bind(this)}>Reopen incident</button>
                                 }
+                                <br />
                             </div>
                             <div className='col-lg-6 col-md-12'>
                                 <Incident incident={incident} />

@@ -282,135 +282,121 @@ export class Animal extends React.Component<any, any> {
             animalType != ''
 
         return (
-            <div>
-                <div className='row' key={this.props.key}>
-                    <div className='col-md-3'>
-                        <Select
-                            value={animalType}
-                            name="animalType"
-                            header='Type'
-                            placeholder='Animal type'
-                            onChange={this.handleChildSelect.bind(this)}
-                            multi={false}
-                            options={animalTypes}
-                        />
-                    </div>
-                    <div className='col-md-3'>
-                        <Input
-                            value={animalName}
-                            name="animalName"
-                            header="Name"
-                            placeholder="Animal's name"
-                            callback={this.handleChildChange.bind(this)}
-                        />
-                    </div>
-                    <div className='col-md-3'>
-                        <Input
-                            value={animalAge}
-                            name="animalAge"
-                            header="Age"
-                            placeholder="Animal's age"
-                            callback={this.handleChildChange.bind(this)}
-                        />
-                    </div>
-                    <div className='col-md-3'>
-                        <Select
-                            value={animalSex}
-                            name="animalSex"
-                            header='Sex'
-                            placeholder='Animal sex'
-                            onChange={this.handleChildSelect.bind(this)}
-                            multi={false}
-                            options={animalSexes}
-                        />
-                    </div>
+            <div key={this.props.key}>
+                <div className='col-md-3'>
+                    <Select
+                        value={animalType}
+                        name="animalType"
+                        header='Type'
+                        placeholder='Animal type'
+                        onChange={this.handleChildSelect.bind(this)}
+                        multi={false}
+                        options={animalTypes}
+                    />
                 </div>
-                <div className='row'>
-                    <div className='col-md-6'>
-                        <Select
-                            value={animalBreed}
-                            name="animalBreed"
-                            header='Breed'
-                            placeholder='Select breed...'
-                            onChange={this.handleBreedMulti.bind(this)}
-                            multi={true}
-                            options={breedOptions}
-                        />
-                    </div>
-                    <div className='col-md-6'>
-                        <Select
-                            value={animalCoat}
-                            name="animalCoat"
-                            header='Coat'
-                            placeholder='Select coat...'
-                            onChange={this.handleCoatMulti.bind(this)}
-                            multi={true}
-                            options={coatOptions}
-                        />
-                    </div>
+                <div className='col-md-3'>
+                    <Input
+                        value={animalName}
+                        name="animalName"
+                        header="Name"
+                        placeholder="Animal's name"
+                        callback={this.handleChildChange.bind(this)}
+                    />
                 </div>
-                <div className='row'>
-                    <div className='col-md-3'>
-                        <Input
-                            value={LicenseNo}
-                            name="LicenseNo"
-                            header="License #"
-                            placeholder="License No."
-                            callback={this.handleChildChange.bind(this)}
-                        />
-                    </div>
-                    <div className='col-md-3'>
-                        <Input
-                            value={LicenseYear}
-                            name="LicenseYear"
-                            header="License yr"
-                            placeholder="License Year"
-                            callback={this.handleChildChange.bind(this)}
-                        />
-                    </div>
-                    <div className='col-md-3'>
-                        <Input
-                            value={RabbiesVacNo}
-                            name="RabbiesVacNo"
-                            header="Rabies #"
-                            placeholder="Vaccine No."
-                            callback={this.handleChildChange.bind(this)}
-                        />
-                    </div>
-                    <div className='col-md-3'>
-                        <Datepicker
-                            value={RabbiesVacExp}
-                            name="RabbiesVacExp"
-                            header="Rab. Exp."
-                            placeholder="Vaccine Exp."
-                            callback={this.handleChildDate.bind(this)}
-                        />
-                    </div>
+                <div className='col-md-3'>
+                    <Input
+                        value={animalAge}
+                        name="animalAge"
+                        header="Age"
+                        placeholder="Animal's age"
+                        callback={this.handleChildChange.bind(this)}
+                    />
                 </div>
-                <div className='row'>
-                    <div className='col-md-12'>
-                        <Select
-                            value={Vet}
-                            name="Vet"
-                            header='Veterinarian'
-                            placeholder='Select vet...'
-                            onChange={this.handleChildSelect.bind(this)}
-                            multi={false}
-                            options={vetOptions}
-                        />
-                    </div>
+                <div className='col-md-3'>
+                    <Select
+                        value={animalSex}
+                        name="animalSex"
+                        header='Sex'
+                        placeholder='Animal sex'
+                        onChange={this.handleChildSelect.bind(this)}
+                        multi={false}
+                        options={animalSexes}
+                    />
                 </div>
-                <div className='row'>
-                    <div className='col-md-12'>
-                        <Textarea
-                            value={Comments}
-                            name="Comments"
-                            header="Comments"
-                            placeholder="Describe the animal"
-                            callback={this.handleChildChange.bind(this)}
-                        />
-                    </div>
+                <div className='col-md-6'>
+                    <Select
+                        value={animalBreed}
+                        name="animalBreed"
+                        header='Breed'
+                        placeholder='Select breed...'
+                        onChange={this.handleBreedMulti.bind(this)}
+                        multi={true}
+                        options={breedOptions}
+                    />
                 </div>
+                <div className='col-md-6'>
+                    <Select
+                        value={animalCoat}
+                        name="animalCoat"
+                        header='Coat'
+                        placeholder='Select coat...'
+                        onChange={this.handleCoatMulti.bind(this)}
+                        multi={true}
+                        options={coatOptions}
+                    />
+                </div>
+                <div className='col-md-3'>
+                    <Input
+                        value={LicenseNo}
+                        name="LicenseNo"
+                        header="License #"
+                        placeholder="License No."
+                        callback={this.handleChildChange.bind(this)}
+                    />
+                </div>
+                <div className='col-md-3'>
+                    <Input
+                        value={LicenseYear}
+                        name="LicenseYear"
+                        header="License yr"
+                        placeholder="License Year"
+                        callback={this.handleChildChange.bind(this)}
+                    />
+                </div>
+                <div className='col-md-3'>
+                    <Input
+                        value={RabbiesVacNo}
+                        name="RabbiesVacNo"
+                        header="Rabies #"
+                        placeholder="Vaccine No."
+                        callback={this.handleChildChange.bind(this)}
+                    />
+                </div>
+                <div className='col-md-3'>
+                    <Datepicker
+                        value={RabbiesVacExp}
+                        name="RabbiesVacExp"
+                        header="Rab. Exp."
+                        placeholder="Vaccine Exp."
+                        callback={this.handleChildDate.bind(this)}
+                    />
+                </div>
+                <Select
+                    value={Vet}
+                    name="Vet"
+                    header='Veterinarian'
+                    placeholder='Select vet...'
+                    onChange={this.handleChildSelect.bind(this)}
+                    multi={false}
+                    options={vetOptions}
+                />
+                <Textarea
+                    value={Comments}
+                    name="Comments"
+                    header="Comments"
+                    placeholder="Describe the animal"
+                    callback={this.handleChildChange.bind(this)}
+                />
                 {this.props.add == true &&
                     <div className='col-md-12 text-center'>
                         <button disabled={!isEnabled} onClick={this.addAnimal.bind(this)} className='btn btn-success'>Save</button>
