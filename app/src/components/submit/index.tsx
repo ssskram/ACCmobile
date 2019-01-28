@@ -50,9 +50,6 @@ export class Submit extends React.Component<any, any> {
 
     componentDidMount() {
         window.scrollTo(0, 0)
-
-        // ping server
-        this.props.ping()
     }
 
     clearCoords() {
@@ -214,7 +211,7 @@ export class Submit extends React.Component<any, any> {
         }
 
         return (
-            <div>
+            <div className='col-md-8 col-md-offset-2'>
                 <h2 className='text-center'>New Incident</h2>
                 <div className='row'>
                     <div className='col-sm-3 col-md-2'>

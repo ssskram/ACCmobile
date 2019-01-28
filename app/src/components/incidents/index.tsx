@@ -7,6 +7,7 @@ import Paging from '../utilities/paging'
 import Format from 'date-format'
 import * as types from '../../store/types'
 import Spinner from '../utilities/spinner'
+import * as moment from 'moment'
 const placeholder = require('../../images/image-placeholder.png')
 
 type props = {
@@ -385,8 +386,8 @@ export default class AllIncidents extends React.Component<props, any> {
                                         noDataText=''
                                         defaultSorted={[
                                             {
-                                                id: 'date',
-                                                desc: true
+                                                id: moment('date'),
+                                                asc: true
                                             }
                                         ]}
                                     />

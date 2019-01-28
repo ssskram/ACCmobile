@@ -101,15 +101,15 @@ export class Animal extends React.Component<any, any> {
         allCoat = []
         allBreed = []
 
-        self.props.animalBreeds.forEach(function (element) {
+        self.props.dropdowns.animalBreeds.forEach(function (element) {
             var json = { "value": element.breed, "label": element.breed, "type": element.type, "name": 'animalBreed' };
             allBreed.push(json)
         })
-        self.props.animalCoats.forEach(function (element) {
+        self.props.dropdowns.animalCoats.forEach(function (element) {
             var json = { "value": element.coat, "label": element.coat, "type": element.type, "name": 'animalCoat' };
             allCoat.push(json)
         })
-        self.props.veterinarians.forEach(function (element) {
+        self.props.dropdowns.veterinarians.forEach(function (element) {
             var json = { "value": element.vet, "label": element.vet, "name": 'Vet' };
             allVet.push(json)
         })

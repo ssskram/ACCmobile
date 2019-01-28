@@ -27,6 +27,9 @@ export default class NavMenu extends React.Component<any, any> {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse className='text-xs-center'>
+          <Nav>
+            <NavItem><Link to={'/Submit'} className='btn btn-success' style={btnStyle}>New Incident</Link></NavItem>
+          </Nav>
           <AccountContainer />
         </Navbar.Collapse>
       </Navbar>
