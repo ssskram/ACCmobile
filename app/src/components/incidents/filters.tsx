@@ -55,7 +55,7 @@ export class Filters extends React.Component<any, any> {
         var futureReason = [
             { value: '', label: 'All', name: 'reasonForVisit' }
         ]
-        nextProps.reasonsForVisit.forEach(function (element) {
+        nextProps.dropdowns.reasonsForVisit.forEach(function (element) {
             var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
             futureReason.push(json)
         })
@@ -70,7 +70,7 @@ export class Filters extends React.Component<any, any> {
         ]
         var electronicIncidents = this.props.incidents.filter(function (obj) {
             return obj.submittedBy != null
-        });
+        })
         var uniqueSubmitters = this.getUniqueValuesOfKey(electronicIncidents, 'submittedBy')
         uniqueSubmitters.sort().forEach(element => {
             var json = { "value": element, "label": element, "name": 'submittedBy' };
@@ -85,7 +85,7 @@ export class Filters extends React.Component<any, any> {
         return array.reduce(function (carry, item) {
             if (item[key] && !~carry.indexOf(item[key])) carry.push(item[key]);
             return carry;
-        }, []);
+        }, [])
     }
 
     handleChildDate(date) {
@@ -94,7 +94,7 @@ export class Filters extends React.Component<any, any> {
             clearDate: false
         }, function (this) {
             this.filter()
-        });
+        })
     }
 
     handleChildChange(event) {
@@ -102,7 +102,7 @@ export class Filters extends React.Component<any, any> {
             [event.target.name]: event.target.value
         }, function (this) {
             this.filter()
-        });
+        })
     }
 
     handleChildSelect(event) {
@@ -110,7 +110,7 @@ export class Filters extends React.Component<any, any> {
             [event.name]: event.value
         }, function (this) {
             this.filter()
-        });
+        })
     }
 
     filter() {
@@ -139,7 +139,7 @@ export class Filters extends React.Component<any, any> {
                         <Input
                             value={address}
                             name="address"
-                            header="Address"
+                            header=""
                             placeholder="Search address"
                             callback={this.handleChildChange.bind(this)}
                         />
@@ -148,8 +148,8 @@ export class Filters extends React.Component<any, any> {
                         <Select
                             value={status}
                             name="status"
-                            header='Status'
-                            placeholder='Select status'
+                            header=''
+                            placeholder='Flter by status'
                             onChange={this.handleChildSelect.bind(this)}
                             multi={false}
                             options={statuses}
@@ -164,8 +164,8 @@ export class Filters extends React.Component<any, any> {
                                     value={date}
                                     clearDate={clearDate}
                                     name="date"
-                                    header="Date"
-                                    placeholder="Enter date"
+                                    header=""
+                                    placeholder="Filter by date"
                                     callback={this.handleChildDate.bind(this)}
                                 />
                             </div>
@@ -173,8 +173,8 @@ export class Filters extends React.Component<any, any> {
                                 <Select
                                     value={reasonForVisit}
                                     name="reasonForVisit"
-                                    header='Reason for visit'
-                                    placeholder='Select reason'
+                                    header=''
+                                    placeholder='Filter by reason'
                                     onChange={this.handleChildSelect.bind(this)}
                                     multi={false}
                                     options={reasonOptions}
@@ -186,8 +186,8 @@ export class Filters extends React.Component<any, any> {
                                 <Select
                                     value={submittedBy}
                                     name="submittedBy"
-                                    header='Submitted by'
-                                    placeholder='Select officer'
+                                    header=''
+                                    placeholder='Filter by officer'
                                     onChange={this.handleChildSelect.bind(this)}
                                     multi={false}
                                     options={submittedByOptions}
@@ -197,7 +197,7 @@ export class Filters extends React.Component<any, any> {
                                 <Input
                                     value={note}
                                     name="note"
-                                    header="Note"
+                                    header=""
                                     placeholder="Search notes"
                                     callback={this.handleChildChange.bind(this)}
                                 />
@@ -217,4 +217,4 @@ export default connect(
     ({
         ...Dropdowns.actionCreators
     })
-)(Filters as any)
+)(Filters)

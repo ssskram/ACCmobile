@@ -6,6 +6,18 @@
     white-space: normal;
 }
 
+.btn:hover,
+.btn:focus {
+    color: #fff;
+}
+
+.btn-secondary {
+    color: #ffffff;
+    background-color: #777;
+    border-color: #555;
+}
+
+.btn-secondary,
 .btn-success,
 .btn-danger,
 .btn-primary,
