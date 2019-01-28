@@ -1,11 +1,18 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
-import * as MessageStore from '../../store/messages'
+import * as types from '../../store/types'
+import * as messages from '../../store/messages'
+import * as incidents from '../../store/incidents'
 import HydrateStore from '../utilities/hydrateStore'
 import Messages from '../utilities/messages'
+import AllIncidents from '../incidents'
 
-export class Home extends React.Component<any, any> {
+type props = {
+    incidents: types.incident[]
+}
+
+export class Home extends React.Component<props, {}> {
 
     componentDidMount() {
         window.scrollTo(0, 0)
@@ -16,7 +23,7 @@ export class Home extends React.Component<any, any> {
             <div className='text-center'>
                 <HydrateStore />
                 <Messages />
-                Testing first build deployment
+                <AllIncidents incidents={this.props.incidents}/>
             </div>
         )
     }
@@ -25,9 +32,11 @@ export class Home extends React.Component<any, any> {
 
 export default connect(
     (state: ApplicationState) => ({
-        ...state.messages
+        ...state.messages,
+        ...state.incidents
     }),
     ({
-        ...MessageStore.actionCreators,
+        ...messages.actionCreators,
+        ...incidents.actionCreators
     })
-)(Home)
+)(Home as any)
