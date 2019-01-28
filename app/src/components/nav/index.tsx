@@ -22,7 +22,7 @@ export default class NavMenu extends React.Component<any, any> {
       >
         <Navbar.Header>
           <Navbar.Brand>
-            <Link to={'/'}>PGH Certs</Link>
+            <Link to={'/'}>ACC Mobile</Link>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
