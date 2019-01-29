@@ -1,8 +1,13 @@
 import * as React from 'react'
 import Moment from 'react-moment'
 import * as style from '../constants'
+import * as types from '../../../store/types'
 
-export default class Incident extends React.Component<any, any> {
+type props = {
+    incident: types.incident
+}
+
+export default class Incident extends React.Component<props, any> {
 
     public render() {
         const {
@@ -21,7 +26,7 @@ export default class Incident extends React.Component<any, any> {
         } = this.props.incident
 
         return (
-            <div>
+            <div className='col-lg-6 col-md-12'>
                 <table className="table" id="incidenttable">
                     <tbody>
                         <tr style={style.bigFont}>

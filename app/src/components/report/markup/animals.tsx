@@ -2,10 +2,24 @@ import * as React from 'react'
 import UpdateAnimal from '../../submit/animal'
 import Modal from 'react-responsive-modal'
 import DeleteAnimal from './deleteAnimal'
-import Moment from 'react-moment'
-import * as style from '../constants'
+import AnimalCard from './animalCard'
 
-export default class Animals extends React.Component<any, any> {
+type props = {
+    throwSpinner: () => void
+    incidentID: string
+    address: string
+    coords: object
+    animals: Array<any>
+}
+
+type state = {
+    modalIsOpen: boolean,
+    deleteAnimal: boolean,
+    addAnimal: boolean,
+    animalToUpdate: object
+}
+
+export default class Animals extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
@@ -56,137 +70,21 @@ export default class Animals extends React.Component<any, any> {
         } = this.state
 
         return (
-            <div>
-                {this.props.animals == '' &&
+            <div className='col-md-12'>
+                {this.props.animals.length == 0 &&
                     <div className='text-center'>
                         <br />
                         <h3>No animals on this incident</h3>
                         <br />
                     </div>
                 }
-                {this.props.animals.map(animal =>
-                    <div className='col-md-4' key={animal.itemID}>
-                        <div className="facility">
-                            <div className="panel">
-                                <div className="panel-body text-center">
-                                    <div className='col-md-12'>
-                                        <div className='row text-center'>
-                                            {animal.animalName == null &&
-                                                <h3>{animal.animalType}</h3>
-                                            }
-                                            {animal.animalName != null &&
-                                                <h3>{animal.animalType} named {animal.animalName}</h3>
-                                            }
-                                        </div>
-                                        {animal.animalAge != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Age:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.animalAge}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.animalBreed != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Breed:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.animalBreed}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.animalCoat != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Coat:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.animalCoat}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.animalSex != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Sex:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.animalSex}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.licenseNo != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>License number:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.licenseNo}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.licenseYear != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>License year:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.licenseYear}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.rabbiesVacNo != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Rabies vacination number:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.rabbiesVacNo}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.rabbiesVacExp != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Rabies vacination expiration:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><Moment format="MM/DD/YYYY" date={animal.rabbiesVacExp} /></h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.vet != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Veterinarian:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.vet}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.comments != null &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Comments:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.comments}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                    <div className='col-md-12 text-center'>
-                                        <button className='btn btn-link' onClick={() => this.editAnimal(animal)}>Edit</button>
-                                        <button style={style.red} className='btn btn-link' onClick={() => this.deleteAnimal(animal)}>Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {this.props.animals.map((animal, key) =>
+                    <AnimalCard
+                        animal={animal}
+                        key={key}
+                        editAnimal={this.editAnimal.bind(this)}
+                        deleteAnimal={this.deleteAnimal.bind(this)}
+                    />
                 )}
                 <div className='col-md-12 text-center'>
                     <button className='btn btn-primary' onClick={this.addAnimal.bind(this)}>Add an animal</button>

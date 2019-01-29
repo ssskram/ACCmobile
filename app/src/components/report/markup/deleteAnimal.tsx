@@ -26,7 +26,7 @@ export default class selectMap extends React.Component<any, any> {
                     <div className='col-md-12 text-center'>
                         <br />
                         <h3>Are you sure you want to delete this {animalType}?</h3>
-                        <button className='btn btn-primary' onClick={this.deleteAnimal.bind(this)}>Delete {animalType}</button>
+                        <button className='btn btn-danger' onClick={this.deleteAnimal.bind(this)}>Delete {animalType}</button>
                     </div>
                 </div>
             </div>

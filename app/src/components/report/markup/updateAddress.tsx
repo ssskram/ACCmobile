@@ -1,8 +1,23 @@
-import * as React from 'react';
+import * as React from 'react'
+import Modal from 'react-responsive-modal'
 import Autocomplete from '../../formElements/autocomplete'
 import * as style from '../constants'
 
-export default class updateAddress extends React.Component<any, any> {
+type props = {
+    addressModalIsOpen: boolean
+    enableAddressButton: boolean
+    closeModal: () => void
+    disableButton: () => void
+    enableButton: (stateOb: object) => void
+    putIncident: () => void
+}
+
+type state = {
+    address: string
+    coords: object
+}
+
+export default class updateAddress extends React.Component<props, state> {
     constructor(props) {
         super(props);
         this.state = {
@@ -19,9 +34,7 @@ export default class updateAddress extends React.Component<any, any> {
         this.setState({
             coords: props.coords,
             address: props.address,
-        }, function (this) {
-            this.props.enableButton(this.state)
-        })
+        }, () => this.props.enableButton(this.state))
     }
 
     render() {
@@ -31,16 +44,31 @@ export default class updateAddress extends React.Component<any, any> {
         } = this.state
 
         return (
-            <div className='text-center'>
-                <h4>Update address</h4>
-                <div style={style.customWidth}>
-                    <Autocomplete
-                        value={address}
-                        callback={this.handleAutcomplete.bind(this)}
-                        clearCoords={this.disableButton.bind(this)}
-                    />
+            <Modal
+                open={this.props.addressModalIsOpen}
+                onClose={() => this.props.closeModal()}
+                closeOnEsc={false}
+                classNames={{
+                    overlay: 'custom-overlay',
+                    modal: 'custom-modal'
+                }}
+                center>
+                <div>
+                    <div className='text-center'>
+                        <h4>Update address</h4>
+                        <div style={style.customWidth}>
+                            <Autocomplete
+                                value={address}
+                                callback={this.handleAutcomplete.bind(this)}
+                                clearCoords={this.disableButton.bind(this)}
+                            />
+                        </div>
+                    </div>
+                    <div className='col-md-12 text-center'>
+                        <button disabled={!this.props.enableAddressButton} onClick={() => this.props.putIncident()} className='btn btn-success'>Save</button>
+                    </div>
                 </div>
-            </div>
+            </Modal>
         );
     }
 }

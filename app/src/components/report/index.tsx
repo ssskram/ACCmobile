@@ -1,29 +1,50 @@
 import * as React from 'react'
-import Modal from 'react-responsive-modal'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Incidents from '../../store/incidents'
 import * as Dropdowns from '../../store/dropdowns'
+import * as types from '../../store/types'
 import Incident from './markup/incident'
 import AnimalsTable from './markup/animals'
 import Map from '../map/mapContainer'
-import UpdateIncident from '../submit/incident'
+import UpdateIncident from './markup/updateIncident'
 import UpdateAddress from './markup/updateAddress'
 import update from 'immutability-helper'
-import * as style from './constants'
 import getIncident from './functions/getIncident'
 import getAnimals from './functions/getAnimals'
 import formatLatLng from './functions/formatLatLng'
 import putIncident from './functions/putIncident'
 import Loading from '../incidents/markup/loading'
-const placeholder = require('../../images/image-placeholder.png')
+import Comments from './markup/comments'
+import StreetView from './markup/streetView'
+import Header from './markup/header'
+import Buttons from './markup/buttons'
 
 // keep original latlng & incident objects in case user bails from updates
 let lat_lng = {} as any
 let originalIncident = {} as any
 
-export class Report extends React.Component<any, any> {
+type props = {
+    incidents: types.incident[]
+    dropdowns: types.dropdowns
+    getDropdowns: () => void
+    getIncidents: () => void
+    match: any // query params
+}
+
+type state = {
+    addressModalIsOpen: boolean,
+    addressButtonIsActive: boolean,
+    incidentModalIsOpen: boolean,
+    spinnerIsOpen: boolean,
+    incident: types.incident,
+    animals: Array<any>,
+    latlng: object,
+    incidentNotFound: boolean
+}
+
+export class Report extends React.Component<props, state> {
     constructor(props) {
         super(props);
         this.state = {
@@ -31,7 +52,7 @@ export class Report extends React.Component<any, any> {
             addressButtonIsActive: true,
             incidentModalIsOpen: false,
             spinnerIsOpen: true,
-            incident: {},
+            incident: undefined,
             animals: [],
             latlng: {},
             incidentNotFound: false
@@ -112,14 +133,6 @@ export class Report extends React.Component<any, any> {
         const EnableAddressBtn =
             addressButtonIsActive == true
 
-        if (incident.coords) {
-            var coords = incident.coords.replace('(', '').replace(')', '');;
-            var url = 'https://maps.googleapis.com/maps/api/streetview?size=400x200&location=' + coords + '&fov=60&heading=235&pitch=10&key=AIzaSyCPaIodXvOSQXvlUMj0iy8WbxzmC-epiO4'
-        }
-        else {
-            var url = placeholder as string
-        }
-
         if (incidentNotFound == true) {
             return <Redirect push to='/NotFound' />
         }
@@ -128,92 +141,51 @@ export class Report extends React.Component<any, any> {
             <div>
                 {!spinnerIsOpen == true &&
                     <div className='col-md-8 col-md-offset-2'>
-                        <h3 className='text-center'><strong>{incident.address}</strong></h3>
-                        {incident.open == 'Yes' &&
-                            <h4 className='text-center' style={style.red}>Open incident</h4>
-                        }
-                        {incident.open == 'No' &&
-                            <h4 className='text-center'>Closed incident</h4>
-                        }
-                        <h5 className='text-center'>Incident ID: {incident.itemId}</h5>
-                        <br />
+                        <Header incident={incident}/>
                         <div className='row'>
-                            <div className='col-md-12 text-center'>
-                                <button className='btn btn-secondary' onClick={() => this.setState({ addressModalIsOpen: true })}>Change address</button>
-                                <button className='btn btn-secondary' onClick={() => this.setState({ incidentModalIsOpen: true })}>Edit incident</button>
-                                {incident.open == 'Yes' &&
-                                    <button className='btn btn-secondary' onClick={this.closeIncident.bind(this)}>Close incident</button>
-                                }
-                                {incident.open == 'No' &&
-                                    <button className='btn btn-secondary' onClick={this.openIncident.bind(this)}>Reopen incident</button>
-                                }
-                                <br />
-                            </div>
-                            <div className='col-lg-6 col-md-12'>
-                                <Incident incident={incident} />
-                            </div>
+                            <Buttons 
+                                incident={incident}
+                                setState={this.setState.bind(this)}
+                                closeIncident={this.closeIncident.bind(this)}
+                                openIncident={this.openIncident.bind(this)}
+                            />
+                            <Incident incident={incident} />
                             <div className='col-md-6 hidden-md hidden-sm hidden-xs'>
-                                <div className='row text-center' style={style.padding}>
-                                    <img style={style.imgStyle} src={url} />
-                                </div>
-                                <div className='row' style={style.padding}>
-                                    <Map coords={latlng} />
-                                </div>
+                                <StreetView incident={incident} />
+                                <Map coords={latlng} />
                             </div>
                         </div>
-                        <div className='reportcomments'>
-                            <h3>Comments:</h3>
-                            <div style={style.lineBreaks}>{incident.comments}</div>
-                        </div>
-                        <div className='row'>
-                            <div className='col-md-12'>
-                                <AnimalsTable
-                                    throwSpinner={() => this.setState({ spinnerIsOpen: true })}
-                                    incidentID={incident.uuid}
-                                    address={incident.address}
-                                    coords={latlng}
-                                    animals={animals} />
-                            </div>
-                        </div>
-                        {/* update incident modal */}
-                        <Modal
-                            open={incidentModalIsOpen}
-                            onClose={this.closeModal.bind(this)}
-                            closeOnEsc={false}
-                            classNames={{
-                                overlay: 'custom-overlay',
-                                modal: 'custom-modal'
-                            }}
-                            center>
-                            <div>
-                                <h3 className='text-center'>Update incident</h3>
-                                <UpdateIncident putIt={this.putIncident.bind(this)} incident={incident} put={true} />
-                            </div>
-                        </Modal>
-                        {/* update address modal */}
-                        <Modal
-                            open={addressModalIsOpen}
-                            onClose={this.closeModal.bind(this)}
-                            closeOnEsc={false}
-                            classNames={{
-                                overlay: 'custom-overlay',
-                                modal: 'custom-modal'
-                            }}
-                            center>
-                            <div>
-                                <UpdateAddress enableButton={this.enableUpdateAddressBtn.bind(this)} disableButton={() => this.setState({ addressButtonIsActive: false })} incident={incident} />
-                                <div className='col-md-12 text-center'>
-                                    <button disabled={!EnableAddressBtn} onClick={() => putIncident(this.state.incident)} className='btn btn-success'>Save</button>
-                                </div>
-                            </div>
-                        </Modal>
+                        <Comments
+                            incident={incident}
+                        />
+                        <AnimalsTable
+                            throwSpinner={() => this.setState({ spinnerIsOpen: true })}
+                            incidentID={incident.uuid}
+                            address={incident.address}
+                            coords={latlng}
+                            animals={animals} />
+
+                        <UpdateIncident
+                            incidentModalIsOpen={incidentModalIsOpen}
+                            incident={incident}
+                            closeModal={this.closeModal.bind(this)}
+                            putIncident={() => this.putIncident.bind(this)}
+                        />
+                        <UpdateAddress
+                            addressModalIsOpen={addressModalIsOpen}
+                            enableAddressButton={EnableAddressBtn}
+                            closeModal={this.closeModal.bind(this)}
+                            disableButton={() => this.setState({ addressButtonIsActive: false })}
+                            enableButton={this.enableUpdateAddressBtn.bind(this)}
+                            putIncident={() => putIncident(this.state.incident)}
+                        />
                     </div>
                 }
                 {spinnerIsOpen == true &&
                     <Loading />
                 }
             </div>
-        );
+        )
     }
 }
 

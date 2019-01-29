@@ -1,27 +1,21 @@
 import * as React from 'react'
 import Map from './map'
+import * as style from '../report/constants'
 
-export default class MapContainer extends React.Component<any, any> {
-    constructor(props) {
-        super(props)
-        this.state = {
-            coords: props.coords
-        }
-    }
+type props = {
+    coords: object
+}
 
-    componentWillReceiveProps(props) {
-        this.setState({
-            coords: props.coords
-        })
-    }
+export default class MapContainer extends React.Component<props, {}> {
 
     public render() {
-        const { coords } = this.state
-
         return (
-            <div className='map-container'>
-                <Map coords={coords} />
+            <div className='row' style={style.padding}>
+                <div className='map-container'>
+                    <Map coords={this.props.coords} />
+                </div>
             </div>
+
         )
     }
 }
