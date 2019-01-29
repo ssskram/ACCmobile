@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Cat } from 'react-kawaii'
-import * as style from '../style'
+import * as style from '../constants'
 
 export default class NullSearch extends React.Component<{}, {}> {
     render() {

@@ -5,26 +5,15 @@ import Datepicker from '../formElements/datepicker'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
-import * as moment from 'moment'
-
-const statuses = [
-    { value: '', label: 'All', name: 'status' },
-    { value: 'Yes', label: 'Open', name: 'status' },
-    { value: 'No', label: 'Closed', name: 'status' }
-]
-
-const loadingOptions = [{
-    "value": '...loading...',
-    "label": '...loading...'
-}]
-
+import * as constants from './constants'
+import getUniqueValuesOfKey from './functions/valuesOfKeys'
 
 export class Filters extends React.Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
-            reasonOptions: loadingOptions,
-            submittedByOptions: loadingOptions,
+            reasonOptions: constants.loadingOptions,
+            submittedByOptions: constants.loadingOptions,
             address: '',
             status: '',
             submittedBy: '',
@@ -71,7 +60,7 @@ export class Filters extends React.Component<any, any> {
         var electronicIncidents = this.props.incidents.filter(function (obj) {
             return obj.submittedBy != null
         })
-        var uniqueSubmitters = this.getUniqueValuesOfKey(electronicIncidents, 'submittedBy')
+        var uniqueSubmitters = getUniqueValuesOfKey(electronicIncidents, 'submittedBy')
         uniqueSubmitters.sort().forEach(element => {
             var json = { "value": element, "label": element, "name": 'submittedBy' };
             futureSubmittedBy.push(json)
@@ -79,13 +68,6 @@ export class Filters extends React.Component<any, any> {
         this.setState({
             submittedByOptions: futureSubmittedBy
         })
-    }
-
-    getUniqueValuesOfKey(array, key) {
-        return array.reduce(function (carry, item) {
-            if (item[key] && !~carry.indexOf(item[key])) carry.push(item[key]);
-            return carry;
-        }, [])
     }
 
     handleChildDate(date) {
@@ -152,7 +134,7 @@ export class Filters extends React.Component<any, any> {
                             placeholder='Flter by status'
                             onChange={this.handleChildSelect.bind(this)}
                             multi={false}
-                            options={statuses}
+                            options={constants.statuses}
                         />
                     </div>
                 </div>

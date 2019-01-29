@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Moment from 'react-moment'
-import * as style from '../style'
+import * as style from '../constants'
 import ReactTable from "react-table"
 import "react-table/react-table.css"
 import * as moment from 'moment'

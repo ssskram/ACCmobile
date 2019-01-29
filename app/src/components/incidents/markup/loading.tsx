@@ -1,5 +1,5 @@
 import * as React from 'react'
-import * as style from '../style'
+import * as style from '../constants'
 import Spinner from '../../utilities/spinner'
 const accIcon = require('../../../images/acclogo.png')
 

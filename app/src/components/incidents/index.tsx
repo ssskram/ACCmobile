@@ -4,7 +4,7 @@ import * as types from '../../store/types'
 import Table from './markup/table'
 import Cards from './markup/cards'
 import Loading from './markup/loading'
-import runFilter from './filter'
+import runFilter from './functions/filter'
 import Buttons from './markup/contriolButtons'
 import NullSearch from './markup/nullSearch'
 

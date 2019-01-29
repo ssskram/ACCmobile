@@ -17,7 +17,7 @@ export default class LoadingImage extends React.Component<any, any> {
     }
 
     public render() {
-        const { imagePath } = this.state;
+        const { imagePath } = this.state
 
         return (
             <div>

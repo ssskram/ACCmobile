@@ -31,3 +31,14 @@ export const noOrdersAlert = {
     maxWidth: '650px',
     margin: '0 auto'
 }
+
+export const statuses = [
+    { value: '', label: 'All', name: 'status' },
+    { value: 'Yes', label: 'Open', name: 'status' },
+    { value: 'No', label: 'Closed', name: 'status' }
+]
+
+export const loadingOptions = [{
+    "value": '...loading...',
+    "label": '...loading...'
+}]

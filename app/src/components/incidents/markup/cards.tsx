@@ -1,7 +1,7 @@
 import * as React from 'react'
 import "react-table/react-table.css"
 import * as types from '../../../store/types'
-import * as style from '../style'
+import * as style from '../constants'
 import Moment from 'react-moment'
 import Paging from '../../utilities/paging'
 const placeholder = require('../../../images/image-placeholder.png')
