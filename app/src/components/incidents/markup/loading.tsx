@@ -1,9 +1,9 @@
 import * as React from 'react'
 import * as style from '../style'
 import Spinner from '../../utilities/spinner'
-const accIcon = require('../../images/acclogo.png')
+const accIcon = require('../../../images/acclogo.png')
 
-export default class loading extends React.Component<any, any> {
+export default class loading extends React.Component<any, {}> {
 
     public render() {
 

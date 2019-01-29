@@ -32,6 +32,7 @@
     "react-google-maps": "^9.4.5",
     "react-helmet": "^5.2.0",
     "react-images-upload": "^1.2.3",
+    "react-kawaii": "^0.11.0",
     "react-moment": "^0.8.3",
     "react-phone-number-input": "^2.2.16",
     "react-redux": "^5.1.0",

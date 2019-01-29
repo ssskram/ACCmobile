@@ -22,3 +22,12 @@ export const noteContainer = {
 export const marginTop = {
     marginTop: '50px'
 }
+
+export const noOrdersMargin = {
+    margin: '60px 0px'
+}
+
+export const noOrdersAlert = {
+    maxWidth: '650px',
+    margin: '0 auto'
+}

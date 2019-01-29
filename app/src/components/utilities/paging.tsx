@@ -1,12 +1,9 @@
-import * as React from 'react';
+import * as React from 'react'
 
 // props for pagination:
 // https://stackoverflow.com/questions/40232847/how-to-implement-pagination-in-reactjs
 
 export default class Paging extends React.Component<any, any> {
-    constructor(props) {
-        super(props);
-    }
 
     public render() {
         const {

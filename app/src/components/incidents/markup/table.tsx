@@ -10,7 +10,7 @@ type props = {
     incidents: types.incident[]
 }
 
-export default class Table extends React.Component<props, any> {
+export default class Table extends React.Component<props, {}> {
 
     public render() {
 
