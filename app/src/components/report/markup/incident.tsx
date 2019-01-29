@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Moment from 'react-moment'
-import * as style from './constants'
+import * as style from '../constants'
 
 export default class Incident extends React.Component<any, any> {
 

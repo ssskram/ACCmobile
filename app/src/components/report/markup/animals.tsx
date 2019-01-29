@@ -1,9 +1,9 @@
 import * as React from 'react'
-import UpdateAnimal from '../submit/animal'
+import UpdateAnimal from '../../submit/animal'
 import Modal from 'react-responsive-modal'
 import DeleteAnimal from './deleteAnimal'
 import Moment from 'react-moment'
-import * as style from './constants'
+import * as style from '../constants'
 
 export default class Animals extends React.Component<any, any> {
     constructor(props) {

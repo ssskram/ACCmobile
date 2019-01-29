@@ -5,19 +5,23 @@ import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Incidents from '../../store/incidents'
 import * as Dropdowns from '../../store/dropdowns'
-import Incident from './incident'
-import AnimalsTable from './animals'
+import Incident from './markup/incident'
+import AnimalsTable from './markup/animals'
 import Map from '../map/mapContainer'
 import UpdateIncident from '../submit/incident'
-import UpdateAddress from './updateAddress'
+import UpdateAddress from './markup/updateAddress'
 import update from 'immutability-helper'
 import * as style from './constants'
+import getIncident from './functions/getIncident'
+import getAnimals from './functions/getAnimals'
+import formatLatLng from './functions/formatLatLng'
+import putIncident from './functions/putIncident'
+import Loading from '../incidents/markup/loading'
 const placeholder = require('../../images/image-placeholder.png')
-const accIcon = require('../../images/acclogo.png')
 
 // keep original latlng & incident objects in case user bails from updates
-let lat_lng = {}
-let originalIncident = {}
+let lat_lng = {} as any
+let originalIncident = {} as any
 
 export class Report extends React.Component<any, any> {
     constructor(props) {
@@ -34,59 +38,18 @@ export class Report extends React.Component<any, any> {
         }
     }
 
-    componentDidMount() {
-        let self = this
-        function handleErrors(response) {
-            if (!response.ok) {
-                self.setState({
-                    incidentNotFound: true
-                })
-            }
-            return response
-        }
+    async componentDidMount() {
         window.scrollTo(0, 0)
-        const param = { id: this.props.match.params.id }
-        fetch('https://365proxy.azurewebsites.us/accmobile/selectAnimals?AdvisoryID=' + param.id, {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            })
+        originalIncident = await getIncident(this.props.match.params.id)
+        lat_lng = formatLatLng(originalIncident)
+        this.setState({
+            animals: await getAnimals(this.props.match.params.id),
+            incident: originalIncident,
+            latlng: lat_lng,
+            addressModalIsOpen: false,
+            incidentModalIsOpen: false,
+            spinnerIsOpen: false,
         })
-            .then(response => response.json())
-            .then(data => {
-                this.setState({
-                    animals: data
-                })
-            });
-        fetch('https://365proxy.azurewebsites.us/accmobile/selectIncident?AdvisoryID=' + param.id, {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            })
-        })
-            .then(handleErrors)
-            .then(response => response.json())
-            .then(data => {
-                var lat = data[0].coords.substring(
-                    data[0].coords.lastIndexOf("(") + 1,
-                    data[0].coords.lastIndexOf(",")
-                )
-                var lng = data[0].coords.substring(
-                    data[0].coords.lastIndexOf(" ") + 1,
-                    data[0].coords.lastIndexOf(")")
-                )
-                var latitude = parseFloat(lat)
-                var longitude = parseFloat(lng)
-                lat_lng = { lat: latitude, lng: longitude }
-                originalIncident = data[0]
-                this.setState({
-                    incident: data[0],
-                    addressModalIsOpen: false,
-                    incidentModalIsOpen: false,
-                    spinnerIsOpen: false,
-                    latlng: lat_lng
-                })
-            });
 
         // load store
         this.props.getIncidents()
@@ -100,24 +63,6 @@ export class Report extends React.Component<any, any> {
             spinnerIsOpen: false,
             latlng: lat_lng,
             incident: originalIncident
-        });
-    }
-
-    updateIncident() {
-        this.setState({
-            incidentModalIsOpen: true
-        });
-    }
-
-    updateAddress() {
-        this.setState({
-            addressModalIsOpen: true
-        });
-    }
-
-    disableUpdateAddressBtn() {
-        this.setState({
-            addressButtonIsActive: false
         })
     }
 
@@ -138,59 +83,19 @@ export class Report extends React.Component<any, any> {
         this.setState({
             spinnerIsOpen: true
         })
-        let data = JSON.stringify({
-            AddressID: newIncident.coords,
-            Address: newIncident.address,
-            OwnersFirstName: newIncident.ownersFirstName,
-            OwnersLastName: newIncident.ownersLastName,
-            OwnersTelephone: newIncident.ownersTelephoneNumber,
-            ReasonforVisit: newIncident.reasonForVisit,
-            ADVPGHCode: newIncident.pghCode,
-            CitationNumber: newIncident.citationNumber,
-            Comments: newIncident.comments,
-            CallOrigin: newIncident.callOrigin,
-            Officers: newIncident.officerInitials,
-            Open: newIncident.open,
-            Note: newIncident.note,
-            itemId: newIncident.itemId
-        })
-        let cleaned_data = data.replace(/'/g, '')
-        fetch('https://365proxy.azurewebsites.us/accmobile/updateIncident', {
-            method: 'POST',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            }),
-            body: cleaned_data,
-        })
-            .then(function () {
-                location.reload()
-            })
-    }
-
-    putNewAddress() {
-        this.putIncident(this.state.incident)
-    }
-
-    throwSpinner() {
-        this.setState({
-            spinnerIsOpen: true
-        });
+        putIncident(newIncident)
     }
 
     closeIncident() {
         this.setState({
             incident: update(this.state.incident, { open: { $set: 'No' } })
-        }, function (this) {
-            this.putIncident(this.state.incident)
-        })
+        }, () => putIncident(this.state.incident))
     }
 
     openIncident() {
         this.setState({
             incident: update(this.state.incident, { open: { $set: 'Yes' } })
-        }, function (this) {
-            this.putIncident(this.state.incident)
-        })
+        }, () => putIncident(this.state.incident))
     }
 
     public render() {
@@ -234,8 +139,8 @@ export class Report extends React.Component<any, any> {
                         <br />
                         <div className='row'>
                             <div className='col-md-12 text-center'>
-                                <button className='btn btn-secondary' onClick={this.updateAddress.bind(this)}>Change address</button>
-                                <button className='btn btn-secondary' onClick={this.updateIncident.bind(this)}>Edit incident</button>
+                                <button className='btn btn-secondary' onClick={() => this.setState({ addressModalIsOpen: true })}>Change address</button>
+                                <button className='btn btn-secondary' onClick={() => this.setState({ incidentModalIsOpen: true })}>Edit incident</button>
                                 {incident.open == 'Yes' &&
                                     <button className='btn btn-secondary' onClick={this.closeIncident.bind(this)}>Close incident</button>
                                 }
@@ -263,7 +168,7 @@ export class Report extends React.Component<any, any> {
                         <div className='row'>
                             <div className='col-md-12'>
                                 <AnimalsTable
-                                    throwSpinner={this.throwSpinner.bind(this)}
+                                    throwSpinner={() => this.setState({ spinnerIsOpen: true })}
                                     incidentID={incident.uuid}
                                     address={incident.address}
                                     coords={latlng}
@@ -296,40 +201,16 @@ export class Report extends React.Component<any, any> {
                             }}
                             center>
                             <div>
-                                <UpdateAddress enableButton={this.enableUpdateAddressBtn.bind(this)} disableButton={this.disableUpdateAddressBtn.bind(this)} incident={incident} />
+                                <UpdateAddress enableButton={this.enableUpdateAddressBtn.bind(this)} disableButton={() => this.setState({ addressButtonIsActive: false })} incident={incident} />
                                 <div className='col-md-12 text-center'>
-                                    <button disabled={!EnableAddressBtn} onClick={this.putNewAddress.bind(this)} className='btn btn-success'>Save</button>
+                                    <button disabled={!EnableAddressBtn} onClick={() => putIncident(this.state.incident)} className='btn btn-success'>Save</button>
                                 </div>
                             </div>
                         </Modal>
                     </div>
                 }
                 {spinnerIsOpen == true &&
-                    <div>
-                        <Modal
-                            open={spinnerIsOpen}
-                            onClose={this.closeModal.bind(this)}
-                            classNames={{
-                                overlay: 'spinner-overlay',
-                                modal: 'spinner-modal'
-                            }}
-                            animationDuration={1000}
-                            closeOnEsc={false}
-                            closeOnOverlayClick={false}
-                            showCloseIcon={false}
-                            center>
-                            <div className="loader"></div>
-                            ...loading incident report...
-                        </Modal>
-                        <div>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <img src={accIcon as string} className="img-responsive center-block" />
-                        </div>
-                    </div>
+                    <Loading />
                 }
             </div>
         );

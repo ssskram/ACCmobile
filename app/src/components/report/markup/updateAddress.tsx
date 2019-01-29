@@ -1,6 +1,6 @@
 import * as React from 'react';
-import Autocomplete from '../formElements/autocomplete'
-import * as style from './constants'
+import Autocomplete from '../../formElements/autocomplete'
+import * as style from '../constants'
 
 export default class updateAddress extends React.Component<any, any> {
     constructor(props) {
