@@ -1,12 +1,6 @@
 import * as React from 'react'
 import Moment from 'react-moment'
-
-const bigFont = {
-    fontSize: '18px'
-}
-const borderNone = {
-    border: 'none'
-}
+import * as style from './constants'
 
 export default class Incident extends React.Component<any, any> {
 
@@ -30,9 +24,9 @@ export default class Incident extends React.Component<any, any> {
             <div>
                 <table className="table" id="incidenttable">
                     <tbody>
-                        <tr style={bigFont}>
-                            <th style={borderNone} scope="row">Reason(s) For visit</th>
-                            <td style={borderNone}>{reasonForVisit}</td>
+                        <tr style={style.bigFont}>
+                            <th style={style.borderNone} scope="row">Reason(s) For visit</th>
+                            <td style={style.borderNone}>{reasonForVisit}</td>
                         </tr>
                         <tr>
                             <th scope="row">Date</th>

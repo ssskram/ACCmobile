@@ -1,9 +1,6 @@
 import * as React from 'react';
 import Autocomplete from '../formElements/autocomplete'
-
-const customWidth = {
-    minWidth: '50vw'
-}
+import * as style from './constants'
 
 export default class updateAddress extends React.Component<any, any> {
     constructor(props) {
@@ -36,7 +33,7 @@ export default class updateAddress extends React.Component<any, any> {
         return (
             <div className='text-center'>
                 <h4>Update address</h4>
-                <div style={customWidth}>
+                <div style={style.customWidth}>
                     <Autocomplete
                         value={address}
                         callback={this.handleAutcomplete.bind(this)}

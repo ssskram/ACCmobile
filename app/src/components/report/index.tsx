@@ -11,30 +11,13 @@ import Map from '../map/mapContainer'
 import UpdateIncident from '../submit/incident'
 import UpdateAddress from './updateAddress'
 import update from 'immutability-helper'
+import * as style from './constants'
 const placeholder = require('../../images/image-placeholder.png')
 const accIcon = require('../../images/acclogo.png')
 
 // keep original latlng & incident objects in case user bails from updates
 let lat_lng = {}
 let originalIncident = {}
-
-const red = {
-    color: 'red'
-}
-
-const lineBreaks = {
-    whiteSpace: 'pre-wrap' as any
-}
-
-const imgStyle = {
-    height: '200px',
-    width: '75%',
-    margin: '0 auto'
-}
-
-const padding = {
-    padding: '10px'
-}
 
 export class Report extends React.Component<any, any> {
     constructor(props) {
@@ -242,7 +225,7 @@ export class Report extends React.Component<any, any> {
                     <div className='col-md-8 col-md-offset-2'>
                         <h3 className='text-center'><strong>{incident.address}</strong></h3>
                         {incident.open == 'Yes' &&
-                            <h4 className='text-center' style={red}>Open incident</h4>
+                            <h4 className='text-center' style={style.red}>Open incident</h4>
                         }
                         {incident.open == 'No' &&
                             <h4 className='text-center'>Closed incident</h4>
@@ -265,17 +248,17 @@ export class Report extends React.Component<any, any> {
                                 <Incident incident={incident} />
                             </div>
                             <div className='col-md-6 hidden-md hidden-sm hidden-xs'>
-                                <div className='row text-center' style={padding}>
-                                    <img style={imgStyle} src={url} />
+                                <div className='row text-center' style={style.padding}>
+                                    <img style={style.imgStyle} src={url} />
                                 </div>
-                                <div className='row' style={padding}>
+                                <div className='row' style={style.padding}>
                                     <Map coords={latlng} />
                                 </div>
                             </div>
                         </div>
                         <div className='reportcomments'>
                             <h3>Comments:</h3>
-                            <div style={lineBreaks}>{incident.comments}</div>
+                            <div style={style.lineBreaks}>{incident.comments}</div>
                         </div>
                         <div className='row'>
                             <div className='col-md-12'>

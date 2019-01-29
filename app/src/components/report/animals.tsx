@@ -3,10 +3,7 @@ import UpdateAnimal from '../submit/animal'
 import Modal from 'react-responsive-modal'
 import DeleteAnimal from './deleteAnimal'
 import Moment from 'react-moment'
-
-const deleteButton = {
-    color: 'red'
-}
+import * as style from './constants'
 
 export default class Animals extends React.Component<any, any> {
     constructor(props) {
@@ -184,7 +181,7 @@ export default class Animals extends React.Component<any, any> {
                                     </div>
                                     <div className='col-md-12 text-center'>
                                         <button className='btn btn-link' onClick={() => this.editAnimal(animal)}>Edit</button>
-                                        <button style={deleteButton} className='btn btn-link' onClick={() => this.deleteAnimal(animal)}>Delete</button>
+                                        <button style={style.red} className='btn btn-link' onClick={() => this.deleteAnimal(animal)}>Delete</button>
                                     </div>
                                 </div>
                             </div>
