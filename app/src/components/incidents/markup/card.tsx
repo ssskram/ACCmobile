@@ -1,0 +1,83 @@
+import * as React from 'react'
+import "react-table/react-table.css"
+import * as types from '../../../store/types'
+import * as style from '../style'
+import Moment from 'react-moment'
+const placeholder = require('../../images/image-placeholder.png')
+
+type props = {
+    incident: types.incident
+}
+
+export default class Card extends React.Component<props, any> {
+
+    public render() {
+        const {
+            incident
+        } = this.props
+
+        if (incident.coords) {
+            var coords = incident.coords.replace('(', '').replace(')', '');;
+            var url = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + coords + '&fov=60&heading=235&pitch=10&key=AIzaSyCPaIodXvOSQXvlUMj0iy8WbxzmC-epiO4'
+        }
+        else {
+            var url = placeholder as string
+        }
+        return <div className="container-fluid">
+            <div className="row">
+                <div className="incident">
+                    <div className="panel">
+                        <div className="panel-body text-center">
+                            <div className='col-sm-12 hidden-md hidden-lg hidden-xl text-center'>
+                                {incident.open === 'Yes' &&
+                                    <h4 style={style.openIncident}>Open incident</h4>
+                                }
+                                {incident.open === 'No' &&
+                                    <h4>Closed incident</h4>
+                                }
+                                {incident.open == null &&
+                                    <h4>Scanned document</h4>
+                                }
+                            </div>
+                            <div className='col-md-3 hidden-sm hidden-xs'>
+                                <img style={style.imgStyle} src={url} />
+                            </div>
+                            <div className="col-md-6 incident-card-container">
+                                <div style={style.reportLink}><strong>{incident.address}</strong></div>
+                                <h4><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></h4>
+                                <h4><i>{incident.reasonForVisit}</i></h4>
+                                <div>Incident ID: {incident.itemId} </div>
+                                <div className='hidden-md hidden-lg hidden-xl'>
+                                    {incident.note != null &&
+                                        <div><b>Note:</b> {incident.note}</div>
+                                    }
+                                    <a style={style.reportLink} target='_blank' href={incident.link}>View report</a>
+                                </div>
+                            </div>
+                            <div className='col-md-3 hidden-sm hidden-xs text-center'>
+                                {incident.open === 'Yes' &&
+                                    <h4 style={style.reportLink}>Open incident</h4>
+                                }
+                                {incident.open === 'No' &&
+                                    <h4>Closed incident</h4>
+                                }
+                                {incident.open == null &&
+                                    <h4>Scanned document</h4>
+                                }
+                                {incident.note != null &&
+                                    <div style={style.noteContainer}>
+                                        <h5><strong>Note:</strong></h5>
+                                        <div>{incident.note}</div>
+                                    </div>
+                                }
+                                <h5>
+                                    <a style={style.reportLink} target='_blank' href={incident.link}>View report</a>
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

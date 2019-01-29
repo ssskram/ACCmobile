@@ -1,62 +1,15 @@
 import * as React from 'react'
-import ReactTable from "react-table"
-import "react-table/react-table.css"
 import Filters from './filters'
-import Moment from 'react-moment'
 import Paging from '../utilities/paging'
 import Format from 'date-format'
 import * as types from '../../store/types'
-import Spinner from '../utilities/spinner'
-import * as moment from 'moment'
-const placeholder = require('../../images/image-placeholder.png')
-const accIcon = require('../../images/acclogo.png')
+import Table from './markup/table'
+import Card from './markup/card'
+import Loading from './markup/loading'
 
 type props = {
     incidents: types.incident[]
 }
-
-const openIncident = {
-    color: 'red'
-}
-
-const reportLink = {
-    fontSize: '16px'
-}
-
-const imgStyle = {
-    width: '150px',
-    height: '150px',
-}
-
-const noteContainer = {
-    backgroundColor: 'rgba(92, 184, 92, .2)',
-    borderRadius: '10px',
-    width: '60%',
-    margin: '0 auto',
-    padding: '5px'
-}
-
-const columns = [{
-    Header: '',
-    accessor: 'link',
-    Cell: props => <a style={reportLink} target='_blank' href={props.value}>View report</a>
-}, {
-    Header: 'Date',
-    accessor: 'date',
-    Cell: props => <Moment format="MM/DD/YYYY HH:mm" date={props.value} />
-}, {
-    Header: 'Address',
-    accessor: 'address'
-}, {
-    Header: 'Reason',
-    accessor: 'reasonForVisit'
-}, {
-    Header: 'Open',
-    accessor: 'open'
-}, {
-    Header: 'Note',
-    accessor: 'note'
-}]
 
 export default class AllIncidents extends React.Component<props, any> {
     constructor(props) {
@@ -257,76 +210,15 @@ export default class AllIncidents extends React.Component<props, any> {
             incidents,
             filters,
             format,
-            clearFilters } = this.state
+            clearFilters
+        } = this.state
 
         // Logic for paging
         const indexOfLastIncident = currentPage * incidentsPerPage;
         const indexOfFirstIncident = indexOfLastIncident - incidentsPerPage;
         const currentIncidents = incidents.slice(indexOfFirstIncident, indexOfLastIncident);
         const renderIncidents = currentIncidents.map((incident, index) => {
-            if (incident.coords) {
-                var coords = incident.coords.replace('(', '').replace(')', '');;
-                var url = 'https://maps.googleapis.com/maps/api/streetview?size=150x150&location=' + coords + '&fov=60&heading=235&pitch=10&key=AIzaSyCPaIodXvOSQXvlUMj0iy8WbxzmC-epiO4'
-            }
-            else {
-                var url = placeholder as string
-            }
-            return <div className="container-fluid" key={index}>
-                <div className="row">
-                    <div className="incident">
-                        <div className="panel">
-                            <div className="panel-body text-center">
-                                <div className='col-sm-12 hidden-md hidden-lg hidden-xl text-center'>
-                                    {incident.open === 'Yes' &&
-                                        <h4 style={openIncident}>Open incident</h4>
-                                    }
-                                    {incident.open === 'No' &&
-                                        <h4>Closed incident</h4>
-                                    }
-                                    {incident.open == null &&
-                                        <h4>Scanned document</h4>
-                                    }
-                                </div>
-                                <div className='col-md-3 hidden-sm hidden-xs'>
-                                    <img style={imgStyle} src={url} />
-                                </div>
-                                <div className="col-md-6 incident-card-container">
-                                    <div style={reportLink}><strong>{incident.address}</strong></div>
-                                    <h4><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></h4>
-                                    <h4><i>{incident.reasonForVisit}</i></h4>
-                                    <div>Incident ID: {incident.itemId} </div>
-                                    <div className='hidden-md hidden-lg hidden-xl'>
-                                        {incident.note != null &&
-                                            <div><b>Note:</b> {incident.note}</div>
-                                        }
-                                        <a style={reportLink} target='_blank' href={incident.link}>View report</a>
-                                    </div>
-                                </div>
-                                <div className='col-md-3 hidden-sm hidden-xs text-center'>
-                                    {incident.open === 'Yes' &&
-                                        <h4 style={openIncident}>Open incident</h4>
-                                    }
-                                    {incident.open === 'No' &&
-                                        <h4>Closed incident</h4>
-                                    }
-                                    {incident.open == null &&
-                                        <h4>Scanned document</h4>
-                                    }
-                                    {incident.note != null &&
-                                        <div style={noteContainer}>
-                                            <h5><strong>Note:</strong></h5>
-                                            <div>{incident.note}</div>
-                                        </div>
-                                    }
-                                    <h5>
-                                        <a style={reportLink} target='_blank' href={incident.link}>View report</a>
-                                    </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <Card incident={incident} key={index}/>
         })
 
         // Logic for displaying page numbers
@@ -338,17 +230,7 @@ export default class AllIncidents extends React.Component<props, any> {
         return (
             <div>
                 {this.props.incidents.length == 0 &&
-                    <div>
-                        <Spinner notice='...loading incidents...' />
-                        <div>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <br/>
-                            <img src={accIcon as string} className="img-responsive center-block" />
-                        </div>
-                    </div>
+                    <Loading />
                 }
                 {this.props.incidents.length > 0 &&
                     <div className='incident-container col-md-8 col-md-offset-2'>
@@ -386,23 +268,7 @@ export default class AllIncidents extends React.Component<props, any> {
                                 </div>
                             }
                             {format == 'table' && itemCount != 0 &&
-                                <div>
-                                    <ReactTable
-                                        data={incidents}
-                                        columns={columns}
-                                        loading={false}
-                                        minRows={0}
-                                        pageSize={100}
-                                        showPageSizeOptions={false}
-                                        noDataText=''
-                                        defaultSorted={[
-                                            {
-                                                id: moment('date'),
-                                                asc: true
-                                            }
-                                        ]}
-                                    />
-                                </div>
+                                <Table incidents={incidents} />
                             }
                             {itemCount == 0 &&
                                 <div className='text-center'>

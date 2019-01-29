@@ -87,10 +87,10 @@ app.get('/logout', function (req, res) {
   res.redirect('/login')
 })
 
-// 401 page
+// 403 page
 app.get('/accessDenied', function (req, res) {
   req.logout()
-  res.render('401')
+  res.render('403')
 })
 
 // MS oauth service redirect
