@@ -3,7 +3,7 @@ import * as style from '../constants'
 import Spinner from '../../utilities/spinner'
 const accIcon = require('../../../images/acclogo.png')
 
-export default class loading extends React.Component<any, {}> {
+export default class loading extends React.Component<{}, {}> {
 
     public render() {
 

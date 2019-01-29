@@ -3,6 +3,7 @@ import * as types from '../../../store/types'
 
 type props = {
     incidents: types.incident[]
+    originalIncidents: types.incident[]
     itemCount: number
     filters: boolean
     format: string
@@ -20,10 +21,9 @@ export default class Buttons extends React.Component<props, {}> {
 
     clearFilters() {
         this.props.setState({
-            incidents: this.props.incidents.sort(function (a, b) {
-                return +new Date(b.date) - +new Date(a.date);
-            }),
-            itemCount: this.props.incidents.length,
+            incidents: this.props.originalIncidents,
+            itemCount: this.props.originalIncidents.length,
+            filters: false,
             currentPage: 1,
             clearFilters: true
         })

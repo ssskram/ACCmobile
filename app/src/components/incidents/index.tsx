@@ -10,12 +10,14 @@ import NullSearch from './markup/nullSearch'
 
 type props = {
     incidents: types.incident[]
+    dropdowns: types.dropdowns
 }
 
 type state = {
     onFilter: boolean
     format: string
     incidents: types.incident[]
+    originalIncidents: types.incident[]
     currentPage: number
     incidentsPerPage: number
     itemCount: number
@@ -30,20 +32,21 @@ type state = {
 
 export default class AllIncidents extends React.Component<props, state> {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             onFilter: false,
             format: 'cards',
             incidents: props.incidents.sort((a, b) => +new Date(b.date) - +new Date(a.date)),
+            originalIncidents: props.incidents.sort((a, b) => +new Date(b.date) - +new Date(a.date)),
             currentPage: 1,
             incidentsPerPage: 10,
             itemCount: props.incidents.length,
             filters: false,
             clearFilters: false,
             address: '',
-            status: '',
+            status: undefined,
             date: '',
-            reasonForVisit: '',
+            reasonForVisit: undefined,
             note: '',
         }
     }
@@ -54,6 +57,7 @@ export default class AllIncidents extends React.Component<props, state> {
             if (this.state.onFilter === false) {
                 this.setState({
                     incidents: nextProps.incidents.sort((a, b) => +new Date(b.date) - +new Date(a.date)),
+                    originalIncidents: nextProps.incidents.sort((a, b) => +new Date(b.date) - +new Date(a.date)),
                     itemCount: nextProps.incidents.length,
                 })
             }
@@ -77,6 +81,7 @@ export default class AllIncidents extends React.Component<props, state> {
             incidentsPerPage,
             itemCount,
             incidents,
+            originalIncidents,
             filters,
             format,
             clearFilters
@@ -91,12 +96,14 @@ export default class AllIncidents extends React.Component<props, state> {
                     <div className='incident-container col-md-8 col-md-offset-2'>
                         <Buttons
                             incidents={incidents}
+                            originalIncidents={originalIncidents}
                             itemCount={itemCount}
                             filters={filters}
                             format={format}
                             setState={this.setState.bind(this)}
                         />
                         <Filters
+                            dropdowns={this.props.dropdowns}
                             showFilters={filters}
                             incidents={incidents}
                             clearFilters={clearFilters}
@@ -104,7 +111,7 @@ export default class AllIncidents extends React.Component<props, state> {
                         />
                         <div className="col-md-12 table-container">
                             {format == 'cards' && itemCount != 0 &&
-                                <Cards 
+                                <Cards
                                     currentPage={currentPage}
                                     incidentsPerPage={incidentsPerPage}
                                     incidents={incidents}

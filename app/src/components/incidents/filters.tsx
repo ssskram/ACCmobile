@@ -1,14 +1,34 @@
 import * as React from 'react'
-import Input from '../formElements/input'
-import Select from '../formElements/select'
-import Datepicker from '../formElements/datepicker'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
+import * as types from '../../store/types'
 import * as constants from './constants'
 import getUniqueValuesOfKey from './functions/valuesOfKeys'
+import Fields from './markup/filterInputs'
 
-export class Filters extends React.Component<any, any> {
+type state = {
+    reasonOptions: object
+    submittedByOptions: object
+    address: string
+    status: string
+    submittedBy: string
+    date: string
+    clearDate: boolean
+    reasonForVisit: string
+    note: string
+}
+
+type props = {
+    dropdowns: types.dropdowns
+    incidents: types.incident[]
+    showFilters: boolean
+    clearFilters: boolean
+    getDropdowns: () => void
+    filter: (stateObj: state) => void
+}
+
+export class Filters extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
@@ -33,162 +53,50 @@ export class Filters extends React.Component<any, any> {
         if (nextProps.clearFilters == true) {
             this.setState({
                 address: '',
-                status: '',
+                status: undefined,
                 date: '',
                 clearDate: true,
-                submittedBy: '',
-                reasonForVisit: '',
+                submittedBy: undefined,
+                reasonForVisit: undefined,
                 note: ''
             })
         }
-        var futureReason = [
-            { value: '', label: 'All', name: 'reasonForVisit' }
-        ]
-        nextProps.dropdowns.reasonsForVisit.forEach(function (element) {
-            var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
-            futureReason.push(json)
-        })
-        this.setState({
-            reasonOptions: futureReason
-        })
+        this.setReasonsDropdown(nextProps)
     }
 
     setSubmittedByDropdown() {
-        var futureSubmittedBy = [
-            { value: '', label: 'All', name: 'submittedBy' }
-        ]
-        var electronicIncidents = this.props.incidents.filter(function (obj) {
-            return obj.submittedBy != null
-        })
+        var submittedByOptions = [{ value: '', label: 'All' }]
+        var electronicIncidents = this.props.incidents.filter(obj => obj.submittedBy != null)
         var uniqueSubmitters = getUniqueValuesOfKey(electronicIncidents, 'submittedBy')
         uniqueSubmitters.sort().forEach(element => {
-            var json = { "value": element, "label": element, "name": 'submittedBy' };
-            futureSubmittedBy.push(json)
-        });
-        this.setState({
-            submittedByOptions: futureSubmittedBy
+            var json = { "value": element, "label": element }
+            submittedByOptions.push(json)
         })
+        this.setState({ submittedByOptions })
     }
 
-    handleChildDate(date) {
-        this.setState({
-            date: date,
-            clearDate: false
-        }, function (this) {
-            this.filter()
+    setReasonsDropdown(nextProps) {
+        var reasonOptions = [{ value: '', label: 'All' }]
+        nextProps.dropdowns.reasonsForVisit.forEach(element => {
+            var json = { "value": element.reason, "label": element.reason }
+            reasonOptions.push(json)
         })
+        this.setState({ reasonOptions })
     }
 
-    handleChildChange(event) {
-        this.setState({
-            [event.target.name]: event.target.value
-        }, function (this) {
-            this.filter()
-        })
-    }
 
-    handleChildSelect(event) {
-        this.setState({
-            [event.name]: event.value
-        }, function (this) {
-            this.filter()
-        })
-    }
-
-    filter() {
-        let self = this.state
-        this.props.filter(self)
+    childSetsState(stateObject) {
+        this.setState(stateObject, () => this.props.filter(this.state))
     }
 
     public render() {
-        const {
-            submittedByOptions,
-            reasonOptions,
-            address,
-            status,
-            submittedBy,
-            date,
-            clearDate,
-            reasonForVisit,
-            note
-        } = this.state
-
-
         return (
-            <div className="form-group">
-                <div className='row'>
-                    <div className='col-md-6'>
-                        <Input
-                            value={address}
-                            name="address"
-                            header=""
-                            placeholder="Search address"
-                            callback={this.handleChildChange.bind(this)}
-                        />
-                    </div>
-                    <div className='col-md-6'>
-                        <Select
-                            value={status}
-                            name="status"
-                            header=''
-                            placeholder='Flter by status'
-                            onChange={this.handleChildSelect.bind(this)}
-                            multi={false}
-                            options={constants.statuses}
-                        />
-                    </div>
-                </div>
-                {this.props.showFilters == true &&
-                    <div>
-                        <div className='row'>
-                            <div className='col-md-6'>
-                                <Datepicker
-                                    value={date}
-                                    clearDate={clearDate}
-                                    name="date"
-                                    header=""
-                                    placeholder="Filter by date"
-                                    callback={this.handleChildDate.bind(this)}
-                                />
-                            </div>
-                            <div className='col-md-6'>
-                                <Select
-                                    value={reasonForVisit}
-                                    name="reasonForVisit"
-                                    header=''
-                                    placeholder='Filter by reason'
-                                    onChange={this.handleChildSelect.bind(this)}
-                                    multi={false}
-                                    options={reasonOptions}
-                                />
-                            </div>
-                        </div>
-                        <div className='row'>
-                            <div className='col-md-6'>
-                                <Select
-                                    value={submittedBy}
-                                    name="submittedBy"
-                                    header=''
-                                    placeholder='Filter by officer'
-                                    onChange={this.handleChildSelect.bind(this)}
-                                    multi={false}
-                                    options={submittedByOptions}
-                                />
-                            </div>
-                            <div className='col-md-6'>
-                                <Input
-                                    value={note}
-                                    name="note"
-                                    header=""
-                                    placeholder="Search notes"
-                                    callback={this.handleChildChange.bind(this)}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        );
+            <Fields
+                state={this.state as state}
+                showFilters={this.props.showFilters}
+                setState={this.childSetsState.bind(this)}
+            />
+        )
     }
 }
 

@@ -2,12 +2,7 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { Nav, NavItem, Navbar } from 'react-bootstrap'
 import AccountContainer from './accountContainer'
-
-const btnStyle = {
-  fontSize: '18px',
-  padding: '3px 15px',
-  margin: '8px 10px'
-}
+import * as style from './constants'
 
 export default class NavMenu extends React.Component<any, any> {
 
@@ -28,7 +23,7 @@ export default class NavMenu extends React.Component<any, any> {
         </Navbar.Header>
         <Navbar.Collapse className='text-xs-center'>
           <Nav>
-            <NavItem><Link to={'/Submit'} className='btn btn-success' style={btnStyle}>New Incident</Link></NavItem>
+            <NavItem><Link to={'/Submit'} className='btn btn-success' style={style.btnStyle}>New Incident</Link></NavItem>
           </Nav>
           <AccountContainer />
         </Navbar.Collapse>
