@@ -31,7 +31,6 @@ export default class FilterInputs extends React.Component<props, {}> {
                     <div className='col-md-6'>
                         <Input
                             value={address}
-                            name="address"
                             header=""
                             placeholder="Search address"
                             callback={e => this.props.setState({ address: e.target.value })}
@@ -40,7 +39,6 @@ export default class FilterInputs extends React.Component<props, {}> {
                     <div className='col-md-6'>
                         <Select
                             value={status ? { value: status, label: status }: ''}
-                            name="status"
                             header=''
                             placeholder='Flter by status'
                             onChange={status => this.props.setState({ status: status.value })}
@@ -56,7 +54,6 @@ export default class FilterInputs extends React.Component<props, {}> {
                                 <Datepicker
                                     value={date}
                                     clearDate={clearDate}
-                                    name="date"
                                     header=""
                                     placeholder="Filter by date"
                                     callback={date => this.props.setState({ date: date, clearDate: false })}
@@ -65,7 +62,6 @@ export default class FilterInputs extends React.Component<props, {}> {
                             <div className='col-md-6'>
                                 <Select
                                     value={reasonForVisit ? { value: reasonForVisit, label: reasonForVisit } : ''}
-                                    name="reasonForVisit"
                                     header=''
                                     placeholder='Filter by reason'
                                     onChange={reasonForVisit => this.props.setState({ reasonForVisit: reasonForVisit.value })}
@@ -78,7 +74,6 @@ export default class FilterInputs extends React.Component<props, {}> {
                             <div className='col-md-6'>
                                 <Select
                                     value={submittedBy ? { value: submittedBy, label: submittedBy } : ''}
-                                    name="submittedBy"
                                     header=''
                                     placeholder='Filter by officer'
                                     onChange={submittedBy => this.props.setState({ submittedBy: submittedBy.value })}
@@ -89,7 +84,6 @@ export default class FilterInputs extends React.Component<props, {}> {
                             <div className='col-md-6'>
                                 <Input
                                     value={note}
-                                    name="note"
                                     header=""
                                     placeholder="Search notes"
                                     callback={e => this.props.setState({ note: e.target.value })}

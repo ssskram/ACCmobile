@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'react'
 import Input from '../formElements/input'
 import Textarea from '../formElements/textarea'
 import Select from '../formElements/select'
@@ -6,43 +6,55 @@ import Datepicker from '../formElements/datepicker'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
+import * as types from '../../store/types'
 import * as moment from 'moment'
-import Moment from 'react-moment'
+import * as constants from './constants'
 
-const animalTypes = [
-    { value: 'Dog', label: 'Dog', name: 'animalType' },
-    { value: 'Cat', label: 'Cat', name: 'animalType' },
-    { value: 'Other', label: 'Other', name: 'animalType' }
-]
+type props = {
+    new: boolean
+    put: boolean
+    add: boolean
+    animal: any
+    incidentID: string
+    key: number
+    addNewAnimal: (animalObj: object) => void
+    dropdowns: types.dropdowns
+    getDropdowns: () => void
+    throwSpinner: () => void
+}
 
-const animalSexes = [
-    { value: 'Male', label: 'Male', name: 'animalSex' },
-    { value: 'Female', label: 'Female', name: 'animalSex' },
-    { value: 'Other', label: 'Other', name: 'animalSex' }
-]
-
-const loadingOptions = [{
-    "value": '...loading...',
-    "label": '...loading...'
-}]
-const conditionalOptions = [{
-    "value": '...select type...',
-    "label": '...select type...'
-}]
+type state = {
+    breedOptions: Array<any>
+    coatOptions: Array<any>
+    vetOptions: Array<any>
+    animalName: string
+    animalAge: string
+    animalType: string
+    animalBreed: string
+    animalCoat: string
+    animalSex: string
+    LicenseNo: string
+    LicenseYear: string
+    RabbiesVacNo: string
+    RabbiesVacExp: any
+    Vet: string
+    Comments: string
+    itemID: string
+}
 
 // to populate with dropdown values
 var allBreed: any[] = []
 var allCoat: any[] = []
 var allVet: any[] = []
 
-export class Animal extends React.Component<any, any> {
+export class Animal extends React.Component<any, state> {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             // dropdowns
-            breedOptions: conditionalOptions,
-            coatOptions: conditionalOptions,
-            vetOptions: loadingOptions,
+            breedOptions: constants.conditionalOptions,
+            coatOptions: constants.conditionalOptions,
+            vetOptions: constants.loadingOptions,
 
             animalName: '',
             animalAge: '',
@@ -118,34 +130,6 @@ export class Animal extends React.Component<any, any> {
         })
         this.setConditionalDropodowns()
     }
-
-    handleChildDate(date) {
-        if (date) {
-            this.setState({ RabbiesVacExp: moment(date).format('MM/DD/YYYY') });
-        } else {
-            this.setState({ RabbiesVacExp: null });
-        }
-    }
-
-    handleChildChange(event) {
-        this.setState({ [event.target.name]: event.target.value });
-    }
-
-    handleChildSelect(event) {
-        this.setState({ [event.name]: event.value }, function (this) {
-            if (event.name === 'animalType') {
-                this.setConditionalDropodowns()
-            }
-        });
-    }
-
-    handleCoatMulti(value) {
-        this.setState({ animalCoat: value })
-    };
-
-    handleBreedMulti(value) {
-        this.setState({ animalBreed: value })
-    };
 
     setConditionalDropodowns() {
         let type = this.state.animalType
@@ -281,62 +265,59 @@ export class Animal extends React.Component<any, any> {
             <div key={this.props.key}>
                 <div className='col-md-3'>
                     <Select
-                        value={animalType}
-                        name="animalType"
+                        value={animalType ? { value: animalType, label: animalType }: ''}
                         header='Type'
                         placeholder='Animal type'
-                        onChange={this.handleChildSelect.bind(this)}
+                        onChange={v => {
+                            this.setState({ animalType: v.value })
+                            this.setConditionalDropodowns()
+                        }}
                         multi={false}
-                        options={animalTypes}
+                        options={constants.animalTypes}
                     />
                 </div>
                 <div className='col-md-3'>
                     <Input
                         value={animalName}
-                        name="animalName"
                         header="Name"
                         placeholder="Animal's name"
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ animalName: e.target.value })}
                     />
                 </div>
                 <div className='col-md-3'>
                     <Input
                         value={animalAge}
-                        name="animalAge"
                         header="Age"
                         placeholder="Animal's age"
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ animalAge: e.target.value })}
                     />
                 </div>
                 <div className='col-md-3'>
                     <Select
-                        value={animalSex}
-                        name="animalSex"
+                        value={animalSex ? { value: animalSex, label: animalSex }: ''}
                         header='Sex'
                         placeholder='Animal sex'
-                        onChange={this.handleChildSelect.bind(this)}
+                        onChange={v => this.setState({ animalSex: v.value })}
                         multi={false}
-                        options={animalSexes}
+                        options={constants.animalSexes}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Select
-                        value={animalBreed}
-                        name="animalBreed"
+                        value={animalBreed ? { value: animalBreed, label: animalBreed }: ''}
                         header='Breed'
                         placeholder='Select breed...'
-                        onChange={this.handleBreedMulti.bind(this)}
+                        onChange={v => this.setState({ animalBreed: v.value })}
                         multi={true}
                         options={breedOptions}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Select
-                        value={animalCoat}
-                        name="animalCoat"
+                        value={animalCoat ? { value: animalCoat, label: animalCoat }: ''}
                         header='Coat'
                         placeholder='Select coat...'
-                        onChange={this.handleCoatMulti.bind(this)}
+                        onChange={v => this.setState({ animalCoat: v.value })}
                         multi={true}
                         options={coatOptions}
                     />
@@ -344,54 +325,48 @@ export class Animal extends React.Component<any, any> {
                 <div className='col-md-3'>
                     <Input
                         value={LicenseNo}
-                        name="LicenseNo"
                         header="License #"
                         placeholder="License No."
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ LicenseNo: e.target.value })}
                     />
                 </div>
                 <div className='col-md-3'>
                     <Input
                         value={LicenseYear}
-                        name="LicenseYear"
                         header="License yr"
                         placeholder="License Year"
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ LicenseYear: e.target.value })}
                     />
                 </div>
                 <div className='col-md-3'>
                     <Input
                         value={RabbiesVacNo}
-                        name="RabbiesVacNo"
                         header="Rabies #"
                         placeholder="Vaccine No."
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ RabbiesVacNo: e.target.value })}
                     />
                 </div>
                 <div className='col-md-3'>
                     <Datepicker
                         value={RabbiesVacExp}
-                        name="RabbiesVacExp"
                         header="Rab. Exp."
                         placeholder="Vaccine Exp."
-                        callback={this.handleChildDate.bind(this)}
+                        callback={date => this.setState({ RabbiesVacExp: moment(date).format('MM/DD/YYYY') })}
                     />
                 </div>
                 <Select
-                    value={Vet}
-                    name="Vet"
+                    value={Vet ? { value: Vet, label: Vet }: ''}
                     header='Veterinarian'
                     placeholder='Select vet...'
-                    onChange={this.handleChildSelect.bind(this)}
+                    onChange={v => this.setState({ Vet: v.value })}
                     multi={false}
                     options={vetOptions}
                 />
                 <Textarea
                     value={Comments}
-                    name="Comments"
                     header="Comments"
                     placeholder="Describe the animal"
-                    callback={this.handleChildChange.bind(this)}
+                    callback={e => this.setState({ Comments: e.target.value })}
                 />
                 {this.props.add == true &&
                     <div className='col-md-12 text-center'>

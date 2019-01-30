@@ -6,26 +6,17 @@ import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as user from '../../store/user'
 import * as Dropdowns from '../../store/dropdowns'
-
-const loadingOptions = [{
-    "value": '...loading...',
-    "label": '...loading...'
-}]
-
-const openOptions = [
-    { value: 'Yes', label: 'Yes', name: 'open' },
-    { value: 'No', label: 'No', name: 'open' },
-]
+import * as constants from './constants'
 
 export class Incident extends React.Component<any, any> {
     constructor(props) {
         super(props);
         this.state = {
             // dropdowns
-            originOptions: loadingOptions,
-            reasonOptions: loadingOptions,
-            codeOptions: loadingOptions,
-            initialsOptions: loadingOptions,
+            originOptions: constants.loadingOptions,
+            reasonOptions: constants.loadingOptions,
+            codeOptions: constants.loadingOptions,
+            initialsOptions: constants.loadingOptions,
 
             ownersLastName: '',
             ownersFirstName: '',
@@ -129,25 +120,7 @@ export class Incident extends React.Component<any, any> {
         }
     }
 
-    handleChildChange(event) {
-        this.setState({ [event.target.name]: event.target.value });
-    }
 
-    handleChildSelect(event) {
-        this.setState({ [event.name]: event.value });
-    }
-
-    handleReasonMulti(value) {
-        this.setState({ reasonForVisit: value })
-    };
-
-    handleCodeMulti(value) {
-        this.setState({ pghCode: value })
-    };
-
-    handleInitialMulti(value) {
-        this.setState({ officerInitials: value })
-    };
 
     put() {
         this.props.putIt(this.state)
@@ -218,59 +191,53 @@ export class Incident extends React.Component<any, any> {
                 <div className='col-md-6'>
                     <Input
                         value={ownersFirstName}
-                        name="ownersFirstName"
                         header="Owner's first name"
                         placeholder="First name"
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ ownersFirstName: e.target.value })}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Input
                         value={ownersLastName}
-                        name="ownersLastName"
                         header="Owner's last name"
                         placeholder="Last name"
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ ownersLastName: e.target.value })}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Input
                         value={ownersTelephoneNumber}
-                        name="ownersTelephoneNumber"
                         header="Owner's telephone number"
                         placeholder="Telephone number"
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ ownersTelephoneNumber: e.target.value })}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Select
-                        value={callOrigin}
-                        name="callOrigin"
+                        value={callOrigin ? { value: callOrigin, label: callOrigin } : ''}
                         header='Call Origin'
                         placeholder='Select origin...'
-                        onChange={this.handleChildSelect.bind(this)}
+                        onChange={v => this.setState({ callOrigin: v.value })}
                         multi={false}
                         options={originOptions}
                     />
                 </div>
                 <div className='col-md-12'>
                     <Select
-                        value={reasonForVisit}
-                        name="reasonForVisit"
+                        value={reasonForVisit ? reasonForVisit : ''}
                         header='Reason(s) for visit'
                         placeholder='Select reason(s)...'
-                        onChange={this.handleReasonMulti.bind(this)}
+                        onChange={reasonForVisit => this.setState({ reasonForVisit })}
                         multi={true}
                         options={reasonOptions}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Select
-                        value={pghCode}
-                        name="pghCode"
+                        value={pghCode ? { value: pghCode, label: pghCode } : ''}
                         header='Code(s)'
                         placeholder='Select code(s)...'
-                        onChange={this.handleCodeMulti.bind(this)}
+                        onChange={v => this.setState({ pghCode: v.value })}
                         multi={true}
                         options={codeOptions}
                     />
@@ -278,28 +245,25 @@ export class Incident extends React.Component<any, any> {
                 <div className='col-md-6'>
                     <Input
                         value={citationNumber}
-                        name="citationNumber"
                         header="Citation number"
                         placeholder="Citation"
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ citationNumber: e.target.value })}
                     />
                 </div>
                 <div className='col-md-12'>
                     <Textarea
                         value={comments}
-                        name="comments"
                         header="Comments"
                         placeholder="Describe the incident"
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ comments: e.target.value })}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Select
-                        value={officerInitials}
-                        name="officerInitials"
+                        value={officerInitials ? { value: officerInitials, label: officerInitials } : ''}
                         header='Officers involved'
                         placeholder='Select initials...'
-                        onChange={this.handleInitialMulti.bind(this)}
+                        onChange={v => this.setState({ officerInitials: v.value })}
                         multi={true}
                         options={initialsOptions}
                     />
@@ -307,23 +271,21 @@ export class Incident extends React.Component<any, any> {
                 <div className='col-md-6'>
                     <Input
                         value={note}
-                        name="note"
                         header="Note"
                         placeholder="Quick reference"
                         maxLength={30}
-                        callback={this.handleChildChange.bind(this)}
+                        callback={e => this.setState({ note: e.target.value })}
                     />
                 </div>
                 {this.props.put != true &&
                     <div className='col-md-12'>
                         <Select
-                            value={open}
-                            name="open"
+                            value={open ? { value: open, label: open } : ''}
                             header='Keep open?'
                             placeholder='Yes or no...'
-                            onChange={this.handleChildSelect.bind(this)}
+                            onChange={v => this.setState({ open: v.value })}
                             multi={false}
-                            options={openOptions}
+                            options={constants.openOptions}
                         />
                     </div>
                 }

@@ -69,7 +69,7 @@ export default class updateAddress extends React.Component<props, state> {
                     </div>
                 </div>
             </Modal>
-        );
+        )
     }
 }
 

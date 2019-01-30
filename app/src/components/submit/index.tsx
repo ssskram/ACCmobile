@@ -82,7 +82,7 @@ export class Submit extends React.Component<any, any> {
             self.postNewAnimal(animal)
         })
     }
-    
+
     postComplete() {
         this.setState({
             countPostedItems: this.state.countPostedItems + 1
@@ -429,7 +429,10 @@ export class Submit extends React.Component<any, any> {
                         modal: 'custom-modal'
                     }}
                     center>
-                    <Animals new={true} addNewAnimal={this.addNewAnimal.bind(this)} />
+                    <Animals
+                        new={true}
+                        addNewAnimal={this.addNewAnimal.bind(this)}
+                    />
                 </Modal>
             </div>
         );
