@@ -2,6 +2,7 @@ import * as React from 'react'
 import * as style from '../constants'
 import * as types from '../../../store/types'
 import Gallery from 'react-grid-gallery'
+import getImages from '../functions/getImages'
 
 type props = {
     incident: types.incident
@@ -9,35 +10,33 @@ type props = {
 
 type state = {
     isOpen: boolean
+    images: Array<any>
 }
-
-const IMAGES =
-    [{
-        src: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_b.jpg",
-        thumbnail: "https://c2.staticflickr.com/9/8817/28973449265_07e3aa5d2e_n.jpg",
-        thumbnailWidth: 320,
-        thumbnailHeight: 212,
-    },
-    {
-        src: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_b.jpg",
-        thumbnail: "https://c2.staticflickr.com/9/8356/28897120681_3b2c0f43e0_n.jpg",
-        thumbnailWidth: 320,
-        thumbnailHeight: 212,
-    },
-
-    {
-        src: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_b.jpg",
-        thumbnail: "https://c4.staticflickr.com/9/8887/28897124891_98c4fdd82b_n.jpg",
-        thumbnailWidth: 320,
-        thumbnailHeight: 212
-    }]
 
 export default class Images extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
-            isOpen: true
+            isOpen: true,
+            images: []
         }
+    }
+
+    async componentDidMount() {
+        const images = await getImages(this.props.incident.itemId)
+        let imageState = [] as any
+        images.forEach(image => {
+            const obj = {
+                src: "https://cityofpittsburgh.sharepoint.com" + image.relativeUrl,
+                thumbnail: "https://cityofpittsburgh.sharepoint.com" + image.relativeUrl,
+                thumbnailWidth: 250,
+                thumbnailHeight: 250
+            }
+            imageState.push(obj)
+        })
+        this.setState({
+            images: imageState
+        })
     }
 
     render() {
@@ -48,7 +47,16 @@ export default class Images extends React.Component<props, state> {
                     <button style={{ marginTop: '-2px' }} className='btn btn-secondary pull-right'><span className='glyphicon glyphicon-plus'></span></button>
                 </div>
                 <hr />
-                <Gallery images={IMAGES} />
+                {this.state.images.length > 0 &&
+                    <Gallery images={this.state.images} />
+                }
+                {this.state.images.length == 0 &&
+                    <div className='text-center'>
+                        <br />
+                        <h3>No images on this incident</h3>
+                        <br />
+                    </div>
+                }
             </div>
         )
     }
