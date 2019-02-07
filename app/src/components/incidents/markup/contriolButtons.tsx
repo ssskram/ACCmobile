@@ -55,7 +55,7 @@ export default class Buttons extends React.Component<props, {}> {
 
     public render() {
         const openIncidents = this.props.incidents.filter(i => i.open == "Yes").length
-        console.log(openIncidents)
+
         return (
             <div className='col-md-12'>
                 <div>
@@ -77,7 +77,7 @@ export default class Buttons extends React.Component<props, {}> {
                         <button className='btn btn-secondary' onClick={this.toggleViewFormat.bind(this)}>Toggle card view</button>
                     }
                 </div>
-                <br/>
+                <br />
             </div>
         )
     }
