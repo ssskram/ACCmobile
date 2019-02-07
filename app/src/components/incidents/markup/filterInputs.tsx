@@ -26,7 +26,7 @@ export default class FilterInputs extends React.Component<props, {}> {
         } = this.props.state
 
         return (
-            <div className="form-group">
+            <div>
                 <div className='row'>
                     <div className='col-md-6'>
                         <Input

@@ -19,10 +19,6 @@ export const noteContainer = {
     padding: '5px'
 }
 
-export const marginTop = {
-    marginTop: '50px'
-}
-
 export const noOrdersMargin = {
     margin: '60px 0px'
 }

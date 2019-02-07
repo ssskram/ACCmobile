@@ -11,12 +11,6 @@
     color: #fff;
 }
 
-.btn-secondary {
-    color: #ffffff;
-    background-color: #777;
-    border-color: #555;
-}
-
 .btn-secondary,
 .btn-success,
 .btn-danger,
@@ -27,6 +21,13 @@
     font-size: 18px;
     color: #fffcf5;
     font-family: 'Raleway', sans-serif;
+}
+
+.btn-secondary {
+    color: #ffffff;
+    background-color: #777;
+    border-color: #555;
+    font-size: 14px;
 }
 
 .btn.disabled,

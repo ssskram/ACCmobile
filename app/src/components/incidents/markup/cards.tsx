@@ -67,7 +67,7 @@ export default class Cards extends React.Component<props, {}> {
                                 </div>
                                 <div className='col-md-3 hidden-sm hidden-xs text-center'>
                                     {incident.open === 'Yes' &&
-                                        <h4 style={style.reportLink}>Open incident</h4>
+                                        <h4 style={style.openIncident}>Open incident</h4>
                                     }
                                     {incident.open === 'No' &&
                                         <h4>Closed incident</h4>

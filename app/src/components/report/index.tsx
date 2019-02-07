@@ -141,9 +141,9 @@ export class Report extends React.Component<props, state> {
             <div>
                 {!spinnerIsOpen == true &&
                     <div className='col-md-8 col-md-offset-2'>
-                        <Header incident={incident}/>
+                        <Header incident={incident} />
                         <div className='row'>
-                            <Buttons 
+                            <Buttons
                                 incident={incident}
                                 setState={this.setState.bind(this)}
                                 closeIncident={this.closeIncident.bind(this)}
@@ -182,7 +182,7 @@ export class Report extends React.Component<props, state> {
                     </div>
                 }
                 {spinnerIsOpen == true &&
-                    <Loading />
+                    <Loading notice='...loading incident...' />
                 }
             </div>
         )
