@@ -1,9 +1,7 @@
 .reportcomments {
-    padding: 5px 15px 15px 15px;
-    width: 98%;
+    padding: 20px;
+    width: 100%;
     margin: 0 auto;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    border-top: .7px solid #383838;
-    border-bottom: .7px solid #383838;
+    background-color: lightgrey;
+    border-radius: 5px;
 }

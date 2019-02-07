@@ -54,6 +54,7 @@ export default class Cards extends React.Component<props, {}> {
                                     <img style={style.imgStyle} src={url} />
                                 </div>
                                 <div className="col-md-6 incident-card-container">
+                                    <br/>
                                     <div style={style.reportLink}><strong>{incident.address}</strong></div>
                                     <h4><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></h4>
                                     <h4><i>{incident.reasonForVisit}</i></h4>

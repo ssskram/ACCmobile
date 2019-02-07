@@ -21,6 +21,7 @@ export default class Buttons extends React.Component<props, {}> {
                     <button className='btn btn-secondary' onClick={() => this.props.openIncident()}>Reopen incident</button>
                 }
                 <br />
+                <br/>
             </div>
         )
     }

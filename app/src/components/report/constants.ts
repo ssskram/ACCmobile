@@ -26,3 +26,8 @@ export const borderNone = {
 export const customWidth = {
     minWidth: '50vw'
 }
+
+export const iconStyle = {
+    height: '30px',
+    marginTop: '-3px'
+}

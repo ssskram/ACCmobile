@@ -264,122 +264,120 @@ export class Submit extends React.Component<any, any> {
                 <div className='row' style={sectionPadding}>
                     {animals.map((animal, index) =>
                         <div className='col-md-4' key={index}>
-                            <div className="facility">
-                                <div className="panel">
-                                    <div className="panel-body text-center">
-                                        <div className='col-md-12'>
+                            <div className="panel">
+                                <div className="panel-body text-center">
+                                    <div className='col-md-12'>
+                                        <div className='row text-center'>
+                                            {animal.animalName == '' &&
+                                                <h3>{animal.animalType}</h3>
+                                            }
+                                            {animal.animalName != '' &&
+                                                <h3>{animal.animalType} named {animal.animalName}</h3>
+                                            }
+                                        </div>
+                                        {animal.animalAge != '' &&
                                             <div className='row text-center'>
-                                                {animal.animalName == '' &&
-                                                    <h3>{animal.animalType}</h3>
-                                                }
-                                                {animal.animalName != '' &&
-                                                    <h3>{animal.animalType} named {animal.animalName}</h3>
-                                                }
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>Age:</strong></h5>
+                                                </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.animalAge}</h5>
+                                                </div>
                                             </div>
-                                            {animal.animalAge != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>Age:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.animalAge}</h5>
-                                                    </div>
+                                        }
+                                        {animal.animalBreed != '' &&
+                                            <div className='row text-center'>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>Breed:</strong></h5>
                                                 </div>
-                                            }
-                                            {animal.animalBreed != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>Breed:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.animalBreed}</h5>
-                                                    </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.animalBreed}</h5>
                                                 </div>
-                                            }
-                                            {animal.animalCoat != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>Coat:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.animalCoat}</h5>
-                                                    </div>
+                                            </div>
+                                        }
+                                        {animal.animalCoat != '' &&
+                                            <div className='row text-center'>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>Coat:</strong></h5>
                                                 </div>
-                                            }
-                                            {animal.animalSex != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>Sex:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.animalSex}</h5>
-                                                    </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.animalCoat}</h5>
                                                 </div>
-                                            }
-                                            {animal.LicenseNo != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>License number:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.LicenseNo}</h5>
-                                                    </div>
+                                            </div>
+                                        }
+                                        {animal.animalSex != '' &&
+                                            <div className='row text-center'>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>Sex:</strong></h5>
                                                 </div>
-                                            }
-                                            {animal.LicenseYear != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>License year:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.LicenseYear}</h5>
-                                                    </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.animalSex}</h5>
                                                 </div>
-                                            }
-                                            {animal.RabbiesVacNo != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>Rabbies vacination number:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.RabbiesVacNo}</h5>
-                                                    </div>
+                                            </div>
+                                        }
+                                        {animal.LicenseNo != '' &&
+                                            <div className='row text-center'>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>License number:</strong></h5>
                                                 </div>
-                                            }
-                                            {animal.RabbiesVacExp != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>Rabbies vacination expiration:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.RabbiesVacExp}</h5>
-                                                    </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.LicenseNo}</h5>
                                                 </div>
-                                            }
-                                            {animal.Vet != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>Veterinarian:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.Vet}</h5>
-                                                    </div>
+                                            </div>
+                                        }
+                                        {animal.LicenseYear != '' &&
+                                            <div className='row text-center'>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>License year:</strong></h5>
                                                 </div>
-                                            }
-                                            {animal.Comments != '' &&
-                                                <div className='row text-center'>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5><strong>Comments:</strong></h5>
-                                                    </div>
-                                                    <div className='col-md-6 col-sm-12 text-center'>
-                                                        <h5>{animal.Comments}</h5>
-                                                    </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.LicenseYear}</h5>
                                                 </div>
-                                            }
-                                        </div>
-                                        <div className='col-md-12 text-center'>
-                                            <button className='btn btn-link' onClick={() => this.deleteAnimal(index)}>Delete</button>
-                                        </div>
+                                            </div>
+                                        }
+                                        {animal.RabbiesVacNo != '' &&
+                                            <div className='row text-center'>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>Rabbies vacination number:</strong></h5>
+                                                </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.RabbiesVacNo}</h5>
+                                                </div>
+                                            </div>
+                                        }
+                                        {animal.RabbiesVacExp != '' &&
+                                            <div className='row text-center'>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>Rabbies vacination expiration:</strong></h5>
+                                                </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.RabbiesVacExp}</h5>
+                                                </div>
+                                            </div>
+                                        }
+                                        {animal.Vet != '' &&
+                                            <div className='row text-center'>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>Veterinarian:</strong></h5>
+                                                </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.Vet}</h5>
+                                                </div>
+                                            </div>
+                                        }
+                                        {animal.Comments != '' &&
+                                            <div className='row text-center'>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5><strong>Comments:</strong></h5>
+                                                </div>
+                                                <div className='col-md-6 col-sm-12 text-center'>
+                                                    <h5>{animal.Comments}</h5>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div className='col-md-12 text-center'>
+                                        <button className='btn btn-link' onClick={() => this.deleteAnimal(index)}>Delete</button>
                                     </div>
                                 </div>
                             </div>

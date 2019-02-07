@@ -3,6 +3,7 @@ import UpdateAnimal from '../../submit/animal'
 import Modal from 'react-responsive-modal'
 import DeleteAnimal from './deleteAnimal'
 import AnimalCard from './animalCard'
+import * as style from '../constants'
 
 type props = {
     throwSpinner: () => void
@@ -70,7 +71,12 @@ export default class Animals extends React.Component<props, state> {
         } = this.state
 
         return (
-            <div className='col-md-12'>
+            <div className='row' style={{ marginTop: '75px' }}>
+                <div>
+                    <span style={{ fontSize: '2em' }}>Animals</span>
+                    <button style={{ marginTop: '-2px' }} className='btn btn-secondary pull-right' onClick={this.addAnimal.bind(this)}><span className='glyphicon glyphicon-plus'></span></button>
+                </div>
+                <hr />
                 {this.props.animals.length == 0 &&
                     <div className='text-center'>
                         <br />
@@ -86,14 +92,6 @@ export default class Animals extends React.Component<props, state> {
                         deleteAnimal={this.deleteAnimal.bind(this)}
                     />
                 )}
-                <div className='col-md-12 text-center'>
-                    <button className='btn btn-primary' onClick={this.addAnimal.bind(this)}>Add an animal</button>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </div>
                 <Modal
                     open={modalIsOpen}
                     onClose={this.closeModal.bind(this)}

@@ -20,6 +20,8 @@ import Comments from './markup/comments'
 import StreetView from './markup/streetView'
 import Header from './markup/header'
 import Buttons from './markup/buttons'
+import DocumentTitle from 'react-document-title'
+import Images from './markup/images'
 
 // keep original latlng & incident objects in case user bails from updates
 let lat_lng = {} as any
@@ -138,53 +140,58 @@ export class Report extends React.Component<props, state> {
         }
 
         return (
-            <div>
-                {!spinnerIsOpen == true &&
-                    <div className='col-md-8 col-md-offset-2'>
-                        <Header incident={incident} />
-                        <div className='row'>
-                            <Buttons
-                                incident={incident}
-                                setState={this.setState.bind(this)}
-                                closeIncident={this.closeIncident.bind(this)}
-                                openIncident={this.openIncident.bind(this)}
-                            />
-                            <Incident incident={incident} />
-                            <div className='col-md-6 hidden-md hidden-sm hidden-xs'>
-                                <StreetView incident={incident} />
-                                <Map coords={latlng} />
+            <DocumentTitle title={incident? incident.address : '...loading'}>
+                <div>
+                    {!spinnerIsOpen == true &&
+                        <div className='col-md-8 col-md-offset-2'>
+                            <Header incident={incident} />
+                            <div className='row'>
+                                <Buttons
+                                    incident={incident}
+                                    setState={this.setState.bind(this)}
+                                    closeIncident={this.closeIncident.bind(this)}
+                                    openIncident={this.openIncident.bind(this)}
+                                />
+                                <Incident incident={incident} />
+                                <div className='col-md-6 hidden-md hidden-sm hidden-xs'>
+                                    <StreetView incident={incident} />
+                                    <Map coords={latlng} />
+                                </div>
                             </div>
-                        </div>
-                        <Comments
-                            incident={incident}
-                        />
-                        <AnimalsTable
-                            throwSpinner={() => this.setState({ spinnerIsOpen: true })}
-                            incidentID={incident.uuid}
-                            address={incident.address}
-                            coords={latlng}
-                            animals={animals} />
+                            <Comments
+                                incident={incident}
+                            />
+                            <AnimalsTable
+                                throwSpinner={() => this.setState({ spinnerIsOpen: true })}
+                                incidentID={incident.uuid}
+                                address={incident.address}
+                                coords={latlng}
+                                animals={animals} />
+                            <Images 
+                                incident={incident}
+                            />
 
-                        <UpdateIncident
-                            incidentModalIsOpen={incidentModalIsOpen}
-                            incident={incident}
-                            closeModal={this.closeModal.bind(this)}
-                            putIncident={() => this.putIncident.bind(this)}
-                        />
-                        <UpdateAddress
-                            addressModalIsOpen={addressModalIsOpen}
-                            enableAddressButton={EnableAddressBtn}
-                            closeModal={this.closeModal.bind(this)}
-                            disableButton={() => this.setState({ addressButtonIsActive: false })}
-                            enableButton={this.enableUpdateAddressBtn.bind(this)}
-                            putIncident={() => putIncident(this.state.incident)}
-                        />
-                    </div>
-                }
-                {spinnerIsOpen == true &&
-                    <Loading notice='...loading incident...' />
-                }
-            </div>
+                            <UpdateIncident
+                                incidentModalIsOpen={incidentModalIsOpen}
+                                incident={incident}
+                                closeModal={this.closeModal.bind(this)}
+                                putIncident={() => this.putIncident.bind(this)}
+                            />
+                            <UpdateAddress
+                                addressModalIsOpen={addressModalIsOpen}
+                                enableAddressButton={EnableAddressBtn}
+                                closeModal={this.closeModal.bind(this)}
+                                disableButton={() => this.setState({ addressButtonIsActive: false })}
+                                enableButton={this.enableUpdateAddressBtn.bind(this)}
+                                putIncident={() => putIncident(this.state.incident)}
+                            />
+                        </div>
+                    }
+                    {spinnerIsOpen == true &&
+                        <Loading notice='...loading incident...' />
+                    }
+                </div>
+            </DocumentTitle>
         )
     }
 }
