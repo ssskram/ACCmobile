@@ -1,25 +1,37 @@
 
 export default async function postImage(state, incidentID) {
 
-
-    // post image to blob
-    // on success, post meta to blob
-
-    // post meta to SP table
+    const fileName = setName(state.image[0].name.replace(/[,"+/()'\s]/g, ''))
     const metaObj = {
         incidentID: incidentID,
-        relativePath: setName(state.image[0].name),
+        relativePath: fileName,
         attachmentTitle: state.imageTitle,
         attachmentDescription: state.imageDescription
-    }    
-    await fetch("https://365proxy.azurewebsites.us/accMobile/attachmentMeta", {
+    }
+
+    const formData = new FormData();
+    formData.append('file', state.image[0]);
+
+    // post image to blob
+    await fetch("htts://blobby.azurewebsites.us/accMobile/image?filename=" + fileName, {
         method: 'post',
-        body: JSON.stringify(metaObj),
+        body: formData,
         headers: new Headers({
-            'Authorization': 'Bearer ' + process.env.REACT_APP_365_API,
-            'Content-Type': 'application/json'
+            'Authorization': 'Bearer ' + process.env.REACT_APP_BLOBLY_API
         })
     })
+        .then(async (res) => {
+            // on success, post meta to sp
+            await fetch("https://365proxy.azurewebsites.us/accMobile/attachmentMeta?filename=" + fileName, {
+                method: 'post',
+                body: JSON.stringify(metaObj),
+                headers: new Headers({
+                    'Authorization': 'Bearer ' + process.env.REACT_APP_365_API,
+                    'Content-Type': 'application/json'
+                })
+            })
+        })
+        .catch(err => console.log(err))
 }
 
 const setName = originalName => {

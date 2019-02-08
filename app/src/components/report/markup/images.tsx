@@ -1,5 +1,4 @@
 import * as React from 'react'
-import * as style from '../constants'
 import * as types from '../../../store/types'
 import Gallery from 'react-grid-gallery'
 import getImages from '../functions/getImages'
@@ -30,9 +29,10 @@ export default class Images extends React.Component<props, state> {
         const imageMeta = await getImages(this.props.incident.uuid)
         let imageState = [] as any
         imageMeta.forEach(image => {
+            console.log(image)
             const obj = {
-                src: image.imageUrl,
-                thumbnail: image.imageUrl,
+                src: "https://blobby.blob.core.usgovcloudapi.net/accmobile/" + image.relativePath,
+                thumbnail: "https://blobby.blob.core.usgovcloudapi.net/accmobile/" + image.relativePath,
                 thumbnailWidth: 400,
                 thumbnailHeight: 300,
                 caption: image.imageDescription,
