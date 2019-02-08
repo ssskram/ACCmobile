@@ -27,14 +27,16 @@ export default class Images extends React.Component<props, state> {
     }
 
     async componentDidMount() {
-        const images = await getImages(this.props.incident.itemId)
+        const imageMeta = await getImages(this.props.incident.uuid)
         let imageState = [] as any
-        images.forEach(image => {
+        imageMeta.forEach(image => {
             const obj = {
-                src: "https://cityofpittsburgh.sharepoint.com" + image.relativeUrl,
-                thumbnail: "https://cityofpittsburgh.sharepoint.com" + image.relativeUrl,
+                src: image.imageUrl,
+                thumbnail: image.imageUrl,
                 thumbnailWidth: 400,
-                thumbnailHeight: 300
+                thumbnailHeight: 300,
+                caption: image.imageDescription,
+                thumnailCaption: image.imageTitle
             }
             imageState.push(obj)
         })
