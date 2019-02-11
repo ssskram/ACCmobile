@@ -9,8 +9,8 @@ export default async function postImage(state, incidentID) {
         attachmentDescription: state.imageDescription
     }
 
-    const formData = new FormData();
-    formData.append('file', state.image[0]);
+    const formData = new FormData()
+    formData.append('file', state.image[0])
 
     // post image to blob
     await fetch("https://blobby.azurewebsites.us/accMobile/image?filename=" + fileName, {
