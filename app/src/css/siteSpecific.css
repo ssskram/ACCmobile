@@ -1,7 +1,8 @@
 .reportcomments {
+    font-size: 1.2em;
     padding: 20px;
     width: 100%;
     margin: 0 auto;
-    background-color: lightgrey;
+    background-color: gainsboro;
     border-radius: 5px;
 }

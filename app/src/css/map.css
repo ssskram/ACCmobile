@@ -1,9 +1,12 @@
 /* Google map
 /* ------------------------- */
 
-.home-map {
-    height: 100vh;
-    width: 100%;
+.map {
+    height: 200px !important;
+}
+
+.map-container {
+    height: 200px !important;
 }
 
 a[href^="http://maps.google.com/maps"] {
@@ -20,4 +23,33 @@ a[href^="https://maps.google.com/maps"] {
 
 #GMapsID div div a div img {
     display: none;
+}
+
+@media (max-width: 767px) {
+    .map {
+        width: 100% !important;
+        margin: 0 auto;
+    }
+}
+
+/* Autocomplete
+/* ------------------------- */
+
+.autocomplete-dropdown-container {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 0 0 2px 2px;
+}
+
+.suggestion-item {
+    padding: 8px;
+    text-align: left;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+.suggestion-item--active {
+    background-color: #fafafa;
+    padding: 8px;
+    text-align: left;
+    cursor: pointer;
 }

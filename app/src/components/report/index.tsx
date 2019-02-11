@@ -140,7 +140,7 @@ export class Report extends React.Component<props, state> {
         }
 
         return (
-            <DocumentTitle title={incident? incident.address : '...loading'}>
+            <DocumentTitle title={incident? incident.address : '...loading...'}>
                 <div>
                     {!spinnerIsOpen == true &&
                         <div className='col-md-8 col-md-offset-2'>

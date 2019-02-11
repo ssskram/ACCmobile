@@ -38,7 +38,7 @@ export default class Images extends React.Component<props, state> {
                 thumbnailWidth: 400,
                 thumbnailHeight: 300,
                 caption: image.imageDescription,
-                thumnailCaption: image.imageTitle
+                thumbnailCaption: image.imageTitle
             }
             imageState.push(obj)
         })

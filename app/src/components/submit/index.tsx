@@ -4,14 +4,13 @@ import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
 import Incident from './incident'
-import Animals from './animal'
 import Modal from 'react-responsive-modal'
 import Autocomplete from '../formElements/autocomplete'
 import Map from '../map/mapContainer'
 import { v1 as uuid } from 'uuid'
 
 const sectionPadding = {
-    padding: '20px'
+    padding: '20px 0px'
 }
 
 export class Submit extends React.Component<any, any> {
@@ -22,10 +21,8 @@ export class Submit extends React.Component<any, any> {
             map: false,
             address: '',
             coords: {},
-            animals: [],
             submit: false,
             spinnerIsOpen: false,
-            modalIsOpen: false,
             formValid: false,
             countPostedItems: 0,
             redirect: false,
@@ -198,29 +195,20 @@ export class Submit extends React.Component<any, any> {
             map,
             address,
             coords,
-            animals,
             submit,
             spinnerIsOpen,
-            modalIsOpen,
             redirect,
             buttonIsEnabled
         } = this.state
 
         if (redirect) {
-            return <Redirect to='/' />;
+            return <Redirect to='/' />
         }
 
         return (
             <div className='col-md-8 col-md-offset-2'>
-                <h2 className='text-center'>New Incident</h2>
-                <div className='row'>
-                    <div className='col-sm-3 col-md-2'>
-                        <h3 className='text-center form-header'>Address</h3>
-                    </div>
-                    <div className='col-sm-9 col-md-10'>
-                        <hr />
-                    </div>
-                </div>
+                <h3>Address</h3>
+                <hr />
                 <div className='row' style={sectionPadding}>
                     <div className='row'>
                         <Autocomplete
@@ -235,14 +223,8 @@ export class Submit extends React.Component<any, any> {
                         </div>
                     }
                 </div>
-                <div className='row'>
-                    <div className='col-sm-3 col-md-2'>
-                        <h3 className='text-center form-header'>Description</h3>
-                    </div>
-                    <div className='col-sm-9 col-md-10'>
-                        <hr />
-                    </div>
-                </div>
+                <h3>Description</h3>
+                <hr />
                 <div className='row' style={sectionPadding}>
                     <Incident
                         isNotValid={this.isNotValid.bind(this)}
@@ -253,151 +235,10 @@ export class Submit extends React.Component<any, any> {
                         submit={submit}
                         postComplete={this.postComplete} />
                 </div>
-                <div className='row'>
-                    <div className='col-sm-3 col-md-2'>
-                        <h3 className='text-center form-header'>Animals</h3>
-                    </div>
-                    <div className='col-sm-9 col-md-10'>
-                        <hr />
-                    </div>
-                </div>
-                <div className='row' style={sectionPadding}>
-                    {animals.map((animal, index) =>
-                        <div className='col-md-4' key={index}>
-                            <div className="panel">
-                                <div className="panel-body text-center">
-                                    <div className='col-md-12'>
-                                        <div className='row text-center'>
-                                            {animal.animalName == '' &&
-                                                <h3>{animal.animalType}</h3>
-                                            }
-                                            {animal.animalName != '' &&
-                                                <h3>{animal.animalType} named {animal.animalName}</h3>
-                                            }
-                                        </div>
-                                        {animal.animalAge != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Age:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.animalAge}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.animalBreed != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Breed:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.animalBreed}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.animalCoat != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Coat:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.animalCoat}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.animalSex != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Sex:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.animalSex}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.LicenseNo != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>License number:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.LicenseNo}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.LicenseYear != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>License year:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.LicenseYear}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.RabbiesVacNo != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Rabbies vacination number:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.RabbiesVacNo}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.RabbiesVacExp != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Rabbies vacination expiration:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.RabbiesVacExp}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.Vet != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Veterinarian:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.Vet}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                        {animal.Comments != '' &&
-                                            <div className='row text-center'>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5><strong>Comments:</strong></h5>
-                                                </div>
-                                                <div className='col-md-6 col-sm-12 text-center'>
-                                                    <h5>{animal.Comments}</h5>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                    <div className='col-md-12 text-center'>
-                                        <button className='btn btn-link' onClick={() => this.deleteAnimal(index)}>Delete</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-                    <div className='col-md-12 text-center'>
-                        <button className="btn btn-primary" onClick={this.addAnimal.bind(this)}>Add an animal</button>
-                    </div>
-                </div>
-                <div className='col-md-12'>
-                    <div className='row'>
-                        <hr />
-                        <div className='text-center'>
-                            {map === true &&
-                                <div className='row'>
-                                    <button disabled={!buttonIsEnabled} onClick={this.fireSubmit.bind(this)} className="btn btn-success">Submit</button>
-                                </div>
-                            }
-                        </div>
-                    </div>
+                <div className='col-md-12 text-center'>
+                    <button disabled={!buttonIsEnabled} onClick={this.fireSubmit.bind(this)} className="btn btn-success">Save</button>
+                    <br />
+                    <br />
                     <br />
                     <br />
                 </div>
@@ -417,23 +258,8 @@ export class Submit extends React.Component<any, any> {
                     <div className="loader"></div>
                     ...submitting incident...
                 </Modal>
-                {/* add animal */}
-                <Modal
-                    open={modalIsOpen}
-                    onClose={this.closeModal.bind(this)}
-                    closeOnEsc={false}
-                    classNames={{
-                        overlay: 'custom-overlay',
-                        modal: 'custom-modal'
-                    }}
-                    center>
-                    <Animals
-                        new={true}
-                        addNewAnimal={this.addNewAnimal.bind(this)}
-                    />
-                </Modal>
             </div>
-        );
+        )
     }
 }
 
