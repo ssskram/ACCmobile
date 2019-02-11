@@ -9,6 +9,7 @@ import * as Dropdowns from '../../store/dropdowns'
 import * as types from '../../store/types'
 import * as moment from 'moment'
 import * as constants from './constants'
+import { selected, update } from './functions/handleMulti'
 
 type props = {
     new: boolean
@@ -267,7 +268,7 @@ export class Animal extends React.Component<any, state> {
                     <Select
                         value={animalType ? { value: animalType, label: animalType }: ''}
                         header='Type'
-                        placeholder='Animal type'
+                        placeholder='Type'
                         onChange={v => {
                             this.setState({ animalType: v.value })
                             this.setConditionalDropodowns()
@@ -280,7 +281,7 @@ export class Animal extends React.Component<any, state> {
                     <Input
                         value={animalName}
                         header="Name"
-                        placeholder="Animal's name"
+                        placeholder="Name"
                         callback={e => this.setState({ animalName: e.target.value })}
                     />
                 </div>
@@ -288,36 +289,36 @@ export class Animal extends React.Component<any, state> {
                     <Input
                         value={animalAge}
                         header="Age"
-                        placeholder="Animal's age"
+                        placeholder="Age"
                         callback={e => this.setState({ animalAge: e.target.value })}
                     />
                 </div>
                 <div className='col-md-3'>
                     <Select
-                        value={animalSex ? { value: animalSex, label: animalSex }: ''}
+                        value={animalSex ? selected(animalSex) : ''}
                         header='Sex'
-                        placeholder='Animal sex'
-                        onChange={v => this.setState({ animalSex: v.value })}
+                        placeholder='Sex'
+                        onChange={animalSex => this.setState({ animalSex: update(animalSex) })}
                         multi={false}
                         options={constants.animalSexes}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Select
-                        value={animalBreed ? { value: animalBreed, label: animalBreed }: ''}
+                        value={animalBreed ? selected(animalBreed) : ''}
                         header='Breed'
-                        placeholder='Select breed...'
-                        onChange={v => this.setState({ animalBreed: v.value })}
+                        placeholder='Breed(s)'
+                        onChange={animalBreed => this.setState({ animalBreed: update(animalBreed) })}
                         multi={true}
                         options={breedOptions}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Select
-                        value={animalCoat ? { value: animalCoat, label: animalCoat }: ''}
+                        value={animalCoat ? selected(animalCoat) : ''}
                         header='Coat'
-                        placeholder='Select coat...'
-                        onChange={v => this.setState({ animalCoat: v.value })}
+                        placeholder='Coat(s)'
+                        onChange={animalCoat => this.setState({ animalCoat: update(animalCoat)})}
                         multi={true}
                         options={coatOptions}
                     />
@@ -357,7 +358,7 @@ export class Animal extends React.Component<any, state> {
                 <Select
                     value={Vet ? { value: Vet, label: Vet }: ''}
                     header='Veterinarian'
-                    placeholder='Select vet...'
+                    placeholder='Vet'
                     onChange={v => this.setState({ Vet: v.value })}
                     multi={false}
                     options={vetOptions}
@@ -365,7 +366,7 @@ export class Animal extends React.Component<any, state> {
                 <Textarea
                     value={Comments}
                     header="Comments"
-                    placeholder="Describe the animal"
+                    placeholder="Description"
                     callback={e => this.setState({ Comments: e.target.value })}
                 />
                 {this.props.add == true &&

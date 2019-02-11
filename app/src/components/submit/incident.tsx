@@ -7,6 +7,7 @@ import { ApplicationState } from '../../store'
 import * as user from '../../store/user'
 import * as Dropdowns from '../../store/dropdowns'
 import * as constants from './constants'
+import { selected, update } from './functions/handleMulti'
 
 export class Incident extends React.Component<any, any> {
     constructor(props) {
@@ -224,20 +225,20 @@ export class Incident extends React.Component<any, any> {
                 </div>
                 <div className='col-md-12'>
                     <Select
-                        value={reasonForVisit ? reasonForVisit : ''}
+                        value={reasonForVisit ? selected(reasonForVisit) : ''}
                         header='Reason(s) for visit'
                         placeholder='Select reason(s)...'
-                        onChange={reasonForVisit => this.setState({ reasonForVisit })}
+                        onChange={reasonForVisit => this.setState({ reasonForVisit: update(reasonForVisit) })}
                         multi={true}
                         options={reasonOptions}
                     />
                 </div>
                 <div className='col-md-6'>
                     <Select
-                        value={pghCode ? { value: pghCode, label: pghCode } : ''}
+                        value={pghCode ? selected(pghCode) : ''}
                         header='Code(s)'
                         placeholder='Select code(s)...'
-                        onChange={v => this.setState({ pghCode: v.value })}
+                        onChange={pghCode => this.setState({ pghCode: update(pghCode) })}
                         multi={true}
                         options={codeOptions}
                     />
@@ -260,10 +261,10 @@ export class Incident extends React.Component<any, any> {
                 </div>
                 <div className='col-md-6'>
                     <Select
-                        value={officerInitials ? { value: officerInitials, label: officerInitials } : ''}
+                        value={officerInitials ? selected(officerInitials) : ''}
                         header='Officers involved'
                         placeholder='Select initials...'
-                        onChange={v => this.setState({ officerInitials: v.value })}
+                        onChange={officerInitials => this.setState({ officerInitials: update(officerInitials) })}
                         multi={true}
                         options={initialsOptions}
                     />
