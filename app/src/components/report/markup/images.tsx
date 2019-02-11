@@ -4,6 +4,7 @@ import Gallery from 'react-grid-gallery'
 import getImages from '../functions/getImages'
 import Modal from 'react-responsive-modal'
 import ImageUpload from './imageUpload'
+import Spinner from '../../utilities/spinner'
 
 type props = {
     incident: types.incident
@@ -12,7 +13,8 @@ type props = {
 type state = {
     isOpen: boolean
     images: Array<any>
-    imageUpload: boolean
+    imageUpload: boolean,
+    submitSpinner: boolean
 }
 
 export default class Images extends React.Component<props, state> {
@@ -21,7 +23,8 @@ export default class Images extends React.Component<props, state> {
         this.state = {
             isOpen: true,
             images: [],
-            imageUpload: false
+            imageUpload: false,
+            submitSpinner: false
         }
     }
 
@@ -29,7 +32,6 @@ export default class Images extends React.Component<props, state> {
         const imageMeta = await getImages(this.props.incident.uuid)
         let imageState = [] as any
         imageMeta.forEach(image => {
-            console.log(image)
             const obj = {
                 src: "https://blobby.blob.core.usgovcloudapi.net/accmobile/" + image.relativePath,
                 thumbnail: "https://blobby.blob.core.usgovcloudapi.net/accmobile/" + image.relativePath,
@@ -73,8 +75,14 @@ export default class Images extends React.Component<props, state> {
                             modal: 'custom-modal'
                         }}
                         center>
-                        <ImageUpload incident={this.props.incident} />
+                        <ImageUpload
+                            setState={this.setState.bind(this)}
+                            incident={this.props.incident}
+                        />
                     </Modal>
+                }
+                {this.state.submitSpinner &&
+                    <Spinner notice='...saving image...' />
                 }
             </div>
         )

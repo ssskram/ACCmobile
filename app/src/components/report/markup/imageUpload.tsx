@@ -7,6 +7,7 @@ import Textarea from '../../formElements/textarea'
 
 type props = {
     incident: types.incident
+    setState: (stateObj: object) => void
 }
 
 type state = {
@@ -26,6 +27,7 @@ export default class ImageUpload extends React.Component<props, state> {
     }
 
     async post() {
+        this.props.setState({ submitSpinner: true })
         await postImage(this.state, this.props.incident.uuid)
         location.reload()
     }
@@ -55,7 +57,7 @@ export default class ImageUpload extends React.Component<props, state> {
                     withPreview={true}
                     singleImage={true}
                 />
-                <br/>
+                <br />
                 <Input
                     value={this.state.imageTitle}
                     header="Title"
