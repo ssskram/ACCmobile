@@ -2,7 +2,7 @@ export const openIncident = {
     color: 'red'
 }
 
-export const reportLink = {
+export const address = {
     fontSize: '16px'
 }
 

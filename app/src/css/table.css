@@ -2,11 +2,11 @@
 /* ------------------------- */
 
 th {
-    font-weight: normal;
+    font-weight: bold;
 }
 
 td {
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .ReactTable {

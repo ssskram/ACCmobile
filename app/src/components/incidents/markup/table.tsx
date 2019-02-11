@@ -1,6 +1,5 @@
 import * as React from 'react'
 import Moment from 'react-moment'
-import * as style from '../constants'
 import ReactTable from "react-table"
 import "react-table/react-table.css"
 import * as moment from 'moment'
@@ -17,7 +16,7 @@ export default class Table extends React.Component<props, {}> {
         const columns = [{
             Header: '',
             accessor: 'link',
-            Cell: props => <a style={style.reportLink} target='_blank' href={props.value}>View report</a>
+            Cell: props => <a target='_blank' href={props.value}>View report</a>
         }, {
             Header: 'Date',
             accessor: 'date',

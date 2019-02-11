@@ -22,6 +22,18 @@ export default class Cards extends React.Component<props, {}> {
             incidents
         } = this.props
 
+        const status = (incident) => <div>
+            {incident.open === 'Yes' &&
+                <h4 className='open'>Open incident</h4>
+            }
+            {incident.open === 'No' &&
+                <h4>Closed incident</h4>
+            }
+            {incident.open == null &&
+                <h4>Scanned document</h4>
+            }
+        </div>
+
         // Logic for paging
         const indexOfLastIncident = currentPage * incidentsPerPage
         const indexOfFirstIncident = indexOfLastIncident - incidentsPerPage;
@@ -37,54 +49,30 @@ export default class Cards extends React.Component<props, {}> {
             return <div className="container-fluid" key={index}>
                 <div className="row">
                     <div className="incident">
-                        <div className="panel">
-                            <div className="panel-body text-center">
-                                <div className='col-sm-12 hidden-md hidden-lg hidden-xl text-center'>
-                                    {incident.open === 'Yes' &&
-                                        <h4 style={style.openIncident}>Open incident</h4>
-                                    }
-                                    {incident.open === 'No' &&
-                                        <h4>Closed incident</h4>
-                                    }
-                                    {incident.open == null &&
-                                        <h4>Scanned document</h4>
-                                    }
-                                </div>
+                        <div onClick={() => window.open(incident.link, "_blank")} className="panel">
+                            <div className="panel-body text-center vertCenter panel-button">
                                 <div className='col-md-3 hidden-sm hidden-xs'>
                                     <img style={style.imgStyle} src={url} />
                                 </div>
-                                <div className="col-md-6 incident-card-container">
-                                    <br/>
-                                    <div style={style.reportLink}><strong>{incident.address}</strong></div>
+                                <div className="col-md-6">
+                                    <div style={style.address}><strong>{incident.address}</strong></div>
                                     <h4><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></h4>
-                                    <h4><i>{incident.reasonForVisit}</i></h4>
-                                    <div>Incident ID: {incident.itemId} </div>
+                                    <h4>{incident.reasonForVisit}</h4>
+                                    <div style={{ fontSize: '.8em', textTransform: 'uppercase' as 'uppercase' }}>Incident ID: {incident.itemId} </div>
                                     <div className='hidden-md hidden-lg hidden-xl'>
                                         {incident.note != null &&
                                             <div><b>Note:</b> {incident.note}</div>
                                         }
-                                        <a style={style.reportLink} target='_blank' href={incident.link}>View report</a>
                                     </div>
                                 </div>
                                 <div className='col-md-3 hidden-sm hidden-xs text-center'>
-                                    {incident.open === 'Yes' &&
-                                        <h4 style={style.openIncident}>Open incident</h4>
-                                    }
-                                    {incident.open === 'No' &&
-                                        <h4>Closed incident</h4>
-                                    }
-                                    {incident.open == null &&
-                                        <h4>Scanned document</h4>
-                                    }
-                                    {incident.note != null &&
+                                    {status(incident)}
+                                    {incident.note &&
                                         <div style={style.noteContainer}>
-                                            <h5><strong>Note:</strong></h5>
+                                            <div><strong>Note:</strong></div>
                                             <div>{incident.note}</div>
                                         </div>
                                     }
-                                    <h5>
-                                        <a style={style.reportLink} target='_blank' href={incident.link}>View report</a>
-                                    </h5>
                                 </div>
                             </div>
                         </div>

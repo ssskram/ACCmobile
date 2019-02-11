@@ -6,3 +6,9 @@
     background-color: gainsboro;
     border-radius: 5px;
 }
+
+.vertCenter {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+}
