@@ -49,8 +49,8 @@ export default class Cards extends React.Component<props, {}> {
             return <div className="container-fluid" key={index}>
                 <div className="row">
                     <div className="incident">
-                        <div onClick={() => window.open(incident.link, "_blank")} className="panel">
-                            <div className="panel-body text-center vertCenter panel-button">
+                        <div onClick={() => window.open(incident.link, "_blank")} className="panel panel-button">
+                            <div className="panel-body text-center vertCenter">
                                 <div className='col-md-3 hidden-sm hidden-xs'>
                                     <img style={style.imgStyle} src={url} />
                                 </div>

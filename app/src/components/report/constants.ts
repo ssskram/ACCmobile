@@ -32,11 +32,10 @@ export const iconStyle = {
 export const activityContainer = {
     width: '100%',
     backgroundColor: '#383838',
-    padding: '25px 8px 8px 8px',
+    padding: '25px 20px 8px 8px',
     maxHeight: '400px',
     minHeight: '150px',
     margin: '0 auto',
-    overflowY: 'scroll' as any,
     overflowX: 'hidden' as any,
 }
 
@@ -45,7 +44,7 @@ export const otherActivity = {
     padding: '5px 8px',
     borderRadius: '5px',
     textAlign: 'right' as 'right',
-    fontSize: '1.2em'
+    maxWidth: '650px',
 }
 
 export const myActivity = {
@@ -54,7 +53,6 @@ export const myActivity = {
     padding: '5px 8px',
     borderRadius: '5px',
     textAlign: 'left' as 'left',
-    fontSize: '1.2em',
     maxWidth: '650px'
 }
 

@@ -89,14 +89,20 @@ export default class Comments extends React.Component<props, state> {
                                             <div className='row'>
                                                 <div style={style.otherActivity} className='speech-bubble-right pull-right'>
                                                     <span style={{ margin: '10px' }}>{item.comment}</span><br />
-                                                    <span style={style.smallFont}><span style={{ fontSize: '.85em' }} className='glyphicon glyphicon-user nav-glyphicon'></span>{item.user}</span><br />
+                                                    {item.user &&
+                                                        <div>
+                                                            <span style={style.smallFont}><span style={{ fontSize: '.85em' }} className='glyphicon glyphicon-user nav-glyphicon'></span>{item.user}</span><br />
+                                                        </div>
+                                                    }
                                                 </div>
                                             </div>
-                                            <div className='row'>
-                                                <div className='pull-right'>
-                                                    <span style={{ fontSize: '.8em', color: '#fff' }}>{item.dateTime}</span>
+                                            {item.user &&
+                                                <div className='row'>
+                                                    <div className='pull-right'>
+                                                        <span style={{ fontSize: '.8em', color: '#fff' }}>{item.dateTime}</span>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
                                         </div>
                                     )
                                 } else {
@@ -107,11 +113,13 @@ export default class Comments extends React.Component<props, state> {
                                                     <span style={{ margin: '10px' }}>{item.comment}</span><br />
                                                 </div>
                                             </div>
-                                            <div className='row'>
-                                                <div className='pull-left'>
-                                                    <span style={{ fontSize: '.8em', color: '#fff' }}>{item.dateTime}</span>
+                                            {item.user &&
+                                                <div className='row'>
+                                                    <div className='pull-left'>
+                                                        <span style={{ fontSize: '.8em', color: '#fff' }}>{item.dateTime}</span>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            }
                                         </div>
                                     )
                                 }
