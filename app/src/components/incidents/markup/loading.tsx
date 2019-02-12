@@ -16,7 +16,7 @@ export default class loading extends React.Component<props, {}> {
                 <div>
                     <img
                         src={accIcon as string}
-                        style={{ marginTop: '100px', opacity: .6 }}
+                        style={{ marginTop: '75px', opacity: .4 }}
                         className="img-responsive center-block"
                     />
                 </div>

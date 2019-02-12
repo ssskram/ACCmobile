@@ -54,7 +54,7 @@ export default class Comments extends React.Component<props, state> {
     }
 
     post() {
-        if (this.state.comment != '') {
+        if (/\S/.test(this.state.comment)) {
             const load = {
                 dateTime: moment().format('MM/DD/YYYY, hh:mm:ss A'),
                 incidentID: this.props.incident.uuid,
@@ -85,7 +85,7 @@ export default class Comments extends React.Component<props, state> {
                             comments.map((item, index) => {
                                 if (this.props.user.name != item.user) {
                                     return (
-                                        <div key={index} className='col-md-12' style={{ margin: '8px' }}>
+                                        <div key={index} className='col-md-12' style={{ margin: '8px', paddingTop: '4px', paddingBottom: '4px' }}>
                                             <div className='row'>
                                                 <div style={style.otherActivity} className='speech-bubble-right pull-right'>
                                                     <span style={{ margin: '10px' }}>{item.comment}</span><br />
@@ -107,7 +107,7 @@ export default class Comments extends React.Component<props, state> {
                                     )
                                 } else {
                                     return (
-                                        <div key={index} className='col-md-12' style={{ margin: '8px' }}>
+                                        <div key={index} className='col-md-12' style={{ margin: '8px', paddingTop: '4px', paddingBottom: '4px' }}>
                                             <div className='row'>
                                                 <div style={style.myActivity} className='speech-bubble-left pull-left'>
                                                     <span style={{ margin: '10px' }}>{item.comment}</span><br />

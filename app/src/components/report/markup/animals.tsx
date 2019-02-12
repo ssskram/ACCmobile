@@ -87,7 +87,7 @@ export default class Animals extends React.Component<props, state> {
                 {this.props.animals.map((animal, key) =>
                     <AnimalCard
                         animal={animal}
-                        key={key}
+                        index={key}
                         editAnimal={this.editAnimal.bind(this)}
                         deleteAnimal={this.deleteAnimal.bind(this)}
                     />

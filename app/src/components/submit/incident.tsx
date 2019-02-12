@@ -27,7 +27,6 @@ export class Incident extends React.Component<any, any> {
             pghCode: '',
             citationNumber: '',
             officerInitials: '',
-            comments: '',
             note: '',
             open: '',
             address: '',
@@ -50,7 +49,6 @@ export class Incident extends React.Component<any, any> {
                 pghCode: incident.pghCode || '',
                 citationNumber: incident.citationNumber || '',
                 officerInitials: incident.officerInitials || '',
-                comments: incident.comments || '',
                 note: incident.note || '',
                 open: incident.open || '',
                 address: incident.address || '',
@@ -138,7 +136,6 @@ export class Incident extends React.Component<any, any> {
             ReasonforVisit: this.state.reasonForVisit.value,
             ADVPGHCode: this.state.pghCode,
             CitationNumber: this.state.citationNumber,
-            Comments: this.state.comments,
             CallOrigin: this.state.callOrigin,
             Officers: this.state.officerInitials,
             Open: this.state.open,
@@ -178,7 +175,6 @@ export class Incident extends React.Component<any, any> {
             pghCode,
             citationNumber,
             officerInitials,
-            comments,
             note,
             open
         } = this.state
@@ -249,14 +245,6 @@ export class Incident extends React.Component<any, any> {
                         header="Citation number"
                         placeholder="Citation"
                         callback={e => this.setState({ citationNumber: e.target.value })}
-                    />
-                </div>
-                <div className='col-md-12'>
-                    <Textarea
-                        value={comments}
-                        header="Comments"
-                        placeholder="Describe the incident"
-                        callback={e => this.setState({ comments: e.target.value })}
                     />
                 </div>
                 <div className='col-md-6'>

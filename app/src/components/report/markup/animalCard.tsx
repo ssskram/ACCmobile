@@ -3,6 +3,7 @@ import * as style from '../constants'
 import Moment from 'react-moment'
 
 type props = {
+    index: number
     animal: any
     editAnimal: (animalObj: object) => void
     deleteAnimal: (animalObj: object) => void
@@ -11,128 +12,136 @@ type props = {
 export default class AnimalCard extends React.Component<props, {}> {
     render() {
         const {
-            animal
+            animal,
+            index
         } = this.props
+
+        const clearfix = index & 1 && index != 0
         return (
-            <div className='col-md-4' key={animal.itemID}>
-                <div className="panel">
-                    <div className="panel-body text-center">
-                        <div className='col-md-12'>
-                            <div className='row text-center'>
-                                {animal.animalName == null &&
-                                    <h3>{animal.animalType}</h3>
+            <div key={index}>
+                <div className='col-sm-6'>
+                    <div className="panel">
+                        <div className="panel-body text-center">
+                            <div className='col-md-12'>
+                                <div className='row text-center'>
+                                    {animal.animalName == null &&
+                                        <h4>{animal.animalType}</h4>
+                                    }
+                                    {animal.animalName != null &&
+                                        <h4>{animal.animalType} named {animal.animalName}</h4>
+                                    }
+                                </div>
+                                {animal.animalAge != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>Age:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.animalAge}</div>
+                                        </div>
+                                    </div>
                                 }
-                                {animal.animalName != null &&
-                                    <h3>{animal.animalType} named {animal.animalName}</h3>
+                                {animal.animalBreed != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>Breed:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.animalBreed}</div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.animalCoat != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>Coat:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.animalCoat}</div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.animalSex != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>Sex:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.animalSex}</div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.licenseNo != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>License number:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.licenseNo}</div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.licenseYear != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>License year:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.licenseYear}</div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.rabbiesVacNo != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>Rabies vacination number:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.rabbiesVacNo}</div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.rabbiesVacExp != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>Rabies vacination expiration:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><Moment format="MM/DD/YYYY" date={animal.rabbiesVacExp} /></div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.vet != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>Veterinarian:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.vet}</div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.comments != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>Comments:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.comments}</div>
+                                        </div>
+                                    </div>
                                 }
                             </div>
-                            {animal.animalAge != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>Age:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5>{animal.animalAge}</h5>
-                                    </div>
-                                </div>
-                            }
-                            {animal.animalBreed != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>Breed:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5>{animal.animalBreed}</h5>
-                                    </div>
-                                </div>
-                            }
-                            {animal.animalCoat != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>Coat:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5>{animal.animalCoat}</h5>
-                                    </div>
-                                </div>
-                            }
-                            {animal.animalSex != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>Sex:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5>{animal.animalSex}</h5>
-                                    </div>
-                                </div>
-                            }
-                            {animal.licenseNo != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>License number:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5>{animal.licenseNo}</h5>
-                                    </div>
-                                </div>
-                            }
-                            {animal.licenseYear != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>License year:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5>{animal.licenseYear}</h5>
-                                    </div>
-                                </div>
-                            }
-                            {animal.rabbiesVacNo != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>Rabies vacination number:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5>{animal.rabbiesVacNo}</h5>
-                                    </div>
-                                </div>
-                            }
-                            {animal.rabbiesVacExp != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>Rabies vacination expiration:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><Moment format="MM/DD/YYYY" date={animal.rabbiesVacExp} /></h5>
-                                    </div>
-                                </div>
-                            }
-                            {animal.vet != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>Veterinarian:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5>{animal.vet}</h5>
-                                    </div>
-                                </div>
-                            }
-                            {animal.comments != null &&
-                                <div className='row text-center'>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5><strong>Comments:</strong></h5>
-                                    </div>
-                                    <div className='col-md-6 col-sm-12 text-center'>
-                                        <h5>{animal.comments}</h5>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                        <div className='col-md-12 text-center'>
-                            <button className='btn btn-link' onClick={() => this.props.editAnimal(animal)}>Edit</button>
-                            <button style={style.red} className='btn btn-link' onClick={() => this.props.deleteAnimal(animal)}>Delete</button>
+                            <div className='col-md-12 text-center'>
+                                <button className='btn btn-link' onClick={() => this.props.editAnimal(animal)}>Edit</button>
+                                <button style={style.red} className='btn btn-link' onClick={() => this.props.deleteAnimal(animal)}>Delete</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {clearfix == true &&
+                    <div className="clearfix"></div>
+                }
             </div>
         )
     }
