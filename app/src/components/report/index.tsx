@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
+import * as User from '../../store/user'
 import * as Incidents from '../../store/incidents'
 import * as Dropdowns from '../../store/dropdowns'
 import * as types from '../../store/types'
@@ -28,6 +29,7 @@ let lat_lng = {} as any
 let originalIncident = {} as any
 
 type props = {
+    user: types.user
     incidents: types.incident[]
     dropdowns: types.dropdowns
     getDropdowns: () => void
@@ -140,7 +142,7 @@ export class Report extends React.Component<props, state> {
         }
 
         return (
-            <DocumentTitle title={incident? incident.address : '...loading...'}>
+            <DocumentTitle title={incident ? incident.address : '...loading...'}>
                 <div>
                     {!spinnerIsOpen == true &&
                         <div className='col-md-8 col-md-offset-2'>
@@ -159,6 +161,7 @@ export class Report extends React.Component<props, state> {
                                 </div>
                             </div>
                             <Comments
+                                user={this.props.user}
                                 incident={incident}
                             />
                             <AnimalsTable
@@ -167,7 +170,7 @@ export class Report extends React.Component<props, state> {
                                 address={incident.address}
                                 coords={latlng}
                                 animals={animals} />
-                            <Images 
+                            <Images
                                 incident={incident}
                             />
 
@@ -199,10 +202,12 @@ export class Report extends React.Component<props, state> {
 export default connect(
     (state: ApplicationState) => ({
         ...state.incidents,
-        ...state.dropdowns
+        ...state.dropdowns,
+        ...state.user
     }),
     ({
         ...Incidents.actionCreators,
-        ...Dropdowns.actionCreators
+        ...Dropdowns.actionCreators,
+        ...User.actionCreators
     })
 )(Report as any)

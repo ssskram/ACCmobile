@@ -51,8 +51,8 @@ export default class Images extends React.Component<props, state> {
         return (
             <div className='row' style={{ marginTop: '75px', marginBottom: '100px' }}>
                 <div>
-                    <span style={{ fontSize: '2em' }}>Images</span>
-                    <button style={{ marginTop: '-2px' }} onClick={() => this.setState({ imageUpload: true })} className='btn btn-secondary pull-right'><span className='glyphicon glyphicon-plus'></span></button>
+                    <span style={{ fontSize: '1.7em' }}>Images</span>
+                    <button style={{ marginTop: '-5px' }} onClick={() => this.setState({ imageUpload: true })} className='btn btn-secondary pull-right'><span className='glyphicon glyphicon-plus'></span></button>
                 </div>
                 <hr />
                 {this.state.images.length > 0 &&
@@ -61,7 +61,7 @@ export default class Images extends React.Component<props, state> {
                 {this.state.images.length == 0 &&
                     <div className='text-center'>
                         <br />
-                        <h3>No images on this incident</h3>
+                        <h4>No images on this incident</h4>
                         <br />
                     </div>
                 }

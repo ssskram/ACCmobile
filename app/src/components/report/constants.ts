@@ -16,8 +16,6 @@ export const padding = {
     padding: '10px'
 }
 
-
-
 export const borderNone = {
     border: 'none'
 }
@@ -29,4 +27,36 @@ export const customWidth = {
 export const iconStyle = {
     height: '30px',
     marginTop: '-3px'
+}
+
+export const activityContainer = {
+    width: '100%',
+    backgroundColor: '#383838',
+    padding: '25px 5px 5px 5px',
+    maxHeight: '400px',
+    minHeight: '150px',
+    margin: '0 auto',
+    overflowY: 'scroll' as any,
+    overflowX: 'hidden' as any,
+}
+
+export const otherActivity = {
+    backgroundColor: '#DAECFB',
+    padding: '5px 8px',
+    borderRadius: '5px',
+    textAlign: 'right' as 'right',
+    fontSize: '1.2em'
+}
+
+export const myActivity = {
+    backgroundColor: '#3473A8',
+    color: '#fff',
+    padding: '5px 8px',
+    borderRadius: '5px',
+    textAlign: 'left' as 'left',
+    fontSize: '1.2em'
+}
+
+export const smallFont = {
+    fontSize: '.8em'
 }

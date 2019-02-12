@@ -37,6 +37,14 @@ export interface incident {
     open: any;
 }
 
+// comments
+export interface comment {
+    date: string
+    incidentID: string
+    user: string
+    comment: string
+}
+
 // dropdowns
 export interface dropdowns {
     animalBreeds: animalBreeds[]

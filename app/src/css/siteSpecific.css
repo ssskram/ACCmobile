@@ -12,3 +12,77 @@
     display: flex;
     align-items: center;
 }
+
+/* Discussion board
+/* ------------------------- */
+
+.speech-bubble-right {
+    position: relative;
+    background: #DAECFB;
+    border-radius: .4em;
+}
+
+.speech-bubble-right:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 80%;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-left-color: #DAECFB;
+    border-right: 0;
+    border-bottom: 0;
+    margin-top: -4.5px;
+    margin-right: -9px;
+}
+
+.speech-bubble-left {
+    position: relative;
+    background: #3473A8;
+    border-radius: .4em;
+}
+
+.speech-bubble-left:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 80%;
+    width: 0;
+    height: 0;
+    border: 9px solid transparent;
+    border-right-color: #3473A8;
+    border-left: 0;
+    border-bottom: 0;
+    margin-top: -4.5px;
+    margin-left: -9px;
+}
+
+.chatInput {
+    width: 80%;
+    padding: 10px 15px !important;
+    font-size: 16px;
+    border-top: 0px solid transparent;
+    border-width: 0px;
+}
+
+.chatButton {
+    width: 20%;
+    background-color: lightgrey;
+    border-radius: 0px;
+    margin: 0px;
+    height: 100% !important;
+    line-height: 2.1;
+    border-top: 0px solid transparent;
+    border-right: 10px solid #f1f1f1 !important;
+}
+
+.chatButton:focus {
+    outline: 0px auto transparent;
+    outline-offset: -2px;
+}
+
+.chatButton:hover {
+    background-color: #3473A8;
+    color: #fff;
+}

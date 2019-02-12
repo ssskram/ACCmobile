@@ -46,6 +46,7 @@ export default class ImageUpload extends React.Component<props, state> {
 
         return (
             <div>
+                <br/>
                 <ImageUploader
                     buttonStyles={imgButton}
                     withIcon={true}
