@@ -37,8 +37,13 @@
 .panel-button:hover h5,
 .panel-button:active h5,
 .panel-button:hover h6,
-.panel-button:active h6,
+.panel-button:active h6 {
+    color: #fff;
+}
+
 .panel-button:hover .open,
 .panel-button:active .open {
     color: #fff;
+    font-size: 1.3em;
+    font-weight: 600;
 }

@@ -93,7 +93,7 @@ export default class AllIncidents extends React.Component<props, state> {
                     <Loading notice='...loading incidents...' />
                 }
                 {this.props.incidents.length > 0 &&
-                    <div className='incident-container col-md-8 col-md-offset-2'>
+                    <div className='col-md-8 col-md-offset-2'>
                         <Buttons
                             incidents={incidents}
                             originalIncidents={originalIncidents}

@@ -54,15 +54,8 @@ export default class Buttons extends React.Component<props, {}> {
     }
 
     public render() {
-        const openIncidents = this.props.incidents.filter(i => i.open == "Yes").length
-
         return (
-            <div className='col-md-12'>
-                <div>
-                    <div style={{ fontSize: '1.8em' }}>{this.props.itemCount} Incidents</div>
-                    <div style={{ fontSize: '1.5em', color: 'red' }}>{openIncidents} Open</div>
-                </div>
-                <div >
+            <div className='col-md-12 pull-right'>
                     <button className='btn btn-secondary' onClick={this.clearFilters.bind(this)}>Clear all filters</button>
                     {this.props.filters === true &&
                         <button className='btn btn-secondary' onClick={this.hideFilters.bind(this)}>Hide filters</button>
@@ -76,8 +69,6 @@ export default class Buttons extends React.Component<props, {}> {
                     {this.props.format == 'table' &&
                         <button className='btn btn-secondary' onClick={this.toggleViewFormat.bind(this)}>Toggle card view</button>
                     }
-                </div>
-                <br />
             </div>
         )
     }

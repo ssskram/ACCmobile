@@ -22,7 +22,7 @@ export class Home extends React.Component<props, {}> {
 
     render() {
         return (
-            <div className='text-center'>
+            <div>
                 <HydrateStore />
                 <Messages />
                 <AllIncidents
