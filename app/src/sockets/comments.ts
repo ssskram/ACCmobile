@@ -1,14 +1,14 @@
 
 export function subscribeToActivity(cb, incidentID) {
-    const socket = returnSocket({ query: 'incidentID=1234' })
+    const socket = returnSocket({ query: 'incidentID=' + incidentID })
     socket.on('data', function (data) {
         cb(null, data)
     })
     socket.emit('subscribe')
 }
 
-export function broadcastActivity() {
-    const socket = returnSocket({ query: 'incidentID=1234' })
+export function broadcastActivity(incidentID) {
+    const socket = returnSocket({ query: 'incidentID=' + incidentID })
     socket.emit('update')
 }
 

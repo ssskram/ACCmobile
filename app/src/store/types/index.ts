@@ -39,7 +39,7 @@ export interface incident {
 
 // comments
 export interface comment {
-    date: string
+    dateTime: string
     incidentID: string
     user: string
     comment: string

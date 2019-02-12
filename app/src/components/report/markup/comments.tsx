@@ -3,11 +3,9 @@ import * as style from '../constants'
 import * as types from '../../../store/types'
 import { subscribeToActivity } from '../../../sockets/comments'
 import { animateScroll } from "react-scroll"
-import { v1 as uuid } from 'uuid'
 import * as moment from 'moment'
 import { SpeechBubble } from 'react-kawaii'
-
-const talkBubble = require('../../../images/talkBubble.png')
+import postComment from '../functions/postComment'
 
 type props = {
     incident: types.incident
@@ -56,15 +54,25 @@ export default class Comments extends React.Component<props, state> {
     }
 
     post() {
-
+        const load = {
+            dateTime: moment().format('MM/DD/YYYY, hh:mm:ss A'),
+            incidentID: this.props.incident.uuid,
+            user: this.props.user.name,
+            comment: this.state.comment
+        }
+        this.setState({
+            comments: [...this.state.comments, load],
+            comment: ''
+        })
+        postComment(load)
     }
 
     render() {
         const comments = this.state.comments
-            .sort((a, b) => +new Date(a.date) - +new Date(b.date))
+            .sort((a, b) => +new Date(a.dateTime) - +new Date(b.dateTime))
 
         return (
-            <div className='row'>
+            <div className='row' style={{ marginTop: '50px' }}>
                 <div style={{ fontSize: '1.7em' }}>
                     Comments
                 </div>
@@ -84,7 +92,7 @@ export default class Comments extends React.Component<props, state> {
                                             </div>
                                             <div className='col-md-12'>
                                                 <div className='pull-right'>
-                                                    <span style={{ fontSize: '.85em', color: '#fff' }}>{item.date}</span>
+                                                    <span style={{ fontSize: '.85em', color: '#fff' }}>{item.dateTime}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -99,7 +107,7 @@ export default class Comments extends React.Component<props, state> {
                                             </div>
                                             <div className='col-md-12'>
                                                 <div className='pull-left'>
-                                                    <span style={{ fontSize: '.85em', color: '#fff' }}>{item.date}</span>
+                                                    <span style={{ fontSize: '.85em', color: '#fff' }}>{item.dateTime}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -111,7 +119,7 @@ export default class Comments extends React.Component<props, state> {
                             <div className='col-md-12 text-center' style={{ margin: '20px 0px' }}>
                                 <SpeechBubble size={150} mood="sad" color="#d9edf7" />
                                 <div className='alert alert-info' style={{ maxWidth: '300px', margin: '0 auto' }}>
-                                    <span style={{ fontSize: '1.2em' }}><i>No activity here</i></span>
+                                    <span style={{ fontSize: '1.2em' }}><i>No comments here</i></span>
                                 </div>
                             </div>
                         }
