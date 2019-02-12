@@ -9,15 +9,15 @@ type props = {
 export default class Header extends React.Component<props, {}> {
     render() {
         return (
-            <div>
-                <h3 className='text-center'><strong>{this.props.incident.address}</strong></h3>
+            <div className='text-center'>
+                <h3 className='oswald-header'>{this.props.incident.address}</h3>
                 {this.props.incident.open == 'Yes' &&
-                    <h4 className='text-center' style={style.red}>Open incident</h4>
+                    <h4 className='open'>Open incident</h4>
                 }
                 {this.props.incident.open == 'No' &&
-                    <h4 className='text-center'>Closed incident</h4>
+                    <h4>Closed incident</h4>
                 }
-                <h5 className='text-center'>Incident ID: {this.props.incident.itemId}</h5>
+                <h5>Incident ID: {this.props.incident.itemId}</h5>
                 <br />
             </div>
         )

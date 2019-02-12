@@ -55,7 +55,7 @@ export default class Cards extends React.Component<props, {}> {
                                     <img style={style.imgStyle} src={url} />
                                 </div>
                                 <div className="col-md-6">
-                                    <div style={style.address}><strong>{incident.address}</strong></div>
+                                    <div style={style.address} className='oswald-header'>{incident.address}</div>
                                     <h4><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></h4>
                                     <h4>{incident.reasonForVisit}</h4>
                                     <div style={{ fontSize: '.8em', textTransform: 'uppercase' as 'uppercase' }}>Incident ID: {incident.itemId} </div>

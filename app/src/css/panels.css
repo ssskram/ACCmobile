@@ -24,6 +24,8 @@
 
 .open {
     color: red;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
 }
 
 .panel-button:hover h1,

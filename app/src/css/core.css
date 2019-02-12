@@ -25,6 +25,11 @@ h5 {
     font-family: 'Raleway', sans-serif;
 }
 
+.oswald-header {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+}
+
 hr {
     overflow: visible;
     height: 2px;

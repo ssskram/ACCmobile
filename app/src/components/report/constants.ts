@@ -16,9 +16,8 @@ export const padding = {
     padding: '10px'
 }
 
-export const bigFont = {
-    fontSize: '18px'
-}
+
+
 export const borderNone = {
     border: 'none'
 }

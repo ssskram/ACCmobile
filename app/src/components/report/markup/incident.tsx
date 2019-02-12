@@ -29,7 +29,7 @@ export default class Incident extends React.Component<props, any> {
             <div className='col-lg-6 col-md-12'>
                 <table className="table" id="incidenttable">
                     <tbody>
-                        <tr style={style.bigFont}>
+                        <tr>
                             <th style={style.borderNone} scope="row">Reason(s) For visit</th>
                             <td style={style.borderNone}>{reasonForVisit}</td>
                         </tr>
