@@ -54,17 +54,19 @@ export default class Comments extends React.Component<props, state> {
     }
 
     post() {
-        const load = {
-            dateTime: moment().format('MM/DD/YYYY, hh:mm:ss A'),
-            incidentID: this.props.incident.uuid,
-            user: this.props.user.name,
-            comment: this.state.comment
+        if (this.state.comment != '') {
+            const load = {
+                dateTime: moment().format('MM/DD/YYYY, hh:mm:ss A'),
+                incidentID: this.props.incident.uuid,
+                user: this.props.user.name,
+                comment: this.state.comment
+            }
+            this.setState({
+                comments: [...this.state.comments, load],
+                comment: ''
+            })
+            postComment(load)
         }
-        this.setState({
-            comments: [...this.state.comments, load],
-            comment: ''
-        })
-        postComment(load)
     }
 
     render() {
@@ -84,15 +86,15 @@ export default class Comments extends React.Component<props, state> {
                                 if (this.props.user.name != item.user) {
                                     return (
                                         <div key={index} className='col-md-12' style={{ margin: '8px' }}>
-                                            <div className='col-md-12'>
+                                            <div className='row'>
                                                 <div style={style.otherActivity} className='speech-bubble-right pull-right'>
                                                     <span style={{ margin: '10px' }}>{item.comment}</span><br />
-                                                    <span style={style.smallFont}><span style={{ fontSize: '.9em' }} className='glyphicon glyphicon-user nav-glyphicon'></span>{item.user}</span><br />
+                                                    <span style={style.smallFont}><span style={{ fontSize: '.85em' }} className='glyphicon glyphicon-user nav-glyphicon'></span>{item.user}</span><br />
                                                 </div>
                                             </div>
-                                            <div className='col-md-12'>
+                                            <div className='row'>
                                                 <div className='pull-right'>
-                                                    <span style={{ fontSize: '.85em', color: '#fff' }}>{item.dateTime}</span>
+                                                    <span style={{ fontSize: '.8em', color: '#fff' }}>{item.dateTime}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -100,14 +102,14 @@ export default class Comments extends React.Component<props, state> {
                                 } else {
                                     return (
                                         <div key={index} className='col-md-12' style={{ margin: '8px' }}>
-                                            <div className='col-md-12'>
+                                            <div className='row'>
                                                 <div style={style.myActivity} className='speech-bubble-left pull-left'>
                                                     <span style={{ margin: '10px' }}>{item.comment}</span><br />
                                                 </div>
                                             </div>
-                                            <div className='col-md-12'>
+                                            <div className='row'>
                                                 <div className='pull-left'>
-                                                    <span style={{ fontSize: '.85em', color: '#fff' }}>{item.dateTime}</span>
+                                                    <span style={{ fontSize: '.8em', color: '#fff' }}>{item.dateTime}</span>
                                                 </div>
                                             </div>
                                         </div>

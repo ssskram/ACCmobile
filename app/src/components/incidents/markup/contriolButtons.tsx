@@ -55,20 +55,20 @@ export default class Buttons extends React.Component<props, {}> {
 
     public render() {
         return (
-            <div className='col-md-12 pull-right'>
-                    <button className='btn btn-secondary' onClick={this.clearFilters.bind(this)}>Clear all filters</button>
-                    {this.props.filters === true &&
-                        <button className='btn btn-secondary' onClick={this.hideFilters.bind(this)}>Hide filters</button>
-                    }
-                    {this.props.filters === false &&
-                        <button className='btn btn-secondary' onClick={this.showFilters.bind(this)}>More filters</button>
-                    }
-                    {this.props.format == 'cards' &&
-                        <button className='btn btn-secondary' onClick={this.toggleViewFormat.bind(this)}>Toggle table view</button>
-                    }
-                    {this.props.format == 'table' &&
-                        <button className='btn btn-secondary' onClick={this.toggleViewFormat.bind(this)}>Toggle card view</button>
-                    }
+            <div className='col-md-12'>
+                <button className='btn btn-secondary' onClick={this.clearFilters.bind(this)}>Clear all filters</button>
+                {this.props.filters === true &&
+                    <button className='btn btn-secondary' onClick={this.hideFilters.bind(this)}>Hide filters</button>
+                }
+                {this.props.filters === false &&
+                    <button className='btn btn-secondary' onClick={this.showFilters.bind(this)}>More filters</button>
+                }
+                {this.props.format == 'cards' &&
+                    <button className='btn btn-secondary hidden-xs' onClick={this.toggleViewFormat.bind(this)}>Toggle table view</button>
+                }
+                {this.props.format == 'table' &&
+                    <button className='btn btn-secondary hidden-xs' onClick={this.toggleViewFormat.bind(this)}>Toggle card view</button>
+                }
             </div>
         )
     }

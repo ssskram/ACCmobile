@@ -32,7 +32,7 @@ export const iconStyle = {
 export const activityContainer = {
     width: '100%',
     backgroundColor: '#383838',
-    padding: '25px 5px 5px 5px',
+    padding: '25px 8px 8px 8px',
     maxHeight: '400px',
     minHeight: '150px',
     margin: '0 auto',
@@ -54,7 +54,8 @@ export const myActivity = {
     padding: '5px 8px',
     borderRadius: '5px',
     textAlign: 'left' as 'left',
-    fontSize: '1.2em'
+    fontSize: '1.2em',
+    maxWidth: '650px'
 }
 
 export const smallFont = {

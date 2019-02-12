@@ -54,7 +54,7 @@ export default class Cards extends React.Component<props, {}> {
                                 <div className='col-md-3 hidden-sm hidden-xs'>
                                     <img style={style.imgStyle} src={url} />
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-md-6 col-sm-12 col-xs-12">
                                     <div style={style.address} className='oswald-header'>{incident.address}</div>
                                     <h4><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></h4>
                                     <h4>{incident.reasonForVisit}</h4>
