@@ -79,7 +79,7 @@ export default class Incident extends React.Component<props, state> {
             ownersFirstName: props.ownersFirstName || '',
             ownersTelephoneNumber: props.ownersTelephoneNumber || '',
             callOrigin: props.callOrigin || '',
-            reasonForVisit: props.callOrigin || '',
+            reasonForVisit: props.reasonForVisit || '',
             pghCode: props.pghCode || '',
             citationNumber: props.citationNumber || '',
             officerInitials: props.officerInitials || '',
@@ -99,9 +99,14 @@ export default class Incident extends React.Component<props, state> {
         setDropdowns(nextProps.dropdowns, this.setState.bind(this))
     }
 
+    componentDidUpdate(props, state) {
+        console.log(props)
+        console.log(state)
+    }
+
     async putPost() {
-        let data = JSON.stringify({
-            AddressID: '(' + this.props.coords.lat + ', ' + this.props.coords.lng + ')',
+        let data: any = {
+            AddressID: this.props.put ? this.props.coords : '(' + this.props.coords.lat + ', ' + this.props.coords.lng + ')',
             Address: this.props.address,
             OwnersFirstName: this.state.ownersFirstName,
             OwnersLastName: this.state.ownersLastName,
@@ -115,14 +120,14 @@ export default class Incident extends React.Component<props, state> {
             Note: this.state.note,
             AdvisoryID: this.props.incidentUUID,
             ModifiedBy: this.props.user.email,
-            SubmittedBy: this.props.user.email,
-        })
-        const cleaned_data = data.replace(/'/g, '')
+            SubmittedBy: this.props.user.email
+        }
         if (this.props.put) {
-            const success = await putIncident(cleaned_data)
-            if (success) { this.success() } else { this.failure() }
+            data.Id = this.state.itemId
+            const success = await putIncident(JSON.stringify(data).replace(/'/g, ''))
+            if (success) { location.reload() } else { this.failure() }
         } else {
-            const success = await postIncident(cleaned_data)
+            const success = await postIncident(JSON.stringify(data).replace(/'/g, ''))
             if (success) { this.success() } else { this.failure() }
         }
     }
@@ -169,7 +174,7 @@ export default class Incident extends React.Component<props, state> {
             Object.keys(this.props.coords).length > 0
 
         if (redirect) {
-            return <Redirect to={destination} />
+            return <Redirect push to={destination} />
         }
 
         return (

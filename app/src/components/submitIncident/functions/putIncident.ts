@@ -1,6 +1,5 @@
 export default async function putIncident(newIncident) {
-    let success = true
-    await fetch('http://localhost:3000/accmobile/updateIncident', {
+    const status = await fetch('http://localhost:3000/accmobile/updateIncident', {
         method: 'POST',
         headers: new Headers({
             'Authorization': 'Bearer ' + process.env.REACT_APP_365_API,
@@ -8,7 +7,7 @@ export default async function putIncident(newIncident) {
         }),
         body: newIncident,
     })
-        .catch(err => success = false)
-        
-    return success
+        .then(res => res.status)
+    if (status == 200) return true
+    else return false
 }

@@ -125,13 +125,14 @@ export class Report extends React.Component<props, state> {
             addressButtonIsActive,
             incidentModalIsOpen,
             spinnerIsOpen,
-            incidentNotFound } = this.state
+            incidentNotFound
+        } = this.state
 
         const EnableAddressBtn =
             addressButtonIsActive == true
 
         if (incidentNotFound == true) {
-            return <Redirect push to='/NotFound' />
+            return <Redirect push to='/Error' />
         }
 
         return (
