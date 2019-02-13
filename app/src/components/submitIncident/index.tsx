@@ -5,12 +5,11 @@ import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
 import * as types from '../../store/types'
 import Incident from './markup/incident'
-import Modal from 'react-responsive-modal'
-import Autocomplete from '../formElements/autocomplete'
-import Map from '../map/mapContainer'
 import { v1 as uuid } from 'uuid'
 import * as constants from './constants'
 import Spinner from '../utilities/spinner'
+import Address from './markup/address'
+import Submit from './markup/submit'
 
 type props = {
     getDropdowns: () => void
@@ -25,13 +24,11 @@ type state = {
     submit: boolean
     spinnerIsOpen: boolean
     formValid: boolean
-    countPostedItems: number
     redirect: boolean
-    buttonIsEnabled: boolean
-    validationCount: number
+    isEnabled: boolean
 }
 
-export class Submit extends React.Component<props, state> {
+export class SubmitIncident extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
@@ -41,15 +38,13 @@ export class Submit extends React.Component<props, state> {
             coords: {},
             submit: false,
             spinnerIsOpen: false,
-            formValid: false,
-            countPostedItems: 0,
             redirect: false,
 
             // validation
-            buttonIsEnabled: false,
-            validationCount: 0
+            formValid: false,
+            isEnabled: false
         }
-        this.postComplete = this.postComplete.bind(this);
+        this.postComplete = this.postComplete.bind(this)
     }
 
     componentDidMount() {
@@ -61,34 +56,16 @@ export class Submit extends React.Component<props, state> {
         })
     }
 
-    clearCoords() {
-        this.setState({
-            map: false,
-            coords: {}
-        })
-    }
-
-    handleAutcomplete(props) {
-        this.setState({
-            coords: props.coords,
-            address: props.address,
-            map: true
-        })
-    }
-
     fireSubmit() {
         this.setState({
-            // this triggrs post on child incident component
             submit: true,
             spinnerIsOpen: true
         })
     }
 
     postComplete() {
-        this.setState({
-            countPostedItems: this.state.countPostedItems + 1
-        }, function (this) {
-            this.redirect()
+        this.setState ({
+            redirect: true
         })
     }
 
@@ -101,7 +78,7 @@ export class Submit extends React.Component<props, state> {
             submit,
             spinnerIsOpen,
             redirect,
-            buttonIsEnabled
+            isEnabled
         } = this.state
 
         if (redirect) {
@@ -110,22 +87,12 @@ export class Submit extends React.Component<props, state> {
 
         return (
             <div className='col-md-8 col-md-offset-2'>
-                <h3>Address</h3>
-                <hr />
-                <div className='row' style={constants.sectionPadding}>
-                    <div className='row'>
-                        <Autocomplete
-                            value={address}
-                            callback={this.handleAutcomplete.bind(this)}
-                            clearCoords={this.clearCoords.bind(this)}
-                        />
-                    </div>
-                    {map === true &&
-                        <div className='row'>
-                            <Map coords={coords} />
-                        </div>
-                    }
-                </div>
+                <Address
+                    address={address}
+                    map={map}
+                    coords={coords}
+                    setState={this.setState.bind(this)}
+                />
                 <h3>Description</h3>
                 <hr />
                 <div className='row' style={constants.sectionPadding}>
@@ -136,14 +103,13 @@ export class Submit extends React.Component<props, state> {
                         submit={submit}
                         postComplete={this.postComplete} />
                 </div>
-                <div className='col-md-12 text-center'>
-                    <button disabled={!buttonIsEnabled} onClick={this.fireSubmit.bind(this)} className="btn btn-success">Save</button>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </div>
-                <Spinner notice='...submitting incident...' />
+                <Submit
+                    isEnabled={isEnabled}
+                    fireSubmit={this.fireSubmit.bind(this)}
+                />
+                {spinnerIsOpen &&
+                    <Spinner notice='...submitting incident...' />
+                }
             </div>
         )
     }
@@ -156,4 +122,4 @@ export default connect(
     ({
         ...Dropdowns.actionCreators
     })
-)(Submit)
+)(SubmitIncident)

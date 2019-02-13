@@ -1,6 +1,6 @@
 import * as React from 'react'
 import Modal from 'react-responsive-modal'
-import Fields from '../../submit/incident'
+import Fields from '../../submitIncident/markup/incident'
 import * as types from '../../../store/types'
 
 type props = {

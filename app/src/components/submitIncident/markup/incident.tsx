@@ -64,6 +64,7 @@ export class Incident extends React.Component<any, any> {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
         if (this.props != nextProps) {
             if (this.props.submit != nextProps.submit) {
                 // trigger post

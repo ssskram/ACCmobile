@@ -3,7 +3,7 @@ import { Route } from 'react-router'
 import Layout from './components/layout'
 import Home from './components/home'
 import Report from './components/report'
-import Submit from './components/submit'
+import Submit from './components/submitIncident'
 import DocumentTitle from 'react-document-title'
 
 export default () => (

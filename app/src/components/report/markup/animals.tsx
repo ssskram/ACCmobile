@@ -1,9 +1,8 @@
 import * as React from 'react'
-import UpdateAnimal from '../../submit/animal'
+import UpdateAnimal from '../../submitAnimal'
 import Modal from 'react-responsive-modal'
 import DeleteAnimal from './deleteAnimal'
 import AnimalCard from './animalCard'
-import * as style from '../constants'
 
 type props = {
     throwSpinner: () => void
