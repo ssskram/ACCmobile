@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
@@ -7,9 +6,7 @@ import * as types from '../../store/types'
 import Incident from './markup/incident'
 import { v1 as uuid } from 'uuid'
 import * as constants from './constants'
-import Spinner from '../utilities/spinner'
 import Address from './markup/address'
-import Submit from './markup/submit'
 
 type props = {
     getDropdowns: () => void
@@ -21,11 +18,6 @@ type state = {
     map: boolean
     address: string
     coords: object
-    submit: boolean
-    spinnerIsOpen: boolean
-    formValid: boolean
-    redirect: boolean
-    isEnabled: boolean
 }
 
 export class SubmitIncident extends React.Component<props, state> {
@@ -36,15 +28,7 @@ export class SubmitIncident extends React.Component<props, state> {
             map: false,
             address: '',
             coords: {},
-            submit: false,
-            spinnerIsOpen: false,
-            redirect: false,
-
-            // validation
-            formValid: false,
-            isEnabled: false
         }
-        this.postComplete = this.postComplete.bind(this)
     }
 
     componentDidMount() {
@@ -56,34 +40,13 @@ export class SubmitIncident extends React.Component<props, state> {
         })
     }
 
-    fireSubmit() {
-        this.setState({
-            submit: true,
-            spinnerIsOpen: true
-        })
-    }
-
-    postComplete() {
-        this.setState ({
-            redirect: true
-        })
-    }
-
     public render() {
         const {
             uuid,
             map,
             address,
-            coords,
-            submit,
-            spinnerIsOpen,
-            redirect,
-            isEnabled
+            coords
         } = this.state
-
-        if (redirect) {
-            return <Redirect to='/' />
-        }
 
         return (
             <div className='col-md-8 col-md-offset-2'>
@@ -100,16 +63,9 @@ export class SubmitIncident extends React.Component<props, state> {
                         incidentUUID={uuid}
                         address={address}
                         coords={coords}
-                        submit={submit}
-                        postComplete={this.postComplete} />
+                        put={false}
+                    />
                 </div>
-                <Submit
-                    isEnabled={isEnabled}
-                    fireSubmit={this.fireSubmit.bind(this)}
-                />
-                {spinnerIsOpen &&
-                    <Spinner notice='...submitting incident...' />
-                }
             </div>
         )
     }

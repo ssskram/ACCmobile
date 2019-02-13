@@ -1,23 +1,61 @@
-import * as React from 'react';
+import * as React from 'react'
+import { Redirect } from 'react-router-dom'
 import Input from '../../formElements/input'
 import Select from '../../formElements/select'
-import Textarea from '../../formElements/textarea'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../../store'
 import * as user from '../../../store/user'
 import * as Dropdowns from '../../../store/dropdowns'
+import * as types from '../../../store/types'
 import * as constants from '../constants'
 import { selected, update } from '../functions/handleMulti'
+import Submit from '../markup/submit'
+import postIncident from '../functions/post'
+import putIncident from '../functions/put'
+import Spinner from '../../utilities/spinner'
 
-export class Incident extends React.Component<any, any> {
+type props = {
+    incident: types.incident
+    put: boolean
+    coords: any
+    address: string
+    incidentUUID: string
+    user: types.user
+}
+
+type state = {
+    originOptions: Array<any>
+    reasonOptions: Array<any>
+    codeOptions: Array<any>
+    initialsOptions: Array<any>
+    ownersLastName: string
+    ownersFirstName: string
+    ownersTelephoneNumber: string
+    callOrigin: string
+    reasonForVisit: string
+    pghCode: string
+    citationNumber: string
+    officerInitials: string
+    note: string
+    open: string
+    address: string
+    coords: string
+    itemId: string
+    redirect: boolean
+    spinnerIsOpen: boolean
+}
+
+export class Incident extends React.Component<any, state> {
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             // dropdowns
             originOptions: constants.loadingOptions,
             reasonOptions: constants.loadingOptions,
             codeOptions: constants.loadingOptions,
             initialsOptions: constants.loadingOptions,
+            redirect: false,
+            spinnerIsOpen: false,
 
             ownersLastName: '',
             ownersFirstName: '',
@@ -33,12 +71,11 @@ export class Incident extends React.Component<any, any> {
             coords: '',
             itemId: ''
         }
-        this.postNewIncident = this.postNewIncident.bind(this);
     }
 
     componentDidMount() {
         this.props.getDropdowns()
-        let incident = this.props.incident
+        const incident = this.props.incident
         if (this.props.put == true) {
             this.setState({
                 ownersLastName: incident.ownersLastName || '',
@@ -64,7 +101,6 @@ export class Incident extends React.Component<any, any> {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
         if (this.props != nextProps) {
             if (this.props.submit != nextProps.submit) {
                 // trigger post
@@ -72,7 +108,6 @@ export class Incident extends React.Component<any, any> {
                     this.postNewIncident()
                 }
             }
-
             // set dropdowns
             var futureOrigin: any[] = []
             var futureReason: any[] = []
@@ -103,31 +138,11 @@ export class Incident extends React.Component<any, any> {
         }
     }
 
-    componentWillUpdate(nextProps, nextState) {
-        if (this.props.put != true) {
-            if (this.state.reasonForVisit == '' && nextState.reasonForVisit != '') {
-                this.props.isValid()
-            }
-            if (this.state.open == '' && nextState.open != '') {
-                this.props.isValid()
-            }
-            if (this.state.reasonForVisit != '' && nextState.reasonForVisit == '') {
-                this.props.isNotValid()
-            }
-            if (this.state.open != '' && nextState.open == '') {
-                this.props.isNotValid()
-            }
-        }
-    }
-
-
-
     put() {
         this.props.putIt(this.state)
     }
 
-    postNewIncident() {
-        let self = this
+    async postNewIncident() {
         let data = JSON.stringify({
             AddressID: '(' + this.props.coords.lat + ', ' + this.props.coords.lng + ')',
             Address: this.props.address,
@@ -145,19 +160,9 @@ export class Incident extends React.Component<any, any> {
             ModifiedBy: this.props.user.email,
             SubmittedBy: this.props.user.email
         })
-        let cleaned_data = data.replace(/'/g, '')
-        console.log(cleaned_data)
-        // fetch('http://localhost:3000/accmobile/addIncident', {
-        //     method: 'POST',
-        //     headers: new Headers({
-        //         'Authorization': 'Bearer ' + process.env.REACT_APP_365_API,
-        //         'Content-Type': 'application/json'
-        //     }),
-        //     body: cleaned_data,
-        // })
-        //     .then(function () {
-        //         self.props.postComplete()
-        //     })
+        const cleaned_data = data.replace(/'/g, '')
+        const success = await postIncident(cleaned_data)
+        if (success) this.setState({ redirect: true })
     }
 
     public render() {
@@ -168,7 +173,6 @@ export class Incident extends React.Component<any, any> {
             reasonOptions,
             codeOptions,
             initialsOptions,
-
             ownersLastName,
             ownersFirstName,
             ownersTelephoneNumber,
@@ -178,12 +182,20 @@ export class Incident extends React.Component<any, any> {
             citationNumber,
             officerInitials,
             note,
-            open
+            open,
+            redirect,
+            spinnerIsOpen
         } = this.state
 
         // validation
         const isEnabled =
-            reasonForVisit != ''
+            reasonForVisit != '' &&
+            Object.keys(this.props.coords).length > 0
+
+        if (redirect) {
+            const destination = '/Report/id=' + this.props.incidentUUID
+            return <Redirect to={destination} />
+        }
 
         return (
             <div>
@@ -281,12 +293,22 @@ export class Incident extends React.Component<any, any> {
                     </div>
                 }
                 {this.props.put == true &&
-                    <div className='col-md-12 text-center'>
-                        <button disabled={!isEnabled} onClick={this.put.bind(this)} className='btn btn-success'>Save</button>
-                    </div>
+                    <Submit
+                        isEnabled={isEnabled}
+                        fireSubmit={this.put.bind(this)}
+                    />
+                }
+                {this.props.put == false &&
+                    <Submit
+                        isEnabled={isEnabled}
+                        fireSubmit={this.postNewIncident.bind(this)}
+                    />
+                }
+                {spinnerIsOpen &&
+                    <Spinner notice='...submitting incident...' />
                 }
             </div>
-        );
+        )
     }
 }
 
