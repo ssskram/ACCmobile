@@ -16,7 +16,7 @@ type props = {
     dropdowns: types.dropdowns
     user: types.user
     put: boolean
-    
+
     // incoming incident state
     incidentUUID: string
     ownersLastName: string
@@ -43,6 +43,7 @@ type state = {
 
     // utilities
     redirect: boolean
+    destination: string
     spinnerIsOpen: boolean
 
     // internal incident state
@@ -70,6 +71,7 @@ export default class Incident extends React.Component<props, state> {
             codeOptions: constants.loadingOptions,
             initialsOptions: constants.loadingOptions,
             redirect: false,
+            destination: '',
             spinnerIsOpen: false,
 
             // incident state
@@ -97,11 +99,7 @@ export default class Incident extends React.Component<props, state> {
         setDropdowns(nextProps.dropdowns, this.setState.bind(this))
     }
 
-    put() {
-        // this.props.putIt(this.state)
-    }
-
-    async postNewIncident() {
+    async putPost() {
         let data = JSON.stringify({
             AddressID: '(' + this.props.coords.lat + ', ' + this.props.coords.lng + ')',
             Address: this.props.address,
@@ -117,11 +115,30 @@ export default class Incident extends React.Component<props, state> {
             Note: this.state.note,
             AdvisoryID: this.props.incidentUUID,
             ModifiedBy: this.props.user.email,
-            SubmittedBy: this.props.user.email
+            SubmittedBy: this.props.user.email,
         })
         const cleaned_data = data.replace(/'/g, '')
-        const success = await postIncident(cleaned_data)
-        if (success) this.setState({ redirect: true })
+        if (this.props.put) {
+            const success = await putIncident(cleaned_data)
+            if (success) { this.success() } else { this.failure() }
+        } else {
+            const success = await postIncident(cleaned_data)
+            if (success) { this.success() } else { this.failure() }
+        }
+    }
+
+    success() {
+        this.setState({
+            redirect: true,
+            destination: '/Report/id=' + this.props.incidentUUID
+        })
+    }
+
+    failure() {
+        this.setState({
+            redirect: true,
+            destination: '/Error'
+        })
     }
 
     public render() {
@@ -142,6 +159,7 @@ export default class Incident extends React.Component<props, state> {
             note,
             open,
             redirect,
+            destination,
             spinnerIsOpen
         } = this.state
 
@@ -151,7 +169,6 @@ export default class Incident extends React.Component<props, state> {
             Object.keys(this.props.coords).length > 0
 
         if (redirect) {
-            const destination = '/Report/id=' + this.props.incidentUUID
             return <Redirect to={destination} />
         }
 
@@ -250,18 +267,10 @@ export default class Incident extends React.Component<props, state> {
                         />
                     </div>
                 }
-                {this.props.put == true &&
-                    <Submit
-                        isEnabled={isEnabled}
-                        fireSubmit={this.put.bind(this)}
-                    />
-                }
-                {this.props.put == false &&
-                    <Submit
-                        isEnabled={isEnabled}
-                        fireSubmit={this.postNewIncident.bind(this)}
-                    />
-                }
+                <Submit
+                    isEnabled={isEnabled}
+                    fireSubmit={this.putPost.bind(this)}
+                />
                 {spinnerIsOpen &&
                     <Spinner notice='...submitting incident...' />
                 }
