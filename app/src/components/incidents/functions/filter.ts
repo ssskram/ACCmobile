@@ -1,13 +1,12 @@
 import Format from 'date-format'
 
 export default function filter(state, props) {
-
     if (state.address) {
         var address = state.address.toLowerCase()
     }
     if (state.date) {
         var date = new Date(state.date)
-        var formattedDate = Format('yyyy-MM-dd', date)
+        var formattedDate = Format('MM-dd-yyyy', date)
     }
     if (state.submittedBy) {
         var submittedBy = state.submittedBy.toLowerCase()
