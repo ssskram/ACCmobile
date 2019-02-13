@@ -8,8 +8,8 @@ import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
 import * as types from '../../store/types'
 import * as moment from 'moment'
-import * as constants from './constants'
-import { selected, update } from './functions/handleMulti'
+import * as constants from '../submitIncident/constants'
+import { selected, update } from '../submitIncident/functions/handleMulti'
 
 type props = {
     new: boolean

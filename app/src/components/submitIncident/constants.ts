@@ -23,3 +23,7 @@ export const openOptions = [
     { value: 'Yes', label: 'Yes', name: 'open' },
     { value: 'No', label: 'No', name: 'open' },
 ]
+
+export const sectionPadding = {
+    padding: '20px 0px'
+}

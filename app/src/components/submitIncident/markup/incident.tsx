@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Input from '../formElements/input'
-import Select from '../formElements/select'
-import Textarea from '../formElements/textarea'
+import Input from '../../formElements/input'
+import Select from '../../formElements/select'
+import Textarea from '../../formElements/textarea'
 import { connect } from 'react-redux'
-import { ApplicationState } from '../../store'
-import * as user from '../../store/user'
-import * as Dropdowns from '../../store/dropdowns'
-import * as constants from './constants'
-import { selected, update } from './functions/handleMulti'
+import { ApplicationState } from '../../../store'
+import * as user from '../../../store/user'
+import * as Dropdowns from '../../../store/dropdowns'
+import * as constants from '../constants'
+import { selected, update } from '../functions/handleMulti'
 
 export class Incident extends React.Component<any, any> {
     constructor(props) {
@@ -133,7 +133,7 @@ export class Incident extends React.Component<any, any> {
             OwnersFirstName: this.state.ownersFirstName,
             OwnersLastName: this.state.ownersLastName,
             OwnersTelephone: this.state.ownersTelephoneNumber,
-            ReasonforVisit: this.state.reasonForVisit.value,
+            ReasonforVisit: this.state.reasonForVisit,
             ADVPGHCode: this.state.pghCode,
             CitationNumber: this.state.citationNumber,
             CallOrigin: this.state.callOrigin,
@@ -145,17 +145,18 @@ export class Incident extends React.Component<any, any> {
             SubmittedBy: this.props.user.email
         })
         let cleaned_data = data.replace(/'/g, '')
-        fetch('http://localhost:3000/accmobile/addIncident', {
-            method: 'POST',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API,
-                'Content-Type': 'application/json'
-            }),
-            body: cleaned_data,
-        })
-            .then(function () {
-                self.props.postComplete()
-            })
+        console.log(cleaned_data)
+        // fetch('http://localhost:3000/accmobile/addIncident', {
+        //     method: 'POST',
+        //     headers: new Headers({
+        //         'Authorization': 'Bearer ' + process.env.REACT_APP_365_API,
+        //         'Content-Type': 'application/json'
+        //     }),
+        //     body: cleaned_data,
+        // })
+        //     .then(function () {
+        //         self.props.postComplete()
+        //     })
     }
 
     public render() {
