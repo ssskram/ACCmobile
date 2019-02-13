@@ -1,5 +1,5 @@
 export default async function postAnimal(animal) {
-    const status = await fetch('http://localhost:3000/accmobile/addAnimal', {
+    const status = await fetch('https://365proxy.azurewebsites.us/accmobile/addAnimal', {
         method: 'POST',
         headers: new Headers({
             'Authorization': 'Bearer ' + process.env.REACT_APP_365_API,

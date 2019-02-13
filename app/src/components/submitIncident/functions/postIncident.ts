@@ -1,5 +1,5 @@
 export default async function postIncident(incident) {
-    const status = await fetch('http://localhost:3000/accmobile/addIncident', {
+    const status = await fetch('https://365proxy.azurewebsites.us/accmobile/addIncident', {
         method: 'POST',
         headers: new Headers({
             'Authorization': 'Bearer ' + process.env.REACT_APP_365_API,
