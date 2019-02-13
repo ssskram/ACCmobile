@@ -12,6 +12,9 @@ import * as constants from '../submitIncident/constants'
 import { selected, update } from '../submitIncident/functions/handleMulti'
 import postAnimal from './functions/postAnimal'
 import putAnimal from './functions/putAnimal'
+import { Helmet } from "react-helmet"
+import SubmitButton from '../submitIncident/markup/submit'
+const dropdownStyle = '.custom-modal { overflow: visible; } .Select-menu-outer { overflow: visible}'
 
 type props = {
     new: boolean
@@ -201,6 +204,9 @@ export class Animal extends React.Component<any, state> {
 
         return (
             <div key={this.props.key}>
+                <Helmet>
+                    <style>{dropdownStyle}</style>
+                </Helmet>
                 <div className='col-md-3'>
                     <Select
                         value={animalType ? { value: animalType, label: animalType } : ''}
@@ -306,11 +312,12 @@ export class Animal extends React.Component<any, state> {
                     placeholder="Description"
                     callback={e => this.setState({ Comments: e.target.value })}
                 />
-                <div className='col-md-12 text-center'>
-                    <button disabled={!isEnabled} onClick={this.putPost.bind(this)} className='btn btn-success'>Save</button>
-                </div>
+                <SubmitButton 
+                    isEnabled={isEnabled}
+                    fireSubmit={this.putPost.bind(this)}
+                />
             </div>
-        );
+        )
     }
 }
 

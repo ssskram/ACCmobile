@@ -10,6 +10,9 @@ import postIncident from '../functions/postIncident'
 import putIncident from '../functions/putIncident'
 import setDropdowns from '../functions/setDropdowns'
 import Spinner from '../../utilities/spinner'
+import { Helmet } from "react-helmet"
+
+const dropdownStyle = '.custom-modal { overflow: visible; } .Select-menu-outer { overflow: visible}'
 
 type props = {
     getDropdowns: () => void
@@ -142,6 +145,7 @@ export default class Incident extends React.Component<props, state> {
     }
 
     public render() {
+
         // state
         const {
             originOptions,
@@ -174,6 +178,9 @@ export default class Incident extends React.Component<props, state> {
 
         return (
             <div>
+                <Helmet>
+                    <style>{dropdownStyle}</style>
+                </Helmet>
                 <div className='col-md-6'>
                     <Input
                         value={ownersFirstName}
