@@ -10,6 +10,8 @@ import * as types from '../../store/types'
 import * as moment from 'moment'
 import * as constants from '../submitIncident/constants'
 import { selected, update } from '../submitIncident/functions/handleMulti'
+import postAnimal from './functions/postAnimal'
+import putAnimal from './functions/putAnimal'
 
 type props = {
     new: boolean
@@ -21,7 +23,6 @@ type props = {
     addNewAnimal: (animalObj: object) => void
     dropdowns: types.dropdowns
     getDropdowns: () => void
-    throwSpinner: () => void
 }
 
 type state = {
@@ -57,49 +58,25 @@ export class Animal extends React.Component<any, state> {
             coatOptions: constants.conditionalOptions,
             vetOptions: constants.loadingOptions,
 
-            animalName: '',
-            animalAge: '',
-            animalType: '',
-            animalBreed: '',
-            animalCoat: '',
-            animalSex: '',
-            LicenseNo: '',
-            LicenseYear: '',
-            RabbiesVacNo: '',
-            RabbiesVacExp: '',
-            Vet: '',
-            Comments: '',
-            itemID: '',
+            animalName: props.animal.animalName || '',
+            animalAge: props.animal.animalAge || '',
+            animalType: props.animal.animalType || '',
+            animalBreed: props.animal.animalBreed || '',
+            animalCoat: props.animal.animalCoat || '',
+            animalSex: props.animal.animalSex || '',
+            LicenseNo: props.animal.LicenseNo || '',
+            LicenseYear: props.animal.LicenseYear || '',
+            RabbiesVacNo: props.animal.RabbiesVacNo || '',
+            RabbiesVacExp: props.animal.RabbiesVacExp || '',
+            Vet: props.animal.Vet || '',
+            Comments: props.animal.Comments || '',
+            itemID: props.animal.itemID || ''
         }
     }
 
     componentDidMount() {
         this.props.getDropdowns()
         this.setDropdowns()
-        let animal = this.props.animal
-        if (this.props.put == true) {
-            if (animal.rabbiesVacExp) {
-                this.setState({
-                    RabbiesVacExp: moment(animal.rabbiesVacExp),
-                })
-            }
-            this.setState({
-                animalName: animal.animalName || '',
-                animalAge: animal.animalAge || '',
-                animalType: animal.animalType || '',
-                animalBreed: animal.animalBreed || '',
-                animalCoat: animal.animalCoat || '',
-                animalSex: animal.animalSex || '',
-                LicenseNo: animal.licenseNo || '',
-                LicenseYear: animal.licenseYear || '',
-                RabbiesVacNo: animal.rabbiesVacNo || '',
-                Vet: animal.vet || '',
-                Comments: animal.comments || '',
-                itemID: animal.itemID || ''
-            }, function (this) {
-                this.setDropdowns()
-            })
-        }
     }
 
     componentWillReceiveProps() {
@@ -166,75 +143,35 @@ export class Animal extends React.Component<any, state> {
         }
     }
 
-    // add animal to new incident form
-    newAnimal() {
-        this.props.addNewAnimal(this.state)
+    async putPost() {
+        event.preventDefault()
+        let data: any = {
+            AdvisoryID: this.props.incidentID,
+            Name: this.state.animalName,
+            Type: this.state.animalType,
+            Breed: this.state.animalBreed,
+            Coat: this.state.animalCoat,
+            Sex: this.state.animalSex,
+            Age: this.state.animalAge,
+            LicenseNumber: this.state.LicenseNo,
+            LicenseYear: this.state.LicenseYear,
+            RabbiesVacNo: this.state.RabbiesVacNo,
+            RabbiesVacExp: this.state.RabbiesVacExp,
+            Veterinarian: this.state.Vet,
+            Comments: this.state.Comments,
+        }
+        if (this.props.put) {
+            data.Id = this.state.itemID
+            await putAnimal(JSON.stringify(data).replace(/'/g, ''))
+            location.reload()
+        } else {
+            await postAnimal(JSON.stringify(data).replace(/'/g, ''))
+            location.reload()
+        }
     }
 
-    // add animal to existing incident
-    addAnimal(event) {
-        event.preventDefault()
-        this.props.throwSpinner()
-        let self = this.state
-        let data = JSON.stringify({
-            AdvisoryID: this.props.incidentID,
-            Name: self.animalName,
-            Type: self.animalType,
-            Breed: self.animalBreed,
-            Coat: self.animalCoat,
-            Sex: self.animalSex,
-            Age: self.animalAge,
-            LicenseNumber: self.LicenseNo,
-            LicenseYear: self.LicenseYear,
-            RabbiesVacNo: self.RabbiesVacNo,
-            RabbiesVacExp: self.RabbiesVacExp,
-            Veterinarian: self.Vet,
-            Comments: self.Comments,
-        })
-        let cleaned_data = data.replace(/'/g, '');
-        fetch('https://365proxy.azurewebsites.us/accmobile/addAnimal', {
-            method: 'POST',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            }),
-            body: cleaned_data,
-        })
-            .then(function () {
-                location.reload()
-            })
-    }
+    failure() {
 
-    put(event) {
-        event.preventDefault()
-        this.props.throwSpinner()
-        let self = this.state
-        let data = JSON.stringify({
-            itemId: self.itemID,
-            AdvisoryID: this.props.incidentID,
-            Name: self.animalName,
-            Type: self.animalType,
-            Breed: self.animalBreed,
-            Coat: self.animalCoat,
-            Sex: self.animalSex,
-            Age: self.animalAge,
-            LicenseNumber: self.LicenseNo,
-            LicenseYear: self.LicenseYear,
-            RabbiesVacNo: self.RabbiesVacNo,
-            RabbiesVacExp: self.RabbiesVacExp,
-            Veterinarian: self.Vet,
-            Comments: self.Comments,
-        })
-        let cleaned_data = data.replace(/'/g, '');
-        fetch('https://365proxy.azurewebsites.us/accmobile/updateAnimal', {
-            method: 'POST',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            }),
-            body: cleaned_data,
-        })
-            .then(function () {
-                location.reload()
-            })
     }
 
     public render() {
@@ -266,7 +203,7 @@ export class Animal extends React.Component<any, state> {
             <div key={this.props.key}>
                 <div className='col-md-3'>
                     <Select
-                        value={animalType ? { value: animalType, label: animalType }: ''}
+                        value={animalType ? { value: animalType, label: animalType } : ''}
                         header='Type'
                         placeholder='Type'
                         onChange={v => {
@@ -295,10 +232,10 @@ export class Animal extends React.Component<any, state> {
                 </div>
                 <div className='col-md-3'>
                     <Select
-                        value={animalSex ? selected(animalSex) : ''}
+                        value={animalSex ? { value: animalSex, label: animalSex } : ''}
                         header='Sex'
                         placeholder='Sex'
-                        onChange={animalSex => this.setState({ animalSex: update(animalSex) })}
+                        onChange={v => this.setState({ animalSex: v.value })}
                         multi={false}
                         options={constants.animalSexes}
                     />
@@ -318,7 +255,7 @@ export class Animal extends React.Component<any, state> {
                         value={animalCoat ? selected(animalCoat) : ''}
                         header='Coat'
                         placeholder='Coat(s)'
-                        onChange={animalCoat => this.setState({ animalCoat: update(animalCoat)})}
+                        onChange={animalCoat => this.setState({ animalCoat: update(animalCoat) })}
                         multi={true}
                         options={coatOptions}
                     />
@@ -356,7 +293,7 @@ export class Animal extends React.Component<any, state> {
                     />
                 </div>
                 <Select
-                    value={Vet ? { value: Vet, label: Vet }: ''}
+                    value={Vet ? { value: Vet, label: Vet } : ''}
                     header='Veterinarian'
                     placeholder='Vet'
                     onChange={v => this.setState({ Vet: v.value })}
@@ -369,21 +306,9 @@ export class Animal extends React.Component<any, state> {
                     placeholder="Description"
                     callback={e => this.setState({ Comments: e.target.value })}
                 />
-                {this.props.add == true &&
-                    <div className='col-md-12 text-center'>
-                        <button disabled={!isEnabled} onClick={this.addAnimal.bind(this)} className='btn btn-success'>Save</button>
-                    </div>
-                }
-                {this.props.put == true &&
-                    <div className='col-md-12 text-center'>
-                        <button disabled={!isEnabled} onClick={this.put.bind(this)} className='btn btn-success'>Save</button>
-                    </div>
-                }
-                {this.props.new == true &&
-                    <div className='col-md-12 text-center'>
-                        <button disabled={!isEnabled} onClick={this.newAnimal.bind(this)} className='btn btn-success'>Save</button>
-                    </div>
-                }
+                <div className='col-md-12 text-center'>
+                    <button disabled={!isEnabled} onClick={this.putPost.bind(this)} className='btn btn-success'>Save</button>
+                </div>
             </div>
         );
     }

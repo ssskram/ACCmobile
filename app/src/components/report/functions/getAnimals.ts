@@ -6,5 +6,6 @@ export default async function getAnimals(AdvisoryID) {
         })
     })
     const animals = await response.json()
+    console.log(animals)
     return animals
 }

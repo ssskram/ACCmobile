@@ -99,11 +99,6 @@ export default class Incident extends React.Component<props, state> {
         setDropdowns(nextProps.dropdowns, this.setState.bind(this))
     }
 
-    componentDidUpdate(props, state) {
-        console.log(props)
-        console.log(state)
-    }
-
     async putPost() {
         let data: any = {
             AddressID: this.props.put ? this.props.coords : '(' + this.props.coords.lat + ', ' + this.props.coords.lng + ')',
