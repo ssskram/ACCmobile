@@ -1,4 +1,5 @@
-export default function putIncident(newIncident) {
+export default async function putIncident(newIncident) {
+
     let data = JSON.stringify({
         AddressID: newIncident.coords,
         Address: newIncident.address,
@@ -26,4 +27,7 @@ export default function putIncident(newIncident) {
         .then(function () {
             location.reload()
         })
+
+    console.log(newIncident)
+    return true
 }

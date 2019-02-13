@@ -2,32 +2,50 @@ import * as React from 'react'
 import { Redirect } from 'react-router-dom'
 import Input from '../../formElements/input'
 import Select from '../../formElements/select'
-import { connect } from 'react-redux'
-import { ApplicationState } from '../../../store'
-import * as user from '../../../store/user'
-import * as Dropdowns from '../../../store/dropdowns'
-import * as types from '../../../store/types'
 import * as constants from '../constants'
+import * as types from '../../../store/types'
 import { selected, update } from '../functions/handleMulti'
 import Submit from '../markup/submit'
-import postIncident from '../functions/post'
-import putIncident from '../functions/put'
+import postIncident from '../functions/postIncident'
+import putIncident from '../functions/putIncident'
+import setDropdowns from '../functions/setDropdowns'
 import Spinner from '../../utilities/spinner'
 
 type props = {
-    incident: types.incident
-    put: boolean
-    coords: any
-    address: string
-    incidentUUID: string
+    getDropdowns: () => void
+    dropdowns: types.dropdowns
     user: types.user
+    put: boolean
+    
+    // incoming incident state
+    incidentUUID: string
+    ownersLastName: string
+    ownersFirstName: string
+    ownersTelephoneNumber: string
+    callOrigin: string
+    reasonForVisit: string
+    pghCode: string
+    citationNumber: string
+    officerInitials: string
+    note: string
+    open: string
+    address: string
+    coords: any
+    itemId: number
 }
 
 type state = {
+    // dropdowns
     originOptions: Array<any>
     reasonOptions: Array<any>
     codeOptions: Array<any>
     initialsOptions: Array<any>
+
+    // utilities
+    redirect: boolean
+    spinnerIsOpen: boolean
+
+    // internal incident state
     ownersLastName: string
     ownersFirstName: string
     ownersTelephoneNumber: string
@@ -41,15 +59,12 @@ type state = {
     address: string
     coords: string
     itemId: string
-    redirect: boolean
-    spinnerIsOpen: boolean
 }
 
-export class Incident extends React.Component<any, state> {
+export default class Incident extends React.Component<props, state> {
     constructor(props) {
         super(props)
         this.state = {
-            // dropdowns
             originOptions: constants.loadingOptions,
             reasonOptions: constants.loadingOptions,
             codeOptions: constants.loadingOptions,
@@ -57,89 +72,33 @@ export class Incident extends React.Component<any, state> {
             redirect: false,
             spinnerIsOpen: false,
 
-            ownersLastName: '',
-            ownersFirstName: '',
-            ownersTelephoneNumber: '',
-            callOrigin: '',
-            reasonForVisit: '',
-            pghCode: '',
-            citationNumber: '',
-            officerInitials: '',
-            note: '',
-            open: '',
-            address: '',
-            coords: '',
-            itemId: ''
+            // incident state
+            ownersLastName: props.ownersLastName || '',
+            ownersFirstName: props.ownersFirstName || '',
+            ownersTelephoneNumber: props.ownersTelephoneNumber || '',
+            callOrigin: props.callOrigin || '',
+            reasonForVisit: props.callOrigin || '',
+            pghCode: props.pghCode || '',
+            citationNumber: props.citationNumber || '',
+            officerInitials: props.officerInitials || '',
+            note: props.note || '',
+            open: props.open || 'Yes',
+            address: props.address || '',
+            coords: props.coords || '',
+            itemId: props.itemId || ''
         }
     }
 
     componentDidMount() {
         this.props.getDropdowns()
-        const incident = this.props.incident
-        if (this.props.put == true) {
-            this.setState({
-                ownersLastName: incident.ownersLastName || '',
-                ownersFirstName: incident.ownersFirstName || '',
-                ownersTelephoneNumber: incident.ownersTelephoneNumber || '',
-                callOrigin: incident.callOrigin || '',
-                reasonForVisit: incident.reasonForVisit || '',
-                pghCode: incident.pghCode || '',
-                citationNumber: incident.citationNumber || '',
-                officerInitials: incident.officerInitials || '',
-                note: incident.note || '',
-                open: incident.open || '',
-                address: incident.address || '',
-                coords: incident.coords || '',
-                itemId: incident.itemId || ''
-            })
-        }
-        if (this.props.put != true) {
-            this.setState({
-                open: 'Yes'
-            })
-        }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props != nextProps) {
-            if (this.props.submit != nextProps.submit) {
-                // trigger post
-                if (nextProps.submit == true) {
-                    this.postNewIncident()
-                }
-            }
-            // set dropdowns
-            var futureOrigin: any[] = []
-            var futureReason: any[] = []
-            var futureCode: any[] = []
-            var futureInitials: any[] = []
-            nextProps.dropdowns.callOrigins.forEach(function (element) {
-                var json = { "value": element.origin, "label": element.origin, "name": 'callOrigin' };
-                futureOrigin.push(json)
-            })
-            nextProps.dropdowns.reasonsForVisit.forEach(function (element) {
-                var json = { "value": element.reason, "label": element.reason, "name": 'reasonForVisit' };
-                futureReason.push(json)
-            })
-            nextProps.dropdowns.citationNumbers.forEach(function (element) {
-                var json = { "value": element.citation, "label": element.citation, "name": 'citationNumber' };
-                futureCode.push(json)
-            })
-            nextProps.dropdowns.officerInitials.forEach(function (element) {
-                var json = { "value": element.initial, "label": element.initial, "name": 'officerInitials' };
-                futureInitials.push(json)
-            })
-            this.setState({
-                originOptions: futureOrigin,
-                reasonOptions: futureReason,
-                codeOptions: futureCode,
-                initialsOptions: futureInitials
-            })
-        }
+        setDropdowns(nextProps.dropdowns, this.setState.bind(this))
     }
 
     put() {
-        this.props.putIt(this.state)
+        // this.props.putIt(this.state)
     }
 
     async postNewIncident() {
@@ -168,7 +127,6 @@ export class Incident extends React.Component<any, state> {
     public render() {
         // state
         const {
-            // select options
             originOptions,
             reasonOptions,
             codeOptions,
@@ -311,14 +269,3 @@ export class Incident extends React.Component<any, state> {
         )
     }
 }
-
-export default connect(
-    (state: ApplicationState) => ({
-        ...state.dropdowns,
-        ...state.user
-    }),
-    ({
-        ...Dropdowns.actionCreators,
-        ...user.actionCreators
-    })
-)(Incident)

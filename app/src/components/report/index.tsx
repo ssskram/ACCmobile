@@ -9,20 +9,20 @@ import * as types from '../../store/types'
 import Incident from './markup/incident'
 import AnimalsTable from './markup/animals'
 import Map from '../map/mapContainer'
-import UpdateIncident from './markup/updateIncident'
-import UpdateAddress from './markup/updateAddress'
+import UpdateIncident from '../submitIncident/markup/updateIncident'
+import UpdateAddress from '../submitIncident/markup/updateAddress'
 import update from 'immutability-helper'
 import getIncident from './functions/getIncident'
 import getAnimals from './functions/getAnimals'
 import formatLatLng from './functions/formatLatLng'
-import putIncident from './functions/putIncident'
 import Loading from '../incidents/markup/loading'
-import Comments from './markup/comments'
+import Comments from '../comments'
 import StreetView from './markup/streetView'
 import Header from './markup/header'
 import Buttons from './markup/buttons'
 import DocumentTitle from 'react-document-title'
-import Images from './markup/images'
+import Images from '../images'
+import putIncident from '../submitIncident/functions/putIncident'
 
 // keep original latlng & incident objects in case user bails from updates
 let lat_lng = {} as any
@@ -104,13 +104,6 @@ export class Report extends React.Component<props, state> {
         })
     }
 
-    putIncident(newIncident) {
-        this.setState({
-            spinnerIsOpen: true
-        })
-        putIncident(newIncident)
-    }
-
     closeIncident() {
         this.setState({
             incident: update(this.state.incident, { open: { $set: 'No' } })
@@ -178,8 +171,11 @@ export class Report extends React.Component<props, state> {
                                 incidentModalIsOpen={incidentModalIsOpen}
                                 incident={incident}
                                 closeModal={this.closeModal.bind(this)}
-                                putIncident={() => this.putIncident.bind(this)}
+                                getDropdowns={this.props.getDropdowns.bind(this)}
+                                dropdowns={this.props.dropdowns}
+                                user={this.props.user}
                             />
+
                             <UpdateAddress
                                 addressModalIsOpen={addressModalIsOpen}
                                 enableAddressButton={EnableAddressBtn}

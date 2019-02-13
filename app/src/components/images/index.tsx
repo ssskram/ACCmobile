@@ -1,10 +1,10 @@
 import * as React from 'react'
-import * as types from '../../../store/types'
+import * as types from '../../store/types'
 import Gallery from 'react-grid-gallery'
-import getImages from '../functions/getImages'
+import getImages from '../report/functions/getImages'
 import Modal from 'react-responsive-modal'
-import ImageUpload from './imageUpload'
-import Spinner from '../../utilities/spinner'
+import ImageUpload from './markup/imageUpload'
+import Spinner from '../utilities/spinner'
 
 type props = {
     incident: types.incident

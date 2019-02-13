@@ -2,6 +2,7 @@ import * as React from 'react'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
+import * as user from '../../store/user'
 import * as types from '../../store/types'
 import Incident from './markup/incident'
 import { v1 as uuid } from 'uuid'
@@ -11,6 +12,7 @@ import Address from './markup/address'
 type props = {
     getDropdowns: () => void
     dropdowns: types.dropdowns
+    user: types.user
 }
 
 type state = {
@@ -60,10 +62,24 @@ export class SubmitIncident extends React.Component<props, state> {
                 <hr />
                 <div className='row' style={constants.sectionPadding}>
                     <Incident
+                        getDropdowns={this.props.getDropdowns.bind(this)}
+                        dropdowns={this.props.dropdowns}
+                        user={this.props.user}
                         incidentUUID={uuid}
                         address={address}
                         coords={coords}
                         put={false}
+                        ownersLastName={undefined}
+                        ownersFirstName={undefined}
+                        ownersTelephoneNumber={undefined}
+                        callOrigin={undefined}
+                        reasonForVisit={undefined}
+                        pghCode={undefined}
+                        citationNumber={undefined}
+                        officerInitials={undefined}
+                        note={undefined}
+                        open={undefined}
+                        itemId={undefined}
                     />
                 </div>
             </div>
@@ -73,9 +89,11 @@ export class SubmitIncident extends React.Component<props, state> {
 
 export default connect(
     (state: ApplicationState) => ({
-        ...state.dropdowns
+        ...state.dropdowns,
+        ...state.user
     }),
     ({
-        ...Dropdowns.actionCreators
+        ...Dropdowns.actionCreators,
+        ...user.actionCreators
     })
 )(SubmitIncident)

@@ -1,11 +1,11 @@
 import * as React from 'react'
-import * as style from '../constants'
-import * as types from '../../../store/types'
-import { subscribeToActivity } from '../../../sockets/comments'
+import * as style from '../report/constants'
+import * as types from '../../store/types'
+import { subscribeToActivity } from '../../sockets/comments'
 import { animateScroll } from "react-scroll"
 import * as moment from 'moment'
 import { SpeechBubble } from 'react-kawaii'
-import postComment from '../functions/postComment'
+import postComment from './functions/postComment'
 
 type props = {
     incident: types.incident

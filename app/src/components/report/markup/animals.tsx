@@ -1,7 +1,7 @@
 import * as React from 'react'
 import UpdateAnimal from '../../submitAnimal'
 import Modal from 'react-responsive-modal'
-import DeleteAnimal from './deleteAnimal'
+import DeleteAnimal from '../../submitAnimal/markup/deleteAnimal'
 import AnimalCard from './animalCard'
 
 type props = {

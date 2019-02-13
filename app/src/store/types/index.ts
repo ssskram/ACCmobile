@@ -16,25 +16,24 @@ export interface incidents {
     incidents: incident[]
 }
 export interface incident {
-    uuid: any
-    link: any;
-    date: any;
-    address: any;
-    itemId: any;
-    coords: any;
-    reasonForVisit: any;
-    note: any;
-    ownersLastName: any;
-    ownersFirstName: any;
-    ownersTelephoneNumber: any;
-    pghCode: any;
-    citationNumber: any;
-    comments: any;
-    callOrigin: any;
-    submittedBy: any;
-    modifiedBy: any;
-    officerInitials: any;
-    open: any;
+    uuid: string
+    link: string;
+    date: string;
+    address: string;
+    itemId: number;
+    coords: string;
+    reasonForVisit: string;
+    note: string;
+    ownersLastName: string;
+    ownersFirstName: string;
+    ownersTelephoneNumber: string;
+    pghCode: string;
+    citationNumber: string;
+    callOrigin: string;
+    submittedBy: string;
+    modifiedBy: string;
+    officerInitials: string;
+    open: string;
 }
 
 // comments

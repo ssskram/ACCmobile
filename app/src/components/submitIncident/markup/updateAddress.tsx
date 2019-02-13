@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Modal from 'react-responsive-modal'
 import Autocomplete from '../../formElements/autocomplete'
-import * as style from '../constants'
+import * as style from '../../report/constants'
 
 type props = {
     addressModalIsOpen: boolean
