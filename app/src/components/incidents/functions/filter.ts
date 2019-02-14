@@ -11,6 +11,9 @@ export default function filter(state, props) {
     if (state.submittedBy) {
         var submittedBy = state.submittedBy.toLowerCase()
     }
+    if (state.submittedBy) {
+        var submittedBy = state.submittedBy.toLowerCase()
+    }
     if (state.status) {
         var open = state.status.toLowerCase()
     }
