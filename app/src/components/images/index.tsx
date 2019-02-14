@@ -52,7 +52,7 @@ export default class Images extends React.Component<props, state> {
             <div className='row' style={{ marginTop: '75px', marginBottom: '100px' }}>
                 <div>
                     <span style={{ fontSize: '1.7em' }}>Images</span>
-                    <button style={{ marginTop: '-5px' }} onClick={() => this.setState({ imageUpload: true })} className='btn btn-secondary pull-right'><span className='glyphicon glyphicon-plus'></span></button>
+                    <button style={{ marginTop: '-8px' }} onClick={() => this.setState({ imageUpload: true })} className='btn btn-secondary pull-right'><span className='glyphicon glyphicon-plus'></span></button>
                 </div>
                 <hr />
                 {this.state.images.length > 0 &&

@@ -11,6 +11,15 @@
     color: #fff;
 }
 
+.btn-link:focus,
+.btn-link:hover {
+    color: #23527c !important;
+}
+
+.btn-datepicker:hover {
+    color: #333 !important;
+}
+
 .btn-secondary,
 .btn-success,
 .btn-danger,
@@ -18,7 +27,7 @@
 .btn-info,
 .btn-warning {
     margin: 5px 5px;
-    font-size: 18px;
+    font-size: 16px;
     color: #fffcf5;
     font-family: 'Raleway', sans-serif;
 }
@@ -27,7 +36,6 @@
     color: black;
     background-color: #A4A3A3;
     border-color: #A4A3A3;
-    font-size: 14px;
 }
 
 .btn.disabled,

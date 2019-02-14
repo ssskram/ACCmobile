@@ -73,7 +73,7 @@ export default class Animals extends React.Component<props, state> {
             <div className='row' style={{ marginTop: '75px' }}>
                 <div>
                     <span style={{ fontSize: '1.7em' }}>Animals</span>
-                    <button style={{ marginTop: '-5px' }} className='btn btn-secondary pull-right' onClick={this.addAnimal.bind(this)}><span className='glyphicon glyphicon-plus'></span></button>
+                    <button style={{ marginTop: '-8px' }} className='btn btn-secondary pull-right' onClick={this.addAnimal.bind(this)}><span className='glyphicon glyphicon-plus'></span></button>
                 </div>
                 <hr />
                 {this.props.animals.length == 0 &&
