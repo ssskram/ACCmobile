@@ -5,6 +5,7 @@ import getImages from '../report/functions/getImages'
 import Modal from 'react-responsive-modal'
 import ImageUpload from './markup/imageUpload'
 import Spinner from '../utilities/spinner'
+import DeleteImage from './markup/deleteImage'
 
 type props = {
     incident: types.incident
@@ -56,7 +57,10 @@ export default class Images extends React.Component<props, state> {
                 </div>
                 <hr />
                 {this.state.images.length > 0 &&
-                    <Gallery images={this.state.images} />
+                    <Gallery
+                        images={this.state.images}
+                        customControls={[<DeleteImage/>]}
+                    />
                 }
                 {this.state.images.length == 0 &&
                     <div className='text-center'>
