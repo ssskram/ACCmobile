@@ -4,7 +4,6 @@ import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
 import * as types from '../../store/types'
 import * as constants from './constants'
-import getUniqueValuesOfKey from './functions/valuesOfKeys'
 import Fields from './markup/filterInputs'
 
 type state = {
@@ -12,7 +11,7 @@ type state = {
     submittedByOptions: object
     address: string
     status: string
-    submittedBy: string
+    ownersName: string
     date: string
     clearDate: boolean
     reasonForVisit: string
@@ -36,7 +35,7 @@ export class Filters extends React.Component<props, state> {
             submittedByOptions: constants.loadingOptions,
             address: '',
             status: '',
-            submittedBy: '',
+            ownersName: '',
             date: '',
             clearDate: false,
             reasonForVisit: '',
@@ -45,7 +44,6 @@ export class Filters extends React.Component<props, state> {
     }
 
     componentDidMount() {
-        this.setSubmittedByDropdown()
         this.props.getDropdowns()
     }
 
@@ -56,23 +54,12 @@ export class Filters extends React.Component<props, state> {
                 status: undefined,
                 date: '',
                 clearDate: true,
-                submittedBy: undefined,
+                ownersName: undefined,
                 reasonForVisit: undefined,
                 note: ''
             })
         }
         this.setReasonsDropdown(nextProps)
-    }
-
-    setSubmittedByDropdown() {
-        var submittedByOptions = [{ value: '', label: 'All' }]
-        var electronicIncidents = this.props.incidents.filter(obj => obj.submittedBy != null)
-        var uniqueSubmitters = getUniqueValuesOfKey(electronicIncidents, 'submittedBy')
-        uniqueSubmitters.sort().forEach(element => {
-            var json = { "value": element, "label": element }
-            submittedByOptions.push(json)
-        })
-        this.setState({ submittedByOptions })
     }
 
     setReasonsDropdown(nextProps) {

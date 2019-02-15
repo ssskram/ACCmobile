@@ -18,7 +18,7 @@ export default class FilterInputs extends React.Component<props, {}> {
             reasonOptions,
             address,
             status,
-            submittedBy,
+            ownersName,
             date,
             clearDate,
             reasonForVisit,
@@ -38,7 +38,7 @@ export default class FilterInputs extends React.Component<props, {}> {
                     </div>
                     <div className='col-md-6'>
                         <Select
-                            value={status ? { value: status, label: status }: ''}
+                            value={status ? { value: status, label: status } : ''}
                             header=''
                             placeholder='Flter by status'
                             onChange={status => this.props.setState({ status: status.value })}
@@ -72,13 +72,11 @@ export default class FilterInputs extends React.Component<props, {}> {
                         </div>
                         <div className='row'>
                             <div className='col-md-6'>
-                                <Select
-                                    value={submittedBy ? { value: submittedBy, label: submittedBy } : ''}
-                                    header=''
-                                    placeholder='Filter by officer'
-                                    onChange={submittedBy => this.props.setState({ submittedBy: submittedBy.value })}
-                                    multi={false}
-                                    options={submittedByOptions}
+                                <Input
+                                    value={ownersName}
+                                    header=""
+                                    placeholder="Search owner's last name"
+                                    callback={e => this.props.setState({ ownersName: e.target.value })}
                                 />
                             </div>
                             <div className='col-md-6'>

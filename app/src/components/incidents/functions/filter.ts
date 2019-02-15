@@ -8,8 +8,8 @@ export default function filter(state, props) {
         var date = new Date(state.date)
         var formattedDate = Format('MM-dd-yyyy', date)
     }
-    if (state.submittedBy) {
-        var submittedBy = state.submittedBy.toLowerCase()
+    if (state.ownersName) {
+        var ownersName = state.ownersName.toLowerCase()
     }
     if (state.status) {
         var open = state.status.toLowerCase()
@@ -31,13 +31,13 @@ export default function filter(state, props) {
                 return false
             }
         }
-        if (submittedBy) {
-            if (item.submittedBy) {
-                if (!item.submittedBy.toLowerCase().includes(submittedBy)) {
+        if (ownersName) {
+            if (item.ownersLastName) {
+                if (!item.ownersLastName.toLowerCase().includes(ownersName)) {
                     return false
                 }
             }
-            else if (!item.submittedBy) {
+            else if (!item.ownersLastName) {
                 return false
             }
         }
