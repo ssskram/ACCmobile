@@ -14,8 +14,9 @@ type props = {
 type state = {
     isOpen: boolean
     images: Array<any>
-    imageUpload: boolean,
+    imageUpload: boolean
     submitSpinner: boolean
+    currentImage: number
 }
 
 export default class Images extends React.Component<props, state> {
@@ -24,6 +25,7 @@ export default class Images extends React.Component<props, state> {
         this.state = {
             isOpen: true,
             images: [],
+            currentImage: 0,
             imageUpload: false,
             submitSpinner: false
         }
@@ -36,6 +38,8 @@ export default class Images extends React.Component<props, state> {
             const obj = {
                 src: "https://blobby.blob.core.usgovcloudapi.net/accmobile/" + image.relativePath,
                 thumbnail: "https://blobby.blob.core.usgovcloudapi.net/accmobile/" + image.relativePath,
+                name: image.relativePath,
+                itemId: image.itemId,
                 thumbnailWidth: 400,
                 thumbnailHeight: 300,
                 caption: image.imageDescription,
@@ -59,7 +63,10 @@ export default class Images extends React.Component<props, state> {
                 {this.state.images.length > 0 &&
                     <Gallery
                         images={this.state.images}
-                        customControls={[<DeleteImage/>]}
+                        enableLightbox={true}
+                        enableImageSelection={false}
+                        currentImageWillChange={index => this.setState({ currentImage: index })}
+                        customControls={[<DeleteImage image={this.state.images[this.state.currentImage]} />]}
                     />
                 }
                 {this.state.images.length == 0 &&

@@ -41,6 +41,7 @@
 
 .spinner-overlay {
     background: rgba(26, 36, 47, .8);
+    z-index: 100000000000 !important;
 }
 
 .spinner-modal {
@@ -55,6 +56,7 @@
     text-align: center;
     letter-spacing: 2px;
     margin: 0 auto !important;
+    z-index: 100000000001 !important;
 }
 
 .loader, .loader:before, .loader:after {
