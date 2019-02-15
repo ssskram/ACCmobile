@@ -9,11 +9,7 @@ export default class DA extends React.Component<any, any> {
             spinner: false
         }
     }
-
-    componentDidMount() {
-        console.log(this.props)
-    }
-
+    
     delete() {
         this.setState({
             spinner: true
