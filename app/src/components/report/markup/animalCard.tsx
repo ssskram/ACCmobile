@@ -2,6 +2,10 @@ import * as React from 'react'
 import * as style from '../constants'
 import Moment from 'react-moment'
 
+const dog = require('../../../images/dog.png')
+const cat = require('../../../images/cat.png')
+const other = require('../../../images/other.png')
+
 type props = {
     index: number
     animal: any
@@ -22,15 +26,32 @@ export default class AnimalCard extends React.Component<props, {}> {
                 <div className='col-sm-6'>
                     <div className="panel">
                         <div className="panel-body text-center">
-                            <div className='col-md-12'>
-                                <div className='row text-center'>
-                                    {animal.animalName == null &&
-                                        <h4>{animal.animalType}</h4>
-                                    }
-                                    {animal.animalName != null &&
-                                        <h4>{animal.animalType} named {animal.animalName}</h4>
-                                    }
+                            <div className='col-md-4 hidden-md hidden-sm hidden-xs'>
+                                {animal.animalType == "Dog" &&
+                                    <img src={dog as string}></img>
+                                }
+                                {animal.animalType == "Cat" &&
+                                    <img src={cat as string}></img>
+
+                                }
+                                {animal.animalType == "Other" &&
+                                    <img src={other as string}></img>
+                                }
+                            </div>
+                            <div className='col-md-12 col-lg-8'>
+                                <div className='row text-center hidden-xl hidden-lg'>
+                                    <h4>{animal.animalType}</h4>
                                 </div>
+                                {animal.animalName != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><strong>Name:</strong></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.animalName}</div>
+                                        </div>
+                                    </div>
+                                }
                                 {animal.animalAge != null &&
                                     <div className='row text-center'>
                                         <div className='col-md-6 col-sm-12 text-center'>
@@ -131,10 +152,10 @@ export default class AnimalCard extends React.Component<props, {}> {
                                         </div>
                                     </div>
                                 }
-                            </div>
-                            <div className='col-md-12 text-center'>
-                                <button className='btn btn-link' onClick={() => this.props.editAnimal(animal)}>Edit</button>
-                                <button style={style.red} className='btn btn-link' onClick={() => this.props.deleteAnimal(animal)}>Delete</button>
+                                <div>
+                                    <button className='btn btn-link' onClick={() => this.props.editAnimal(animal)}>Edit</button>
+                                    <button style={style.red} className='btn btn-link' onClick={() => this.props.deleteAnimal(animal)}>Delete</button>
+                                </div>
                             </div>
                         </div>
                     </div>

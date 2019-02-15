@@ -2,12 +2,16 @@ import * as React from 'react'
 import deleteAnimal from '../functions/deleteAnimal'
 import Spinner from '../../utilities/spinner'
 
-export default class selectMap extends React.Component<any, any> {
+export default class DA extends React.Component<any, any> {
     constructor(props) {
         super(props)
         this.state = {
             spinner: false
         }
+    }
+
+    componentDidMount() {
+        console.log(this.props)
     }
 
     delete() {
@@ -22,8 +26,8 @@ export default class selectMap extends React.Component<any, any> {
             <div className='row'>
                 <div className='col-md-12 text-center'>
                     <br />
-                    <h3>Are you sure you want to delete this {this.props.animalType}?</h3>
-                    <button className='btn btn-danger' onClick={this.delete.bind(this)}>Delete {this.props.animalType}</button>
+                    <h3>Are you sure you want to delete this animal?</h3>
+                    <button className='btn btn-danger' onClick={this.delete.bind(this)}>Delete</button>
                 </div>
                 {this.state.spinner &&
                     <Spinner notice='...deleting animal...' />
