@@ -93,6 +93,7 @@ export default class Incident extends React.Component<props, state> {
 
     componentDidMount() {
         this.props.getDropdowns()
+        setDropdowns(this.props.dropdowns, this.setState.bind(this))
     }
 
     componentWillReceiveProps(nextProps) {
