@@ -1,7 +1,6 @@
 import * as React from 'react'
 import Modal from 'react-responsive-modal'
 import Autocomplete from '../../formElements/autocomplete'
-import * as style from '../../report/constants'
 
 type props = {
     addressModalIsOpen: boolean
@@ -56,7 +55,7 @@ export default class updateAddress extends React.Component<props, state> {
                 <div>
                     <div className='text-center'>
                         <h4>Update address</h4>
-                        <div style={style.customWidth}>
+                        <div style={{ width: '100%' }}>
                             <Autocomplete
                                 value={address}
                                 callback={this.handleAutcomplete.bind(this)}

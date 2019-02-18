@@ -32,7 +32,8 @@ type props = {
     open: string
     address: string
     coords: any
-    itemId: number
+    itemId: number,
+    submittedBy: string
 }
 
 type state = {
@@ -117,7 +118,7 @@ export default class Incident extends React.Component<props, state> {
             Note: this.state.note,
             AdvisoryID: this.props.incidentUUID,
             ModifiedBy: this.props.user.email,
-            SubmittedBy: this.props.user.email
+            SubmittedBy: this.props.put ? this.props.submittedBy : this.props.user.email
         }
         if (this.props.put) {
             data.Id = this.state.itemId

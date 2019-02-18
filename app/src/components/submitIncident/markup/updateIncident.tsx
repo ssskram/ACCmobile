@@ -45,6 +45,7 @@ export default class UpdateIncident extends React.Component<props, {}> {
                         note={this.props.incident.note}
                         open={this.props.incident.open}
                         itemId={this.props.incident.itemId}
+                        submittedBy={this.props.incident.submittedBy}
                     />
                 </div>
             </Modal>

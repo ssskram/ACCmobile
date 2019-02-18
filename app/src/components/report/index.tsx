@@ -23,7 +23,7 @@ import Buttons from './markup/buttons'
 import DocumentTitle from 'react-document-title'
 import Images from '../images'
 import putIncident from '../submitIncident/functions/putIncident'
-import formatSPLoad from './functions/setOpenClose'
+import formatSPLoad from './functions/formatUpdateforSP'
 
 // keep original latlng & incident objects in case user bails from updates
 let lat_lng = {} as any
@@ -188,7 +188,10 @@ export class Report extends React.Component<props, state> {
                                 closeModal={this.closeModal.bind(this)}
                                 disableButton={() => this.setState({ addressButtonIsActive: false })}
                                 enableButton={this.enableUpdateAddressBtn.bind(this)}
-                                putIncident={() => putIncident(this.state.incident)}
+                                putIncident={() => {
+                                    putIncident(JSON.stringify(formatSPLoad(this.state.incident, this.props.user)).replace(/'/g, ''))
+                                    this.setState({ addressModalIsOpen: false })
+                                }}
                             />
                         </div>
                     }

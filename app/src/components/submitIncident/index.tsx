@@ -80,6 +80,7 @@ export class SubmitIncident extends React.Component<props, state> {
                         note={undefined}
                         open={undefined}
                         itemId={undefined}
+                        submittedBy={undefined}
                     />
                 </div>
             </div>
