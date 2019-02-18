@@ -21,7 +21,7 @@ export const actionCreators = {
             dispatch({ type: constants.loadUser, user: user })
             return user
         } else {
-            const user = { email: 'paul.marks@pittsburghpa.gov', organization: 'City of Pittsburgh', name: 'Marks, Paul' }
+            const user = { email: 'steve.marks@pittsburghpa.gov', organization: 'City of Pittsburgh', name: 'Marks, Paul' }
             dispatch({ type: constants.loadUser, user: user })
             return user
         }

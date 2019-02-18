@@ -23,6 +23,7 @@ import Buttons from './markup/buttons'
 import DocumentTitle from 'react-document-title'
 import Images from '../images'
 import putIncident from '../submitIncident/functions/putIncident'
+import formatSPLoad from './functions/setOpenClose'
 
 // keep original latlng & incident objects in case user bails from updates
 let lat_lng = {} as any
@@ -107,13 +108,17 @@ export class Report extends React.Component<props, state> {
     closeIncident() {
         this.setState({
             incident: update(this.state.incident, { open: { $set: 'No' } })
-        }, () => putIncident(this.state.incident))
+        }, () => {
+            putIncident(JSON.stringify(formatSPLoad(this.state.incident, this.props.user)).replace(/'/g, ''))
+        })
     }
 
     openIncident() {
         this.setState({
             incident: update(this.state.incident, { open: { $set: 'Yes' } })
-        }, () => putIncident(this.state.incident))
+        }, () => {
+            putIncident(JSON.stringify(formatSPLoad(this.state.incident, this.props.user)).replace(/'/g, ''))
+        })
     }
 
     public render() {
