@@ -10,6 +10,7 @@ import postIncident from '../functions/postIncident'
 import putIncident from '../functions/putIncident'
 import setDropdowns from '../functions/setDropdowns'
 import Spinner from '../../utilities/spinner'
+import dropdownsLoaded from '../functions/dropdownsLoaded'
 
 type props = {
     getDropdowns: () => void
@@ -97,6 +98,7 @@ export default class Incident extends React.Component<props, state> {
     }
 
     componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
         setDropdowns(nextProps.dropdowns, this.setState.bind(this))
     }
 
@@ -276,6 +278,9 @@ export default class Incident extends React.Component<props, state> {
                 />
                 {spinnerIsOpen &&
                     <Spinner notice='...submitting incident...' />
+                }
+                {dropdownsLoaded(this.props) &&
+                    <Spinner notice='...loading form data...' />
                 }
             </div>
         )
