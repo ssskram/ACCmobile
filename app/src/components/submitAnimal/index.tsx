@@ -13,6 +13,8 @@ import { selected, update } from '../submitIncident/functions/handleMulti'
 import postAnimal from './functions/postAnimal'
 import putAnimal from './functions/putAnimal'
 import SubmitButton from '../submitIncident/markup/submit'
+import Spinner from '../utilities/spinner'
+import dropdownsLoaded from '../submitIncident/functions/dropdownsLoaded'
 
 type props = {
     new: boolean
@@ -208,8 +210,9 @@ export class Animal extends React.Component<any, state> {
                         header='Type'
                         placeholder='Type'
                         onChange={v => {
-                            this.setState({ animalType: v.value })
-                            this.setConditionalDropodowns()
+                            this.setState({ animalType: v.value }, () => {
+                                this.setConditionalDropodowns()
+                            })
                         }}
                         multi={false}
                         options={constants.animalTypes}
@@ -308,10 +311,13 @@ export class Animal extends React.Component<any, state> {
                     callback={e => this.setState({ Comments: e.target.value })}
                 />
                 <SubmitButton
-                    saveObject="animal" 
+                    saveObject="animal"
                     isEnabled={isEnabled}
                     fireSubmit={this.putPost.bind(this)}
                 />
+                {dropdownsLoaded(this.props) &&
+                    <Spinner notice='...loading form data...' />
+                }
             </div>
         )
     }
