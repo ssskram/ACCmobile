@@ -31,7 +31,6 @@ export default async function postImage(state, incidentID) {
                 })
             })
         })
-        .catch(err => console.log(err))
 }
 
 const setName = originalName => {

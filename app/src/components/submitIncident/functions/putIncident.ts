@@ -8,7 +8,6 @@ export default async function putIncident(newIncident) {
         body: newIncident,
     })
         .then(res => res.status)
-        .catch(err => console.log(err))
     if (status == 200) return true
     else return false
 }

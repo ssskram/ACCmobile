@@ -98,7 +98,6 @@ export default class Incident extends React.Component<props, state> {
     }
 
     componentWillReceiveProps(nextProps) {
-        console.log(nextProps)
         setDropdowns(nextProps.dropdowns, this.setState.bind(this))
     }
 
