@@ -38,6 +38,7 @@ export interface incident {
 
 // comments
 export interface comment {
+    commentId: number
     dateTime: string
     incidentID: string
     user: string

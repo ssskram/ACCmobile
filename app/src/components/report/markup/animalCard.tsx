@@ -24,7 +24,6 @@ export default class AnimalCard extends React.Component<props, {}> {
         } = this.props
 
         const clearfix = index & 1 && index != 0
-        console.log(animal)
         return (
             <div key={index}>
                 <div className='col-sm-6'>
