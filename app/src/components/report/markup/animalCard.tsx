@@ -1,6 +1,5 @@
 import * as React from 'react'
 import * as style from '../constants'
-import Moment from 'react-moment'
 
 const dog = require('../../../images/dog.png')
 const cat = require('../../../images/cat.png')
@@ -13,6 +12,10 @@ type props = {
     deleteAnimal: (animalObj: object) => void
 }
 
+const padding = {
+    padding: '5px 0px'
+}
+
 export default class AnimalCard extends React.Component<props, {}> {
     render() {
         const {
@@ -21,6 +24,7 @@ export default class AnimalCard extends React.Component<props, {}> {
         } = this.props
 
         const clearfix = index & 1 && index != 0
+        console.log(animal)
         return (
             <div key={index}>
                 <div className='col-sm-6'>
@@ -43,9 +47,9 @@ export default class AnimalCard extends React.Component<props, {}> {
                                     <h4>{animal.animalType}</h4>
                                 </div>
                                 {animal.animalName != null &&
-                                    <div className='row text-center'>
+                                    <div className='row text-center' style={padding}>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>Name:</strong></div>
+                                            <div><b>Name:</b></div>
                                         </div>
                                         <div className='col-md-6 col-sm-12 text-center'>
                                             <div>{animal.animalName}</div>
@@ -53,9 +57,9 @@ export default class AnimalCard extends React.Component<props, {}> {
                                     </div>
                                 }
                                 {animal.animalAge != null &&
-                                    <div className='row text-center'>
+                                    <div className='row text-center' style={padding}>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>Age:</strong></div>
+                                            <div><b>Age:</b></div>
                                         </div>
                                         <div className='col-md-6 col-sm-12 text-center'>
                                             <div>{animal.animalAge}</div>
@@ -63,9 +67,9 @@ export default class AnimalCard extends React.Component<props, {}> {
                                     </div>
                                 }
                                 {animal.animalBreed != null &&
-                                    <div className='row text-center'>
+                                    <div className='row text-center' style={padding}>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>Breed:</strong></div>
+                                            <div><b>Breed:</b></div>
                                         </div>
                                         <div className='col-md-6 col-sm-12 text-center'>
                                             <div>{animal.animalBreed}</div>
@@ -73,9 +77,9 @@ export default class AnimalCard extends React.Component<props, {}> {
                                     </div>
                                 }
                                 {animal.animalCoat != null &&
-                                    <div className='row text-center'>
+                                    <div className='row text-center' style={padding}>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>Coat:</strong></div>
+                                            <div><b>Coat:</b></div>
                                         </div>
                                         <div className='col-md-6 col-sm-12 text-center'>
                                             <div>{animal.animalCoat}</div>
@@ -83,72 +87,72 @@ export default class AnimalCard extends React.Component<props, {}> {
                                     </div>
                                 }
                                 {animal.animalSex != null &&
-                                    <div className='row text-center'>
+                                    <div className='row text-center' style={padding}>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>Sex:</strong></div>
+                                            <div><b>Sex:</b></div>
                                         </div>
                                         <div className='col-md-6 col-sm-12 text-center'>
                                             <div>{animal.animalSex}</div>
                                         </div>
                                     </div>
                                 }
-                                {animal.licenseNo != null &&
-                                    <div className='row text-center'>
+                                {animal.LicenseNo != null &&
+                                    <div className='row text-center' style={padding}>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>License number:</strong></div>
+                                            <div><b>License number:</b></div>
                                         </div>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div>{animal.licenseNo}</div>
-                                        </div>
-                                    </div>
-                                }
-                                {animal.licenseYear != null &&
-                                    <div className='row text-center'>
-                                        <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>License year:</strong></div>
-                                        </div>
-                                        <div className='col-md-6 col-sm-12 text-center'>
-                                            <div>{animal.licenseYear}</div>
+                                            <div>{animal.LicenseNo}</div>
                                         </div>
                                     </div>
                                 }
-                                {animal.rabbiesVacNo != null &&
-                                    <div className='row text-center'>
+                                {animal.LicenseYear != null &&
+                                    <div className='row text-center' style={padding}>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>Rabies vacination number:</strong></div>
+                                            <div><b>License year:</b></div>
                                         </div>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div>{animal.rabbiesVacNo}</div>
-                                        </div>
-                                    </div>
-                                }
-                                {animal.rabbiesVacExp != null &&
-                                    <div className='row text-center'>
-                                        <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>Rabies vacination expiration:</strong></div>
-                                        </div>
-                                        <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><Moment format="MM/DD/YYYY" date={animal.rabbiesVacExp} /></div>
+                                            <div>{animal.LicenseYear}</div>
                                         </div>
                                     </div>
                                 }
-                                {animal.vet != null &&
-                                    <div className='row text-center'>
+                                {animal.RabbiesVacNo != null &&
+                                    <div className='row text-center' style={padding}>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>Veterinarian:</strong></div>
+                                            <div><b>Rabies number:</b></div>
                                         </div>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div>{animal.vet}</div>
+                                            <div>{animal.RabbiesVacNo}</div>
                                         </div>
                                     </div>
                                 }
-                                {animal.comments != null &&
-                                    <div className='row text-center'>
+                                {animal.RabbiesVacExp != null &&
+                                    <div className='row text-center' style={padding}>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div><strong>Comments:</strong></div>
+                                            <div><b>Rabies exp:</b></div>
                                         </div>
                                         <div className='col-md-6 col-sm-12 text-center'>
-                                            <div>{animal.comments}</div>
+                                            <div>{animal.RabbiesVacExp}</div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.Vet != null &&
+                                    <div className='row text-center'>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><b>Vet:</b></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.Vet}</div>
+                                        </div>
+                                    </div>
+                                }
+                                {animal.Comments != null &&
+                                    <div className='row text-center' style={padding}>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div><b>Comments:</b></div>
+                                        </div>
+                                        <div className='col-md-6 col-sm-12 text-center'>
+                                            <div>{animal.Comments}</div>
                                         </div>
                                     </div>
                                 }

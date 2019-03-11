@@ -306,8 +306,8 @@ export class Animal extends React.Component<any, state> {
                 />
                 <Textarea
                     value={Comments}
-                    header="Comments"
-                    placeholder="Description"
+                    header="Additional information"
+                    placeholder="Additional animal info"
                     callback={e => this.setState({ Comments: e.target.value })}
                 />
                 <SubmitButton
