@@ -13,6 +13,7 @@
     "immutability-helper": "^3.0.0",
     "method-override": "^2.3.6",
     "morgan": "^1.9.1",
+    "node-fetch": "^2.3.0",
     "passport": ">= 0.0.0",
     "passport-outlook": ">= 0.0.0",
     "react-places-autocomplete": "^7.2.0",
