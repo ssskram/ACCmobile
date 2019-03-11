@@ -204,98 +204,103 @@ export class Animal extends React.Component<any, state> {
 
         return (
             <div key={this.props.key}>
-                <div className='col-md-3'>
-                    <Select
-                        value={animalType ? { value: animalType, label: animalType } : ''}
-                        header='Type'
-                        placeholder='Type'
-                        onChange={v => {
-                            this.setState({ animalType: v.value }, () => {
-                                this.setConditionalDropodowns()
-                            })
-                        }}
-                        multi={false}
-                        options={constants.animalTypes}
-                    />
+                <div className='row'>
+                    <div className='col-md-3'>
+                        <Select
+                            value={animalType ? { value: animalType, label: animalType } : ''}
+                            header='Type'
+                            placeholder='Type'
+                            onChange={v => {
+                                this.setState({ animalType: v.value }, () => {
+                                    this.setConditionalDropodowns()
+                                })
+                            }}
+                            multi={false}
+                            options={constants.animalTypes}
+                        />
+                    </div>
+                    <div className='col-md-3'>
+                        <Input
+                            value={animalName}
+                            header="Name"
+                            placeholder="Name"
+                            callback={e => this.setState({ animalName: e.target.value })}
+                        />
+                    </div>
+                    <div className='col-md-3'>
+                        <Input
+                            value={animalAge}
+                            header="Age"
+                            placeholder="Age"
+                            callback={e => this.setState({ animalAge: e.target.value })}
+                        />
+                    </div>
+                    <div className='col-md-3'>
+                        <Select
+                            value={animalSex ? { value: animalSex, label: animalSex } : ''}
+                            header='Sex'
+                            placeholder='Sex'
+                            onChange={v => this.setState({ animalSex: v.value })}
+                            multi={false}
+                            options={constants.animalSexes}
+                        />
+                    </div>
                 </div>
-                <div className='col-md-3'>
-                    <Input
-                        value={animalName}
-                        header="Name"
-                        placeholder="Name"
-                        callback={e => this.setState({ animalName: e.target.value })}
-                    />
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <Select
+                            value={animalBreed ? selected(animalBreed) : ''}
+                            header='Breed'
+                            placeholder='Breed(s)'
+                            onChange={animalBreed => this.setState({ animalBreed: update(animalBreed) })}
+                            multi={true}
+                            options={breedOptions}
+                        />
+                    </div>
+                    <div className='col-md-6'>
+                        <Select
+                            value={animalCoat ? selected(animalCoat) : ''}
+                            header='Coat'
+                            placeholder='Coat(s)'
+                            onChange={animalCoat => this.setState({ animalCoat: update(animalCoat) })}
+                            multi={true}
+                            options={coatOptions}
+                        />
+                    </div>
                 </div>
-                <div className='col-md-3'>
-                    <Input
-                        value={animalAge}
-                        header="Age"
-                        placeholder="Age"
-                        callback={e => this.setState({ animalAge: e.target.value })}
-                    />
-                </div>
-                <div className='col-md-3'>
-                    <Select
-                        value={animalSex ? { value: animalSex, label: animalSex } : ''}
-                        header='Sex'
-                        placeholder='Sex'
-                        onChange={v => this.setState({ animalSex: v.value })}
-                        multi={false}
-                        options={constants.animalSexes}
-                    />
-                </div>
-                <div className='col-md-6'>
-                    <Select
-                        value={animalBreed ? selected(animalBreed) : ''}
-                        header='Breed'
-                        placeholder='Breed(s)'
-                        onChange={animalBreed => this.setState({ animalBreed: update(animalBreed) })}
-                        multi={true}
-                        options={breedOptions}
-                    />
-                </div>
-                <div className='col-md-6'>
-                    <Select
-                        value={animalCoat ? selected(animalCoat) : ''}
-                        header='Coat'
-                        placeholder='Coat(s)'
-                        onChange={animalCoat => this.setState({ animalCoat: update(animalCoat) })}
-                        multi={true}
-                        options={coatOptions}
-                    />
-                </div>
-                <div className='col-md-3'>
-                    <Input
-                        value={LicenseNo}
-                        header="License #"
-                        placeholder="License No."
-                        callback={e => this.setState({ LicenseNo: e.target.value })}
-                    />
-                </div>
-                <div className='col-md-3'>
-                    <Input
-                        value={LicenseYear}
-                        header="License yr"
-                        placeholder="License Year"
-                        callback={e => this.setState({ LicenseYear: e.target.value })}
-                    />
-                </div>
-                <div className='col-md-3'>
-                    <Input
-                        value={RabbiesVacNo}
-                        header="Rabies #"
-                        placeholder="Vaccine No."
-                        callback={e => this.setState({ RabbiesVacNo: e.target.value })}
-                    />
-                </div>
-                <div className='col-md-3'>
-                    <Datepicker
-                        value={RabbiesVacExp}
-                        header="Rab. Exp."
-                        placeholder="Vaccine Exp."
-                        callback={date => this.setState({ RabbiesVacExp: date.target.value })}
-                    />
-                </div>
+                <div className='row'>
+                    <div className='col-md-3'>
+                        <Input
+                            value={LicenseNo}
+                            header="License #"
+                            placeholder="License No."
+                            callback={e => this.setState({ LicenseNo: e.target.value })}
+                        />
+                    </div>
+                    <div className='col-md-3'>
+                        <Input
+                            value={LicenseYear}
+                            header="License yr"
+                            placeholder="License Year"
+                            callback={e => this.setState({ LicenseYear: e.target.value })}
+                        />
+                    </div>
+                    <div className='col-md-3'>
+                        <Input
+                            value={RabbiesVacNo}
+                            header="Rabies #"
+                            placeholder="Vaccine No."
+                            callback={e => this.setState({ RabbiesVacNo: e.target.value })}
+                        />
+                    </div>
+                    <div className='col-md-3'>
+                        <Datepicker
+                            value={RabbiesVacExp}
+                            header="Rab. Exp."
+                            placeholder="Vaccine Exp."
+                            callback={date => this.setState({ RabbiesVacExp: date.target.value })}
+                        />
+                    </div></div>
                 <Select
                     value={Vet ? { value: Vet, label: Vet } : ''}
                     header='Veterinarian'
