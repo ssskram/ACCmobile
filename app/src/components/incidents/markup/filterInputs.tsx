@@ -2,7 +2,7 @@ import * as React from 'react'
 import * as constants from '../constants'
 import Input from '../../formElements/input'
 import Select from '../../formElements/select'
-import Datepicker from '../../formElements/datepicker'
+import Datepicker from '../../formElements/date'
 
 type props = {
     showFilters: boolean
@@ -56,7 +56,7 @@ export default class FilterInputs extends React.Component<props, {}> {
                                     clearDate={clearDate}
                                     header=""
                                     placeholder="Filter by date"
-                                    callback={date => this.props.setState({ date: date, clearDate: false })}
+                                    callback={date => this.props.setState({ date: date.target.value, clearDate: false })}
                                 />
                             </div>
                             <div className='col-md-6'>

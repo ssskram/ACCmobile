@@ -2,7 +2,7 @@ import * as React from 'react'
 import Input from '../formElements/input'
 import Textarea from '../formElements/textarea'
 import Select from '../formElements/select'
-import Datepicker from '../formElements/datepicker'
+import Datepicker from '../formElements/date'
 import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
@@ -293,7 +293,7 @@ export class Animal extends React.Component<any, state> {
                         value={RabbiesVacExp}
                         header="Rab. Exp."
                         placeholder="Vaccine Exp."
-                        callback={date => this.setState({ RabbiesVacExp: moment(date).format('MM/DD/YYYY') })}
+                        callback={date => this.setState({ RabbiesVacExp: date.target.value })}
                     />
                 </div>
                 <Select
