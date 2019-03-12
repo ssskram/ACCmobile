@@ -184,86 +184,96 @@ export default class Incident extends React.Component<props, state> {
 
         return (
             <div>
-                <div className='col-md-6'>
-                    <Input
-                        value={ownersFirstName}
-                        header="Owner's first name"
-                        placeholder="First name"
-                        callback={e => this.setState({ ownersFirstName: e.target.value })}
-                    />
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <Input
+                            value={ownersFirstName}
+                            header="Owner's first name"
+                            placeholder="First name"
+                            callback={e => this.setState({ ownersFirstName: e.target.value })}
+                        />
+                    </div>
+                    <div className='col-md-6'>
+                        <Input
+                            value={ownersLastName}
+                            header="Owner's last name"
+                            placeholder="Last name"
+                            callback={e => this.setState({ ownersLastName: e.target.value })}
+                        />
+                    </div>
                 </div>
-                <div className='col-md-6'>
-                    <Input
-                        value={ownersLastName}
-                        header="Owner's last name"
-                        placeholder="Last name"
-                        callback={e => this.setState({ ownersLastName: e.target.value })}
-                    />
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <Input
+                            value={ownersTelephoneNumber}
+                            header="Owner's telephone number"
+                            placeholder="Telephone number"
+                            callback={e => this.setState({ ownersTelephoneNumber: e.target.value })}
+                        />
+                    </div>
+                    <div className='col-md-6'>
+                        <Select
+                            value={callOrigin ? { value: callOrigin, label: callOrigin } : ''}
+                            header='Call Origin'
+                            placeholder='Select origin...'
+                            onChange={v => this.setState({ callOrigin: v.value })}
+                            multi={false}
+                            options={originOptions}
+                        />
+                    </div>
                 </div>
-                <div className='col-md-6'>
-                    <Input
-                        value={ownersTelephoneNumber}
-                        header="Owner's telephone number"
-                        placeholder="Telephone number"
-                        callback={e => this.setState({ ownersTelephoneNumber: e.target.value })}
-                    />
+                <div className='row'>
+                    <div className='col-md-12'>
+                        <Select
+                            value={reasonForVisit ? selected(reasonForVisit) : ''}
+                            header='Reason(s) for visit'
+                            placeholder='Select reason(s)...'
+                            onChange={reasonForVisit => this.setState({ reasonForVisit: update(reasonForVisit) })}
+                            multi={true}
+                            options={reasonOptions}
+                        />
+                    </div>
                 </div>
-                <div className='col-md-6'>
-                    <Select
-                        value={callOrigin ? { value: callOrigin, label: callOrigin } : ''}
-                        header='Call Origin'
-                        placeholder='Select origin...'
-                        onChange={v => this.setState({ callOrigin: v.value })}
-                        multi={false}
-                        options={originOptions}
-                    />
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <Select
+                            value={pghCode ? selected(pghCode) : ''}
+                            header='Code(s)'
+                            placeholder='Select code(s)...'
+                            onChange={pghCode => this.setState({ pghCode: update(pghCode) })}
+                            multi={true}
+                            options={codeOptions}
+                        />
+                    </div>
+                    <div className='col-md-6'>
+                        <Input
+                            value={citationNumber}
+                            header="Citation number"
+                            placeholder="Citation"
+                            callback={e => this.setState({ citationNumber: e.target.value })}
+                        />
+                    </div>
                 </div>
-                <div className='col-md-12'>
-                    <Select
-                        value={reasonForVisit ? selected(reasonForVisit) : ''}
-                        header='Reason(s) for visit'
-                        placeholder='Select reason(s)...'
-                        onChange={reasonForVisit => this.setState({ reasonForVisit: update(reasonForVisit) })}
-                        multi={true}
-                        options={reasonOptions}
-                    />
-                </div>
-                <div className='col-md-6'>
-                    <Select
-                        value={pghCode ? selected(pghCode) : ''}
-                        header='Code(s)'
-                        placeholder='Select code(s)...'
-                        onChange={pghCode => this.setState({ pghCode: update(pghCode) })}
-                        multi={true}
-                        options={codeOptions}
-                    />
-                </div>
-                <div className='col-md-6'>
-                    <Input
-                        value={citationNumber}
-                        header="Citation number"
-                        placeholder="Citation"
-                        callback={e => this.setState({ citationNumber: e.target.value })}
-                    />
-                </div>
-                <div className='col-md-6'>
-                    <Select
-                        value={officerInitials ? selected(officerInitials) : ''}
-                        header='Officers involved'
-                        placeholder='Select initials...'
-                        onChange={officerInitials => this.setState({ officerInitials: update(officerInitials) })}
-                        multi={true}
-                        options={initialsOptions}
-                    />
-                </div>
-                <div className='col-md-6'>
-                    <Input
-                        value={note}
-                        header="Note"
-                        placeholder="Quick reference"
-                        maxLength={30}
-                        callback={e => this.setState({ note: e.target.value })}
-                    />
+                <div className='row'>
+                    <div className='col-md-6'>
+                        <Select
+                            value={officerInitials ? selected(officerInitials) : ''}
+                            header='Officers involved'
+                            placeholder='Select initials...'
+                            onChange={officerInitials => this.setState({ officerInitials: update(officerInitials) })}
+                            multi={true}
+                            options={initialsOptions}
+                        />
+                    </div>
+                    <div className='col-md-6'>
+                        <Input
+                            value={note}
+                            header="Note"
+                            placeholder="Quick reference"
+                            maxLength={30}
+                            callback={e => this.setState({ note: e.target.value })}
+                        />
+                    </div>
                 </div>
                 <div className='col-md-12'>
                     <TextArea
