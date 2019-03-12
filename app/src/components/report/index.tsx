@@ -16,7 +16,7 @@ import getIncident from './functions/getIncident'
 import getAnimals from './functions/getAnimals'
 import formatLatLng from './functions/formatLatLng'
 import Loading from '../incidents/markup/loading'
-import Comments from '../comments'
+import Comments from './markup/comments'
 import StreetView from './markup/streetView'
 import Header from './markup/header'
 import Buttons from './markup/buttons'
@@ -160,7 +160,6 @@ export class Report extends React.Component<props, state> {
                                 </div>
                             </div>
                             <Comments
-                                user={this.props.user}
                                 incident={incident}
                             />
                             <AnimalsTable

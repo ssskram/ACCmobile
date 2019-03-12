@@ -42,6 +42,7 @@ export default class UpdateIncident extends React.Component<props, {}> {
                         pghCode={this.props.incident.pghCode}
                         citationNumber={this.props.incident.citationNumber}
                         officerInitials={this.props.incident.officerInitials}
+                        comments={this.props.incident.comments}
                         note={this.props.incident.note}
                         open={this.props.incident.open}
                         itemId={this.props.incident.itemId}

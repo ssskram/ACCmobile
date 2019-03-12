@@ -11,6 +11,7 @@ import putIncident from '../functions/putIncident'
 import setDropdowns from '../functions/setDropdowns'
 import Spinner from '../../utilities/spinner'
 import dropdownsLoaded from '../functions/dropdownsLoaded'
+import TextArea from '../../formElements/textarea'
 
 type props = {
     getDropdowns: () => void
@@ -34,6 +35,7 @@ type props = {
     coords: any
     itemId: number,
     submittedBy: string
+    comments: string
 }
 
 type state = {
@@ -62,6 +64,7 @@ type state = {
     address: string
     coords: string
     itemId: string
+    comments: string
 }
 
 export default class Incident extends React.Component<props, state> {
@@ -89,7 +92,8 @@ export default class Incident extends React.Component<props, state> {
             open: props.open || 'Yes',
             address: props.address || '',
             coords: props.coords || '',
-            itemId: props.itemId || ''
+            itemId: props.itemId || '',
+            comments: props.comments || ''
         }
     }
 
@@ -116,6 +120,7 @@ export default class Incident extends React.Component<props, state> {
             Officers: this.state.officerInitials,
             Open: this.state.open,
             Note: this.state.note,
+            Comments: this.state.comments,
             AdvisoryID: this.props.incidentUUID,
             ModifiedBy: this.props.user.email,
             SubmittedBy: this.props.put ? this.props.submittedBy : this.props.user.email
@@ -164,7 +169,8 @@ export default class Incident extends React.Component<props, state> {
             open,
             redirect,
             destination,
-            spinnerIsOpen
+            spinnerIsOpen,
+            comments
         } = this.state
 
         // validation
@@ -257,6 +263,14 @@ export default class Incident extends React.Component<props, state> {
                         placeholder="Quick reference"
                         maxLength={30}
                         callback={e => this.setState({ note: e.target.value })}
+                    />
+                </div>
+                <div className='col-md-12'>
+                    <TextArea
+                        value={comments}
+                        header="Comments"
+                        placeholder="Comments"
+                        callback={e => this.setState({ comments: e.target.value })}
                     />
                 </div>
                 {this.props.put != true &&

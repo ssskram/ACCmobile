@@ -30,7 +30,7 @@ export default class Submit extends React.Component<props, state> {
         const spinnerNotice = "...saving " + this.props.saveObject + "..."
         return (
             <div className='col-md-12 text-center' style={{ marginBottom: '25px' }}>
-                <button disabled={!this.props.isEnabled} onClick={this.submit.bind(this)} className="btn btn-success">Save</button>
+                <button disabled={!this.props.isEnabled} onClick={this.submit.bind(this)} className="btn btn-success">Save & Continue</button>
                 {this.state.spinner &&
                     <Spinner notice={spinnerNotice} />
                 }

@@ -17,23 +17,24 @@ export interface incidents {
 }
 export interface incident {
     uuid: string
-    link: string;
-    date: string;
-    address: string;
-    itemId: number;
-    coords: string;
-    reasonForVisit: string;
-    note: string;
-    ownersLastName: string;
-    ownersFirstName: string;
-    ownersTelephoneNumber: string;
-    pghCode: string;
-    citationNumber: string;
-    callOrigin: string;
-    submittedBy: string;
-    modifiedBy: string;
-    officerInitials: string;
-    open: string;
+    link: string
+    date: string
+    address: string
+    itemId: number
+    coords: string
+    reasonForVisit: string
+    note: string
+    ownersLastName: string
+    ownersFirstName: string
+    ownersTelephoneNumber: string
+    pghCode: string
+    citationNumber: string
+    callOrigin: string
+    submittedBy: string
+    modifiedBy: string
+    comments: string
+    officerInitials: string
+    open: string
 }
 
 // comments

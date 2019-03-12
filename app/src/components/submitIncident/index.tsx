@@ -73,6 +73,7 @@ export class SubmitIncident extends React.Component<props, state> {
                         ownersFirstName={undefined}
                         ownersTelephoneNumber={undefined}
                         callOrigin={undefined}
+                        comments={undefined}
                         reasonForVisit={undefined}
                         pghCode={undefined}
                         citationNumber={undefined}
