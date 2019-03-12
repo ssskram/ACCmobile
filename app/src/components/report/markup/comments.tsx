@@ -14,7 +14,7 @@ export default class Comments extends React.Component<props, {}> {
                     Comments
                 </div>
                 <hr />
-                <div style={{ paddingLeft: '5px' }}>
+                <div style={{ paddingLeft: '5px', whiteSpace: 'pre-wrap' }}>
                     {this.props.incident.comments}
                 </div>
             </div>

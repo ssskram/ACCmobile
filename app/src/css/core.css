@@ -30,6 +30,10 @@ h5 {
     text-transform: uppercase;
 }
 
+.ubuntu {
+    font-family: 'Ubuntu', sans-serif;
+}
+
 hr {
     overflow: visible;
     height: 2px;
