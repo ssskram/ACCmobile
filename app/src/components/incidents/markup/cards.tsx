@@ -2,7 +2,6 @@ import * as React from 'react'
 import "react-table/react-table.css"
 import * as types from '../../../store/types'
 import * as style from '../constants'
-import Moment from 'react-moment'
 import Paging from '../../utilities/paging'
 const placeholder = require('../../../images/image-placeholder.png')
 
@@ -56,7 +55,7 @@ export default class Cards extends React.Component<props, {}> {
                                 </div>
                                 <div className="col-md-6 col-sm-12 col-xs-12">
                                     <div style={style.address} className='oswald-header'>{incident.address}</div>
-                                    <h4><Moment format="MM/DD/YYYY HH:mm" date={incident.date} /></h4>
+                                    <h4>{incident.date}</h4>
                                     <h4>{incident.reasonForVisit}</h4>
                                     <div style={{ fontSize: '.8em', textTransform: 'uppercase' as 'uppercase' }}>Incident ID: {incident.itemId} </div>
                                     <div className='hidden-md hidden-lg hidden-xl'>

@@ -6,7 +6,7 @@ export default function filter(state, props) {
     }
     if (state.date) {
         var date = new Date(state.date)
-        var formattedDate = Format('MM-dd-yyyy', date)
+        var formattedDate = Format('MM/dd/yyyy', date)
     }
     if (state.ownersName) {
         var ownersName = state.ownersName.toLowerCase()

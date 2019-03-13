@@ -14,7 +14,6 @@ export default class FilterInputs extends React.Component<props, {}> {
 
     public render() {
         const {
-            submittedByOptions,
             reasonOptions,
             address,
             status,
