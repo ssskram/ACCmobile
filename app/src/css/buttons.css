@@ -34,8 +34,8 @@
 
 .btn-secondary {
     color: black;
-    background-color: #A4A3A3;
-    border-color: #A4A3A3;
+    background-color: rgba(164, 163, 163, .6);
+    border-color: rgba(164, 163, 163, .6);
 }
 
 .btn.disabled,
