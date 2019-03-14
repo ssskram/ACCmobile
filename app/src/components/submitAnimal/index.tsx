@@ -7,7 +7,6 @@ import { connect } from 'react-redux'
 import { ApplicationState } from '../../store'
 import * as Dropdowns from '../../store/dropdowns'
 import * as types from '../../store/types'
-import * as moment from 'moment'
 import * as constants from '../submitIncident/constants'
 import { selected, update } from '../submitIncident/functions/handleMulti'
 import postAnimal from './functions/postAnimal'
@@ -300,7 +299,8 @@ export class Animal extends React.Component<any, state> {
                             placeholder="Vaccine Exp."
                             callback={date => this.setState({ RabbiesVacExp: date.target.value })}
                         />
-                    </div></div>
+                    </div>
+                </div>
                 <Select
                     value={Vet ? { value: Vet, label: Vet } : ''}
                     header='Veterinarian'

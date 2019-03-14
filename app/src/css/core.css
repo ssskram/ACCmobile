@@ -58,9 +58,3 @@ hr {
 ::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
-
-@media (max-width: 767px) {
-    body {
-        padding-top: 50px;
-    }
-}

@@ -14,7 +14,8 @@ export default class SelectElement extends React.Component<any, any> {
                         value={this.props.value}
                         onChange={this.props.onChange}
                         options={this.props.options}
-                        closeOnSelect={!this.props.multi}
+                        closeMenuOnSelect={!this.props.multi}
+                        blurInputOnSelect={!this.props.multi}
                         simpleValue={this.props.multi}
                         removeSelected={this.props.multi}
                         isMulti={this.props.multi}
