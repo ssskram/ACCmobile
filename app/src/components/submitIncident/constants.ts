@@ -25,5 +25,5 @@ export const openOptions = [
 ]
 
 export const sectionPadding = {
-    padding: '20px 0px'
+    padding: '10px 0px'
 }

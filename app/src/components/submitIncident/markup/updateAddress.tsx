@@ -63,7 +63,7 @@ export default class updateAddress extends React.Component<props, state> {
                             />
                         </div>
                     </div>
-                    <div className='col-md-12 text-center'>
+                    <div className='text-center'>
                         <button disabled={!this.props.enableAddressButton} onClick={() => this.props.putIncident()} className='btn btn-success'>Save</button>
                     </div>
                 </div>

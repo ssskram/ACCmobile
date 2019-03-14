@@ -12,6 +12,7 @@ import setDropdowns from '../functions/setDropdowns'
 import Spinner from '../../utilities/spinner'
 import dropdownsLoaded from '../functions/dropdownsLoaded'
 import TextArea from '../../formElements/textarea'
+import { Helmet } from "react-helmet"
 
 type props = {
     getDropdowns: () => void
@@ -66,6 +67,8 @@ type state = {
     itemId: string
     comments: string
 }
+
+const overflow = 'body {overflow-x: hidden}'
 
 export default class Incident extends React.Component<props, state> {
     constructor(props) {
@@ -184,6 +187,9 @@ export default class Incident extends React.Component<props, state> {
 
         return (
             <div>
+                <Helmet>
+                    <style>{overflow}</style>
+                </Helmet>
                 <div className='row'>
                     <div className='col-md-6'>
                         <Input
@@ -275,13 +281,15 @@ export default class Incident extends React.Component<props, state> {
                         />
                     </div>
                 </div>
-                <div className='col-md-12'>
-                    <TextArea
-                        value={comments}
-                        header="Comments"
-                        placeholder="Comments"
-                        callback={e => this.setState({ comments: e.target.value })}
-                    />
+                <div className='row'>
+                    <div className='col-md-12'>
+                        <TextArea
+                            value={comments}
+                            header="Comments"
+                            placeholder="Comments"
+                            callback={e => this.setState({ comments: e.target.value })}
+                        />
+                    </div>
                 </div>
                 {this.props.put != true &&
                     <div className='col-md-12'>

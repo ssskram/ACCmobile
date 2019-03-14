@@ -13,12 +13,6 @@ const mapStyles = [
     }
 ]
 
-const style = {
-    height: '200px',
-    width: '90%',
-    margin: '0 auto'
-  }
-
 export class selectMap extends React.Component<any, any> {
     constructor(props) {
         super(props);
@@ -28,24 +22,21 @@ export class selectMap extends React.Component<any, any> {
         const place = require('../../images/place.png')
 
         return (
-            <div>
-                <Map
-                    style={style}
-                    className="map"
-                    google={this.props.google}
-                    initialCenter={this.props.coords}
-                    center={this.props.coords}
-                    styles={mapStyles}
-                    zoom={16}>
-                    <Marker
-                        position={this.props.coords}
-                        icon={{
-                            url: place,
-                        }}
-                    />
-                </Map>
-            </div>
-        );
+            <Map
+                style={this.props.style}
+                google={this.props.google}
+                initialCenter={this.props.coords}
+                center={this.props.coords}
+                styles={mapStyles}
+                zoom={this.props.zoom}>
+                <Marker
+                    position={this.props.coords}
+                    icon={{
+                        url: place,
+                    }}
+                />
+            </Map>
+        )
     }
 }
 

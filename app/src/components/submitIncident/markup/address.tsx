@@ -32,7 +32,7 @@ export default class Address extends React.Component<props, {}> {
             <div>
                 <h3>Address</h3>
                 <hr />
-                <div className='row' style={constants.sectionPadding}>
+                <div style={constants.sectionPadding}>
                     <div className='row'>
                         <Autocomplete
                             value={this.props.address}

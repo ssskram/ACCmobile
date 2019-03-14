@@ -1,10 +1,6 @@
 /* Google map
 /* ------------------------- */
 
-.map {
-    height: 200px !important;
-}
-
 .map-container {
     height: 200px !important;
 }
@@ -17,19 +13,12 @@ a[href^="https://maps.google.com/maps"] {
     display: none !important
 }
 
-.gmnoprint a, .gmnoprint span {
+.gmnoprint {
     display: none;
 }
 
 #GMapsID div div a div img {
     display: none;
-}
-
-@media (max-width: 767px) {
-    .map {
-        width: 100% !important;
-        margin: 0 auto;
-    }
 }
 
 /* Autocomplete

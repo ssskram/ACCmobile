@@ -8,7 +8,7 @@ import * as Dropdowns from '../../store/dropdowns'
 import * as types from '../../store/types'
 import Incident from './markup/incident'
 import AnimalsTable from './markup/animals'
-import Map from '../map/mapContainer'
+import Map from '../map/map'
 import UpdateIncident from '../submitIncident/markup/updateIncident'
 import UpdateAddress from '../submitIncident/markup/updateAddress'
 import update from 'immutability-helper'
@@ -156,7 +156,10 @@ export class Report extends React.Component<props, state> {
                                 <Incident incident={incident} />
                                 <div className='col-md-6 hidden-md hidden-sm hidden-xs'>
                                     <StreetView incident={incident} />
-                                    <Map coords={latlng} />
+                                    <Map
+                                        coords={latlng}
+                                        zoom={14}
+                                        style={{ height: '200px', width: '80%', margin: '0 auto' }} />
                                 </div>
                             </div>
                             <Comments
