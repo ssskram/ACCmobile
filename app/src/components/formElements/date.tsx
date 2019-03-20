@@ -10,7 +10,10 @@ export default class Date extends React.Component<any, any> {
                     <h5 className="form-h4">{this.props.header}{this.props.required == true && <span style={{ color: 'red', fontSize: '20' }}>*</span>}</h5>
                     <Cleave type='search'
                         className='form-control'
-                        options={{ date: true }}
+                        options={{ 
+                            date: true, 
+                            datePattern: ['m', 'd', 'Y']
+                        }}
                         value={this.props.value}
                         placeholder={this.props.placeholder}
                         onChange={this.props.callback.bind(this)}>
