@@ -28,7 +28,7 @@ export const actionCreators = {
             citationNumbers: [],
         }
 
-        const dd = await fetch("https://365proxy-staging.azurewebsites.us/accmobile/dropdowns", {
+        const dd = await fetch("https://365proxy.azurewebsites.us/accmobile/dropdowns", {
             method: 'get',
             headers: new Headers({
                 'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
