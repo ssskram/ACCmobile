@@ -28,76 +28,24 @@ export const actionCreators = {
             citationNumbers: [],
         }
 
-        const animalBreeds = await fetch("https://365proxy.azurewebsites.us/accmobile/animalBreeds", {
+        const dd = await fetch("https://365proxy-staging.azurewebsites.us/accmobile/dropdowns", {
             method: 'get',
             headers: new Headers({
                 'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
             })
         })
             .then(response => response.json())
-            .then(data => allDropdowns.animalBreeds = data)
-
-        const animalCoats = await fetch("https://365proxy.azurewebsites.us/accmobile/animalCoats", {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
+            .then(data => {
+                allDropdowns.animalBreeds = data.find(i => i.type == "animalBreeds").objects
+                allDropdowns.animalCoats = data.find(i => i.type == "animalCoats").objects
+                allDropdowns.veterinarians = data.find(i => i.type == "vets").objects
+                allDropdowns.reasonsForVisit = data.find(i => i.type == "reasonsForVisit").objects
+                allDropdowns.callOrigins = data.find(i => i.type == "callOrigins").objects
+                allDropdowns.citationNumbers = data.find(i => i.type == "citationNumbers").objects
+                allDropdowns.officerInitials = data.find(i => i.type == "officerInitials").objects
             })
-        })
-            .then(response => response.json())
-            .then(data => allDropdowns.animalCoats = data)
 
-        const vets = await fetch("https://365proxy.azurewebsites.us/accmobile/vets", {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            })
-        })
-            .then(response => response.json())
-            .then(data => allDropdowns.veterinarians = data)
-
-        const reasonsForVisit = await fetch("https://365proxy.azurewebsites.us/accmobile/reasonsForVisit", {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            })
-        })
-            .then(response => response.json())
-            .then(data => allDropdowns.reasonsForVisit = data)
-
-        const callOrigins = await fetch("https://365proxy.azurewebsites.us/accmobile/callOrigins", {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            })
-        })
-            .then(response => response.json())
-            .then(data => allDropdowns.callOrigins = data)
-
-        const citationNumbers = await fetch("https://365proxy.azurewebsites.us/accmobile/citationNumbers", {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            })
-        })
-            .then(response => response.json())
-            .then(data => allDropdowns.citationNumbers = data)
-
-        const officerInitials = await fetch("https://365proxy.azurewebsites.us/accmobile/officerInitials", {
-            method: 'get',
-            headers: new Headers({
-                'Authorization': 'Bearer ' + process.env.REACT_APP_365_API
-            })
-        })
-            .then(response => response.json())
-            .then(data => allDropdowns.officerInitials = data)
-
-        animalBreeds
-        animalCoats
-        vets
-        reasonsForVisit
-        callOrigins
-        officerInitials
-        citationNumbers
+        dd
         dispatch({ type: constants.getDropdowns, dropdowns: allDropdowns })
     }
 }
