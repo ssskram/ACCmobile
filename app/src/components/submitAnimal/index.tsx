@@ -6,6 +6,7 @@ import Datepicker from "../formElements/date";
 import { connect } from "react-redux";
 import { ApplicationState } from "../../store";
 import * as Dropdowns from "../../store/dropdowns";
+import * as user from "../../store/user";
 import * as types from "../../store/types";
 import * as constants from "../submitIncident/constants";
 import { selected, update } from "../submitIncident/functions/handleMulti";
@@ -14,17 +15,20 @@ import putAnimal from "./functions/putAnimal";
 import SubmitButton from "../submitIncident/markup/submit";
 import Spinner from "../utilities/spinner";
 import dropdownsLoaded from "../submitIncident/functions/dropdownsLoaded";
+import updateIncident from "../submitIncident/functions/putIncident";
 
 type props = {
   new: boolean;
   put: boolean;
   add: boolean;
   animal: any;
+  spId: number;
   incidentID: string;
   key: number;
   addNewAnimal: (animalObj: object) => void;
   dropdowns: types.dropdowns;
   getDropdowns: () => void;
+  user: types.user;
 };
 
 type state = {
@@ -177,9 +181,17 @@ export class Animal extends React.Component<any, state> {
     if (this.props.put) {
       data.Id = this.state.itemID;
       await putAnimal(JSON.stringify(data).replace(/'/g, ""));
+      await updateIncident(JSON.stringify({
+        Id: this.props.spId,
+        ModifiedBy: this.props.user.email
+      }))
       location.reload();
     } else {
       await postAnimal(JSON.stringify(data).replace(/'/g, ""));
+      await updateIncident(JSON.stringify({
+        Id: this.props.spId,
+        ModifiedBy: this.props.user.email
+      }))
       location.reload();
     }
   }
@@ -345,9 +357,11 @@ export class Animal extends React.Component<any, state> {
 
 export default connect(
   (state: ApplicationState) => ({
-    ...state.dropdowns
+    ...state.dropdowns,
+    ...state.user
   }),
   {
-    ...Dropdowns.actionCreators
+    ...Dropdowns.actionCreators,
+    ...user.actionCreators
   }
 )(Animal);
