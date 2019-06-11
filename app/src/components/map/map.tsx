@@ -1,5 +1,11 @@
 import * as React from "react";
-import { Map, GoogleApiWrapper, Marker } from "google-maps-react";
+import { compose, withProps } from "recompose";
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker
+} from "react-google-maps";
 
 const mapStyles = [
   {
@@ -13,34 +19,48 @@ const mapStyles = [
   }
 ];
 
-export class selectMap extends React.Component<any, any> {
+export default class selectMap extends React.Component<any, any> {
   constructor(props) {
     super(props);
   }
 
   render() {
+    const key = process.env.REACT_APP_GOOGLE_API;
     const place = require("../../images/place.png");
-
-    return (
-      <Map
-        style={this.props.style}
-        google={this.props.google}
-        initialCenter={this.props.coords}
-        center={this.props.coords}
-        styles={mapStyles}
-        zoom={this.props.zoom}
+    const MapComponent = compose(
+      withProps({
+        googleMapURL:
+          "https://maps.googleapis.com/maps/api/js?key=" +
+          key +
+          "&v=3.exp&libraries=geometry,drawing,places",
+        loadingElement: <div style={{ height: `100%` }} />,
+        containerElement: <div style={{ height: `100%` }} />,
+        mapElement: <div style={{ height: `100%` }} />
+      }),
+      withScriptjs,
+      withGoogleMap
+    )(props => (
+      <GoogleMap
+        defaultZoom={this.props.zoom}
+        defaultCenter={this.props.coords}
+        defaultOptions={{
+          styles: mapStyles as any,
+          streetViewControl: false,
+          scaleControl: false,
+          mapTypeControl: false,
+          panControl: false,
+          zoomControl: true,
+          rotateControl: false,
+          fullscreenControl: false
+        }}
       >
-        <Marker
-          position={this.props.coords}
-          icon={{
-            url: place
-          }}
-        />
-      </Map>
+        <Marker position={this.props.coords} defaultIcon={place} />
+      </GoogleMap>
+    ));
+    return (
+      <div style={this.props.style}>
+        <MapComponent />
+      </div>
     );
   }
 }
-
-export default GoogleApiWrapper({
-  apiKey: "AIzaSyCPaIodXvOSQXvlUMj0iy8WbxzmC-epiO4"
-})(selectMap);
