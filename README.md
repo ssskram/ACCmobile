@@ -5,6 +5,7 @@ ACC Mobile is the incident tracking program used by Animal Care and Control at t
 * Provide a simple interface for creating and updating incidents from both the office, and the field
 * Provide a simple interface for retrieving incident data by address, citizen, etc.
 * Provide a responsive interface for small devices
+* Geocode all incidents in a standardized format
 
 ACC Mobile uses Sharepoint as the data store and interfaces primarily with the [365-proxy](https://github.com/CityofPittsburgh/365-api).  There is also an interface with [blobby](https://github.com/CityofPittsburgh/blobby) for creating and retrieving images from an Azure blob.
 
