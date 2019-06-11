@@ -9,6 +9,8 @@ ACC Mobile is the incident tracking program used by Animal Care and Control at t
 
 ACC Mobile uses Sharepoint as the data store and interfaces primarily with the [365-proxy](https://github.com/CityofPittsburgh/365-api).  There is also an interface with [blobby](https://github.com/CityofPittsburgh/blobby) for creating and retrieving images from an Azure blob.
 
+<img src="screenshot.png" width="600"/>
+
 ## A note on boilerplate
 
 The bones of ACC Mobile are shared across all client applications developed by Paul Marks for the City of Pittsburgh.  For more in-depth documentation on the structure,  design choices, authentication flow, and installation procedures for this application, please see the documentation for the [boilerplate](https://github.com/CityofPittsburgh/react-typescript-boilerplate).
